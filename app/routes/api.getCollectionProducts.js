@@ -4,9 +4,9 @@ import { authenticate } from "../shopify.server";
 
 export const loader = async ({ request }) => {
     try {
-        console.log(" ============== get API Collection ============== ");
+        // console.log(" ============== get API Collection ============== ");
 
-        console.log('request ======= ', request.url);
+        // console.log('request ======= ', request.url);
 
         const urlString = request.url
         const url = new URL(urlString);
@@ -14,7 +14,7 @@ export const loader = async ({ request }) => {
         const params = new URLSearchParams(url.search);
 
         const recommendedBTU = params.get('recommendedBTU');
-        console.log("recommendedBTU ======== ", recommendedBTU);
+        // console.log("recommendedBTU ======== ", recommendedBTU);
 
         let collectionID;
         if (recommendedBTU < 10000) {
@@ -25,7 +25,7 @@ export const loader = async ({ request }) => {
             collectionID = 428015616212
         }
 
-        console.log("collectionID ======== ", collectionID);
+        // console.log("collectionID ======== ", collectionID);
 
         // const { session } = await authenticate.public.appProxy(request);
         // console.log("session ======= ", session);

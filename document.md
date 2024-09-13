@@ -64,9 +64,9 @@ customer can add to cart or select one or none of the listed units
 
 Calculates & displays needed daily harvest in kWh: 
 
-Needed Harvest kWh = BTU / 16 * {value from 3} * {value from 2}
+needed daily harvest = BTU/16 *{value from 4 - #of hours each day} * {value from 2 - insulation factor multiplier}
 
-Your needed Harvest: ___ kWh each 24 hours
+
 ---------------------------------------------------------------------
 
 ---------------------------------------------------------------------

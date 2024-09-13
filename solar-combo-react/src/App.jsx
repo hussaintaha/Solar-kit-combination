@@ -4,7 +4,7 @@ import './App.css';
 
 const App = () => {
 
-  console.log(" ========== 777777 =========");
+  console.log(" ========== 88888 =========");
 
   const [selectedProductId, setSelectedProductId] = useState({
     selectAirConditionerProducts: null,
@@ -26,6 +26,17 @@ const App = () => {
   const [insulationValue, setInsulationValue] = useState(1.3);
   const [dailyRunTime, setDailyRunTime] = useState(24);
   const [neededHarvest, setNeededharvest] = useState(0);
+  const [selectedProductPrices, setSelectedProductPrices] = useState({
+    selectAirConditionerProducts: 0,
+    selectSolarPanelProducts: 0,
+    selectChargeControllerproducts: 0,
+    selectBatteryOptions: 0
+  });
+
+  const [customProductDistance, setCustomProductDistance] = useState({
+    paneltoBattery: 0,
+    batterytoHVAC: 0
+  })
 
   const insulationOptions = [
     { label: 'Not Insulated', value: 3.0 },
@@ -86,7 +97,7 @@ const App = () => {
 
   const getCollectionProductsAPI = async (BTU) => {
     try {
-      const fetchproducts = await fetch(`https://upgrade-expires-transform-brother.trycloudflare.com/api/getCollectionProducts/?recommendedBTU=${BTU}`);
+      const fetchproducts = await fetch(`https://${Shopify.shop}/apps/proxy/api/getCollectionProducts/?recommendedBTU=${BTU}`);
       const collectionProducts = await fetchproducts.json()
       console.log("collectionProducts ====== ", collectionProducts);
       setProductData(collectionProducts.data.products);
@@ -97,7 +108,7 @@ const App = () => {
 
   const getpanelCollectionAPI = async (neededHarvestkWh) => {
     try {
-      const fetchProducts = await fetch(`https://upgrade-expires-transform-brother.trycloudflare.com/api/getpanelCollections/?neededHarvestkWh=${neededHarvestkWh}`);
+      const fetchProducts = await fetch(`https://${Shopify.shop}/apps/proxy/api/getpanelCollections/?neededHarvestkWh=${neededHarvestkWh}`);
       const panelCollectionProducts = await fetchProducts.json()
       console.log("panelCollectionProducts ====== ", panelCollectionProducts);
       setPanelCollection(panelCollectionProducts.data.products)
@@ -109,7 +120,7 @@ const App = () => {
 
   const getchargeControllerCollectionAPI = async (neededHarvestkWh) => {
     try {
-      const fetchProducts = await fetch(`https://upgrade-expires-transform-brother.trycloudflare.com/api/chargeControllerCollection/?neededHarvestkWh=${neededHarvestkWh}`);
+      const fetchProducts = await fetch(`https://${Shopify.shop}/apps/proxy/api/chargeControllerCollection/?neededHarvestkWh=${neededHarvestkWh}`);
       const chargeControllerProducts = await fetchProducts.json()
       console.log("chargeControllerProducts ====== ", chargeControllerProducts);
       setChargeControllerProducts(chargeControllerProducts.data.products)
@@ -120,7 +131,7 @@ const App = () => {
 
   const getBettryCollectionAPI = async (neededHarvestkWh) => {
     try {
-      const fetchProducts = await fetch(`https://upgrade-expires-transform-brother.trycloudflare.com/api/getBatteryOption/?neededHarvestkWh=${neededHarvestkWh}`);
+      const fetchProducts = await fetch(`https://${Shopify.shop}/apps/proxy/api/getBatteryOption/?neededHarvestkWh=${neededHarvestkWh}`);
       const batteryOptionProducts = await fetchProducts.json()
       console.log("batteryOptionProducts ====== ", batteryOptionProducts);
       setBatteryOptions(batteryOptionProducts.data.products)
@@ -130,15 +141,12 @@ const App = () => {
   }
 
 
-  const handleSelectProduct = (productType, productId) => {
-    // console.log("productType ======== ", productType);
-    // console.log("productId ======== ", productId);
+  const handleSelectProduct = async (productType, productId) => {
 
     setSelectedProductId((prevState) => ({
       ...prevState,
       [productType]: productId
     }));
-
 
     const neededHarvestkWh = (recommendedBTU / 16) * dailyRunTime * insulationValue;
     setNeededharvest(neededHarvestkWh);
@@ -146,17 +154,48 @@ const App = () => {
     getpanelCollectionAPI(neededHarvestkWh);
     getchargeControllerCollectionAPI(neededHarvestkWh);
     getBettryCollectionAPI(neededHarvestkWh);
+
+    if (productId) {
+      const fetchProductsDetails = await fetch(`https://${Shopify.shop}/apps/proxy/api/getproductsDetail`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json"
+        },
+        body: JSON.stringify({ productId })
+      });
+
+      const productDetails = await fetchProductsDetails.json();
+      const productPrice = parseFloat(productDetails.productData.product.variants[0].price);
+
+      setSelectedProductPrices((prevState) => ({
+        ...prevState,
+        [productType]: productPrice
+      }));
+    }
   };
 
-
-
-
-
   const handleAddToCart = async () => {
-
     console.log("selectedProductId ================ ", selectedProductId);
 
-    const sendProductIDAPI = await fetch("https://upgrade-expires-transform-brother.trycloudflare.com/api/getProductDetails", {
+    // if (customProductDistance.batterytoHVAC && customProductDistance.paneltoBattery) {
+    //   const { batterytoHVAC, paneltoBattery } = customProductDistance
+    //   console.log("fmhgfjghjdfghggdjg");
+
+    //   const createProductAPI = await fetch(`https://${Shopify.shop}/apps/proxy/api/createCustomProduct`, {
+    //     method: "POST",
+    //     headers: {
+    //       "content-type": "application/json"
+    //     },
+    //     body: JSON.stringify({ batterytoHVAC, paneltoBattery })
+    //   });
+
+    //   const createProductResponse = await createProductAPI.json();
+    //   console.log("createProductResponse ========= ", createProductResponse);
+
+
+    // }
+
+    const sendProductIDAPI = await fetch(`https://${Shopify.shop}/apps/proxy/api/addtoCart`, {
       method: "POST",
       headers: {
         "content-type": "application/json"
@@ -169,10 +208,13 @@ const App = () => {
 
     let formData = {
       'items': productIdArray?.fetchProductsData?.map(productid => ({
-        id: productid,
+        id: productid?.variants[0]?.id,
         quantity: 1
       }))
     };
+    console.log("formData ===== ", formData);
+
+
 
     try {
       const additmesAPI = await fetch(`${window.Shopify.routes.root}cart/add.js`, {
@@ -189,19 +231,28 @@ const App = () => {
       if (getItmes.items.length) {
         window.location.href = "/cart"
       }
-
     } catch (error) {
       console.log("error  ====", error);
-
     }
+
   }
+  const handleDistanceValue = (e) => {
+    const { name, value } = e.target;
+    setCustomProductDistance((prevState) => ({
+      ...prevState,
+      [name]: value
+    }))
+  }
+
+  const totalPrice = Object.values(selectedProductPrices).reduce((acc, price) => acc + price, 0).toFixed(2);
+
 
   return (
     <>
       <div className='question-container'>
         <div className='ques-1-container'>
           <div className='ques-1'>
-            <h1>1. How big is the space you are heating?</h1>
+            <span>1. How big is the space you are heating?</span>
             <div className='ques-1-answer'>
               <div className='length'>
                 <input type='number' name='length' value={spaceAndVolume.length} onChange={handleQuestions1_options} /> <span>Length</span>
@@ -288,7 +339,7 @@ const App = () => {
           </div>
         </div>
 
-        <div className='ques-4-conatiner'>
+        <div className='ques-4-container'>
           <div className='ques-4'>
             <h1> 4. How long do you want to run it each day? </h1>
           </div>
@@ -314,7 +365,7 @@ const App = () => {
           </div>
         </div>
 
-        <div className='ques-5-conatiner'>
+        <div className='ques-5-container'>
           <div className='ques-5' >
             <h1> 5. Calculate the watts of solar panels the customer needs and display an offer. </h1>
           </div>
@@ -356,7 +407,7 @@ const App = () => {
           </div>
         </div>
 
-        <div className='ques-6-conatiner'>
+        <div className='ques-6-container'>
           <div className='ques-6'>
             <h1>6. suitable charge controller </h1>
           </div>
@@ -397,7 +448,7 @@ const App = () => {
           </div>
         </div>
 
-        <div className='ques-7-conatiner'>
+        <div className='ques-7-container'>
           <div className='ques-7'>
             <h1>7. battery options </h1>
           </div>
@@ -429,7 +480,6 @@ const App = () => {
                       <h1> {ele.p} </h1>
                     </div>
                     <div>
-
                     </div>
                   </div>
                 )
@@ -438,7 +488,40 @@ const App = () => {
           </div>
         </div>
 
-        <button onClick={handleAddToCart}> Add To Cart </button>
+
+        <div className='ques-8-container'>
+          <div className='ques-8'>
+            <h1> Custom Wiring Kit </h1>
+          </div>
+          <div className='collection-container'>
+            <div className='custome-product'>
+              <div className='pannel-battery-distance'>
+                <div className='distance-question'>
+                  <p> Distance from Panels to Battery in feet </p>
+                </div>
+                <div className='distance-answer'>
+                  <input type='number' value={customProductDistance.paneltoBattery} name='paneltoBattery' onChange={handleDistanceValue} />
+                </div>
+              </div>
+
+              <div className='battery-HVAC-distance'>
+                <div className='distance-question'>
+                  <p> Distance from Battery to HVAC in feet </p>
+                </div>
+                <div className='distance-answer'>
+                  <input type='number' value={customProductDistance.batterytoHVAC} name='batterytoHVAC' onChange={handleDistanceValue} />
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div className='total-price'>
+          <p style={{ margin: "0px" }}> Total price of selected products:</p>
+          <span className='price'> ${totalPrice} </span>
+        </div>
+        <button className='cartButton' onClick={handleAddToCart}> Add To Cart </button>
 
       </div>
     </>

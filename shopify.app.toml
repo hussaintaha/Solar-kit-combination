@@ -3,7 +3,7 @@
 client_id = "f06f43a1013bd4e8895a4a15f6820596"
 name = "solar-combination"
 handle = "solar-combination"
-application_url = "https://doubt-burke-fuzzy-plenty.trycloudflare.com"
+application_url = "https://pike-florida-hormone-interactive.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,13 +17,18 @@ scopes = "read_products,write_products"
 
 [auth]
 redirect_urls = [
-  "https://doubt-burke-fuzzy-plenty.trycloudflare.com/auth/callback",
-  "https://doubt-burke-fuzzy-plenty.trycloudflare.com/auth/shopify/callback",
-  "https://doubt-burke-fuzzy-plenty.trycloudflare.com/api/auth/callback"
+  "https://pike-florida-hormone-interactive.trycloudflare.com/auth/callback",
+  "https://pike-florida-hormone-interactive.trycloudflare.com/auth/shopify/callback",
+  "https://pike-florida-hormone-interactive.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
 api_version = "2024-07"
+
+[app_proxy]
+url = "https://pike-florida-hormone-interactive.trycloudflare.com"
+subpath = "proxy"
+prefix = "apps"
 
 [pos]
 embedded = false

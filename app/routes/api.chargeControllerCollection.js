@@ -2,9 +2,9 @@ import shopifySessionModel from "../Database/session";
 
 export const loader = async ({ request }) => {
     try {
-        console.log(" =========== API CAllING ========== ");
+        // console.log(" =========== API CAllING ========== ");
 
-        console.log('request ======= ', request.url);
+        // console.log('request ======= ', request.url);
 
         const urlString = request.url
         const url = new URL(urlString);
@@ -12,7 +12,7 @@ export const loader = async ({ request }) => {
         const params = new URLSearchParams(url.search);
 
         const neededHarvestkWh = params.get('neededHarvestkWh');
-        console.log("neededHarvestkWh ======== ", neededHarvestkWh);
+        // console.log("neededHarvestkWh ======== ", neededHarvestkWh);
 
         let collectionID;
         if (neededHarvestkWh < 4000) {
@@ -25,7 +25,7 @@ export const loader = async ({ request }) => {
             collectionID = 428015616212
         }
 
-        console.log("collectionID ======== ", collectionID);
+        // console.log("collectionID ======== ", collectionID);
 
         // const { session } = await authenticate.public.appProxy(request);
         // console.log("session ======= ", session);

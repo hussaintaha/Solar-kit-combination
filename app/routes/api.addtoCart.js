@@ -26,20 +26,14 @@ export const action = async ({ request }) => {
 
                     const productData = await fetchProducts.json();
                     console.log("productData ======= ", productData);
-
-                    // Assuming that the `variants` array exists and you want to push the first variant's ID
-                    if (productData.product && productData.product.variants && productData.product.variants.length > 0) {
-                        const variantId = productData.product.variants[0].id; // Get the first variant ID
-                        console.log("Variant ID ======= ", variantId);
-                        fetchProductsData.push(variantId);
-                    } else {
-                        console.log(`No variants found for product ID: ${productId}`);
-                    }
+                    fetchProductsData.push(productData.product);
                 } else {
                     console.log(`Skipping null or invalid product ID for key: ${key}`);
                 }
             }
-        }
+        };
+
+
 
         return { fetchProductsData };
 
