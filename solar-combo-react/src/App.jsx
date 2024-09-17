@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import './App.css';
+import Modal from './component/Modal';
 
 
 const App = () => {
 
-  console.log(" ========== 88888 =========");
+  console.log(" ========== 444444444444444 =========");
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [selectedProductId, setSelectedProductId] = useState({
     selectAirConditionerProducts: null,
@@ -23,8 +26,8 @@ const App = () => {
     totalVolume: 0,
   });
   const [recommendedBTU, setRecommendedBTU] = useState(0);
-  const [insulationValue, setInsulationValue] = useState(1.3);
-  const [dailyRunTime, setDailyRunTime] = useState(24);
+  const [insulationValue, setInsulationValue] = useState(0);
+  const [dailyRunTime, setDailyRunTime] = useState(0);
   const [neededHarvest, setNeededharvest] = useState(0);
   const [selectedProductPrices, setSelectedProductPrices] = useState({
     selectAirConditionerProducts: 0,
@@ -39,61 +42,57 @@ const App = () => {
   })
 
   const insulationOptions = [
-    { label: 'Not Insulated', value: 3.0 },
-    { label: 'Minimum', value: 1.6 },
-    { label: 'Good', value: 1.3 },
-    { label: 'Paranoid', value: 0.67 },
+    { label: 'Not Insulated', value: 3.0, src: "https://www.bobvila.com/wp-content/uploads/2022/09/The-Best-Insulation-Contractor-Options.jpg", desc: "abc" },
+    { label: 'Minimum', value: 1.6, src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSh4ZWDYaAEtTs2K1ZSgeF6us5P6l8IkvqQyw&s", desc: "abc" },
+    { label: 'Good', value: 0.8, src: "https://havelockwool.com/wp-content/uploads/2022/04/r-19-insulation-2-1024x683.jpeg", desc: "abc" },
+    { label: 'Paranoid', value: 0.6, src: "https://thumbs.dreamstime.com/b/thinking-others-opinion-concept-paranoid-man-head-funny-scary-faces-his-mind-brain-thinks-inside-his-brain-mind-218192654.jpg", desc: "abc" },
   ];
 
   const runTimeOptions = [
-    { label: 'Overhead Sun Only', value: 1 },
-    { label: '6 Hours a day', value: 6 },
-    { label: '12 Hours a day', value: 12 },
-    { label: 'Full Blast 24/7', value: 24 },
+    { label: 'Overhead Sun Only', value: 1, src: "https://media.istockphoto.com/id/525206743/photo/solar-panel-on-a-red-roof.jpg?s=612x612&w=0&k=20&c=xcAkdNj8dFDhu8734FpRDAZDtN2bjr48RKEd9j2FL0U=", desc: "abc" },
+    { label: '6 Hours a day', value: 6, src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbsmHfXt8frbLN3689skTjxEGvrXrEhNxSUQ&s", desc: "abc" },
+    { label: '12 Hours a day', value: 12, src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQELDJIrxavYXnytK9YW_Z0dBLlye8YIPTHJpN4c1pbGDeR2kwHZW6pob27iTAFxYFWbKk&usqp=CAU", desc: "abc" },
+    { label: 'Full Blast 24/7', value: 24, src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSO0VUPQK6FhzefYLE_fKjDzO86_jIdZXc5cg&s", desc: "abc" },
   ];
-
 
   const handleQuestions1_options = (e) => {
     const { name, value } = e.target;
 
-    setSpaceAndVolume((prev) => ({
-      ...prev,
-      [name]: value
-    }))
+    setSpaceAndVolume((prev) => {
+      const updatedValues = { ...prev, [name]: value }
+      const { length, width, height } = updatedValues;
+
+      const totalVolume = length && width && height ? length * width * height : 0;
+      return { ...updatedValues, totalVolume };
+    })
   }
 
-  const calculateTotalVolume = () => {
+  const handleInsulationChange = (e) => {
     const { length, width, height } = spaceAndVolume;
 
-    if (length && width && height) {
-      const totalVolume = length * width * height;
-      setSpaceAndVolume(prev => ({ ...prev, totalVolume }));
-
-      let BTU = 0;
-      if (height < 6) {
-        BTU = length * width * 10;
-      } else if (height >= 6 && height <= 10) {
-        BTU = length * width * 20;
-      } else if (height > 10) {
-        BTU = length * width * 27;
-      }
-      setRecommendedBTU(BTU);
-
-      if (BTU > 100) {
-        getCollectionProductsAPI(BTU);
-      } else {
-        console.log("BTU is less than or equal to 100.");
-      }
-    } else {
-      alert("Please enter valid dimensions.");
+    if (!length && !width && !height) {
+      // alert("select the Length, Width and Height first");
+      setIsModalOpen(true)
+      return
     }
+
+    let insulationFactor = e.target.value
+    console.log("insulationFactor ============ ", insulationFactor);
+
+    let BTU = 0;
+    if (height < 6) {
+      BTU = (length * width * 10) * insulationFactor;
+    }
+    else if (height >= 6 && height <= 10) {
+      BTU = (length * width * 20) * insulationFactor;
+    }
+    else if (height > 10) {
+      BTU = (length * width * 27) * insulationFactor;
+    }
+    setInsulationValue(parseFloat(insulationFactor));
+    setRecommendedBTU(BTU)
+    getCollectionProductsAPI(BTU);
   };
-
-
-  const handleInsulationChange = (e) => {
-    setInsulationValue(parseFloat(e.target.value));
-  };
-
 
   const getCollectionProductsAPI = async (BTU) => {
     try {
@@ -174,8 +173,55 @@ const App = () => {
     }
   };
 
+
+  // ============================= ADD TO CART ============================= //
   const handleAddToCart = async () => {
-    console.log("selectedProductId ================ ", selectedProductId);
+
+    const sendProductIDAPI = await fetch(`https://${Shopify.shop}/apps/proxy/api/addtoCart`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json"
+      },
+      body: JSON.stringify({ selectedProductId: selectedProductId })
+    });
+
+    const productIdArray = await sendProductIDAPI.json()
+    console.log("productIdArray ======== ", productIdArray.varientIdArray);
+
+    if (productIdArray.success) {
+
+      let formData = {
+        'items': productIdArray.varientIdArray.map(id => ({
+          id: id,
+          quantity: 1
+        }))
+      };
+
+      console.log("formData ========== ", formData);
+
+
+      try {
+        const additmesAPI = await fetch(`${window.Shopify.routes.root}cart/add.js`, {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        });
+
+        const getItmes = await additmesAPI.json()
+        console.log("getItmes ======= ", getItmes);
+
+        if (getItmes.items.length) {
+          window.location.href = "/cart"
+        }
+      } catch (error) {
+        console.log("error  ====", error);
+      }
+
+    }
+
+
 
     // if (customProductDistance.batterytoHVAC && customProductDistance.paneltoBattery) {
     //   const { batterytoHVAC, paneltoBattery } = customProductDistance
@@ -186,56 +232,30 @@ const App = () => {
     //     headers: {
     //       "content-type": "application/json"
     //     },
-    //     body: JSON.stringify({ batterytoHVAC, paneltoBattery })
+    //     body: JSON.stringify({ batterytoHVAC, paneltoBattery, })
     //   });
 
     //   const createProductResponse = await createProductAPI.json();
-    //   console.log("createProductResponse ========= ", createProductResponse);
-
-
+    //   console.log("createProductResponse ============ ", createProductResponse);
+    //   varientID = createProductResponse.varientID.split("/")[4];
+    //   console.log("varientID =========== ", varientID);
     // }
 
-    const sendProductIDAPI = await fetch(`https://${Shopify.shop}/apps/proxy/api/addtoCart`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json"
-      },
-      body: JSON.stringify({ selectedProductId })
-    });
-
-    const productIdArray = await sendProductIDAPI.json()
-    console.log("productIdArray ======== ", productIdArray);
-
-    let formData = {
-      'items': productIdArray?.fetchProductsData?.map(productid => ({
-        id: productid?.variants[0]?.id,
-        quantity: 1
-      }))
-    };
-    console.log("formData ===== ", formData);
 
 
 
-    try {
-      const additmesAPI = await fetch(`${window.Shopify.routes.root}cart/add.js`, {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      });
 
-      const getItmes = await additmesAPI.json()
-      console.log("getItmes ======= ", getItmes);
 
-      if (getItmes.items.length) {
-        window.location.href = "/cart"
-      }
-    } catch (error) {
-      console.log("error  ====", error);
-    }
+    //   const customProductId = createProductResponse.variantCreateproduct.id.split("/")[4]
+    //   productIdObject = {
+    //     ...selectedProductId,
+    //     customProductId: customProductId
+    //   }
+    // }
 
   }
+
+
   const handleDistanceValue = (e) => {
     const { name, value } = e.target;
     setCustomProductDistance((prevState) => ({
@@ -246,57 +266,83 @@ const App = () => {
 
   const totalPrice = Object.values(selectedProductPrices).reduce((acc, price) => acc + price, 0).toFixed(2);
 
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <>
+
+      <div>
+        <Modal show={isModalOpen} onClose={closeModal}>
+          <h2>Warning</h2>
+          <p>This is a warning message!</p>
+        </Modal>
+      </div>
+
       <div className='question-container'>
         <div className='ques-1-container'>
           <div className='ques-1'>
-            <span>1. How big is the space you are heating?</span>
+            <h1>1. How big is the space you are heating / cooling?</h1>
+            <p style={{ margin: "-16px 0px 0px 22px" }}> Lets figure out the size of air consitioner you need in BTU/h or tons. 1 tons is same as 12,000 BTU/h. </p>
             <div className='ques-1-answer'>
               <div className='length'>
-                <input type='number' name='length' value={spaceAndVolume.length} onChange={handleQuestions1_options} /> <span>Length</span>
+                <span>Length</span> <input type='number' name='length' value={spaceAndVolume.length} onChange={handleQuestions1_options} />
               </div>
               <div className='width'>
-                <input type='number' name='width' value={spaceAndVolume.width} onChange={handleQuestions1_options} /> <span>Width</span>
+                <span>Width</span> <input type='number' name='width' value={spaceAndVolume.width} onChange={handleQuestions1_options} />
               </div>
               <div className='height'>
-                <input type='number' name='height' value={spaceAndVolume.height} onChange={handleQuestions1_options} /> <span>Feet</span>
+                <span> Height </span><input type='number' name='height' value={spaceAndVolume.height} onChange={handleQuestions1_options} />
+              </div>
+              <div className='unit'>
+                <span>Feet</span>
               </div>
             </div>
 
             <div className='calculate-volume'>
-              <div>
-                <button className='volumeButton' onClick={calculateTotalVolume}> Calculate Volume </button>
-              </div>
-              <div className='totalvolumeValue' style={{ display: spaceAndVolume.totalVolume !== "" ? 'block' : 'none' }}>
-                <span> {spaceAndVolume.totalVolume} </span>
-              </div>
+              {spaceAndVolume.totalVolume > 0 && (
+                <div className='totalvolumeValue'>
+                  <span>Total Volume: {spaceAndVolume.totalVolume} cubic feet</span>
+                </div>
+              )}
             </div>
           </div>
         </div>
 
         <div className='ques-2-container'>
           <div className='ques-2'>
-            <h1> 2. How well is it insulated? </h1>
+            <h1>2. How well is it insulated?</h1>
           </div>
           <div className='ques-2-answer'>
             <div className='insulation-options'>
               {insulationOptions.map((option) => (
-                <label key={option.label}>
-                  <input
-                    type='radio'
-                    name='insulation'
-                    value={option.value}
-                    checked={insulationValue === option.value}
-                    onChange={handleInsulationChange}
-                  />
-                  {option.label}
-                </label>
+                <div key={option.label} onClick={() => handleInsulationChange({ target: { value: option.value } })} style={{ cursor: "pointer" }} className='insulation-option'>
+                  <div className='option-details'>
+                    <img src={option.src} alt={option.label} className='option-image' />
+                    <label>
+                      <input
+                        type='radio'
+                        name='insulation'
+                        value={option.value}
+                        checked={insulationValue === option.value}
+                        onChange={handleInsulationChange}
+                      />
+                      {option.label}
+                    </label>
+                    <p className='option-desc'>{option.desc}</p>
+                  </div>
+                </div>
               ))}
             </div>
+            <div> {insulationValue ?
+              <div style={{ margin: "10px 0px 0px 10px" }}>
+                <span> Recommended BTU :  {recommendedBTU} </span>
+              </div>
+              : ""} </div>
           </div>
         </div>
+
 
         <div className='ques-3-container'>
           <div className='ques-3'>
@@ -343,18 +389,24 @@ const App = () => {
           <div className='ques-4'>
             <h1> 4. How long do you want to run it each day? </h1>
           </div>
-          <div className='runtime-option'>
+          <div className='runtime-options'>
             {runTimeOptions.map((option) => (
-              <label key={option.label}>
-                <input
-                  type='radio'
-                  name='runTime'
-                  value={option.value}
-                  checked={dailyRunTime === option.value}
-                  onChange={(e) => setDailyRunTime(parseInt(e.target.value))}
-                />
-                {option.label}
-              </label>
+              <div ey={option.label} onClick={() => setDailyRunTime(option.value)} className='insulation-option'>
+                <img src={option.src} alt={option.label} className='option-image' />
+                <div className='runtimeOption-details'>
+                  <label key={option.label}>
+                    <input
+                      type='radio'
+                      name='runTime'
+                      value={option.value}
+                      checked={dailyRunTime === option.value}
+                      onChange={(e) => setDailyRunTime(parseInt(e.target.value))}
+                    />
+                    {option.label}
+                  </label>
+                  <p className='option-desc'>{option.desc} </p>
+                </div>
+              </div>
             ))}
           </div>
 
@@ -529,3 +581,89 @@ const App = () => {
 };
 
 export default App;
+
+
+
+
+
+
+
+
+
+// const calculateTotalVolume = () => {
+//   const { length, width, height } = spaceAndVolume;
+
+//   if (length && width && height) {
+//     const totalVolume = length * width * height;
+//     setSpaceAndVolume(prev => ({ ...prev, totalVolume }));
+
+//     let BTU = 0;
+//     if (height < 6) {
+//       BTU = length * width * 10;
+//     } else if (height >= 6 && height <= 10) {
+//       BTU = length * width * 20;
+//     } else if (height > 10) {
+//       BTU = length * width * 27;
+//     }
+//     setRecommendedBTU(BTU);
+
+//     if (BTU > 100) {
+//       getCollectionProductsAPI(BTU);
+//     } else {
+//       console.log("BTU is less than or equal to 100.");
+//     }
+//   } else {
+//     alert("Please enter valid dimensions.");
+//   }
+// };
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const sendProductIDAPI = await fetch(`https://${Shopify.shop}/apps/proxy/api/addtoCart`, {
+//   method: "POST",
+//   headers: {
+//     "content-type": "application/json"
+//   },
+//   body: JSON.stringify({ empty: "empty" })
+// });
+
+// const productIdArray = await sendProductIDAPI.json()
+// console.log("productIdArray ======== ", productIdArray);
+
+// let formData = {
+//   'items': [{
+//     "id": 45635505094868,
+//     'quantity': 1
+//   }]
+// };
+// // console.log("formData ===== ", formData);
+
+
+// try {
+//   const additmesAPI = await fetch(`${window.Shopify.routes.root}cart/add.js`, {
+//     method: "POST",
+//     headers: {
+//       'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify(formData)
+//   });
+
+//   const getItmes = await additmesAPI.json()
+//   console.log("getItmes ======= ", getItmes);
+
+//   // if (getItmes.items.length) {
+//   //   window.location.href = "/cart"
+//   // }
+// } catch (error) {
+//   console.log("error  ====", error);
+// }

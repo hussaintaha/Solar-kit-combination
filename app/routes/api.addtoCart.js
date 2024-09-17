@@ -2,43 +2,123 @@ import shopifySessionModel from "../Database/session";
 
 export const action = async ({ request }) => {
     try {
-        const productIDs = await request.json();
-        const productIDObject = productIDs.selectedProductId;
+        const requestObject = await request.json();
+        console.log("requestObject ========== ", requestObject);
+
+        const productIDObject = requestObject.selectedProductId;
+        console.log("productIDObject ====== ", productIDObject);
+
         const sessionObject = await shopifySessionModel.findOne();
 
-        let fetchProductsData = [];
+        if (!sessionObject) {
+            throw new Error("Shopify session not found");
+        }
 
-        for (let key in productIDObject) {
-            if (productIDObject.hasOwnProperty(key)) {
-                const productId = productIDObject[key];
+        let varientIdArray = [];
 
-                // Check if the product ID is not null or undefined before making the request
-                if (productId) {
-                    console.log(`Fetching product ID: ${productId}`);
+        const fetchPromises = Object.values(productIDObject).map(async (productId) => {
+            if (productId) {
+                console.log(`Fetching product ID: ${productId}`);
 
-                    const fetchProducts = await fetch(`https://${sessionObject.shop}/admin/api/2024-01/products/${productId}.json`, {
-                        method: "GET",
-                        headers: {
-                            'X-Shopify-Access-Token': sessionObject.accessToken,
-                            'Content-Type': 'application/json'
-                        }
-                    });
+                const response = await fetch(`https://${sessionObject.shop}/admin/api/2024-01/products/${productId}.json`, {
+                    method: "GET",
+                    headers: {
+                        'X-Shopify-Access-Token': sessionObject.accessToken,
+                        'Content-Type': 'application/json'
+                    }
+                });
 
-                    const productData = await fetchProducts.json();
-                    console.log("productData ======= ", productData);
-                    fetchProductsData.push(productData.product);
-                } else {
-                    console.log(`Skipping null or invalid product ID for key: ${key}`);
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch product ${productId}: ${response.statusText}`);
                 }
+
+                const productData = await response.json();
+                const varientIds = productData.product.variants[0].id
+                varientIdArray.push(varientIds)
+
+                return productData.product;
             }
-        };
+        });
 
+        const fetchProductsData = (await Promise.all(fetchPromises)).filter(product => product);
+        // console.log("fetchProductsData ======= ", fetchProductsData);
 
-
-        return { fetchProductsData };
-
+        return { success: true, varientIdArray: varientIdArray };
     } catch (error) {
-        console.log("Error ========== ", error);
-        return error;
+        console.error("Error ========== ", error);
+        return { success: false, message: error.message };
     }
-}
+};
+
+
+
+
+
+
+
+// const fetchProducts = await fetch(`https://${sessionObject.shop}/admin/api/2024-01/products/8610287354068.json`, {
+//     method: "GET",
+//     headers: {
+//         'X-Shopify-Access-Token': sessionObject.accessToken,
+//         'Content-Type': 'application/json'
+//     }
+// });
+
+// const productData = await fetchProducts.json();
+// console.log("productData ======= ", productData.product.variants);
+
+
+// // console.log("fetchProductsData ========= ", fetchProductsData[0].variants);
+// return { fetchProductsData };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// for (let key in productIDObject) {
+//     if (productIDObject.hasOwnProperty(key)) {
+//         const productId = productIDObject[key];
+
+//         // Check if the product ID is not null or undefined before making the request
+//         // if (productId) {
+//         console.log(`Fetching product ID: ${productId}`);
+
+//         const fetchProducts = await fetch(`https://${sessionObject.shop}/admin/api/2024-01/products/8627502514388.json`, {
+//             method: "GET",
+//             headers: {
+//                 'X-Shopify-Access-Token': sessionObject.accessToken,
+//                 'Content-Type': 'application/json'
+//             }
+//         });
+
+//         const productData = await fetchProducts.json();
+//         console.log("productData ======= ", productData);
+
+
+//         fetchProductsData.push(productData.product);
+//         // } else {
+//         //     console.log(`Skipping null or invalid product ID for key: ${key}`);
+//         // }
+//     }
+// };

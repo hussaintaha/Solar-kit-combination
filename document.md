@@ -66,6 +66,8 @@ Calculates & displays needed daily harvest in kWh:
 
 needed daily harvest = BTU/16 *{value from 4 - #of hours each day} * {value from 2 - insulation factor multiplier}
 
+Harvest = the BTU you calculated in step 1, divide by 16, multiply by number of hours you need unit to run that customer indicated in step 4, multiplied by an adjustment value calculated based on the answer to insulation question in step 2
+
 
 ---------------------------------------------------------------------
 

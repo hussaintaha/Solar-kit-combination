@@ -27,9 +27,8 @@
 .ques-6 h1,
 .ques-7 h1,
 .ques-8 h1 {
-  font-size: 18px;
-  color: #333;
-  margin-bottom: 15px;
+  font-size: x-large;
+  color: black;
 }
 
 .ques-1-answer {
@@ -108,7 +107,7 @@ input[type="number"]:focus-visible {
 }
 
 .price {
-  font-size: 22px;
+  font-size: 25px;
   color: #ff5722;
   margin-left: 10px;
 }
@@ -160,22 +159,77 @@ input[type="number"]:focus-visible {
   color: #555;
 }
 
-.insulation-options,
-.runtime-option {
+.insulation-options {
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
-  align-items: center;
-  margin-top: 10px;
+  justify-content: start;
+  margin-top: 20px;
 }
 
-.insulation-options label,
-.runtime-option label {
-  font-size: 14px;
-  color: #555;
+.runtime-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: start;
+  margin-top: 20px;
+}
+
+.runtimeOption-details {
+  font-size: small;
+}
+
+.insulation-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 180px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.runtimeOption-details label {
   display: flex;
   align-items: center;
-  gap: 10px;
+  /* font-size: 14px; */
+  color: #555;
+  justify-content: center;
+  font-size: small;
+  margin-top: 5px;
 }
+
+.insulation-option:hover {
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+.option-image {
+  width: 155px;
+  height: 110px;
+  border-radius: 4px;
+}
+
+.option-details label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #555;
+  justify-content: center;
+  font-size: small;
+}
+
+.option-desc {
+  font-size: 12px;
+  color: #777;
+  margin-top: 5px;
+}
+
+
+
 
 .harvest-result {
   font-size: 18px;
@@ -191,14 +245,6 @@ input[type="number"]:focus-visible {
   justify-content: flex-start;
   gap: 20px;
 }
-
-
-
-
-
-
-
-
 
 .cartButton {
   width: 20%;
