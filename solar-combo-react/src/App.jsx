@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import Modal from './component/Modal';
 
 
+
 const App = () => {
 
-  console.log(" ========== 444444444444444 =========");
+  console.log(" ========== 2222222222222222 =========");
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -14,6 +15,7 @@ const App = () => {
     selectSolarPanelProducts: null,
     selectChargeControllerproducts: null,
     selectBatteryOptions: null,
+    selectCustomOptions: null
   });
   const [productsData, setProductData] = useState([]);
   const [panelCollection, setPanelCollection] = useState([]);
@@ -77,7 +79,7 @@ const App = () => {
     }
 
     let insulationFactor = e.target.value
-    console.log("insulationFactor ============ ", insulationFactor);
+    // console.log("insulationFactor ============ ", insulationFactor);
 
     let BTU = 0;
     if (height < 6) {
@@ -98,7 +100,7 @@ const App = () => {
     try {
       const fetchproducts = await fetch(`https://${Shopify.shop}/apps/proxy/api/getCollectionProducts/?recommendedBTU=${BTU}`);
       const collectionProducts = await fetchproducts.json()
-      console.log("collectionProducts ====== ", collectionProducts);
+      // console.log("collectionProducts ====== ", collectionProducts);
       setProductData(collectionProducts.data.products);
     } catch (error) {
       console.log("error ========= ", error);
@@ -121,7 +123,7 @@ const App = () => {
     try {
       const fetchProducts = await fetch(`https://${Shopify.shop}/apps/proxy/api/chargeControllerCollection/?neededHarvestkWh=${neededHarvestkWh}`);
       const chargeControllerProducts = await fetchProducts.json()
-      console.log("chargeControllerProducts ====== ", chargeControllerProducts);
+      // console.log("chargeControllerProducts ====== ", chargeControllerProducts);
       setChargeControllerProducts(chargeControllerProducts.data.products)
     } catch (error) {
       console.log("error ========= ", error);
@@ -132,7 +134,7 @@ const App = () => {
     try {
       const fetchProducts = await fetch(`https://${Shopify.shop}/apps/proxy/api/getBatteryOption/?neededHarvestkWh=${neededHarvestkWh}`);
       const batteryOptionProducts = await fetchProducts.json()
-      console.log("batteryOptionProducts ====== ", batteryOptionProducts);
+      // console.log("batteryOptionProducts ====== ", batteryOptionProducts);
       setBatteryOptions(batteryOptionProducts.data.products)
     } catch (error) {
       console.log("error ========= ", error);
@@ -146,13 +148,6 @@ const App = () => {
       ...prevState,
       [productType]: productId
     }));
-
-    const neededHarvestkWh = (recommendedBTU / 16) * dailyRunTime * insulationValue;
-    setNeededharvest(neededHarvestkWh);
-
-    getpanelCollectionAPI(neededHarvestkWh);
-    getchargeControllerCollectionAPI(neededHarvestkWh);
-    getBettryCollectionAPI(neededHarvestkWh);
 
     if (productId) {
       const fetchProductsDetails = await fetch(`https://${Shopify.shop}/apps/proxy/api/getproductsDetail`, {
@@ -176,28 +171,54 @@ const App = () => {
 
   // ============================= ADD TO CART ============================= //
   const handleAddToCart = async () => {
+    let productsId = selectedProductId
+
+    if (customProductDistance.batterytoHVAC && customProductDistance.paneltoBattery) {
+      const { batterytoHVAC, paneltoBattery } = customProductDistance
+      const createProductAPI = await fetch(`https://${Shopify.shop}/apps/proxy/api/createCustomProduct`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json"
+        },
+        body: JSON.stringify({ batterytoHVAC, paneltoBattery, })
+      });
+
+      const createProductResponse = await createProductAPI.json();
+      // console.log("createProductResponse ============ ", createProductResponse);
+
+      if (createProductResponse) {
+        productsId = {
+          ...selectedProductId,
+          selectCustomOptions: createProductResponse
+        }
+      }
+    }
+
+    // console.log("productsIDs ========= ", productsId);
+
 
     const sendProductIDAPI = await fetch(`https://${Shopify.shop}/apps/proxy/api/addtoCart`, {
       method: "POST",
       headers: {
         "content-type": "application/json"
       },
-      body: JSON.stringify({ selectedProductId: selectedProductId })
+      body: JSON.stringify({ selectedProductId: productsId })
     });
 
-    const productIdArray = await sendProductIDAPI.json()
-    console.log("productIdArray ======== ", productIdArray.varientIdArray);
+    const productIdresponse = await sendProductIDAPI.json()
+    const productIdArray = productIdresponse.varientIdArray
+    // console.log("productIdresponse ======== ", productIdArray);
 
-    if (productIdArray.success) {
+
+    if (productIdresponse.success) {
 
       let formData = {
-        'items': productIdArray.varientIdArray.map(id => ({
-          id: id,
-          quantity: 1
+        "items": productIdArray.map(productID => ({
+          "id": productID,
+          "quantity": 1
         }))
-      };
-
-      console.log("formData ========== ", formData);
+      }
+      // console.log("forData ======== ", formData);
 
 
       try {
@@ -210,7 +231,7 @@ const App = () => {
         });
 
         const getItmes = await additmesAPI.json()
-        console.log("getItmes ======= ", getItmes);
+        // console.log("getItmes ======= ", getItmes);
 
         if (getItmes.items.length) {
           window.location.href = "/cart"
@@ -218,41 +239,7 @@ const App = () => {
       } catch (error) {
         console.log("error  ====", error);
       }
-
     }
-
-
-
-    // if (customProductDistance.batterytoHVAC && customProductDistance.paneltoBattery) {
-    //   const { batterytoHVAC, paneltoBattery } = customProductDistance
-    //   console.log("fmhgfjghjdfghggdjg");
-
-    //   const createProductAPI = await fetch(`https://${Shopify.shop}/apps/proxy/api/createCustomProduct`, {
-    //     method: "POST",
-    //     headers: {
-    //       "content-type": "application/json"
-    //     },
-    //     body: JSON.stringify({ batterytoHVAC, paneltoBattery, })
-    //   });
-
-    //   const createProductResponse = await createProductAPI.json();
-    //   console.log("createProductResponse ============ ", createProductResponse);
-    //   varientID = createProductResponse.varientID.split("/")[4];
-    //   console.log("varientID =========== ", varientID);
-    // }
-
-
-
-
-
-
-    //   const customProductId = createProductResponse.variantCreateproduct.id.split("/")[4]
-    //   productIdObject = {
-    //     ...selectedProductId,
-    //     customProductId: customProductId
-    //   }
-    // }
-
   }
 
 
@@ -270,6 +257,26 @@ const App = () => {
     setIsModalOpen(false);
   };
 
+
+  const handleRunEachDay = (value) => {
+    console.log("value ============= ", value);
+    setDailyRunTime(value);
+  }
+
+  useEffect(() => {
+    if (recommendedBTU > 0 && insulationValue > 0 && dailyRunTime > 0) {
+      // Calculates needed daily harvest in kWh:
+      const neededHarvestkWh = (recommendedBTU / 16) * dailyRunTime * insulationValue;
+      console.log("neededHarvestkWh ===================== ", neededHarvestkWh);
+      setNeededharvest(neededHarvestkWh);
+  
+      // Call the API with the new needed harvest
+      getpanelCollectionAPI(neededHarvestkWh);
+      getchargeControllerCollectionAPI(neededHarvestkWh);
+      getBettryCollectionAPI(neededHarvestkWh);
+    }
+  }, [recommendedBTU, insulationValue, dailyRunTime]);
+
   return (
     <>
 
@@ -284,7 +291,7 @@ const App = () => {
         <div className='ques-1-container'>
           <div className='ques-1'>
             <h1>1. How big is the space you are heating / cooling?</h1>
-            <p style={{ margin: "-16px 0px 0px 22px" }}> Lets figure out the size of air consitioner you need in BTU/h or tons. 1 tons is same as 12,000 BTU/h. </p>
+            <p style={{ margin: "-16px 0px 0px 22px" }}> Lets figure out the size of air conditioner you need in BTU/h or tons. 1 tons is same as 12,000 BTU/h. </p>
             <div className='ques-1-answer'>
               <div className='length'>
                 <span>Length</span> <input type='number' name='length' value={spaceAndVolume.length} onChange={handleQuestions1_options} />
@@ -303,7 +310,7 @@ const App = () => {
             <div className='calculate-volume'>
               {spaceAndVolume.totalVolume > 0 && (
                 <div className='totalvolumeValue'>
-                  <span>Total Volume: {spaceAndVolume.totalVolume} cubic feet</span>
+                  <span>Total Volume: {spaceAndVolume.totalVolume.toLocaleString()} cubic feet</span>
                 </div>
               )}
             </div>
@@ -337,7 +344,7 @@ const App = () => {
             </div>
             <div> {insulationValue ?
               <div style={{ margin: "10px 0px 0px 10px" }}>
-                <span> Recommended BTU :  {recommendedBTU} </span>
+                <span> Recommended BTU :  {recommendedBTU.toLocaleString()} </span>
               </div>
               : ""} </div>
           </div>
@@ -391,7 +398,7 @@ const App = () => {
           </div>
           <div className='runtime-options'>
             {runTimeOptions.map((option) => (
-              <div ey={option.label} onClick={() => setDailyRunTime(option.value)} className='insulation-option'>
+              <div ey={option.label} onClick={() => handleRunEachDay(option.value)} className='insulation-option'>
                 <img src={option.src} alt={option.label} className='option-image' />
                 <div className='runtimeOption-details'>
                   <label key={option.label}>
@@ -581,89 +588,3 @@ const App = () => {
 };
 
 export default App;
-
-
-
-
-
-
-
-
-
-// const calculateTotalVolume = () => {
-//   const { length, width, height } = spaceAndVolume;
-
-//   if (length && width && height) {
-//     const totalVolume = length * width * height;
-//     setSpaceAndVolume(prev => ({ ...prev, totalVolume }));
-
-//     let BTU = 0;
-//     if (height < 6) {
-//       BTU = length * width * 10;
-//     } else if (height >= 6 && height <= 10) {
-//       BTU = length * width * 20;
-//     } else if (height > 10) {
-//       BTU = length * width * 27;
-//     }
-//     setRecommendedBTU(BTU);
-
-//     if (BTU > 100) {
-//       getCollectionProductsAPI(BTU);
-//     } else {
-//       console.log("BTU is less than or equal to 100.");
-//     }
-//   } else {
-//     alert("Please enter valid dimensions.");
-//   }
-// };
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const sendProductIDAPI = await fetch(`https://${Shopify.shop}/apps/proxy/api/addtoCart`, {
-//   method: "POST",
-//   headers: {
-//     "content-type": "application/json"
-//   },
-//   body: JSON.stringify({ empty: "empty" })
-// });
-
-// const productIdArray = await sendProductIDAPI.json()
-// console.log("productIdArray ======== ", productIdArray);
-
-// let formData = {
-//   'items': [{
-//     "id": 45635505094868,
-//     'quantity': 1
-//   }]
-// };
-// // console.log("formData ===== ", formData);
-
-
-// try {
-//   const additmesAPI = await fetch(`${window.Shopify.routes.root}cart/add.js`, {
-//     method: "POST",
-//     headers: {
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify(formData)
-//   });
-
-//   const getItmes = await additmesAPI.json()
-//   console.log("getItmes ======= ", getItmes);
-
-//   // if (getItmes.items.length) {
-//   //   window.location.href = "/cart"
-//   // }
-// } catch (error) {
-//   console.log("error  ====", error);
-// }

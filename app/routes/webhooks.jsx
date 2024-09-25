@@ -2,7 +2,7 @@ import { authenticate } from "../shopify.server";
 import db from "../db.server";
 
 export const action = async ({ request }) => {
-  const { topic, shop, session, admin } = await authenticate.webhook(request);
+  const { topic, shop, session, admin, payload } = await authenticate.webhook(request);
 
   if (!admin && topic !== "SHOP_REDACT") {
     // The admin context isn't returned if the webhook fired after a shop was uninstalled.
@@ -18,6 +18,39 @@ export const action = async ({ request }) => {
       if (session) {
         await db.session.deleteMany({ where: { shop } });
       }
+    case "ORDERS_FULFILLED": {
+      console.log(" ORDERS_FULFILLED payload ======== ", payload);
+      const productID = payload.line_items[0].product_id
+      console.log("productID ================>>> ", productID);
+
+      try {
+
+
+        if (payload.line_items[0].title === "Custom Wiring Kit") {
+
+          const response = await admin.graphql(
+            `#graphql
+            mutation {
+              productDelete(input: {id: "gid://shopify/Product/${productID}"}) {
+                deletedProductId
+                userErrors {
+                  field
+                  message
+                }
+              }
+            }`,
+          );
+
+          const data = await response.json();
+          const deleteProductData = data.data
+          console.log("deleteProductData ========== ", deleteProductData);
+        }
+
+      } catch (error) {
+        console.log("error in delete product ======== ", error);
+        return error
+      }
+    }
 
       break;
     case "CUSTOMERS_DATA_REQUEST":

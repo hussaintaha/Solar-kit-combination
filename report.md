@@ -45,3 +45,46 @@ Updated the formula to calculate the "recommended BTU" and removed the "Calculat
 Displayed the recommended BTU value based on the insulation value change.
 Updated step 2 and step 4 by making the entire box clickable.
 Worked on updating the available quantities of the custom-created product and enabling it to be added to the cart.
+
+
+17/09/24
+Today,
+ I worked on conditionally rendering the collections, creating a custom draft product, and developing an API to create variants of custom products. I also set the inventory quantity. However, when I added the product to the cart, I encountered an error related to the variant, so I am currently working on fixing it.
+
+
+ 21/09/24
+Today, I worked on 
+Creating a custom product called "Custom Wiring Kit" and set up variants for it, including dynamic pricing based on distance. I implemented functionality so that when the custom product is created, it does not appear on the storefront if a customer searches for it; customers can only purchase this product directly. I created functionality to automatically delete the custom product from Shopify once the order is fulfilled.
+
+
+
+
+25/09/24
+
+Report:
+
+1. In the very first step, we calculate the space by obtaining the length, width, and height.
+
+2. Once the first step is completed, we provide options to select the type of insulation you want: "Not Insulated, Minimum, Good, Paranoid."
+
+3. In the third step, we display the air conditioner options based on the BTU value. If the first two steps are not completed, the collection will not be displayed.
+
+4. In the fourth step, we show options for how long you want to run the air conditioner each day. We present four options: "Overhead Sun Only, 6 Hours a Day, 12 Hours a Day, Full Blast 24/7." Based on this selection, we calculate the daily energy harvest in KWH using the formula you provided.
+
+5. In step five, we display collections based on the harvest value calculated in the fourth step. We follow the same process for the sixth and seventh points.
+
+6. In the last step, we provide fields for customers to enter:
+
+Distance from Panels to Battery in feet
+Distance from Battery to HVAC in feet
+We create a product in Shopify with a dynamic price and name it "Custom Wiring Kit," which is then added to the cart. This created product does not display on the storefront when users search for it. If the order is fulfilled, the custom product is automatically deleted.
+
+
+Note:
+I have currently used dummy collections for the demo. You will need to create collections on your Shopify store and add the products you want to display in those collections.
+
+
+Remaining work: Hosting the app using the provided credentials: ssh taha@38.39.182.71.
+
+
+

@@ -1,10 +1,10 @@
-import shopifySessionModel from "../Database/session";
+import { authenticate } from "../shopify.server";
 
 export const loader = async ({ request }) => {
     try {
-        // console.log(" =========== API CAllING ========== ");
 
-        // console.log('request ======= ', request.url);
+        const { session } = await authenticate.public.appProxy(request);
+        console.log("session =======", session);
 
         const urlString = request.url
         const url = new URL(urlString);
@@ -15,30 +15,30 @@ export const loader = async ({ request }) => {
         // console.log("neededHarvestkWh ======== ", neededHarvestkWh);
 
         let collectionID;
-        if (neededHarvestkWh < 4000) {
-            collectionID = 428015648980
-        } else if (neededHarvestkWh > 4000 && neededHarvestkWh < 10000) {
-            collectionID = 428015681748
-        } else if (neededHarvestkWh > 10000 && neededHarvestkWh < 20000) {
-            collectionID = 428015681748
-        } else if (neededHarvestkWh > 20000) {
+        let collectionName;
+        if (neededHarvestkWh < 4) {
             collectionID = 428015616212
+            collectionName = "A"
         }
-
+        else if (neededHarvestkWh > 4 && neededHarvestkWh < 10) {
+            collectionID = 428015648980
+            collectionName = "B"
+        }
+        else if (neededHarvestkWh > 10 && neededHarvestkWh < 20) {
+            collectionID = 428015681748
+            collectionName = "A"
+        }
+        else if (neededHarvestkWh > 20) {
+            collectionID = 428015681748
+            collectionName = "C"
+        }
         // console.log("collectionID ======== ", collectionID);
 
-        // const { session } = await authenticate.public.appProxy(request);
-        // console.log("session ======= ", session);
 
-
-        const sessionObject = await shopifySessionModel.find()
-        // console.log("sessionObject === ", sessionObject);
-
-
-        const fetchCollectionProducts = await fetch(`https://${sessionObject[0].shop}/admin/api/2024-01/collections/${collectionID}/products.json`, {
+        const fetchCollectionProducts = await fetch(`https://${session.shop}/admin/api/2024-01/collections/${collectionID}/products.json`, {
             method: "GET",
             headers: {
-                'X-Shopify-Access-Token': sessionObject[0].accessToken,
+                'X-Shopify-Access-Token': session.accessToken,
                 'Content-Type': 'application/json'
             }
         });

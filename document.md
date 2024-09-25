@@ -33,13 +33,13 @@ Page calculates: Working volume: __ cubic feet (l*w*h) displays result
 Display Recommended BTU:
 
 if height <6
-  BTU = ( l * w * 10 )
+BTU = ( l * w * 10 ) * insulation factor
 
 if height is between 6 and 10
-  BTU = ( l * w * 20 )
+BTU = ( l * w * 20 ) * insulation factor
 
 if height > 10
-  BTU = ( l * w * 27 )
+BTU = ( l * w * 27 ) * insulation factor
 ---------------------------------------------------------------------
 
 ---------------------------------------------------------------------
@@ -63,7 +63,6 @@ customer can add to cart or select one or none of the listed units
 
 
 Calculates & displays needed daily harvest in kWh: 
-
 needed daily harvest = BTU/16 *{value from 4 - #of hours each day} * {value from 2 - insulation factor multiplier}
 
 Harvest = the BTU you calculated in step 1, divide by 16, multiply by number of hours you need unit to run that customer indicated in step 4, multiplied by an adjustment value calculated based on the answer to insulation question in step 2
@@ -128,6 +127,13 @@ Your Total: $12345.67
 [ Add to Cart ]
 ---------------------------------------------------------------------
 / project
+
+
+
+38.39.182.71 sudo userid taha, password: https://privnote.com/3wN5Wu99#J2W7jgBsq
+i pointed app.fullbattery.com to that ip with a record, tell me if i did correctly or need to do so something else
+
+
 
 
 

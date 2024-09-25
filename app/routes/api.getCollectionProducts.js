@@ -1,12 +1,11 @@
-import shopifySessionModel from "../Database/session";
 import { authenticate } from "../shopify.server";
 
 
 export const loader = async ({ request }) => {
     try {
-        // console.log(" ============== get API Collection ============== ");
 
-        // console.log('request ======= ', request.url);
+        const { session } = await authenticate.public.appProxy(request);
+        // console.log("session =======", session);
 
         const urlString = request.url
         const url = new URL(urlString);
@@ -17,28 +16,24 @@ export const loader = async ({ request }) => {
         console.log("recommendedBTU ======== ", recommendedBTU);
 
         let collectionID;
-        if (recommendedBTU < 10000) {
+        let collectionName;
+        if (recommendedBTU < 1000) {
             collectionID = 428015648980
-        } else if (recommendedBTU > 10000 && recommendedBTU < 18000) {
+            collectionName = "A"
+        } else if (recommendedBTU > 1000 && recommendedBTU < 1800) {
             collectionID = 428015681748
-        } else if (recommendedBTU > 18000) {
-            collectionID = 428015616212
+            collectionName = "B"
+        } else if (recommendedBTU > 1800) {
+            collectionID = 428015681748
+            collectionName = "C"
         }
 
-        // console.log("collectionID ======== ", collectionID);
-
-        // const { session } = await authenticate.public.appProxy(request);
-        // console.log("session ======= ", session);
 
 
-        const sessionObject = await shopifySessionModel.find()
-        // console.log("sessionObject === ", sessionObject);
-
-
-        const fetchCollectionProducts = await fetch(`https://${sessionObject[0].shop}/admin/api/2024-01/collections/${collectionID}/products.json`, {
+        const fetchCollectionProducts = await fetch(`https://${session.shop}/admin/api/2024-01/collections/${collectionID}/products.json`, {
             method: "GET",
             headers: {
-                'X-Shopify-Access-Token': sessionObject[0].accessToken,
+                'X-Shopify-Access-Token': session.accessToken,
                 'Content-Type': 'application/json'
             }
         });
@@ -47,7 +42,8 @@ export const loader = async ({ request }) => {
         // console.log("collectionsProducts ========= ", collectionsProducts);
 
         return {
-            data: collectionsProducts
+            data: collectionsProducts,
+            collectionName: collectionName
         }
         return true;
     } catch (error) {

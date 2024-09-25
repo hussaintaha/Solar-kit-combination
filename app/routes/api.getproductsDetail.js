@@ -1,19 +1,22 @@
-import shopifySessionModel from "../Database/session";
+import { authenticate } from "../shopify.server";
+
 
 export const action = async ({ request }) => {
     try {
 
+        const { session } = await authenticate.public.appProxy(request);
+        console.log("session =======", session);
+
+
         const productId = await request.json();
         // console.log("productId ====== ", productId);
 
-        const sessionObject = await shopifySessionModel.findOne();
-
         if (productId) {
 
-            const fetchProducts = await fetch(`https://${sessionObject.shop}/admin/api/2024-01/products/${productId.productId}.json`, {
+            const fetchProducts = await fetch(`https://${session.shop}/admin/api/2024-01/products/${productId.productId}.json`, {
                 method: "GET",
                 headers: {
-                    'X-Shopify-Access-Token': sessionObject.accessToken,
+                    'X-Shopify-Access-Token': session.accessToken,
                     'Content-Type': 'application/json'
                 }
             });
