@@ -6,7 +6,7 @@ import Modal from './component/Modal';
 
 const App = () => {
 
-  console.log(" ========== 33333333333 =========");
+  console.log(" ========== 55555555555555555 =========");
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -27,6 +27,7 @@ const App = () => {
     height: null,
     totalVolume: null,
   });
+  const [squareFoot, setSquareFoot] = useState(null)
   const [recommendedBTU, setRecommendedBTU] = useState(0);
   const [insulationValue, setInsulationValue] = useState(0);
   const [dailyRunTime, setDailyRunTime] = useState(0);
@@ -41,7 +42,7 @@ const App = () => {
   const [customProductDistance, setCustomProductDistance] = useState({
     paneltoBattery: 0,
     batterytoHVAC: 0
-  })
+  });
 
   const insulationOptions = [
     { label: 'Not Insulated', value: 3.0, src: "https://www.bobvila.com/wp-content/uploads/2022/09/The-Best-Insulation-Contractor-Options.jpg", desc: "abc" },
@@ -57,44 +58,96 @@ const App = () => {
     { label: 'Full Blast 24/7', value: 24, src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSO0VUPQK6FhzefYLE_fKjDzO86_jIdZXc5cg&s", desc: "abc" },
   ];
 
+
+  const calculateBTU = (length, width, height, insulationFactor) => {
+    let BTU = 0;
+
+    if (height < 6) {
+      BTU = (length * width * 10) * insulationFactor;
+      setSquareFoot(length * width)
+    } else if (height >= 6 && height <= 10) {
+      BTU = (length * width * 20) * insulationFactor;
+      setSquareFoot(length * width)
+    } else if (height > 10) {
+      BTU = (length * width * 27) * insulationFactor;
+      setSquareFoot(length * width)
+    }
+
+    return BTU;
+  };
+
+
+
+
   const handleQuestions1_options = (e) => {
     const { name, value } = e.target;
 
     setSpaceAndVolume((prev) => {
-      const updatedValues = { ...prev, [name]: value }
+      const updatedValues = { ...prev, [name]: parseFloat(value) || null };
       const { length, width, height } = updatedValues;
 
       const totalVolume = length && width && height ? length * width * height : 0;
+      const insulationFactor = insulationValue || 1;
+      const newBTU = calculateBTU(length, width, height, insulationFactor);
+
+      setRecommendedBTU(newBTU);
+      setSquareFoot(length * width)
+
       return { ...updatedValues, totalVolume };
-    })
-  }
+    });
+  };
+
 
   const handleInsulationChange = (e) => {
+    const insulationFactor = parseFloat(e.target.value);
+    setInsulationValue(insulationFactor);
+
     const { length, width, height } = spaceAndVolume;
-
-    if (!length && !width && !height) {
-      // alert("select the Length, Width and Height first");
-      setIsModalOpen(true)
-      return
-    }
-
-    let insulationFactor = e.target.value
-    // console.log("insulationFactor ============ ", insulationFactor);
-
-    let BTU = 0;
-    if (height < 6) {
-      BTU = (length * width * 10) * insulationFactor;
-    }
-    else if (height >= 6 && height <= 10) {
-      BTU = (length * width * 20) * insulationFactor;
-    }
-    else if (height > 10) {
-      BTU = (length * width * 27) * insulationFactor;
-    }
-    setInsulationValue(parseFloat(insulationFactor));
-    setRecommendedBTU(BTU)
-    getCollectionProductsAPI(BTU);
+    const newBTU = calculateBTU(length, width, height, insulationFactor);
+    setRecommendedBTU(newBTU);
+    getCollectionProductsAPI(newBTU);
   };
+
+
+  // const handleQuestions1_options = (e) => {
+  //   const { name, value } = e.target;
+
+  //   setSpaceAndVolume((prev) => {
+  //     const updatedValues = { ...prev, [name]: value }
+  //     const { length, width, height } = updatedValues;
+
+  //     const totalVolume = length && width && height ? length * width * height : 0;
+  //     return { ...updatedValues, totalVolume };
+  //   })
+  // }
+
+
+  // const handleInsulationChange = (e) => {
+  //   const { length, width, height } = spaceAndVolume;
+
+  //   if (!length && !width && !height) {
+  //     // alert("select the Length, Width and Height first");
+  //     setIsModalOpen(true)
+  //     return
+  //   }
+
+  //   let insulationFactor = e.target.value
+  //   // console.log("insulationFactor ============ ", insulationFactor);
+
+  //   let BTU = 0;
+  //   if (height < 6) {
+  //     BTU = (length * width * 10) * insulationFactor;
+  //   }
+  //   else if (height >= 6 && height <= 10) {
+  //     BTU = (length * width * 20) * insulationFactor;
+  //   }
+  //   else if (height > 10) {
+  //     BTU = (length * width * 27) * insulationFactor;
+  //   }
+  //   setInsulationValue(parseFloat(insulationFactor));
+  //   setRecommendedBTU(BTU)
+  //   getCollectionProductsAPI(BTU);
+  // };
 
   const getCollectionProductsAPI = async (BTU) => {
     try {
@@ -311,6 +364,7 @@ const App = () => {
               {spaceAndVolume.totalVolume > 0 && (
                 <div className='totalvolumeValue'>
                   <span>Total Volume: {spaceAndVolume.totalVolume.toLocaleString()} cubic feet</span>
+                  <span> Square Footage :  </span>
                 </div>
               )}
             </div>
