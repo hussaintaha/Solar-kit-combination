@@ -3,13 +3,13 @@ import './App.css';
 import Modal from './component/Modal';
 
 
-
 const App = () => {
 
-  console.log(" ========== 55555555555555555 =========");
+  console.log(" ========== 99999999999999 =========");
+
+
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const [selectedProductId, setSelectedProductId] = useState({
     selectAirConditionerProducts: null,
     selectSolarPanelProducts: null,
@@ -38,10 +38,9 @@ const App = () => {
     selectChargeControllerproducts: 0,
     selectBatteryOptions: 0
   });
-
   const [customProductDistance, setCustomProductDistance] = useState({
-    paneltoBattery: 0,
-    batterytoHVAC: 0
+    paneltoBattery: null,
+    batterytoHVAC: null
   });
 
   const insulationOptions = [
@@ -50,7 +49,6 @@ const App = () => {
     { label: 'Good', value: 0.8, src: "https://havelockwool.com/wp-content/uploads/2022/04/r-19-insulation-2-1024x683.jpeg", desc: "abc" },
     { label: 'Paranoid', value: 0.6, src: "https://thumbs.dreamstime.com/b/thinking-others-opinion-concept-paranoid-man-head-funny-scary-faces-his-mind-brain-thinks-inside-his-brain-mind-218192654.jpg", desc: "abc" },
   ];
-
   const runTimeOptions = [
     { label: 'Overhead Sun Only', value: 1, src: "https://media.istockphoto.com/id/525206743/photo/solar-panel-on-a-red-roof.jpg?s=612x612&w=0&k=20&c=xcAkdNj8dFDhu8734FpRDAZDtN2bjr48RKEd9j2FL0U=", desc: "abc" },
     { label: '6 Hours a day', value: 6, src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbsmHfXt8frbLN3689skTjxEGvrXrEhNxSUQ&s", desc: "abc" },
@@ -75,9 +73,6 @@ const App = () => {
 
     return BTU;
   };
-
-
-
 
   const handleQuestions1_options = (e) => {
     const { name, value } = e.target;
@@ -108,46 +103,6 @@ const App = () => {
     getCollectionProductsAPI(newBTU);
   };
 
-
-  // const handleQuestions1_options = (e) => {
-  //   const { name, value } = e.target;
-
-  //   setSpaceAndVolume((prev) => {
-  //     const updatedValues = { ...prev, [name]: value }
-  //     const { length, width, height } = updatedValues;
-
-  //     const totalVolume = length && width && height ? length * width * height : 0;
-  //     return { ...updatedValues, totalVolume };
-  //   })
-  // }
-
-
-  // const handleInsulationChange = (e) => {
-  //   const { length, width, height } = spaceAndVolume;
-
-  //   if (!length && !width && !height) {
-  //     // alert("select the Length, Width and Height first");
-  //     setIsModalOpen(true)
-  //     return
-  //   }
-
-  //   let insulationFactor = e.target.value
-  //   // console.log("insulationFactor ============ ", insulationFactor);
-
-  //   let BTU = 0;
-  //   if (height < 6) {
-  //     BTU = (length * width * 10) * insulationFactor;
-  //   }
-  //   else if (height >= 6 && height <= 10) {
-  //     BTU = (length * width * 20) * insulationFactor;
-  //   }
-  //   else if (height > 10) {
-  //     BTU = (length * width * 27) * insulationFactor;
-  //   }
-  //   setInsulationValue(parseFloat(insulationFactor));
-  //   setRecommendedBTU(BTU)
-  //   getCollectionProductsAPI(BTU);
-  // };
 
   const getCollectionProductsAPI = async (BTU) => {
     try {
@@ -289,8 +244,10 @@ const App = () => {
         if (getItmes.items.length) {
           window.location.href = "/cart"
         }
+
       } catch (error) {
         console.log("error  ====", error);
+      } finally {
       }
     }
   }
@@ -304,7 +261,6 @@ const App = () => {
     }))
   }
 
-  const totalPrice = Object.values(selectedProductPrices).reduce((acc, price) => acc + price, 0).toFixed(2);
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -329,6 +285,18 @@ const App = () => {
       getBettryCollectionAPI(neededHarvestkWh);
     }
   }, [recommendedBTU, insulationValue, dailyRunTime]);
+
+  const calculateCustomePrice = () => {
+    const { paneltoBattery, batterytoHVAC } = customProductDistance;
+    if (paneltoBattery > 0 && batterytoHVAC > 0) {
+      const wiringCost = (paneltoBattery * 4) + (batterytoHVAC * 6) + 33; // Example logic
+      return wiringCost;
+    }
+    return 0;
+  }
+
+  const totalPrice = Object.values(selectedProductPrices).reduce((acc, price) => acc + price, 0 + calculateCustomePrice()).toFixed(2);
+
 
   return (
     <>
@@ -364,7 +332,7 @@ const App = () => {
               {spaceAndVolume.totalVolume > 0 && (
                 <div className='totalvolumeValue'>
                   <span>Total Volume: {spaceAndVolume.totalVolume.toLocaleString()} cubic feet</span>
-                  <span> Square Footage :  </span>
+                  <span> Square Footage : {squareFoot} square feet </span>
                 </div>
               )}
             </div>
@@ -397,7 +365,7 @@ const App = () => {
               ))}
             </div>
             <div> {insulationValue ?
-              <div style={{ margin: "10px 0px 0px 10px" }}>
+              <div className='displayBTU'>
                 <span> Recommended BTU :  {recommendedBTU.toLocaleString()} </span>
               </div>
               : ""} </div>
@@ -473,14 +441,14 @@ const App = () => {
 
           <div className='needed-harvest'>
             <div className='harvest-result'>
-              Your needed Harvest: {neededHarvest.toFixed(2)} kWh each 24 hours
+              Your needed Harvest: {Math.floor(neededHarvest).toLocaleString()} kWh
             </div>
           </div>
         </div>
 
         <div className='ques-5-container'>
           <div className='ques-5' >
-            <h1> 5. Calculate the watts of solar panels the customer needs and display an offer. </h1>
+            <h1> 5. How many solar panels is needed for this? </h1>
           </div>
 
           <div className='collection-container' >
@@ -511,11 +479,15 @@ const App = () => {
                       <h1> {ele.p} </h1>
                     </div>
                     <div>
-
                     </div>
                   </div>
                 )
               })}
+            </div>
+            <div className='recommendedWatts'>
+              <div>
+                Your recommended watts of Solar Capacity: {(Math.floor(neededHarvest / 3)).toLocaleString()} watts
+              </div>
             </div>
           </div>
         </div>
@@ -604,7 +576,7 @@ const App = () => {
 
         <div className='ques-8-container'>
           <div className='ques-8'>
-            <h1> Custom Wiring Kit </h1>
+            <h1> {customProductDistance.paneltoBattery} Feet from Panels to Batter / {customProductDistance.batterytoHVAC} Feet from Battery to HVAC </h1>
           </div>
           <div className='collection-container'>
             <div className='custome-product'>
@@ -634,8 +606,8 @@ const App = () => {
           <p style={{ margin: "0px" }}> Total price of selected products:</p>
           <span className='price'> ${totalPrice} </span>
         </div>
-        <button className='cartButton' onClick={handleAddToCart}> Add To Cart </button>
 
+        <button disabled={loading} className='cartButton' onClick={handleAddToCart}> Add To Cart </button>
       </div>
     </>
   );

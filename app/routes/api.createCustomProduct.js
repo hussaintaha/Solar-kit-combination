@@ -22,14 +22,13 @@ export const action = async ({ request }) => {
 
     const productData = {
       product: {
-        title: "Custom Wiring Kit",
+        title: `${paneltoBattery} Feet from Panels to Battery / ${batterytoHVAC} Feet from Battery to HVAC`,
         product_type: "Product",
-        images : "https://www.carplus.in/cdn/shop/files/Monster-Wiring-Kit-M600K-0_82-WIRING-KIT-MONSTER-3_1000x.jpg?v=1706875010",
+        tags: ["CustomWiringKit"],
         variants: [
           {
             price: customProductPrice,
             sku: "CWK-Small",
-            images: ["https://www.carplus.in/cdn/shop/files/Monster-Wiring-Kit-M600K-0_82-WIRING-KIT-MONSTER-3_1000x.jpg?v=1706875010"]
           }
         ],
         metafields: [
@@ -38,6 +37,9 @@ export const action = async ({ request }) => {
             key: "hidden",
             type: "number_integer",
             value: "1"
+          },
+          {
+            namespace: "custom Wiring Kit"
           }
         ],
       }

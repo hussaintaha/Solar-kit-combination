@@ -18,16 +18,28 @@ export const action = async ({ request }) => {
       if (session) {
         await db.session.deleteMany({ where: { shop } });
       }
+      
     case "ORDERS_FULFILLED": {
       console.log(" ORDERS_FULFILLED payload ======== ", payload);
       const productID = payload.line_items[0].product_id
       console.log("productID ================>>> ", productID);
 
       try {
+        const productResponse = await admin.graphql(`
+          query {
+            product(id: "gid://shopify/Product/${productID}") {
+              tags
+            }
+          }
+        `);
 
+        const productData = await productResponse.json();
+        // console.log("productData ============== ", productData);
 
-        if (payload.line_items[0].title === "Custom Wiring Kit") {
+        const tags = productData.data.product.tags;
+        console.log("tags ========= ", tags);
 
+        if (tags.includes("CustomWiringKit")) {
           const response = await admin.graphql(
             `#graphql
             mutation {
@@ -43,8 +55,10 @@ export const action = async ({ request }) => {
 
           const data = await response.json();
           const deleteProductData = data.data
+
           console.log("deleteProductData ========== ", deleteProductData);
         }
+        return
 
       } catch (error) {
         console.log("error in delete product ======== ", error);
@@ -52,7 +66,7 @@ export const action = async ({ request }) => {
       }
     }
 
-      break;
+
     case "CUSTOMERS_DATA_REQUEST":
     case "CUSTOMERS_REDACT":
     case "SHOP_REDACT":

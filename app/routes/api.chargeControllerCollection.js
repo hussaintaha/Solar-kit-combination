@@ -17,20 +17,20 @@ export const loader = async ({ request }) => {
         let collectionID;
         let collectionName;
         if (neededHarvestkWh < 4) {
-            collectionID = 428015616212
+            collectionID = 428938887380
             collectionName = "A"
         }
         else if (neededHarvestkWh > 4 && neededHarvestkWh < 10) {
-            collectionID = 428015648980
+            collectionID = 428938952916
             collectionName = "B"
         }
         else if (neededHarvestkWh > 10 && neededHarvestkWh < 20) {
-            collectionID = 428015681748
-            collectionName = "A"
+            collectionID = 428938985684
+            collectionName = "C"
         }
         else if (neededHarvestkWh > 20) {
-            collectionID = 428015681748
-            collectionName = "C"
+            collectionID = 428939018452
+            collectionName = "D"
         }
         // console.log("collectionID ======== ", collectionID);
 

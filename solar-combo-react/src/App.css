@@ -239,7 +239,6 @@ input[type="number"]:focus-visible {
 
 .harvest-result {
   font-size: 18px;
-  color: #333;
   margin-top: 10px;
   font-weight: bold;
 }
@@ -276,4 +275,27 @@ input[type="number"]:focus-visible {
 .cartButton:active {
   transform: translateY(0);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.displayBTU {
+  margin: 10px 0px 0px 10px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+
+.totalvolumeValue {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 100px;
+  font-size: 18px;
+  margin-top: 10px;
+  font-weight: 700;
+}
+
+.recommendedWatts {
+  font-size: 18px;
+  font-weight: 700;
 }

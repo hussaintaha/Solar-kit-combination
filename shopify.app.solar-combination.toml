@@ -3,7 +3,7 @@
 client_id = "f06f43a1013bd4e8895a4a15f6820596"
 name = "solar-combination"
 handle = "solar-combination"
-application_url = "https://kazakhstan-bristol-consultation-ears.trycloudflare.com"
+application_url = "https://knight-hospitals-bottle-wildlife.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,16 +17,16 @@ scopes = "read_inventory,read_orders,read_products,write_orders,write_products"
 
 [auth]
 redirect_urls = [
-  "https://kazakhstan-bristol-consultation-ears.trycloudflare.com/auth/callback",
-  "https://kazakhstan-bristol-consultation-ears.trycloudflare.com/auth/shopify/callback",
-  "https://kazakhstan-bristol-consultation-ears.trycloudflare.com/api/auth/callback"
+  "https://knight-hospitals-bottle-wildlife.trycloudflare.com/auth/callback",
+  "https://knight-hospitals-bottle-wildlife.trycloudflare.com/auth/shopify/callback",
+  "https://knight-hospitals-bottle-wildlife.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
 api_version = "2024-07"
 
 [app_proxy]
-url = "https://kazakhstan-bristol-consultation-ears.trycloudflare.com"
+url = "https://knight-hospitals-bottle-wildlife.trycloudflare.com"
 subpath = "proxy"
 prefix = "apps"
 
