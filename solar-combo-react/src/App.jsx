@@ -24,7 +24,7 @@ const App = () => {
   const [spaceAndVolume, setSpaceAndVolume] = useState({
     length: null,
     width: null,
-    height: null,
+    height: 8,
     totalVolume: null,
   });
   const [squareFoot, setSquareFoot] = useState(null)
