@@ -607,7 +607,7 @@ const App = () => {
           <span className='price'> ${totalPrice} </span>
         </div>
 
-        <button disabled={loading} className='cartButton' onClick={handleAddToCart}> Add To Cart </button>
+        <button className='cartButton' onClick={handleAddToCart}> Add To Cart </button>
       </div>
     </>
   );
