@@ -9,6 +9,9 @@ import {
 import { MongoDBSessionStorage } from "@shopify/shopify-app-session-storage-mongodb";
 import { restResources } from "@shopify/shopify-api/rest/admin/2024-07";
 import "./db.server";
+import dotenv from "dotenv"
+
+dotenv.config()
 
 const shopify = shopifyApp({
   apiKey: process.env.SHOPIFY_API_KEY,

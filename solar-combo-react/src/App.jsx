@@ -22,10 +22,10 @@ const App = () => {
   const [chargeControllerProducts, setChargeControllerProducts] = useState([]);
   const [batteryOption, setBatteryOptions] = useState([]);
   const [spaceAndVolume, setSpaceAndVolume] = useState({
-    length: 0,
-    width: 0,
-    height: 0,
-    totalVolume: 0,
+    length: null,
+    width: null,
+    height: null,
+    totalVolume: null,
   });
   const [recommendedBTU, setRecommendedBTU] = useState(0);
   const [insulationValue, setInsulationValue] = useState(0);
@@ -269,7 +269,7 @@ const App = () => {
       const neededHarvestkWh = (recommendedBTU / 16) * dailyRunTime * insulationValue;
       console.log("neededHarvestkWh ===================== ", neededHarvestkWh);
       setNeededharvest(neededHarvestkWh);
-  
+
       // Call the API with the new needed harvest
       getpanelCollectionAPI(neededHarvestkWh);
       getchargeControllerCollectionAPI(neededHarvestkWh);

@@ -39,7 +39,7 @@ export const loader = async ({ request }) => {
         });
 
         const collectionsProducts = await fetchCollectionProducts.json()
-        // console.log("collectionsProducts ========= ", collectionsProducts);
+        console.log("collectionsProducts ========= ", collectionsProducts);
 
         return {
             data: collectionsProducts,
