@@ -17,13 +17,13 @@ export const loader = async ({ request }) => {
 
         let collectionID;
         let collectionName;
-        if (recommendedBTU < 1000) {
+        if (recommendedBTU < 10000) {
             collectionID = 428938887380
             collectionName = "A"
-        } else if (recommendedBTU > 1000 && recommendedBTU < 1800) {
+        } else if (recommendedBTU > 10000 && recommendedBTU < 18000) {
             collectionID = 428938952916
             collectionName = "B"
-        } else if (recommendedBTU > 1800) {
+        } else if (recommendedBTU > 18000) {
             collectionID = 428938985684
             collectionName = "C"
         }
