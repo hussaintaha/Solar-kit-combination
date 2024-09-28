@@ -57,7 +57,7 @@ export const action = async ({ request }) => {
     const createdProductResponse = await createProducts.json()
     console.log("createdProductResponse ======= ", createdProductResponse);
 
-    const getVarientID = createdProductResponse.product.id
+    const getVarientID = createdProductResponse.product.variants[0].id
     console.log("getVarientID =============== ", getVarientID);
 
     return getVarientID

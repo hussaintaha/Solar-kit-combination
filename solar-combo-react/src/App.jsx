@@ -5,7 +5,7 @@ import Modal from './component/Modal';
 
 const App = () => {
 
-  console.log(" ========== 99999999999999 =========");
+  console.log(" ========== 7777777777777777777777777777777 =========");
 
 
 
@@ -108,8 +108,8 @@ const App = () => {
     try {
       const fetchproducts = await fetch(`https://${Shopify.shop}/apps/proxy/api/getCollectionProducts/?recommendedBTU=${BTU}`);
       const collectionProducts = await fetchproducts.json()
-      // console.log("collectionProducts ====== ", collectionProducts);
-      setProductData(collectionProducts.data.products);
+      console.log("collectionProducts ====== ", collectionProducts);
+      setProductData(collectionProducts.data);
     } catch (error) {
       console.log("error ========= ", error);
     }
@@ -120,7 +120,7 @@ const App = () => {
       const fetchProducts = await fetch(`https://${Shopify.shop}/apps/proxy/api/getpanelCollections/?neededHarvestkWh=${neededHarvestkWh}`);
       const panelCollectionProducts = await fetchProducts.json()
       console.log("panelCollectionProducts ====== ", panelCollectionProducts);
-      setPanelCollection(panelCollectionProducts.data.products)
+      setPanelCollection(panelCollectionProducts.data)
 
     } catch (error) {
       console.log("error ========= ", error);
@@ -132,7 +132,7 @@ const App = () => {
       const fetchProducts = await fetch(`https://${Shopify.shop}/apps/proxy/api/chargeControllerCollection/?neededHarvestkWh=${neededHarvestkWh}`);
       const chargeControllerProducts = await fetchProducts.json()
       // console.log("chargeControllerProducts ====== ", chargeControllerProducts);
-      setChargeControllerProducts(chargeControllerProducts.data.products)
+      setChargeControllerProducts(chargeControllerProducts.data)
     } catch (error) {
       console.log("error ========= ", error);
     }
@@ -142,8 +142,8 @@ const App = () => {
     try {
       const fetchProducts = await fetch(`https://${Shopify.shop}/apps/proxy/api/getBatteryOption/?neededHarvestkWh=${neededHarvestkWh}`);
       const batteryOptionProducts = await fetchProducts.json()
-      // console.log("batteryOptionProducts ====== ", batteryOptionProducts);
-      setBatteryOptions(batteryOptionProducts.data.products)
+      console.log("batteryOptionProducts ====== ", batteryOptionProducts);
+      setBatteryOptions(batteryOptionProducts.data)
     } catch (error) {
       console.log("error ========= ", error);
     }
@@ -167,7 +167,9 @@ const App = () => {
       });
 
       const productDetails = await fetchProductsDetails.json();
-      const productPrice = parseFloat(productDetails.productData.product.variants[0].price);
+      console.log("productDetails ======== ", productDetails);
+
+      const productPrice = parseFloat(productDetails.varientData.price);
 
       setSelectedProductPrices((prevState) => ({
         ...prevState,
@@ -373,13 +375,16 @@ const App = () => {
         </div>
 
 
-        <div className='ques-3-container'>
+        <div className='ques-3-container ques-wrapper'>
           <div className='ques-3'>
             <h1>3. Select Air Conditioner</h1>
           </div>
           <div className='collection-container'>
             <div className='collection-products'>
               {productsData.map((ele, index) => {
+                const title = ele.title.split("/")
+                const productTitle = title[0];
+                const variantTitle = title[1]
                 const isSelected = selectedProductId.selectAirConditionerProducts === ele.id;
                 return (
                   <div
@@ -399,7 +404,8 @@ const App = () => {
 
                     </div>
                     <div className='title'>
-                      <h1> {ele.title} </h1>
+                      <h1> {productTitle} </h1>
+                      <h1> {variantTitle} </h1>
                     </div>
                     <div>
                       <h1> {ele.p} </h1>
@@ -446,7 +452,7 @@ const App = () => {
           </div>
         </div>
 
-        <div className='ques-5-container'>
+        <div className='ques-5-container ques-wrapper'>
           <div className='ques-5' >
             <h1> 5. How many solar panels is needed for this? </h1>
           </div>
@@ -454,6 +460,9 @@ const App = () => {
           <div className='collection-container' >
             <div className='collection-products'>
               {panelCollection.map((ele, index) => {
+                const title = ele.title.split("/")
+                const productTitle = title[0];
+                const variantTitle = title[1]
                 const isSelected = selectedProductId.selectSolarPanelProducts === ele.id
                 return (
                   <div
@@ -473,7 +482,9 @@ const App = () => {
 
                     </div>
                     <div className='title'>
-                      <h1> {ele.title} </h1>
+                      <h1> {productTitle} </h1>
+                      <h1> {variantTitle} </h1>
+
                     </div>
                     <div>
                       <h1> {ele.p} </h1>
@@ -484,6 +495,7 @@ const App = () => {
                 )
               })}
             </div>
+            <br />
             <div className='recommendedWatts'>
               <div>
                 Your recommended watts of Solar Capacity: {(Math.floor(neededHarvest / 3)).toLocaleString()} watts
@@ -492,13 +504,16 @@ const App = () => {
           </div>
         </div>
 
-        <div className='ques-6-container'>
+        <div className='ques-6-container ques-wrapper'>
           <div className='ques-6'>
             <h1>6. suitable charge controller </h1>
           </div>
           <div className='collection-container'>
             <div className='collection-products'>
               {chargeControllerProducts.map((ele, index) => {
+                const title = ele.title.split("/")
+                const productTitle = title[0];
+                const variantTitle = title[1]
                 const isSelected = selectedProductId.selectChargeControllerproducts === ele.id
                 return (
                   <div
@@ -518,7 +533,8 @@ const App = () => {
 
                     </div>
                     <div className='title'>
-                      <h1> {ele.title} </h1>
+                      <h1> {productTitle} </h1>
+                      <h1> {variantTitle} </h1>
                     </div>
                     <div>
                       <h1> {ele.p} </h1>
@@ -533,13 +549,16 @@ const App = () => {
           </div>
         </div>
 
-        <div className='ques-7-container'>
+        <div className='ques-7-container ques-wrapper'>
           <div className='ques-7'>
             <h1>7. battery options </h1>
           </div>
           <div className='collection-container' >
             <div className='collection-products'>
               {batteryOption.map((ele, index) => {
+                const title = ele.title.split("/")
+                const productTitle = title[0];
+                const variantTitle = title[1]
                 const isSelected = selectedProductId.selectBatteryOptions === ele.id;
                 return (
                   <div
@@ -559,7 +578,9 @@ const App = () => {
 
                     </div>
                     <div className='title'>
-                      <h1> {ele.title} </h1>
+                      <h1> {productTitle} </h1>
+                      <h1> {variantTitle} </h1>
+
                     </div>
                     <div>
                       <h1> {ele.p} </h1>

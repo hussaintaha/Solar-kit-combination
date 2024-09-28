@@ -3,7 +3,7 @@
 client_id = "f06f43a1013bd4e8895a4a15f6820596"
 name = "solar-combination"
 handle = "solar-combination"
-application_url = "https://toward-dream-sandwich-drove.trycloudflare.com"
+application_url = "https://tables-tournaments-collections-idol.trycloudflare.com"
 embedded = true
 
 [build]
@@ -13,20 +13,20 @@ include_config_on_deploy = true
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "read_inventory,read_products,write_products,read_orders,write_orders"
+scopes = "read_inventory,read_orders,read_products,write_orders,write_products"
 
 [auth]
 redirect_urls = [
-  "https://toward-dream-sandwich-drove.trycloudflare.com/auth/callback",
-  "https://toward-dream-sandwich-drove.trycloudflare.com/auth/shopify/callback",
-  "https://toward-dream-sandwich-drove.trycloudflare.com/api/auth/callback"
+  "https://tables-tournaments-collections-idol.trycloudflare.com/auth/callback",
+  "https://tables-tournaments-collections-idol.trycloudflare.com/auth/shopify/callback",
+  "https://tables-tournaments-collections-idol.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
 api_version = "2024-07"
 
 [app_proxy]
-url = "https://toward-dream-sandwich-drove.trycloudflare.com"
+url = "https://tables-tournaments-collections-idol.trycloudflare.com"
 subpath = "proxy"
 prefix = "apps"
 

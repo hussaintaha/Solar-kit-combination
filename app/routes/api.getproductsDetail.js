@@ -1,5 +1,5 @@
 import { authenticate } from "../shopify.server";
-
+// /home/vowelweb/solar-combo-app/solar-combination/app/routes/api.getproductsDetail.js
 
 export const action = async ({ request }) => {
     try {
@@ -9,11 +9,11 @@ export const action = async ({ request }) => {
 
 
         const productId = await request.json();
-        // console.log("productId ====== ", productId);
+        console.log("productId ====== ", productId);
 
         if (productId) {
 
-            const fetchProducts = await fetch(`https://${session.shop}/admin/api/2024-01/products/${productId.productId}.json`, {
+            const fetchProducts = await fetch(`https://${session.shop}/admin/api/2024-07/variants/${productId.productId}.json`, {
                 method: "GET",
                 headers: {
                     'X-Shopify-Access-Token': session.accessToken,
@@ -22,9 +22,10 @@ export const action = async ({ request }) => {
             });
 
             const productData = await fetchProducts.json();
-            // console.log("productData ======= ", productData);
+            console.log("productData ======= ", productData);
 
-            return { productData }
+            const varientData = productData.variant
+            return { varientData }
         } else {
             console.log("Product Id not found");
             return "Product Id not found"

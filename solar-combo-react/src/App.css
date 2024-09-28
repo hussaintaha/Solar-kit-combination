@@ -25,6 +25,10 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.ques-wrapper {
+  overflow-x: scroll;
+}
+
 .ques-1 h1,
 .ques-2 h1,
 .ques-3 h1,
@@ -127,7 +131,7 @@ input[type="number"]:focus-visible {
 
 .collection-products {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 20px;
 }
 

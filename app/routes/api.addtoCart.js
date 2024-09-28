@@ -4,7 +4,7 @@ export const action = async ({ request }) => {
     try {
 
         const { session } = await authenticate.public.appProxy(request);
-        console.log("session =======", session);
+        // console.log("session =======", session);
 
         const requestObject = await request.json();
         console.log("requestObject ========== ", requestObject);
@@ -12,14 +12,14 @@ export const action = async ({ request }) => {
         const productIDObject = requestObject.selectedProductId;
         console.log("productIDObject ====== ", productIDObject);
 
-   
+
         let varientIdArray = [];
 
         const fetchPromises = Object.values(productIDObject).map(async (productId) => {
             if (productId) {
                 console.log(`Fetching product ID: ${productId}`);
 
-                const response = await fetch(`https://${session.shop}/admin/api/2024-01/products/${productId}.json`, {
+                const response = await fetch(`https://${session.shop}/admin/api/2024-07/variants/${productId}.json`, {
                     method: "GET",
                     headers: {
                         'X-Shopify-Access-Token': session.accessToken,
@@ -32,7 +32,10 @@ export const action = async ({ request }) => {
                 }
 
                 const productData = await response.json();
-                const varientIds = productData.product.variants[0].id
+                console.log("productData ========= ", productData);
+
+
+                const varientIds = productData.variant.id
                 varientIdArray.push(varientIds)
 
                 return productData.product;
@@ -52,23 +55,6 @@ export const action = async ({ request }) => {
 
 
 
-
-
-
-// const fetchProducts = await fetch(`https://${sessionObject.shop}/admin/api/2024-01/products/8610287354068.json`, {
-//     method: "GET",
-//     headers: {
-//         'X-Shopify-Access-Token': sessionObject.accessToken,
-//         'Content-Type': 'application/json'
-//     }
-// });
-
-// const productData = await fetchProducts.json();
-// console.log("productData ======= ", productData.product.variants);
-
-
-// // console.log("fetchProductsData ========= ", fetchProductsData[0].variants);
-// return { fetchProductsData };
 
 
 

@@ -162,19 +162,3 @@ C. Deployment (2 hours)
 
 ================================================================================================================================
 
-
-
-
-
-
-
-
-
-
-ok so first, the recommended BTU in step 2 need to update when I change any of the dimensions in step 1
-we cannot accept it without that working
-it's broken
-it needs to call for a recalculation when value is changed
-if the page loads without 0 0 0 in the dimensions entered and it doesn't break the script can you make them load blank
-
-================>>>>>>>>>> Done

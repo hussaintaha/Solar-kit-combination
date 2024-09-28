@@ -44,10 +44,45 @@ export const loader = async ({ request }) => {
         });
 
         const collectionsProducts = await fetchCollectionProducts.json()
-        // console.log("collectionsProducts ========= ", collectionsProducts);
+        const collectionproductDetails = collectionsProducts.products;
+
+
+        const productImages = {};
+        const productTitles = {};
+
+        collectionproductDetails.forEach(product => {
+            if (product.images.length > 0) {
+                productImages[product.id] = product.images[0];
+            }
+            productTitles[product.id] = product.title;
+        });
+
+
+        const collectionproductsId = collectionproductDetails.map(product => product.id);
+
+        const fetchProductsVariants = await Promise.all(
+            collectionproductsId.map(async (productId) => {
+                const fetchVariants = await fetch(`https://${session.shop}/admin/api/2024-01/products/${productId}/variants.json`, {
+                    method: "GET",
+                    headers: {
+                        'X-Shopify-Access-Token': session.accessToken,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                const variantsData = await fetchVariants.json();
+                return variantsData.variants.map(variant => ({
+                    ...variant,
+                    image: productImages[productId],
+                    title: variant.title === "Default Title" ? productTitles[productId] : `${productTitles[productId]}/${variant.title}`
+                }));
+            })
+        );
+
+        const allVariants = fetchProductsVariants.flat();
+        console.log("allVariants ========= ", allVariants);
 
         return {
-            data: collectionsProducts
+            data: allVariants
         }
 
 
