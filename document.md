@@ -10,7 +10,7 @@ Each group has different sizes and properties but the 5 groups comprise the kit.
 
 Select Unit Size -> Solar Panel -> Controller -> Battery -> Wiring -> Add to Cart
 
----------------------------------------------------------------------
+---------------------------------------------------------------------                         
 
 1. How big is the space you are heating?
 

@@ -11,9 +11,11 @@ export const action = async ({ request }) => {
         const productId = await request.json();
         console.log("productId ====== ", productId);
 
+        const variantID = productId.productId
+
         if (productId) {
 
-            const fetchProducts = await fetch(`https://${session.shop}/admin/api/2024-07/variants/${productId.productId}.json`, {
+            const fetchProducts = await fetch(`https://${session.shop}/admin/api/2024-07/variants/${variantID}.json`, {
                 method: "GET",
                 headers: {
                     'X-Shopify-Access-Token': session.accessToken,
@@ -22,7 +24,7 @@ export const action = async ({ request }) => {
             });
 
             const productData = await fetchProducts.json();
-            console.log("productData ======= ", productData);
+            // console.log("productData ======= ", productData);
 
             const varientData = productData.variant
             return { varientData }

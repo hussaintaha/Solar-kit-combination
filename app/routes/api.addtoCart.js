@@ -7,7 +7,7 @@ export const action = async ({ request }) => {
         // console.log("session =======", session);
 
         const requestObject = await request.json();
-        console.log("requestObject ========== ", requestObject);
+        // console.log("requestObject ========== ", requestObject);
 
         const productIDObject = requestObject.selectedProductId;
         console.log("productIDObject ====== ", productIDObject);
@@ -32,7 +32,7 @@ export const action = async ({ request }) => {
                 }
 
                 const productData = await response.json();
-                console.log("productData ========= ", productData);
+                // console.log("productData ========= ", productData);
 
 
                 const varientIds = productData.variant.id
@@ -46,6 +46,7 @@ export const action = async ({ request }) => {
         // console.log("fetchProductsData ======= ", fetchProductsData);
 
         return { success: true, varientIdArray: varientIdArray };
+        return true
     } catch (error) {
         console.error("Error ========== ", error);
         return { success: false, message: error.message };

@@ -18,7 +18,7 @@ export const action = async ({ request }) => {
       if (session) {
         await db.session.deleteMany({ where: { shop } });
       }
-      
+
     case "ORDERS_FULFILLED": {
       console.log(" ORDERS_FULFILLED payload ======== ", payload);
       const productID = payload.line_items[0].product_id
@@ -55,10 +55,11 @@ export const action = async ({ request }) => {
 
           const data = await response.json();
           const deleteProductData = data.data
-
           console.log("deleteProductData ========== ", deleteProductData);
+          return ({ message: "Product Delete Successfully" })
+        } else {
+          return ({ message: "tag not found" })
         }
-        return
 
       } catch (error) {
         console.log("error in delete product ======== ", error);

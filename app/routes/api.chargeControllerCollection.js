@@ -3,7 +3,7 @@ import { authenticate } from "../shopify.server";
 export const loader = async ({ request }) => {
     try {
 
-        const { session } = await authenticate.public.appProxy(request);
+        const { session, admin } = await authenticate.public.appProxy(request);
         console.log("session =======", session);
 
         const urlString = request.url
@@ -11,79 +11,53 @@ export const loader = async ({ request }) => {
 
         const params = new URLSearchParams(url.search);
 
+        // Get the value of 'neededHarvestkWh' from the URL query string
         const neededHarvestkWh = params.get('neededHarvestkWh');
         // console.log("neededHarvestkWh ======== ", neededHarvestkWh);
 
-        let collectionID;
-        let collectionName;
+        let variantId = [];
+
         if (neededHarvestkWh < 4) {
-            collectionID = 428938887380
-            collectionName = "A"
+            variantId = [45672874803412, 45672874475732, 45672871526612]; // Set these IDs for the range below 4kWh
         }
         else if (neededHarvestkWh > 4 && neededHarvestkWh < 10) {
-            collectionID = 428938952916
-            collectionName = "B"
+            variantId = [45672874803412, 45672874475732, 45672871526612]; // Set these IDs for the 4-10kWh range
         }
         else if (neededHarvestkWh > 10 && neededHarvestkWh < 20) {
-            collectionID = 428938985684
-            collectionName = "C"
+            variantId = [45672874803412, 45672874475732, 45672871526612]; // Set these IDs for the 10-20kWh range
         }
         else if (neededHarvestkWh > 20) {
-            collectionID = 428939018452
-            collectionName = "D"
+            variantId = [45672874803412, 45672874475732, 45672871526612]; // Set these IDs for the range above 20kWh
         }
         // console.log("collectionID ======== ", collectionID);
 
+        // Fetch product variants for the given IDs
+        const fetchProductsVariants = [];
 
-        const fetchCollectionProducts = await fetch(`https://${session.shop}/admin/api/2024-01/collections/${collectionID}/products.json`, {
-            method: "GET",
-            headers: {
-                'X-Shopify-Access-Token': session.accessToken,
-                'Content-Type': 'application/json'
-            }
-        });
-
-        const collectionsProducts = await fetchCollectionProducts.json()
-        const collectionproductDetails = collectionsProducts.products;
-
-
-        const productImages = {};
-        const productTitles = {};
-
-        collectionproductDetails.forEach(product => {
-            if (product.images.length > 0) {
-                productImages[product.id] = product.images[0];
-            }
-            productTitles[product.id] = product.title;
-        });
-
-
-        const collectionproductsId = collectionproductDetails.map(product => product.id);
-
-        const fetchProductsVariants = await Promise.all(
-            collectionproductsId.map(async (productId) => {
-                const fetchVariants = await fetch(`https://${session.shop}/admin/api/2024-01/products/${productId}/variants.json`, {
-                    method: "GET",
-                    headers: {
-                        'X-Shopify-Access-Token': session.accessToken,
-                        'Content-Type': 'application/json'
+        // Sequentially fetch product variants for each ID
+        for (let id of variantId) {
+            const response = await admin.graphql(
+                `#graphql
+                query {
+                  productVariant(id: "gid://shopify/ProductVariant/${id}") {
+                    id
+                    image {
+                      id
+                      url
                     }
-                });
-                const variantsData = await fetchVariants.json();
-                return variantsData.variants.map(variant => ({
-                    ...variant,
-                    image: productImages[productId],
-                    title: variant.title === "Default Title" ? productTitles[productId] : `${productTitles[productId]}/${variant.title}`
-                }));
-            })
-        );
+                    title
+                  }
+                }`
+            );
 
-        const allVariants = fetchProductsVariants.flat();
-        console.log("allVariants ========= ", allVariants);
-
-        return {
-            data: allVariants
+            const data = await response.json();
+            fetchProductsVariants.push(data.data.productVariant);
         }
+        // console.log("fetchProductsVariants ======= ", fetchProductsVariants);
+
+        // Return the fetched product variants
+        return fetchProductsVariants;
+
 
 
 
@@ -94,3 +68,35 @@ export const loader = async ({ request }) => {
 
     }
 }
+
+
+
+
+
+
+
+
+// const fetchCollectionProducts = await fetch(`https://${session.shop}/admin/api/2024-01/collections/${collectionID}/products.json`, {
+//     method: "GET",
+//     headers: {
+//         'X-Shopify-Access-Token': session.accessToken,
+//         'Content-Type': 'application/json'
+//     }
+// });
+
+// const collectionsProducts = await fetchCollectionProducts.json()
+// const collectionproductDetails = collectionsProducts.products;
+
+
+// const productImages = {};
+// const productTitles = {};
+
+// collectionproductDetails.forEach(product => {
+//     if (product.images.length > 0) {
+//         productImages[product.id] = product.images[0];
+//     }
+//     productTitles[product.id] = product.title;
+// });
+
+
+// const collectionproductsId = collectionproductDetails.map(product => product.id);

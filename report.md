@@ -88,3 +88,9 @@ Remaining work: Hosting the app using the provided credentials: ssh taha@38.39.1
 
 
 
+
+28/9/24
+ I have update the UI and display the product variant belonging to each products which present in collection.
+ I have set title product title / variant title and if some case variant title is default title then i just show the product title.
+ i have set the image in variant if variant doest how any image then i show the product image.
+ if variant is more than 5 then we show the scrollbar to slide the variants. 

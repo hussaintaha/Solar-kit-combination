@@ -5,7 +5,7 @@ import Modal from './component/Modal';
 
 const App = () => {
 
-  console.log(" ========== 7777777777777777777777777777777 =========");
+  console.log(" ========== 999999999999999 =========");
 
 
 
@@ -98,9 +98,12 @@ const App = () => {
     setInsulationValue(insulationFactor);
 
     const { length, width, height } = spaceAndVolume;
-    const newBTU = calculateBTU(length, width, height, insulationFactor);
-    setRecommendedBTU(newBTU);
-    getCollectionProductsAPI(newBTU);
+    if (length && width && insulationFactor) {
+      console.log("length, width, height, insulationFactor ======= ", length, width, height, insulationFactor);
+      const newBTU = calculateBTU(length, width, height, insulationFactor);
+      setRecommendedBTU(newBTU);
+      getCollectionProductsAPI(newBTU);
+    }
   };
 
 
@@ -108,8 +111,8 @@ const App = () => {
     try {
       const fetchproducts = await fetch(`https://${Shopify.shop}/apps/proxy/api/getCollectionProducts/?recommendedBTU=${BTU}`);
       const collectionProducts = await fetchproducts.json()
-      console.log("collectionProducts ====== ", collectionProducts);
-      setProductData(collectionProducts.data);
+      // console.log("collectionProducts ====== ", collectionProducts);
+      setProductData(collectionProducts);
     } catch (error) {
       console.log("error ========= ", error);
     }
@@ -119,8 +122,8 @@ const App = () => {
     try {
       const fetchProducts = await fetch(`https://${Shopify.shop}/apps/proxy/api/getpanelCollections/?neededHarvestkWh=${neededHarvestkWh}`);
       const panelCollectionProducts = await fetchProducts.json()
-      console.log("panelCollectionProducts ====== ", panelCollectionProducts);
-      setPanelCollection(panelCollectionProducts.data)
+      // console.log("panelCollectionProducts ====== ", panelCollectionProducts);
+      setPanelCollection(panelCollectionProducts)
 
     } catch (error) {
       console.log("error ========= ", error);
@@ -132,7 +135,7 @@ const App = () => {
       const fetchProducts = await fetch(`https://${Shopify.shop}/apps/proxy/api/chargeControllerCollection/?neededHarvestkWh=${neededHarvestkWh}`);
       const chargeControllerProducts = await fetchProducts.json()
       // console.log("chargeControllerProducts ====== ", chargeControllerProducts);
-      setChargeControllerProducts(chargeControllerProducts.data)
+      setChargeControllerProducts(chargeControllerProducts)
     } catch (error) {
       console.log("error ========= ", error);
     }
@@ -142,8 +145,8 @@ const App = () => {
     try {
       const fetchProducts = await fetch(`https://${Shopify.shop}/apps/proxy/api/getBatteryOption/?neededHarvestkWh=${neededHarvestkWh}`);
       const batteryOptionProducts = await fetchProducts.json()
-      console.log("batteryOptionProducts ====== ", batteryOptionProducts);
-      setBatteryOptions(batteryOptionProducts.data)
+      // console.log("batteryOptionProducts ====== ", batteryOptionProducts);
+      setBatteryOptions(batteryOptionProducts)
     } catch (error) {
       console.log("error ========= ", error);
     }
@@ -151,6 +154,8 @@ const App = () => {
 
 
   const handleSelectProduct = async (productType, productId) => {
+
+    console.log("productId ==== ", productId)
 
     setSelectedProductId((prevState) => ({
       ...prevState,
@@ -194,7 +199,7 @@ const App = () => {
       });
 
       const createProductResponse = await createProductAPI.json();
-      // console.log("createProductResponse ============ ", createProductResponse);
+      console.log("createProductResponse ============ ", createProductResponse);
 
       if (createProductResponse) {
         productsId = {
@@ -382,36 +387,26 @@ const App = () => {
           <div className='collection-container'>
             <div className='collection-products'>
               {productsData.map((ele, index) => {
-                const title = ele.title.split("/")
-                const productTitle = title[0];
-                const variantTitle = title[1]
-                const isSelected = selectedProductId.selectAirConditionerProducts === ele.id;
+                const isSelected = selectedProductId.selectAirConditionerProducts === ele.id.split("/")[4];
                 return (
                   <div
                     className='products' key={ele.id}
-                    onClick={() => handleSelectProduct('selectAirConditionerProducts', ele.id)}
+                    onClick={() => handleSelectProduct('selectAirConditionerProducts', ele.id.split("/")[4])}
                     style={{
                       border: isSelected ? '2px solid blue' : '1px solid grey',
                       cursor: 'pointer'
                     }}
                   >
                     <div className='productsImage'>
-                      {ele && ele.image && ele.image.src ? (
-                        <img src={ele.image.src} style={{ width: "100px", height: "100px" }} alt="Product" />
+                      {ele && ele.image && ele.image.url ? (
+                        <img src={ele.image.url} style={{ width: "100px", height: "100px" }} alt="Product" />
                       ) : (
                         <p>No image available</p>
                       )}
 
                     </div>
                     <div className='title'>
-                      <h1> {productTitle} </h1>
-                      <h1> {variantTitle} </h1>
-                    </div>
-                    <div>
-                      <h1> {ele.p} </h1>
-                    </div>
-                    <div>
-
+                      <h1> {ele.title} </h1>
                     </div>
                   </div>
                 )
@@ -460,37 +455,28 @@ const App = () => {
           <div className='collection-container' >
             <div className='collection-products'>
               {panelCollection.map((ele, index) => {
-                const title = ele.title.split("/")
-                const productTitle = title[0];
-                const variantTitle = title[1]
-                const isSelected = selectedProductId.selectSolarPanelProducts === ele.id
+                const isSelected = selectedProductId.selectSolarPanelProducts === ele.id.split("/")[4]
                 return (
                   <div
                     className='products' key={ele.id}
-                    onClick={() => handleSelectProduct('selectSolarPanelProducts', ele.id)}
+                    onClick={() => handleSelectProduct('selectSolarPanelProducts', ele.id.split("/")[4])}
                     style={{
                       border: isSelected ? '2px solid blue' : '1px solid grey',
                       cursor: 'pointer'
                     }}
                   >
                     <div className='productsImage'>
-                      {ele && ele.image && ele.image.src ? (
-                        <img src={ele.image.src} style={{ width: "100px", height: "100px" }} alt="Product" />
+                      {ele && ele.image && ele.image.url ? (
+                        <img src={ele.image.url} style={{ width: "100px", height: "100px" }} alt="Product" />
                       ) : (
                         <p>No image available</p>
                       )}
 
                     </div>
                     <div className='title'>
-                      <h1> {productTitle} </h1>
-                      <h1> {variantTitle} </h1>
+                      <h1> {ele.title} </h1>
+                    </div>
 
-                    </div>
-                    <div>
-                      <h1> {ele.p} </h1>
-                    </div>
-                    <div>
-                    </div>
                   </div>
                 )
               })}
@@ -511,36 +497,26 @@ const App = () => {
           <div className='collection-container'>
             <div className='collection-products'>
               {chargeControllerProducts.map((ele, index) => {
-                const title = ele.title.split("/")
-                const productTitle = title[0];
-                const variantTitle = title[1]
-                const isSelected = selectedProductId.selectChargeControllerproducts === ele.id
+                const isSelected = selectedProductId.selectChargeControllerproducts === ele.id.split("/")[4]
                 return (
                   <div
                     className='products' key={ele.id}
-                    onClick={() => handleSelectProduct('selectChargeControllerproducts', ele.id)}
+                    onClick={() => handleSelectProduct('selectChargeControllerproducts', ele.id.split("/")[4])}
                     style={{
                       border: isSelected ? '2px solid blue' : '1px solid grey',
                       cursor: 'pointer'
                     }}
                   >
                     <div className='productsImage'>
-                      {ele && ele.image && ele.image.src ? (
-                        <img src={ele.image.src} style={{ width: "100px", height: "100px" }} alt="Product" />
+                      {ele && ele.image && ele.image.url ? (
+                        <img src={ele.image.url} style={{ width: "100px", height: "100px" }} alt="Product" />
                       ) : (
                         <p>No image available</p>
                       )}
 
                     </div>
                     <div className='title'>
-                      <h1> {productTitle} </h1>
-                      <h1> {variantTitle} </h1>
-                    </div>
-                    <div>
-                      <h1> {ele.p} </h1>
-                    </div>
-                    <div>
-
+                      <h1> {ele.title} </h1>
                     </div>
                   </div>
                 )
@@ -556,36 +532,26 @@ const App = () => {
           <div className='collection-container' >
             <div className='collection-products'>
               {batteryOption.map((ele, index) => {
-                const title = ele.title.split("/")
-                const productTitle = title[0];
-                const variantTitle = title[1]
-                const isSelected = selectedProductId.selectBatteryOptions === ele.id;
+                const isSelected = selectedProductId.selectBatteryOptions === ele.id.split("/")[4];
                 return (
                   <div
                     className='products' key={ele.id}
-                    onClick={() => handleSelectProduct('selectBatteryOptions', ele.id)}
+                    onClick={() => handleSelectProduct('selectBatteryOptions', ele.id.split("/")[4])}
                     style={{
                       border: isSelected ? '2px solid blue' : '1px solid grey',
                       cursor: 'pointer'
                     }}
                   >
                     <div className='productsImage'>
-                      {ele && ele.image && ele.image.src ? (
-                        <img src={ele.image.src} style={{ width: "100px", height: "100px" }} alt="Product" />
+                      {ele && ele.image && ele.image.url ? (
+                        <img src={ele.image.url} style={{ width: "100px", height: "100px" }} alt="Product" />
                       ) : (
                         <p>No image available</p>
                       )}
 
                     </div>
                     <div className='title'>
-                      <h1> {productTitle} </h1>
-                      <h1> {variantTitle} </h1>
-
-                    </div>
-                    <div>
-                      <h1> {ele.p} </h1>
-                    </div>
-                    <div>
+                      <h1> {ele.title} </h1>
                     </div>
                   </div>
                 )
