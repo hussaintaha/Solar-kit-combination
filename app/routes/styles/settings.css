@@ -1,0 +1,20 @@
+.btu-range {
+    width: 10%;
+}
+
+.btu-range-selector {
+    margin-bottom: 1.5rem;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.display-name {
+    max-width: 200px; /* Set a limit on the width */
+    word-break: break-word; /* Ensure long words break */
+    white-space: normal; /* Allow wrapping */
+    overflow: hidden;
+}

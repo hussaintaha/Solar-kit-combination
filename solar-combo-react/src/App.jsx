@@ -5,7 +5,7 @@ import Modal from './component/Modal';
 
 const App = () => {
 
-  console.log(" ========== 6666666666666666666666666 =========");
+  console.log(" ========== 9999999999999 =========");
 
 
 
@@ -114,8 +114,8 @@ const App = () => {
     try {
       const fetchproducts = await fetch(`https://${Shopify.shop}/apps/proxy/api/getCollectionProducts/?recommendedBTU=${BTU}`);
       const collectionProducts = await fetchproducts.json()
-      // console.log("collectionProducts ====== ", collectionProducts);
-      setProductData(collectionProducts);
+      console.log("collectionProducts ====== ", collectionProducts);
+      setProductData(collectionProducts.products);
     } catch (error) {
       console.log("error ========= ", error);
     }
@@ -292,7 +292,7 @@ const App = () => {
       getchargeControllerCollectionAPI(neededHarvestkWh);
       getBettryCollectionAPI(neededHarvestkWh);
     } else {
-
+      
     }
   }, [recommendedBTU, insulationValue, dailyRunTime]);
 
@@ -401,8 +401,8 @@ const App = () => {
                     }}
                   >
                     <div className='productsImage'>
-                      {ele && ele.image && ele.image.url ? (
-                        <img src={ele.image.url} style={{ width: "100px", height: "100px" }} alt="Product" />
+                      {ele && ele.image && ele.image.originalSrc ? (
+                        <img src={ele.image.originalSrc} style={{ width: "100px", height: "100px" }} alt="Product" />
                       ) : (
                         <p>No image available</p>
                       )}
