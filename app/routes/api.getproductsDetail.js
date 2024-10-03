@@ -5,11 +5,10 @@ export const action = async ({ request }) => {
     try {
 
         const { session } = await authenticate.public.appProxy(request);
-        console.log("session =======", session);
-
+        // console.log("session =======", session);
 
         const productId = await request.json();
-        console.log("productId ====== ", productId);
+        // console.log("productId ====== ", productId);
 
         const variantID = productId.productId
 

@@ -5,7 +5,7 @@ import Modal from './component/Modal';
 
 const App = () => {
 
-  console.log(" ========== 999999999999999 =========");
+  console.log(" ========== 6666666666666666666666666 =========");
 
 
 
@@ -82,11 +82,15 @@ const App = () => {
       const { length, width, height } = updatedValues;
 
       const totalVolume = length && width && height ? length * width * height : 0;
-      const insulationFactor = insulationValue || 1;
-      const newBTU = calculateBTU(length, width, height, insulationFactor);
 
-      setRecommendedBTU(newBTU);
-      setSquareFoot(length * width)
+      if (length && width && height && insulationValue) {
+        const newBTU = calculateBTU(length, width, height, insulationValue);
+        setRecommendedBTU(newBTU);
+        setSquareFoot(squareFoot);
+
+        // Fetch products based on the new BTU
+        getCollectionProductsAPI(newBTU);
+      }
 
       return { ...updatedValues, totalVolume };
     });
@@ -99,7 +103,6 @@ const App = () => {
 
     const { length, width, height } = spaceAndVolume;
     if (length && width && insulationFactor) {
-      console.log("length, width, height, insulationFactor ======= ", length, width, height, insulationFactor);
       const newBTU = calculateBTU(length, width, height, insulationFactor);
       setRecommendedBTU(newBTU);
       getCollectionProductsAPI(newBTU);
@@ -122,7 +125,7 @@ const App = () => {
     try {
       const fetchProducts = await fetch(`https://${Shopify.shop}/apps/proxy/api/getpanelCollections/?neededHarvestkWh=${neededHarvestkWh}`);
       const panelCollectionProducts = await fetchProducts.json()
-      // console.log("panelCollectionProducts ====== ", panelCollectionProducts);
+      console.log("panelCollectionProducts ====== ", panelCollectionProducts);
       setPanelCollection(panelCollectionProducts)
 
     } catch (error) {
@@ -134,7 +137,7 @@ const App = () => {
     try {
       const fetchProducts = await fetch(`https://${Shopify.shop}/apps/proxy/api/chargeControllerCollection/?neededHarvestkWh=${neededHarvestkWh}`);
       const chargeControllerProducts = await fetchProducts.json()
-      // console.log("chargeControllerProducts ====== ", chargeControllerProducts);
+      console.log("chargeControllerProducts ====== ", chargeControllerProducts);
       setChargeControllerProducts(chargeControllerProducts)
     } catch (error) {
       console.log("error ========= ", error);
@@ -145,17 +148,15 @@ const App = () => {
     try {
       const fetchProducts = await fetch(`https://${Shopify.shop}/apps/proxy/api/getBatteryOption/?neededHarvestkWh=${neededHarvestkWh}`);
       const batteryOptionProducts = await fetchProducts.json()
-      // console.log("batteryOptionProducts ====== ", batteryOptionProducts);
+      console.log("batteryOptionProducts ====== ", batteryOptionProducts);
       setBatteryOptions(batteryOptionProducts)
     } catch (error) {
       console.log("error ========= ", error);
     }
   }
 
-
   const handleSelectProduct = async (productType, productId) => {
-
-    console.log("productId ==== ", productId)
+    console.log("productId ====== ", productId);
 
     setSelectedProductId((prevState) => ({
       ...prevState,
@@ -172,7 +173,7 @@ const App = () => {
       });
 
       const productDetails = await fetchProductsDetails.json();
-      console.log("productDetails ======== ", productDetails);
+      // console.log("productDetails ======== ", productDetails);
 
       const productPrice = parseFloat(productDetails.varientData.price);
 
@@ -222,7 +223,7 @@ const App = () => {
 
     const productIdresponse = await sendProductIDAPI.json()
     const productIdArray = productIdresponse.varientIdArray
-    // console.log("productIdresponse ======== ", productIdArray);
+    console.log("productIdresponse ======== ", productIdArray);
 
 
     if (productIdresponse.success) {
@@ -246,11 +247,11 @@ const App = () => {
         });
 
         const getItmes = await additmesAPI.json()
-        // console.log("getItmes ======= ", getItmes);
+        console.log("getItmes ======= ", getItmes);
 
-        if (getItmes.items.length) {
-          window.location.href = "/cart"
-        }
+        // if (getItmes.items.length) {
+        //   window.location.href = "/cart"
+        // }
 
       } catch (error) {
         console.log("error  ====", error);
@@ -290,6 +291,8 @@ const App = () => {
       getpanelCollectionAPI(neededHarvestkWh);
       getchargeControllerCollectionAPI(neededHarvestkWh);
       getBettryCollectionAPI(neededHarvestkWh);
+    } else {
+
     }
   }, [recommendedBTU, insulationValue, dailyRunTime]);
 
@@ -406,7 +409,7 @@ const App = () => {
 
                     </div>
                     <div className='title'>
-                      <h1> {ele.title} </h1>
+                      <h1> {ele.displayName} </h1>
                     </div>
                   </div>
                 )

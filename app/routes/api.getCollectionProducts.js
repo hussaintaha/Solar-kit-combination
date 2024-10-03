@@ -12,18 +12,21 @@ export const loader = async ({ request }) => {
 
         // Initialize the array of variant IDs based on the recommendedBTU range        
         let variantId = [];
-
+        let collectionName;
         // If BTU is less than 10,000, select the corresponding variant IDs
         if (recommendedBTU < 10000) {
             variantId = [45672874803412, 45672874475732, 45672871526612]; // Replace these IDs with the correct ones if needed
+            collectionName = "A"
         }
         // If BTU is between 10,000 and 18,000, select another set of variant IDs
         else if (recommendedBTU >= 10000 && recommendedBTU <= 18000) {
             variantId = [45672874475732, 45672871526612, 45672874574036]; // Replace these IDs with the correct ones if needed
+            collectionName = "B"
         }
         // If BTU is greater than 18,000, select a third set of variant IDs
         else if (recommendedBTU > 18000) {
             variantId = [45672873066708, 45672871493844, 45672874541268, 45672874442964]; // Replace these IDs with the correct ones if needed
+            collectionName = "C"
         }
 
         const fetchVariant = async (id) => {
@@ -32,6 +35,7 @@ export const loader = async ({ request }) => {
                 query {
                   productVariant(id: "gid://shopify/ProductVariant/${id}") {
                     id
+                    displayName
                     image {
                       id
                       url
@@ -54,7 +58,8 @@ export const loader = async ({ request }) => {
             .filter(variant => variant); // Filter out null or undefined variants
 
         // Log the fetched product variants for debugging
-        console.log("productVariantsData ======= ", productVariantsData);
+        console.log("collectionName ==========", collectionName);
+        // console.log("productVariantsData ======= ", productVariantsData);
 
         // Return the fetched product variants data
         return productVariantsData;

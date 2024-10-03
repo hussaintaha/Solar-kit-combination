@@ -13,9 +13,13 @@ export const loader = async ({ request }) => {
 
         // Get the value of 'neededHarvestkWh' from the URL query string
         const neededHarvestkWh = params.get('neededHarvestkWh');
-        // console.log("neededHarvestkWh ======== ", neededHarvestkWh);
+        console.log("neededHarvestkWh ======== ", neededHarvestkWh);
 
         let variantId = [];
+
+        if (!neededHarvestkWh) {
+            return "Select Harvest Value"
+        }
 
         if (neededHarvestkWh < 4) {
             variantId = [45672874803412, 45672874475732, 45672871526612]; // Set these IDs for the range below 4kWh

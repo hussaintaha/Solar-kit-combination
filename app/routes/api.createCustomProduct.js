@@ -2,12 +2,10 @@ import { authenticate } from "../shopify.server";
 
 export const action = async ({ request }) => {
   try {
-    const { admin, session } = await authenticate.public.appProxy(request);
-    console.log("admin11111 ============", admin.rest.resources.Product);
-    console.log("session ========== ", session);
+    const { session } = await authenticate.public.appProxy(request);
 
     const requestData = await request.json()
-    console.log("requestData ========== ", requestData);
+    // console.log("requestData ========== ", requestData);
 
     const { batterytoHVAC, paneltoBattery } = requestData
 
@@ -17,7 +15,7 @@ export const action = async ({ request }) => {
     //Price = $a*4+$b*6+33 
 
     const customProductPrice = (paneltoBattery * 4) + (batterytoHVAC * 6) + 33
-    console.log("customProductPrice ======== ", customProductPrice);
+    // console.log("customProductPrice ======== ", customProductPrice);
 
 
     const productData = {
@@ -55,10 +53,10 @@ export const action = async ({ request }) => {
     });
 
     const createdProductResponse = await createProducts.json()
-    console.log("createdProductResponse ======= ", createdProductResponse);
+    // console.log("createdProductResponse ======= ", createdProductResponse);
 
     const getVarientID = createdProductResponse.product.variants[0].id
-    console.log("getVarientID =============== ", getVarientID);
+    // console.log("getVarientID =============== ", getVarientID);
 
     return getVarientID
   } catch (error) {

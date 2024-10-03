@@ -7,6 +7,8 @@ export const loader = async ({ request }) => {
         // console.log("session =======", session);
 
         const urlString = request.url
+        console.log("urlString ======= ", urlString);
+
         const url = new URL(urlString);
 
         const params = new URLSearchParams(url.search);
@@ -16,6 +18,12 @@ export const loader = async ({ request }) => {
         console.log("neededHarvestkWh =========== ", neededHarvestkWh);
 
         let variantId = [];
+
+        if (!neededHarvestkWh) {
+            return "Select Harvest Value"
+        }
+
+
         if (neededHarvestkWh < 4) {
             variantId = [45672874803412, 45672874475732, 45672871526612]; // Set these IDs for the range below 4kWh
         }
