@@ -5,7 +5,7 @@ import Modal from './component/Modal';
 
 const App = () => {
 
-  console.log(" ========== 9999999999999 =========");
+  console.log(" ========== 333333333333333 =========");
 
 
 
@@ -283,7 +283,7 @@ const App = () => {
   useEffect(() => {
     if (recommendedBTU > 0 && insulationValue > 0 && dailyRunTime > 0) {
       // Calculates needed daily harvest in kWh:
-      const neededHarvestkWh = (recommendedBTU / 16) * dailyRunTime * insulationValue;
+      const neededHarvestkWh = (recommendedBTU / 16000) * dailyRunTime;
       console.log("neededHarvestkWh ===================== ", neededHarvestkWh);
       setNeededharvest(neededHarvestkWh);
 
@@ -292,7 +292,7 @@ const App = () => {
       getchargeControllerCollectionAPI(neededHarvestkWh);
       getBettryCollectionAPI(neededHarvestkWh);
     } else {
-      
+
     }
   }, [recommendedBTU, insulationValue, dailyRunTime]);
 
@@ -445,7 +445,7 @@ const App = () => {
 
           <div className='needed-harvest'>
             <div className='harvest-result'>
-              Your needed Harvest: {Math.floor(neededHarvest).toLocaleString()} kWh
+              Your needed Harvest: {(Number(neededHarvest.toFixed(2))).toLocaleString()} kWh
             </div>
           </div>
         </div>
