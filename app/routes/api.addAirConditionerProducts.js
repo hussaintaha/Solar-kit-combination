@@ -18,18 +18,6 @@ export const action = async ({ request }) => {
             { new: true }
         );
         console.log("Entry saved/updated successfully:", updatedAirConditionerEntry);
-
-
-        // const updatedAirConditionerEntry = await airConditionerCollection.findOneAndUpdate(
-        //     { btuRange: selectedBTURange },
-        //     { $set: { products: selected } },
-        //     { new: true, upsert: true }
-        // );
-
-        // console.log("Entry saved/updated successfully:", updatedAirConditionerEntry);
-
-        // return json({ existingEntry });
-
         return true
 
     } catch (error) {

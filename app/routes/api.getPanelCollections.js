@@ -1,4 +1,5 @@
 import { authenticate } from "../shopify.server";
+import solarPanelCollection from "../Database/collections/solarPanelModel";
 
 export const loader = async ({ request }) => {
     try {
@@ -8,14 +9,12 @@ export const loader = async ({ request }) => {
 
         const urlString = request.url
         console.log("urlString ======= ", urlString);
-
         const url = new URL(urlString);
-
         const params = new URLSearchParams(url.search);
 
         // Get the value of 'neededHarvestkWh' from the URL query string
         let neededHarvestkWh = parseFloat(params.get('neededHarvestkWh'));
-        console.log("neededHarvestkWh =========== ", neededHarvestkWh);
+        console.log("neededHarvestkWh =========== ", Number(neededHarvestkWh).toFixed(2));
 
         let variantId = [];
 
@@ -23,48 +22,28 @@ export const loader = async ({ request }) => {
             return "Select Harvest Value"
         }
 
-
+        let harvestValue;
         if (neededHarvestkWh < 4) {
-            variantId = [45672874803412, 45672874475732, 45672871526612]; // Set these IDs for the range below 4kWh
-        }
-        else if (neededHarvestkWh > 4 && neededHarvestkWh < 10) {
-            variantId = [45672874803412, 45672874475732, 45672871526612]; // Set these IDs for the 4-10kWh range
-        }
-        else if (neededHarvestkWh > 10 && neededHarvestkWh < 20) {
-            variantId = [45672874803412, 45672874475732, 45672871526612]; // Set these IDs for the 10-20kWh range
-        }
-        else if (neededHarvestkWh > 20) {
-            variantId = [45672873066708, 45672871493844, 45672874541268, 45672874442964]; // Set these IDs for the range above 20kWh
+            harvestValue = "lessThan4kWh";
+        } else if (neededHarvestkWh >= 4 && neededHarvestkWh < 10) {
+            harvestValue = "4to10kWh";
+        } else if (neededHarvestkWh >= 10 && neededHarvestkWh < 20) {
+            harvestValue = "10to20kWh";
+        } else if (neededHarvestkWh >= 20) {
+            harvestValue = "20+kWh";
         }
 
-        // Fetch product variants for the given IDs
-        const fetchProductsVariants = [];
 
-        // Sequentially fetch product variants for each ID
-        for (let id of variantId) {
-            const response = await admin.graphql(
-                `#graphql
-                query {
-                  productVariant(id: "gid://shopify/ProductVariant/${id}") {
-                    id
-                    image {
-                      id
-                      url
-                    }
-                    title
-                  }
-                }`
-            );
+        console.log(`Determined harvest Range: ${harvestValue}`)
 
-            const data = await response.json();
-            fetchProductsVariants.push(data.data.productVariant);
+        const productsInRange = await solarPanelCollection.find({ harvestValue: harvestValue });
+        if (productsInRange.length) {
+            console.log("productsInRange ======= ", productsInRange);
+            return { products: productsInRange[0].products };
+        } else {
+            console.log(`No products found for harvest value: ${harvestValue}`);
+            return { products: [] };
         }
-        // console.log("fetchProductsVariants ======= ", fetchProductsVariants);
-
-        // Return the fetched product variants
-        return fetchProductsVariants;
-
-
     } catch (error) {
         console.log("error in solarPannel API ==========", error);
         return error

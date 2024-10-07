@@ -1,0 +1,75 @@
+/* General Card Styling */
+.Card {
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+}
+
+/* Harvest Value Selector Styling */
+.harvest-value-selector {
+    margin-bottom: 20px;
+}
+
+.harvest-value-selector .Select {
+    width: 250px;
+}
+
+/* Button Styling */
+.Button {
+    margin-right: 10px;
+}
+
+/* Heading Styles */
+h3 {
+    margin-bottom: 15px;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+/* IndexTable Styles */
+.IndexTable {
+    margin-top: 20px;
+}
+
+.IndexTable .IndexTable-Row {
+    transition: background-color 0.3s;
+}
+
+.IndexTable .IndexTable-Row:hover {
+    background-color: #f0f4f8;
+}
+
+/* Image Styles */
+.IndexTable .IndexTable-Cell img {
+    border-radius: 4px;
+}
+
+/* Delete Button Styling */
+.IndexTable .Button {
+    padding: 4px 8px;
+}
+
+/* Text Styles */
+.Text {
+    font-size: 14px;
+    color: #333;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .harvest-value-selector {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .harvest-value-selector .Select {
+        margin-bottom: 10px;
+    }
+
+    .Button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}

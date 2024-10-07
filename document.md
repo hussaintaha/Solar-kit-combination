@@ -83,10 +83,10 @@ this be clicked to add to cart and it adds the appropriate #?
 
 Alternatively, we can show range just like we do with selecting air conditioner. 
 
-if Harvest: < 4 kWh, show Collection A (about 4 items in collection)
-if Harvest: 4 - 10 kWh, show Collection B (about 4 items in collection)
-if Harvest: 10 - 20 kWh, show Collection C (about 4 items in collection)
-if Harvest: > 20 kWh, show Collection D (about 4 items in collection)
+  if Harvest: < 4 kWh, show Collection A (about 4 items in collection)
+  if Harvest: 4 - 10 kWh, show Collection B (about 4 items in collection)
+  if Harvest: 10 - 20 kWh, show Collection C (about 4 items in collection)
+  if Harvest: > 20 kWh, show Collection D (about 4 items in collection)
 ---------------------------------------------------------------------
 
 ---------------------------------------------------------------------

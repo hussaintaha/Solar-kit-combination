@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const airConditionerSchema = new mongoose.Schema(
-    {
+    { 
         btuRange: { type: String, required: true },
         products: [{ type: Object, required: true }],
     }

@@ -5,7 +5,7 @@ import Modal from './component/Modal';
 
 const App = () => {
 
-  console.log(" ========== 1111111111111 =========");
+  console.log(" ========== 6666666666666666 =========");
 
 
 
@@ -125,8 +125,8 @@ const App = () => {
     try {
       const fetchProducts = await fetch(`https://${Shopify.shop}/apps/proxy/api/getpanelCollections/?neededHarvestkWh=${neededHarvestkWh}`);
       const panelCollectionProducts = await fetchProducts.json()
-      console.log("panelCollectionProducts ====== ", panelCollectionProducts);
-      setPanelCollection(panelCollectionProducts)
+      console.log("panelCollectionProducts ====== ", panelCollectionProducts.products);
+      setPanelCollection(panelCollectionProducts.products)
 
     } catch (error) {
       console.log("error ========= ", error);
@@ -137,8 +137,8 @@ const App = () => {
     try {
       const fetchProducts = await fetch(`https://${Shopify.shop}/apps/proxy/api/chargeControllerCollection/?neededHarvestkWh=${neededHarvestkWh}`);
       const chargeControllerProducts = await fetchProducts.json()
-      console.log("chargeControllerProducts ====== ", chargeControllerProducts);
-      setChargeControllerProducts(chargeControllerProducts)
+      console.log("chargeControllerProducts ====== ", chargeControllerProducts.products);
+      setChargeControllerProducts(chargeControllerProducts.products)
     } catch (error) {
       console.log("error ========= ", error);
     }
@@ -469,15 +469,15 @@ const App = () => {
                     }}
                   >
                     <div className='productsImage'>
-                      {ele && ele.image && ele.image.url ? (
-                        <img src={ele.image.url} style={{ width: "100px", height: "100px" }} alt="Product" />
+                      {ele && ele.image && ele.image.originalSrc ? (
+                        <img src={ele.image.originalSrc} style={{ width: "100px", height: "100px" }} alt="Product" />
                       ) : (
                         <p>No image available</p>
                       )}
 
                     </div>
                     <div className='title'>
-                      <h1> {ele.title} </h1>
+                      <h1> {ele.displayName} </h1>
                     </div>
 
                   </div>
@@ -511,15 +511,15 @@ const App = () => {
                     }}
                   >
                     <div className='productsImage'>
-                      {ele && ele.image && ele.image.url ? (
-                        <img src={ele.image.url} style={{ width: "100px", height: "100px" }} alt="Product" />
+                      {ele && ele.image && ele.image.originalSrc ? (
+                        <img src={ele.image.originalSrc} style={{ width: "100px", height: "100px" }} alt="Product" />
                       ) : (
                         <p>No image available</p>
                       )}
 
                     </div>
                     <div className='title'>
-                      <h1> {ele.title} </h1>
+                      <h1> {ele.displayName} </h1>
                     </div>
                   </div>
                 )

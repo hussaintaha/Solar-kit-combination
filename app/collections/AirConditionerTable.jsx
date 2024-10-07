@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Card, Page, Select, IndexTable, useIndexResourceState, Text, Badge, LegacyCard } from '@shopify/polaris';
+import { Button, Card, Page, Select, IndexTable, useIndexResourceState, Text, Badge, LegacyCard, Icon } from '@shopify/polaris';
+import { DeleteIcon } from '@shopify/polaris-icons';
 import "../routes/styles/settings.css"
 
 const AirConditionerTable = () => {
     const [selectedBTURange, setSelectBTURange] = useState('');
     const [previouslySelectedIds, setPreviouslySelectedIds] = useState([]);
     const [airConditionerproducts, setAirConditionerProducts] = useState([]);
-
 
     const handleSelectChange = (e) => {
         setSelectBTURange(e);
@@ -36,7 +36,6 @@ const AirConditionerTable = () => {
                 const selected = await shopify.resourcePicker({
                     type: 'variant',
                     multiple: true,
-                    // selectionIds: previouslySelectedIds,
                 });
                 const newSelectedIds = selected.map((product) => ({
                     id: product.id,
@@ -70,14 +69,12 @@ const AirConditionerTable = () => {
         }
     };
 
-
     const addAirConditionerProducts = async () => {
         try {
             if (selectedBTURange) {
                 const selected = await shopify.resourcePicker({
                     type: 'variant',
                     multiple: true,
-                    // selectionIds: previouslySelectedIds,
                 });
                 const newSelectedIds = selected.map((product) => ({
                     id: product.id,
@@ -97,22 +94,38 @@ const AirConditionerTable = () => {
                 alert('Please select a BTU range');
             }
         } catch (error) {
-            console.error('Error fetching air conditioner products:', error);
+            console.error('Error adding air conditioner products:', error);
         }
     };
 
-    console.log("airConditionerproducts ====== ", airConditionerproducts);
-
     useEffect(() => {
         if (selectedBTURange) {
-            getAirConditionerProducts()
+            getAirConditionerProducts();
         }
-    }, [selectedBTURange])
-
+    }, [selectedBTURange]);
 
     const resourceName = { singular: 'product', plural: 'products' };
+    let { selectedResources, allResourcesSelected, handleSelectionChange } = useIndexResourceState(airConditionerproducts);
+    console.log("selectedResources ======= ", selectedResources);
 
-    const { selectedResources, allResourcesSelected, handleSelectionChange } = useIndexResourceState(airConditionerproducts);
+
+    const handleDeleteCollectons = async (id) => {
+        console.log("Deleting ID ====== ", id);
+
+        const fetchDeletevariantsAPI = await fetch("/api/deleteVariants", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ id, selectedBTURange })
+        });
+
+        const response = await fetchDeletevariantsAPI.json();
+        console.log("fetchDeletevariantsAPI response ===== ", response.products);
+        setAirConditionerProducts(response.products);
+        selectedResources = []
+        handleSelectionChange([])
+    };
 
     const rowMarkup = airConditionerproducts.map(({ id, image, product, displayName }, index) => (
         <IndexTable.Row id={id} key={id} selected={selectedResources.includes(id)} position={index}>
@@ -126,11 +139,16 @@ const AirConditionerTable = () => {
             </IndexTable.Cell>
             <IndexTable.Cell>{product?.id?.split("/")[4]}</IndexTable.Cell>
             <IndexTable.Cell>{formatDisplayName(displayName, 20)}</IndexTable.Cell>
+            <IndexTable.Cell>
+                <Button tone='critical' variant='primary' onClick={() => handleDeleteCollectons(id)}>
+                    <Icon source={DeleteIcon} tone='critical' />
+                </Button>
+            </IndexTable.Cell>
         </IndexTable.Row>
     ));
 
     return (
-        <Card sectioned >
+        <Card sectioned>
             {/* BTU Range Selector */}
             <div className="btu-range-selector">
                 <Select label="BTU Range" options={options} onChange={handleSelectChange} value={selectedBTURange} />
@@ -163,6 +181,7 @@ const AirConditionerTable = () => {
                             { title: 'VariantID' },
                             { title: 'Product ID' },
                             { title: 'Display Name' },
+                            { title: "Actions" }
                         ]}
                     >
                         {rowMarkup}
