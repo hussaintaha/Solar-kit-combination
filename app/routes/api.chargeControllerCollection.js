@@ -29,7 +29,7 @@ export const loader = async ({ request }) => {
         } else if (neededHarvestkWh >= 10 && neededHarvestkWh < 20) {
             harvestValue = "10to20kWh";
         } else if (neededHarvestkWh >= 20) {
-            harvestValue = "20+kWh";
+            harvestValue = "greaterThan20kWh";
         }
 
         console.log(`Determined harvest Range: ${harvestValue}`)

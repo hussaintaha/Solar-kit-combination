@@ -8,7 +8,7 @@ export const action = async ({ request }) => {
 
         const { selectedBTURange, selected } = selectedData
         const existingEntry = await airConditionerCollection.findOne({ btuRange: selectedBTURange });
-        console.log("existingEntry ========= ", existingEntry);
+        // console.log("existingEntry ========= ", existingEntry);
 
 
         const updatedAirConditionerEntry = await airConditionerCollection.findOneAndUpdate(
@@ -16,15 +16,6 @@ export const action = async ({ request }) => {
             { $set: { products: selected } },
             { new: true, upsert: true }
         );
-        console.log("Entry saved/updated successfully:", updatedAirConditionerEntry);
-
-
-        // const updatedAirConditionerEntry = await airConditionerCollection.findOneAndUpdate(
-        //     { btuRange: selectedBTURange },
-        //     { $set: { products: selected } },
-        //     { new: true, upsert: true }
-        // );
-
         // console.log("Entry saved/updated successfully:", updatedAirConditionerEntry);
 
         return json({ existingEntry });

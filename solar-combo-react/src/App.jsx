@@ -5,7 +5,7 @@ import Modal from './component/Modal';
 
 const App = () => {
 
-  console.log(" ========== 6666666666666666 =========");
+  console.log(" ========== 11111111111111111111111111111111111 =========");
 
 
 
@@ -59,20 +59,23 @@ const App = () => {
 
   const calculateBTU = (length, width, height, insulationFactor) => {
     let BTU = 0;
+    const area = length * width; // Calculate square footage once
 
     if (height < 6) {
-      BTU = (length * width * 10) * insulationFactor;
-      setSquareFoot(length * width)
-    } else if (height >= 6 && height <= 10) {
-      BTU = (length * width * 20) * insulationFactor;
-      setSquareFoot(length * width)
-    } else if (height > 10) {
-      BTU = (length * width * 27) * insulationFactor;
-      setSquareFoot(length * width)
+      BTU = area * 10 * insulationFactor;
     }
+    else if (height >= 6 && height <= 10) {
+      BTU = area * 20 * insulationFactor;
+    }
+    else if (height > 10) {
+      BTU = area * 27 * insulationFactor;
+    }
+
+    setSquareFoot(area); // Set square footage once
 
     return BTU;
   };
+
 
   const handleQuestions1_options = (e) => {
     const { name, value } = e.target;
@@ -82,12 +85,11 @@ const App = () => {
       const { length, width, height } = updatedValues;
 
       const totalVolume = length && width && height ? length * width * height : 0;
+      setSquareFoot(length * width)
 
       if (length && width && height && insulationValue) {
         const newBTU = calculateBTU(length, width, height, insulationValue);
         setRecommendedBTU(newBTU);
-        setSquareFoot(squareFoot);
-
         // Fetch products based on the new BTU
         getCollectionProductsAPI(newBTU);
       }
@@ -148,8 +150,8 @@ const App = () => {
     try {
       const fetchProducts = await fetch(`https://${Shopify.shop}/apps/proxy/api/getBatteryOption/?neededHarvestkWh=${neededHarvestkWh}`);
       const batteryOptionProducts = await fetchProducts.json()
-      console.log("batteryOptionProducts ====== ", batteryOptionProducts);
-      setBatteryOptions(batteryOptionProducts)
+      console.log("batteryOptionProducts ====== ", batteryOptionProducts.products);
+      setBatteryOptions(batteryOptionProducts.products)
     } catch (error) {
       console.log("error ========= ", error);
     }
@@ -249,9 +251,9 @@ const App = () => {
         const getItmes = await additmesAPI.json()
         console.log("getItmes ======= ", getItmes);
 
-        // if (getItmes.items.length) {
-        //   window.location.href = "/cart"
-        // }
+        if (getItmes.items.length) {
+          window.location.href = "/cart"
+        }
 
       } catch (error) {
         console.log("error  ====", error);
@@ -389,7 +391,7 @@ const App = () => {
           </div>
           <div className='collection-container'>
             <div className='collection-products'>
-              {productsData.map((ele, index) => {
+              {productsData?.map((ele, index) => {
                 const isSelected = selectedProductId.selectAirConditionerProducts === ele.id.split("/")[4];
                 return (
                   <div
@@ -457,7 +459,7 @@ const App = () => {
 
           <div className='collection-container' >
             <div className='collection-products'>
-              {panelCollection.map((ele, index) => {
+              {panelCollection?.map((ele, index) => {
                 const isSelected = selectedProductId.selectSolarPanelProducts === ele.id.split("/")[4]
                 return (
                   <div
@@ -499,7 +501,7 @@ const App = () => {
           </div>
           <div className='collection-container'>
             <div className='collection-products'>
-              {chargeControllerProducts.map((ele, index) => {
+              {chargeControllerProducts?.map((ele, index) => {
                 const isSelected = selectedProductId.selectChargeControllerproducts === ele.id.split("/")[4]
                 return (
                   <div
@@ -534,7 +536,7 @@ const App = () => {
           </div>
           <div className='collection-container' >
             <div className='collection-products'>
-              {batteryOption.map((ele, index) => {
+              {batteryOption?.map((ele, index) => {
                 const isSelected = selectedProductId.selectBatteryOptions === ele.id.split("/")[4];
                 return (
                   <div
@@ -546,15 +548,15 @@ const App = () => {
                     }}
                   >
                     <div className='productsImage'>
-                      {ele && ele.image && ele.image.url ? (
-                        <img src={ele.image.url} style={{ width: "100px", height: "100px" }} alt="Product" />
+                      {ele && ele.image && ele.image.originalSrc ? (
+                        <img src={ele.image.originalSrc} style={{ width: "100px", height: "100px" }} alt="Product" />
                       ) : (
                         <p>No image available</p>
                       )}
 
                     </div>
                     <div className='title'>
-                      <h1> {ele.title} </h1>
+                      <h1> {ele.displayName} </h1>
                     </div>
                   </div>
                 )

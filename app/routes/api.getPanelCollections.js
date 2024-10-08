@@ -8,13 +8,13 @@ export const loader = async ({ request }) => {
         // console.log("session =======", session);
 
         const urlString = request.url
-        console.log("urlString ======= ", urlString);
+        // console.log("urlString ======= ", urlString);
         const url = new URL(urlString);
         const params = new URLSearchParams(url.search);
 
         // Get the value of 'neededHarvestkWh' from the URL query string
         let neededHarvestkWh = parseFloat(params.get('neededHarvestkWh'));
-        console.log("neededHarvestkWh =========== ", Number(neededHarvestkWh).toFixed(2));
+        // console.log("neededHarvestkWh =========== ", Number(neededHarvestkWh).toFixed(2));
 
         let variantId = [];
 
@@ -30,11 +30,11 @@ export const loader = async ({ request }) => {
         } else if (neededHarvestkWh >= 10 && neededHarvestkWh < 20) {
             harvestValue = "10to20kWh";
         } else if (neededHarvestkWh >= 20) {
-            harvestValue = "20+kWh";
+            harvestValue = "greaterThan20kWh";
         }
 
 
-        console.log(`Determined harvest Range: ${harvestValue}`)
+        // console.log(`Determined harvest Range: ${harvestValue}`)
 
         const productsInRange = await solarPanelCollection.find({ harvestValue: harvestValue });
         if (productsInRange.length) {

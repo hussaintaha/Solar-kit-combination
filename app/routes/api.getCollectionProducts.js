@@ -22,17 +22,17 @@ export const loader = async ({ request }) => {
             btuRangeFromDB = 'greaterThan18000';
         }
 
-        console.log(`Determined BTU Range: ${btuRangeFromDB}`);
+        // console.log(`Determined BTU Range: ${btuRangeFromDB}`);
 
 
         const productsInRange = await airConditionerCollection.find({ btuRange: btuRangeFromDB });
 
 
         if (productsInRange.length > 0) {
-            console.log("Found products in range:", productsInRange[0].products);
+            // console.log("Found products in range:", productsInRange[0].products);
             return { products: productsInRange[0].products };
         } else {
-            console.log(`No products found for range: ${btuRangeFromDB}`);
+            // console.log(`No products found for range: ${btuRangeFromDB}`);
             return { products: [] }; 
         }
     } catch (error) {

@@ -11,11 +11,12 @@ import {
 import { DeleteIcon } from '@shopify/polaris-icons';
 import React, { useEffect, useState } from 'react';
 import "../routes/styles/solarPanelproducts.css";
+import ChargeControllerTable from './ChargeControllerTable';
+import BatteryOptionTable from './BatteryOptionTable';
 
 const SolarPanelTable = () => {
     const [selectHarvestValue, setSelectHarvestValue] = useState("");
     const [solarPanelProducts, setSolarPanelProducts] = useState([]);
-    const [chargeControllerProducts, setChargeControllerProducts] = useState([]);
 
     const formatDisplayName = (name, limit = 20) => {
         if (name.length > limit) {
@@ -73,7 +74,7 @@ const SolarPanelTable = () => {
                 alert('Please select a Harvest value');
             }
         } catch (error) {
-            console.error('Error adding air conditioner products:', error);
+            console.error('Error adding solar panel products:', error);
         }
     };
 
@@ -83,82 +84,29 @@ const SolarPanelTable = () => {
             const result = await response.json();
             setSolarPanelProducts(result?.getVariants?.products || []);
         } catch (error) {
-            console.error('Error fetching air conditioner products:', error);
+            console.error('Error fetching solar panel products:', error);
         }
     };
 
+    const handleDeleteCollectons = async (id) => {
+        console.log("Deleting ID ====== ", id);
 
+        const fetchDeletevariantsAPI = await fetch("/api/deleteVariants", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ id, selectHarvestValue, productType: 'solarPanel' })
+        });
 
-
-
-
-
-    const sendChargeControllerProduct = async () => {
-        if (selectHarvestValue) {
-            try {
-                const selected = await shopify.resourcePicker({
-                    type: 'variant',
-                    multiple: true,
-                });
-
-                const airConditionerAPI = await fetch('/api/sendChargeControllerProducts', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ selectHarvestValue, selected }),
-                });
-
-                const chargeControllerResponse = await airConditionerAPI.json();
-                console.log('chargeControllerResponse:', chargeControllerResponse);
-                setChargeControllerProducts(chargeControllerResponse?.products || []);
-
-            } catch (error) {
-                console.error('Error fetching solar panel products:', error);
-            }
-        } else {
-            alert("Please select harvest value");
-        }
+        const response = await fetchDeletevariantsAPI.json();
+        console.log("fetchDeletevariantsAPI response ===== ", response.products);
+        setSolarPanelProducts(response.products);
     };
-
-    const addChargeControllerProducts = async () => {
-        try {
-            if (selectHarvestValue) {
-                const selected = await shopify.resourcePicker({
-                    type: 'variant',
-                    multiple: true,
-                });
-
-                const airConditionerAPI = await fetch('/api/addChargeControllerProducts', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ selectHarvestValue, selected }),
-                });
-
-                const solarPanelResponse = await airConditionerAPI.json();
-                console.log('solarPanelResponse ========= ', solarPanelResponse);
-            } else {
-                alert('Please select a Harvest value');
-            }
-        } catch (error) {
-            console.error('Error adding air conditioner products:', error);
-        }
-    };
-
-    const getChargeControllerProducts = async () => {
-        try {
-            const response = await fetch(`/api/getChargeControllerProducts/?selectHarvestValue=${selectHarvestValue}`);
-            const result = await response.json();
-            setChargeControllerProducts(result?.getVariants?.products || []);
-        } catch (error) {
-            console.error('Error fetching air conditioner products:', error);
-        }
-    }
-
-
 
     useEffect(() => {
         if (selectHarvestValue) {
             getSolarPanelProducts();
-            getChargeControllerProducts();
         }
     }, [selectHarvestValue]);
 
@@ -181,12 +129,6 @@ const SolarPanelTable = () => {
         handleSelectionChange: handleSolarPanelSelectionChange,
     } = useIndexResourceState(solarPanelProducts);
 
-    const {
-        selectedResources: selectedChargeControllerResources,
-        allResourcesSelected: allChargeControllerResourcesSelected,
-        handleSelectionChange: handleChargeControllerSelectionChange,
-    } = useIndexResourceState(chargeControllerProducts);
-
     const rowMarkup = solarPanelProducts.map(
         ({ id, image, product, displayName }, index) => (
             <IndexTable.Row
@@ -206,34 +148,7 @@ const SolarPanelTable = () => {
                 <IndexTable.Cell>{product?.id?.split("/")[4]}</IndexTable.Cell>
                 <IndexTable.Cell>{formatDisplayName(displayName, 20)}</IndexTable.Cell>
                 <IndexTable.Cell>
-                    <Button tone='critical' variant='primary' onClick={() => handleDeleteCollectons(id)}>
-                        <Icon source={DeleteIcon} tone='critical' />
-                    </Button>
-                </IndexTable.Cell>
-            </IndexTable.Row>
-        ),
-    );
-
-    const chargeControllerRowMarkup = chargeControllerProducts.map(
-        ({ id, image, product, displayName }, index) => (
-            <IndexTable.Row
-                id={id}
-                key={id}
-                selected={selectedChargeControllerResources.includes(id)}
-                position={index}
-            >
-                <IndexTable.Cell>
-                    <img src={image?.originalSrc} alt={displayName} width={50} />
-                </IndexTable.Cell>
-                <IndexTable.Cell>
-                    <Text variant="bodyMd" fontWeight="bold" as="span">
-                        {id?.split("/")[4]}
-                    </Text>
-                </IndexTable.Cell>
-                <IndexTable.Cell>{product?.id?.split("/")[4]}</IndexTable.Cell>
-                <IndexTable.Cell>{formatDisplayName(displayName, 20)}</IndexTable.Cell>
-                <IndexTable.Cell>
-                    <Button tone='critical' variant='primary' onClick={() => handleDeleteCollectons(id)}>
+                    <Button tone='critical' onClick={() => handleDeleteCollectons(id)}>
                         <Icon source={DeleteIcon} tone='critical' />
                     </Button>
                 </IndexTable.Cell>
@@ -242,75 +157,60 @@ const SolarPanelTable = () => {
     );
 
     return (
-        <Card>
-            <div className="harvest-value-selector">
-                <Select
-                    label="Needed Harvest"
-                    options={options}
-                    onChange={setSelectHarvestValue}
-                    value={selectHarvestValue}
-                />
-            </div>
+        <div className='main-container'>
+            <Card>
+                <div className='solar-panel-container'>
+                    <div className="harvest-value-selector">
+                        <Select
+                            label="Needed Harvest"
+                            options={options}
+                            onChange={setSelectHarvestValue}
+                            value={selectHarvestValue}
+                        />
+                    </div>
 
-            <div>
-                <Text variant="heading2xl" as="h3">
-                    Solar Panel Variants List
-                </Text>
-            </div>
+                    <div className='solar-panel-table common-table'>
+                        <div className='soalr-panel-header'>
+                            <Text variant="headingLg" as="h5">
+                                Solar Panel List
+                            </Text>
 
-            <Button onClick={sendSolarPanelProduct}>Select products</Button>
-            <Button onClick={addSolarPanelProducts}>Add Products</Button>
+                            <div className="action-buttons">
+                                <Button primary onClick={sendSolarPanelProduct}>Select Products</Button>
+                                <Button onClick={addSolarPanelProducts}>Add Products</Button>
+                            </div>
+                        </div>
 
-            <LegacyCard>
-                <IndexTable
-                    resourceName={resourceName}
-                    itemCount={solarPanelProducts.length}
-                    selectedItemsCount={
-                        allSolarPanelResourcesSelected ? 'All' : selectedSolarPanelResources.length
-                    }
-                    onSelectionChange={handleSolarPanelSelectionChange}
-                    headings={[
-                        { title: 'Image' },
-                        { title: 'VariantID' },
-                        { title: 'Product ID' },
-                        { title: 'Display Name' },
-                        { title: "Actions" }
-                    ]}
-                >
-                    {rowMarkup}
-                </IndexTable>
-            </LegacyCard>
+                        <LegacyCard>
+                            <IndexTable
+                                resourceName={resourceName}
+                                itemCount={solarPanelProducts.length}
+                                selectedItemsCount={
+                                    allSolarPanelResourcesSelected ? 'All' : selectedSolarPanelResources.length
+                                }
+                                onSelectionChange={handleSolarPanelSelectionChange}
+                                headings={[
+                                    { title: 'Image' },
+                                    { title: 'VariantID' },
+                                    { title: 'ProductID' },
+                                    { title: 'Name' },
+                                    { title: 'Action' },
+                                ]}
+                            >
+                                {rowMarkup}
+                            </IndexTable>
+                        </LegacyCard>
+                    </div>
+                    <div className='charge-controller'>
+                        <ChargeControllerTable selectHarvestValue={selectHarvestValue} />
+                    </div>
+                    <div className='battery-option'>
+                        <BatteryOptionTable selectHarvestValue={selectHarvestValue} />
+                    </div>
+                </div>
+            </Card>
+        </div>
 
-            <div>
-                <Text variant="heading2xl" as="h3">
-                    Charge Controller Variants List
-                </Text>
-            </div>
-
-            <Button onClick={sendChargeControllerProduct}>Select products</Button>
-            <Button onClick={addChargeControllerProducts}>Add Products</Button>
-
-
-            <LegacyCard>
-                <IndexTable
-                    resourceName={resourceName}
-                    itemCount={chargeControllerProducts.length}
-                    selectedItemsCount={
-                        allChargeControllerResourcesSelected ? 'All' : selectedChargeControllerResources.length
-                    }
-                    onSelectionChange={handleChargeControllerSelectionChange}
-                    headings={[
-                        { title: 'Image' },
-                        { title: 'VariantID' },
-                        { title: 'Product ID' },
-                        { title: 'Display Name' },
-                        { title: "Actions" }
-                    ]}
-                >
-                    {chargeControllerRowMarkup}
-                </IndexTable>
-            </LegacyCard>
-        </Card>
     );
 };
 

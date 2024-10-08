@@ -1,20 +1,21 @@
 import { json } from "@remix-run/node";
-import chargeControllerCollection from "../Database/collections/chargeControllerModel";
+import batteryOptionsCollection from "../Database/collections/batteryOptionsModel";
+
 
 export const action = async ({ request }) => {
     try {
         const selectedData = await request.json();
-        // console.log("selectedData ======== ", selectedData);
+        console.log("selectedData ======== ", selectedData);
 
         const { selectHarvestValue, selected } = selectedData;
 
-        const updatedEntry = await chargeControllerCollection.findOneAndUpdate(
+        const updatedEntry = await batteryOptionsCollection.findOneAndUpdate(
             { harvestValue: selectHarvestValue },
             { $addToSet: { products: { $each: selected } } },
-            { new: true, upsert: true } 
+            { new: true, upsert: true }
         );
 
-        // console.log("Entry created or updated successfully:", updatedEntry);
+        console.log("Entry created or updated successfully:", updatedEntry);
         return json(updatedEntry);
 
     } catch (error) {

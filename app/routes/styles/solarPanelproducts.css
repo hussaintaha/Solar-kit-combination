@@ -1,75 +1,126 @@
-/* General Card Styling */
-.Card {
-    padding: 20px;
-    margin: 20px 0;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    background-color: #ffffff;
+/* Main container for the entire component */
+
+.main-container {
+    margin-bottom: 3rem;
+    /* width: 90%; */
+    margin: auto;
+    margin-bottom: 3rem;
+    padding: 2rem;
 }
 
-/* Harvest Value Selector Styling */
+.soalr-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.action-buttons .Polaris-Button:last-child {
+    flex: none;
+}
+
+
+/* Harvest value selector section */
 .harvest-value-selector {
-    margin-bottom: 20px;
+    margin-bottom: 2rem;
+    max-width: 300px;
 }
 
-.harvest-value-selector .Select {
-    width: 250px;
+/* Table container */
+.common-table {
+    margin-top: 2rem;
+    padding: 0px 3rem;
 }
 
-/* Button Styling */
-.Button {
-    margin-right: 10px;
+/* Table card styling */
+.Polaris-LegacyCard {
+    background-color: #ffffff;
+    border: 1px solid #dfe3e8;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    padding: 1rem;
+    border-radius: 8px;
 }
 
-/* Heading Styles */
-h3 {
-    margin-bottom: 15px;
-    font-size: 24px;
-    font-weight: 600;
+/* Action buttons container */
+.action-buttons {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 2rem;
 }
 
-/* IndexTable Styles */
-.IndexTable {
-    margin-top: 20px;
+/* Button styling */
+.Polaris-Button--primary {
+    background-color: #5c6ac4;
+    color: white;
+    font-weight: bold;
 }
 
-.IndexTable .IndexTable-Row {
-    transition: background-color 0.3s;
+.Polaris-Button {
+    border-radius: 5px;
 }
 
-.IndexTable .IndexTable-Row:hover {
-    background-color: #f0f4f8;
+/* Table row styling */
+.Polaris-IndexTable__Row {
+    background-color: #f9fafb;
+    border-bottom: 1px solid #dfe3e8;
 }
 
-/* Image Styles */
-.IndexTable .IndexTable-Cell img {
-    border-radius: 4px;
+/* Table header styling */
+.Polaris-IndexTable__Heading {
+    background-color: #f4f6f8;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 12px;
 }
 
-/* Delete Button Styling */
-.IndexTable .Button {
-    padding: 4px 8px;
-}
-
-/* Text Styles */
-.Text {
+/* Table cell content styling */
+.Polaris-IndexTable__Cell {
+    padding: 12px 15px;
     font-size: 14px;
-    color: #333;
+    text-align: left;
 }
 
-/* Responsive Design */
+/* Image cell styling */
+.Polaris-IndexTable__Cell img {
+    border-radius: 5px;
+    object-fit: cover;
+    width: 50px;
+    height: 50px;
+}
+
+/* Delete button icon styling */
+.Polaris-Button--icon {
+    padding: 0;
+    color: #d82c0d;
+}
+
+.Polaris-Icon {
+    width: 16px;
+    height: 16px;
+}
+
+/* Better responsiveness for the table */
 @media (max-width: 768px) {
+    .Polaris-IndexTable__Cell {
+        font-size: 12px;
+        padding: 10px;
+    }
+
+    .Polaris-IndexTable__Cell img {
+        width: 40px;
+        height: 40px;
+    }
+
     .harvest-value-selector {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .harvest-value-selector .Select {
-        margin-bottom: 10px;
-    }
-
-    .Button {
         width: 100%;
-        margin-bottom: 10px;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+    }
+
+    .Polaris-Button {
+        width: 100%;
     }
 }

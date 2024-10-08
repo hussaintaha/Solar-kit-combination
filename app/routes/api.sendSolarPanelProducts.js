@@ -5,7 +5,7 @@ import solarPanelCollection from "../Database/collections/solarPanelModel";
 export const action = async ({ request }) => {
     try {
         const selectedData = await request.json();
-        console.log("selectedData ======== ", selectedData);
+        // console.log("selectedData ======== ", selectedData);
 
         const { selectHarvestValue, selected } = selectedData;
 
@@ -15,7 +15,7 @@ export const action = async ({ request }) => {
             { new: true, upsert: true } 
         );
 
-        console.log("Entry created or updated successfully:", updatedEntry);
+        // console.log("Entry created or updated successfully:", updatedEntry);
         return json(updatedEntry);
 
     } catch (error) {

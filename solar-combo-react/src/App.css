@@ -127,6 +127,7 @@ input[type="number"]:focus-visible {
   flex-wrap: wrap;
   gap: 20px;
   justify-content: start;
+  flex-direction: column;
 }
 
 .collection-products {
