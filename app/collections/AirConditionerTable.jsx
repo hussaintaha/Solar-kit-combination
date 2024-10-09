@@ -1,13 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Card, Page, Select, IndexTable, useIndexResourceState, Text, Badge, LegacyCard, Icon, SkeletonBodyText, SkeletonDisplayText } from '@shopify/polaris';
-import { DeleteIcon } from '@shopify/polaris-icons';
+import { DeleteIcon, ArrowDownIcon, ArrowUpIcon } from '@shopify/polaris-icons';
 import "../routes/styles/settings.css"
 
 const AirConditionerTable = () => {
     const [selectedBTURange, setSelectBTURange] = useState('');
     const [previouslySelectedIds, setPreviouslySelectedIds] = useState([]);
     const [airConditionerproducts, setAirConditionerProducts] = useState([]);
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
+
+    const moveItem = (index, direction) => {
+        const reorderedItems = [...airConditionerproducts];
+        const [movedItem] = reorderedItems.splice(index, 1);
+        const newIndex = direction === 'up' ? index + 1 : index - 1;
+        reorderedItems.splice(newIndex, 0, movedItem);
+        setAirConditionerProducts(reorderedItems);
+        console.log("reorderedItems ========= ", reorderedItems);
+        saveReorderingItems(reorderedItems)
+    };
 
     const handleSelectChange = (e) => {
         setSelectBTURange(e);
@@ -20,14 +30,24 @@ const AirConditionerTable = () => {
         { label: '> 18000', value: 'greaterThan18000' },
     ];
 
-    const formatDisplayName = (name, limit = 20) => {
-        if (name.length > limit) {
+    const formatDisplayName = (name, limit = 35) => {
+        // if (name.length > limit) {
+        //     return (
+        //         <>
+        //             {name.substring(0, limit)}<br />{name.substring(limit)}
+        //         </>
+        //     );
+        // }
+
+        const splitName = name.split(' - '); // Split the name based on the first hyphen
+        if (splitName.length > 1) {
             return (
                 <>
-                    {name.substring(0, limit)}<br />{name.substring(limit)}
+                    {splitName[0]}<br />{splitName[1]}
                 </>
             );
         }
+
         return name;
     };
 
@@ -53,6 +73,8 @@ const AirConditionerTable = () => {
 
                 const airConditionerResponse = await airConditionerAPI.json();
                 console.log('airConditionerResponse ========= ', airConditionerResponse);
+                getAirConditionerProducts()
+
                 setLoading(false);
             } else {
                 alert('Please select a BTU range');
@@ -99,6 +121,7 @@ const AirConditionerTable = () => {
 
                 const airConditionerResponse = await airConditionerAPI.json();
                 console.log('airConditionerResponse ========= ', airConditionerResponse);
+                getAirConditionerProducts()
                 setLoading(false);
             } else {
                 alert('Please select a BTU range');
@@ -146,38 +169,68 @@ const AirConditionerTable = () => {
     const { selectedResources, allResourcesSelected, handleSelectionChange } =
         useIndexResourceState(airConditionerproducts);
 
-    const rowMarkup = airConditionerproducts.map(
-        (
-            { id, image, product, displayName },
-            index,
-        ) => (
-            <IndexTable.Row
-                id={id}
-                key={id}
-                selected={selectedResources.includes(id)}
-                position={index}
-            >
-                <IndexTable.Cell>
-                    <img src={image?.originalSrc} alt={displayName} width={50} />
-                </IndexTable.Cell>
-                <IndexTable.Cell>
-                    <Text variant="bodyMd" fontWeight="bold" as="span">
-                        {id?.split("/")[4]}
-                    </Text>
-                </IndexTable.Cell>
-                <IndexTable.Cell>{product?.id?.split("/")[4]}</IndexTable.Cell>
-                <div>
-                    <IndexTable.Cell>{formatDisplayName(displayName, 20)} </IndexTable.Cell>
-                </div>
 
-                <IndexTable.Cell>
-                    <Button tone='critical' variant='icon' onClick={() => handleDeleteCollectons(id)}>
-                        <Icon source={DeleteIcon} tone='critical' />
-                    </Button>
-                </IndexTable.Cell>
-            </IndexTable.Row>
-        ),
-    );
+    const saveReorderingItems = async (reorderedItems) => {
+        try {
+            const savereorderitmesAPI = await fetch("/api/saveReorderedItmes", {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify({ data: reorderedItems, range: selectedBTURange, collection: "airConditionerproducts" })
+            });
+            const savereorderitmesJSON = await savereorderitmesAPI.json();
+            console.log("savereorderitmesJSON ====== ", savereorderitmesJSON);
+
+        } catch (error) {
+            console.log("error ====", error);
+
+        }
+    }
+
+    const rowMarkup = airConditionerproducts.map((item, index) => (
+        <IndexTable.Row
+            id={item.id}
+            key={item.id}
+            position={index}
+        >
+            <IndexTable.Cell>
+                {item.image && item.image.originalSrc ? (
+                    <img src={item.image.originalSrc} alt={item.displayName} width={50} />
+                ) : (
+                    <span>Image Not Available</span>
+                )}
+            </IndexTable.Cell>
+            <IndexTable.Cell>
+                <Text variant="bodyMd" fontWeight="bold" as="span">
+                    {item.id.split("/")[4]}
+                </Text>
+            </IndexTable.Cell>
+            <IndexTable.Cell>{item.product?.id.split("/")[4]}</IndexTable.Cell>
+            <IndexTable.Cell>{formatDisplayName(item.displayName)}</IndexTable.Cell>
+            <IndexTable.Cell>
+                <div style={{ display: 'flex', gap: '10px' }}>
+                    {/* Move Up Button */}
+                    <Button
+                        icon={ArrowDownIcon}
+                        onClick={() => moveItem(index, 'up')}
+                        disabled={index === airConditionerproducts.length - 1}
+                        accessibilityLabel="Move item up"
+                    />
+                    {/* Move Down Button */}
+                    <Button
+                        icon={ArrowUpIcon}
+                        onClick={() => moveItem(index, 'down')}
+                        disabled={index === 0}
+                        accessibilityLabel="Move item down"
+                    />
+                    {/* Delete Button */}
+                    <Button tone="critical" icon={DeleteIcon} onClick={() => handleDeleteCollectons(item.id)} />
+                </div>
+            </IndexTable.Cell>
+        </IndexTable.Row>
+    ));
+
 
     return (
         <div className='main-container'>
@@ -199,12 +252,9 @@ const AirConditionerTable = () => {
 
                     <LegacyCard sectioned>
                         <IndexTable
-                            resourceName={resourceName}
+                            resourceName={{ singular: 'product', plural: 'products' }}
                             itemCount={airConditionerproducts.length}
-                            selectedItemsCount={
-                                allResourcesSelected ? 'All' : selectedResources.length
-                            }
-                            onSelectionChange={handleSelectionChange}
+                            selectedItemsCount={allResourcesSelected ? 'All' : selectedResources.length}
                             headings={[
                                 { title: 'Image' },
                                 { title: 'ID' },
@@ -212,28 +262,9 @@ const AirConditionerTable = () => {
                                 { title: 'Name' },
                                 { title: 'Actions' },
                             ]}
+                            selectable={false}
                         >
-                            {loading ? (
-                                <IndexTable.Row>
-                                    <IndexTable.Cell>
-                                        <SkeletonBodyText lines={1} />
-                                    </IndexTable.Cell>
-                                    <IndexTable.Cell>
-                                        <SkeletonDisplayText size="medium" />
-                                    </IndexTable.Cell>
-                                    <IndexTable.Cell>
-                                        <SkeletonDisplayText size="medium" />
-                                    </IndexTable.Cell>
-                                    <IndexTable.Cell>
-                                        <SkeletonDisplayText size="medium" />
-                                    </IndexTable.Cell>
-                                    <IndexTable.Cell>
-                                        <SkeletonBodyText lines={1} />
-                                    </IndexTable.Cell>
-                                </IndexTable.Row>
-                            ) : (
-                                rowMarkup
-                            )}
+                            {rowMarkup}
                         </IndexTable>
                     </LegacyCard>
                 </div>

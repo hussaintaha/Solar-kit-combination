@@ -1,12 +1,39 @@
 import { useEffect, useState } from 'react';
 import { IndexTable, LegacyCard, Text, Button, Icon, useIndexResourceState } from '@shopify/polaris';
-import { DeleteIcon } from '@shopify/polaris-icons';
+import { DeleteIcon, ArrowDownIcon, ArrowUpIcon } from '@shopify/polaris-icons';
 import "../routes/styles/chargeController.css"
 
 const ChargeControllerTable = ({ selectHarvestValue }) => {
 
     const [chargeControllerProducts, setChargeControllerProducts] = useState([]);
 
+    const moveItem = (index, direction) => {
+        const reorderedItems = [...chargeControllerProducts];
+        const [movedItem] = reorderedItems.splice(index, 1);
+        const newIndex = direction === 'up' ? index + 1 : index - 1;
+        reorderedItems.splice(newIndex, 0, movedItem);
+        setChargeControllerProducts(reorderedItems);
+        console.log("reorderedItems ========= ", reorderedItems);
+        saveReorderingItems(reorderedItems)
+    };
+
+    const saveReorderingItems = async (reorderedItems) => {
+        try {
+            const savereorderitmesAPI = await fetch("/api/saveReorderedItmes", {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify({ data: reorderedItems, range: selectHarvestValue, collection: "chargeControllerProducts" })
+            });
+            const savereorderitmesJSON = await savereorderitmesAPI.json();
+            console.log("savereorderitmesJSON ====== ", savereorderitmesJSON);
+
+        } catch (error) {
+            console.log("error ====", error);
+
+        }
+    }
 
     const sendChargeControllerProduct = async () => {
         if (selectHarvestValue) {
@@ -25,7 +52,7 @@ const ChargeControllerTable = ({ selectHarvestValue }) => {
                 const chargeControllerResponse = await airConditionerAPI.json();
                 console.log('chargeControllerResponse:', chargeControllerResponse);
                 setChargeControllerProducts(chargeControllerResponse?.products || []);
-
+                getChargeControllerProducts();
             } catch (error) {
                 console.error('Error fetching solar panel products:', error);
             }
@@ -50,6 +77,7 @@ const ChargeControllerTable = ({ selectHarvestValue }) => {
 
                 const solarPanelResponse = await airConditionerAPI.json();
                 console.log('solarPanelResponse ========= ', solarPanelResponse);
+                getChargeControllerProducts();
             } else {
                 alert('Please select a Harvest value');
             }
@@ -109,42 +137,52 @@ const ChargeControllerTable = ({ selectHarvestValue }) => {
     };
 
 
-    const {
-        selectedResources: selectedChargeControllerResources,
-        allResourcesSelected: allChargeControllerResourcesSelected,
-        handleSelectionChange: handleChargeControllerSelectionChange,
-    } = useIndexResourceState(chargeControllerProducts);
+    const { selectedResources, allResourcesSelected, handleSelectionChange } =
+        useIndexResourceState(chargeControllerProducts);
 
 
-    const chargeControllerRowMarkup = chargeControllerProducts.map(
-        ({ id, image, product, displayName }, index) => (
-            <IndexTable.Row
-                id={id}
-                key={id}
-                selected={selectedChargeControllerResources.includes(id)}
-                position={index}
-            >
-                <IndexTable.Cell>
-                    <img src={image?.originalSrc} alt={displayName} width={50} />
-                </IndexTable.Cell>
-                <IndexTable.Cell>
-                    <Text variant="bodyMd" fontWeight="bold" as="span">
-                        {id?.split("/")[4]}
-                    </Text>
-                </IndexTable.Cell>
-                <IndexTable.Cell>{product?.id?.split("/")[4]}</IndexTable.Cell>
-                <div>
-                    <IndexTable.Cell>{formatDisplayName(displayName, 20)} </IndexTable.Cell>
+    const rowMarkup = chargeControllerProducts.map((item, index) => (
+        <IndexTable.Row
+            id={item.id}
+            key={item.id}
+            position={index}
+        >
+            <IndexTable.Cell>
+                {item.image && item.image.originalSrc ? (
+                    <img src={item.image.originalSrc} alt={item.displayName} width={50} />
+                ) : (
+                    <span>Image Not Available</span>
+                )}
+            </IndexTable.Cell>
+            <IndexTable.Cell>
+                <Text variant="bodyMd" fontWeight="bold" as="span">
+                    {item.id.split("/")[4]}
+                </Text>
+            </IndexTable.Cell>
+            <IndexTable.Cell>{item.product?.id.split("/")[4]}</IndexTable.Cell>
+            <IndexTable.Cell>{formatDisplayName(item.displayName)}</IndexTable.Cell>
+            <IndexTable.Cell>
+                <div style={{ display: 'flex', gap: '10px' }}>
+                    {/* Move Up Button */}
+                    <Button
+                        icon={ArrowDownIcon}
+                        onClick={() => moveItem(index, 'up')}
+                        disabled={index === chargeControllerProducts.length - 1}
+                        accessibilityLabel="Move item up"
+                    />
+                    {/* Move Down Button */}
+                    <Button
+                        icon={ArrowUpIcon}
+                        onClick={() => moveItem(index, 'down')}
+                        disabled={index === 0}
+                        accessibilityLabel="Move item down"
+                    />
+                    {/* Delete Button */}
+                    <Button tone="critical" icon={DeleteIcon} onClick={() => handleDeleteCollectons(item.id)} />
                 </div>
-
-                <IndexTable.Cell>
-                    <Button tone='critical'  onClick={() => handleDeleteCollectons(id)}>
-                        <Icon source={DeleteIcon} tone='critical' />
-                    </Button>
-                </IndexTable.Cell>
-            </IndexTable.Row>
-        ),
-    );
+            </IndexTable.Cell>
+        </IndexTable.Row>
+    ))
 
     return (
         <div className='charge-controller-container'>
@@ -160,22 +198,19 @@ const ChargeControllerTable = ({ selectHarvestValue }) => {
 
             <LegacyCard className="index-table-wrapper">
                 <IndexTable
-                    resourceName={resourceName}
+                    resourceName={{ singular: 'product', plural: 'products' }}
                     itemCount={chargeControllerProducts.length}
-                    selectedItemsCount={
-                        allChargeControllerResourcesSelected ? 'All' : selectedChargeControllerResources.length
-                    }
-                    onSelectionChange={handleChargeControllerSelectionChange}
+                    selectedItemsCount={allResourcesSelected ? 'All' : selectedResources.length}
                     headings={[
                         { title: 'Image' },
-                        { title: 'VariantID' },
+                        { title: 'ID' },
                         { title: 'Product ID' },
-                        { title: 'Display Name' },
-                        { title: "Actions" }
+                        { title: 'Name' },
+                        { title: 'Actions' },
                     ]}
-                    className="index-table"
+                    selectable={false}
                 >
-                    {chargeControllerRowMarkup}
+                    {rowMarkup}
                 </IndexTable>
             </LegacyCard>
         </div>

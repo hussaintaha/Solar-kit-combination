@@ -8,7 +8,7 @@ import {
     Button,
     Icon,
 } from '@shopify/polaris';
-import { DeleteIcon } from '@shopify/polaris-icons';
+import { DeleteIcon, ArrowDownIcon, ArrowUpIcon } from '@shopify/polaris-icons';
 import React, { useEffect, useState } from 'react';
 import "../routes/styles/solarPanelproducts.css";
 import ChargeControllerTable from './ChargeControllerTable';
@@ -18,14 +18,54 @@ const SolarPanelTable = () => {
     const [selectHarvestValue, setSelectHarvestValue] = useState("");
     const [solarPanelProducts, setSolarPanelProducts] = useState([]);
 
-    const formatDisplayName = (name, limit = 20) => {
-        if (name.length > limit) {
+    const moveItem = (index, direction) => {
+        const reorderedItems = [...solarPanelProducts];
+        const [movedItem] = reorderedItems.splice(index, 1);
+        const newIndex = direction === 'up' ? index + 1 : index - 1;
+        reorderedItems.splice(newIndex, 0, movedItem);
+        setSolarPanelProducts(reorderedItems);
+        console.log("reorderedItems ========= ", reorderedItems);
+        saveReorderingItems(reorderedItems)
+    };
+
+    const saveReorderingItems = async (reorderedItems) => {
+        try {
+            const savereorderitmesAPI = await fetch("/api/saveReorderedItmes", {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify({ data: reorderedItems, range: selectHarvestValue, collection: "solarPanelProducts" })
+            });
+            const savereorderitmesJSON = await savereorderitmesAPI.json();
+            console.log("savereorderitmesJSON ====== ", savereorderitmesJSON);
+
+        } catch (error) {
+            console.log("error ====", error);
+
+        }
+    }
+
+
+
+    const formatDisplayName = (name, limit = 35) => {
+        // if (name.length > limit) {
+        //     return (
+        //         <>
+        //             {name.substring(0, limit)}<br />{name.substring(limit)}
+        //         </>
+        //     );
+        // }
+
+        const splitName = name.split(' - '); // Split the name based on the first hyphen
+        if (splitName.length > 1) {
             return (
                 <>
-                    {name.substring(0, limit)}<br />{name.substring(limit)}
+                    {splitName[0]}<br />{splitName[1]}
                 </>
             );
         }
+
         return name;
     };
 
@@ -44,7 +84,9 @@ const SolarPanelTable = () => {
                 });
 
                 const solarPanelResponse = await airConditionerAPI.json();
+                console.log("solarPanelResponse ==== ", solarPanelResponse);
                 setSolarPanelProducts(solarPanelResponse?.products || []);
+                getSolarPanelProducts()
 
             } catch (error) {
                 console.error('Error fetching solar panel products:', error);
@@ -70,6 +112,7 @@ const SolarPanelTable = () => {
 
                 const solarPanelResponse = await airConditionerAPI.json();
                 console.log('solarPanelResponse ========= ', solarPanelResponse);
+                getSolarPanelProducts()
             } else {
                 alert('Please select a Harvest value');
             }
@@ -82,6 +125,8 @@ const SolarPanelTable = () => {
         try {
             const response = await fetch(`/api/getSolarPanelProducts/?selectHarvestValue=${selectHarvestValue}`);
             const result = await response.json();
+            console.log("resultSolarPanel ========== ", result);
+
             setSolarPanelProducts(result?.getVariants?.products || []);
         } catch (error) {
             console.error('Error fetching solar panel products:', error);
@@ -123,38 +168,51 @@ const SolarPanelTable = () => {
         plural: 'products',
     };
 
-    const {
-        selectedResources: selectedSolarPanelResources,
-        allResourcesSelected: allSolarPanelResourcesSelected,
-        handleSelectionChange: handleSolarPanelSelectionChange,
-    } = useIndexResourceState(solarPanelProducts);
+    const { selectedResources, allResourcesSelected, handleSelectionChange } =
+        useIndexResourceState(solarPanelProducts);
 
-    const rowMarkup = solarPanelProducts.map(
-        ({ id, image, product, displayName }, index) => (
-            <IndexTable.Row
-                id={id}
-                key={id}
-                selected={selectedSolarPanelResources.includes(id)}
-                position={index}
-            >
-                <IndexTable.Cell>
-                    <img src={image?.originalSrc} alt={displayName} width={50} />
-                </IndexTable.Cell>
-                <IndexTable.Cell>
-                    <Text variant="bodyMd" fontWeight="bold" as="span">
-                        {id?.split("/")[4]}
-                    </Text>
-                </IndexTable.Cell>
-                <IndexTable.Cell>{product?.id?.split("/")[4]}</IndexTable.Cell>
-                <IndexTable.Cell>{formatDisplayName(displayName, 20)}</IndexTable.Cell>
-                <IndexTable.Cell>
-                    <Button tone='critical' onClick={() => handleDeleteCollectons(id)}>
-                        <Icon source={DeleteIcon} tone='critical' />
-                    </Button>
-                </IndexTable.Cell>
-            </IndexTable.Row>
-        ),
-    );
+    const rowMarkup = solarPanelProducts.map((item, index) => (
+        <IndexTable.Row
+            id={item.id}
+            key={item.id}
+            position={index}
+        >
+            <IndexTable.Cell>
+                {item.image && item.image.originalSrc ? (
+                    <img src={item.image.originalSrc} alt={item.displayName} width={50} />
+                ) : (
+                    <span>Image Not Available</span>
+                )}
+            </IndexTable.Cell>
+            <IndexTable.Cell>
+                <Text variant="bodyMd" fontWeight="bold" as="span">
+                    {item.id.split("/")[4]}
+                </Text>
+            </IndexTable.Cell>
+            <IndexTable.Cell>{item.product?.id.split("/")[4]}</IndexTable.Cell>
+            <IndexTable.Cell>{formatDisplayName(item.displayName)}</IndexTable.Cell>
+            <IndexTable.Cell>
+                <div style={{ display: 'flex', gap: '10px' }}>
+                    {/* Move Up Button */}
+                    <Button
+                        icon={ArrowDownIcon}
+                        onClick={() => moveItem(index, 'up')}
+                        disabled={index === solarPanelProducts.length - 1}
+                        accessibilityLabel="Move item up"
+                    />
+                    {/* Move Down Button */}
+                    <Button
+                        icon={ArrowUpIcon}
+                        onClick={() => moveItem(index, 'down')}
+                        disabled={index === 0}
+                        accessibilityLabel="Move item down"
+                    />
+                    {/* Delete Button */}
+                    <Button tone="critical" icon={DeleteIcon} onClick={() => handleDeleteCollectons(item.id)} />
+                </div>
+            </IndexTable.Cell>
+        </IndexTable.Row>
+    ))
 
     return (
         <div className='main-container'>
@@ -183,19 +241,17 @@ const SolarPanelTable = () => {
 
                         <LegacyCard>
                             <IndexTable
-                                resourceName={resourceName}
+                                resourceName={{ singular: 'product', plural: 'products' }}
                                 itemCount={solarPanelProducts.length}
-                                selectedItemsCount={
-                                    allSolarPanelResourcesSelected ? 'All' : selectedSolarPanelResources.length
-                                }
-                                onSelectionChange={handleSolarPanelSelectionChange}
+                                selectedItemsCount={allResourcesSelected ? 'All' : selectedResources.length}
                                 headings={[
                                     { title: 'Image' },
-                                    { title: 'VariantID' },
-                                    { title: 'ProductID' },
+                                    { title: 'ID' },
+                                    { title: 'Product ID' },
                                     { title: 'Name' },
-                                    { title: 'Action' },
+                                    { title: 'Actions' },
                                 ]}
+                                selectable={false}
                             >
                                 {rowMarkup}
                             </IndexTable>
@@ -210,7 +266,6 @@ const SolarPanelTable = () => {
                 </div>
             </Card>
         </div>
-
     );
 };
 
