@@ -18,11 +18,17 @@ export const action = async ({ request }) => {
     // console.log("customProductPrice ======== ", customProductPrice);
 
 
+
     const productData = {
       product: {
         title: `${paneltoBattery} Feet from Panels to Battery / ${batterytoHVAC} Feet from Battery to HVAC`,
         product_type: "Product",
         tags: ["CustomWiringKit"],
+        images: [
+          {
+            src: "https://rakanonline.com/wp-content/uploads/2022/08/default-product-image.png"
+          }
+        ],
         variants: [
           {
             price: customProductPrice,

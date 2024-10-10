@@ -5,10 +5,10 @@ import Modal from './component/Modal';
 
 const App = () => {
 
-  console.log(" ========== 11111111111111111111111111111111111 =========");
+  console.log(" ========== 7777777777777777 =========");
 
 
-
+  const [activecartButton, setActiveCartButton] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState({
     selectAirConditionerProducts: null,
@@ -39,8 +39,8 @@ const App = () => {
     selectBatteryOptions: 0
   });
   const [customProductDistance, setCustomProductDistance] = useState({
-    paneltoBattery: null,
-    batterytoHVAC: null
+    paneltoBattery: "",
+    batterytoHVAC: ""
   });
 
   const insulationOptions = [
@@ -123,6 +123,11 @@ const App = () => {
     }
   }
 
+  const handleRunEachDay = (value) => {
+    console.log("value ============= ", value);
+    setDailyRunTime(value);
+  }
+
   const getpanelCollectionAPI = async (neededHarvestkWh) => {
     try {
       const fetchProducts = await fetch(`https://${Shopify.shop}/apps/proxy/api/getpanelCollections/?neededHarvestkWh=${neededHarvestkWh}`);
@@ -160,12 +165,19 @@ const App = () => {
   const handleSelectProduct = async (productType, productId) => {
     console.log("productId ====== ", productId);
 
-    setSelectedProductId((prevState) => ({
-      ...prevState,
-      [productType]: productId
+    const isDeselecting = selectedProductId[productType] === productId;
+
+    setSelectedProductId((prevSelected) => ({
+      ...prevSelected,
+      [productType]: isDeselecting ? null : productId
     }));
 
-    if (productId) {
+    if (isDeselecting) {
+      setSelectedProductPrices((prevState) => ({
+        ...prevState,
+        [productType]: 0
+      }));
+    } else if (productId) {
       const fetchProductsDetails = await fetch(`https://${Shopify.shop}/apps/proxy/api/getproductsDetail`, {
         method: "POST",
         headers: {
@@ -175,8 +187,6 @@ const App = () => {
       });
 
       const productDetails = await fetchProductsDetails.json();
-      // console.log("productDetails ======== ", productDetails);
-
       const productPrice = parseFloat(productDetails.varientData.price);
 
       setSelectedProductPrices((prevState) => ({
@@ -184,6 +194,8 @@ const App = () => {
         [productType]: productPrice
       }));
     }
+
+    setActiveCartButton(false);
   };
 
 
@@ -265,22 +277,31 @@ const App = () => {
 
   const handleDistanceValue = (e) => {
     const { name, value } = e.target;
-    setCustomProductDistance((prevState) => ({
-      ...prevState,
-      [name]: value
-    }))
+    console.log("value ======== ", value);
+
+    if (value >= 0) {
+      setCustomProductDistance((prevState) => ({
+        ...prevState,
+        [name]: value
+      }))
+    }
   }
 
+  // useEffect to check if both values are filled or not
+  useEffect(() => {
+    const { paneltoBattery, batterytoHVAC } = customProductDistance;
+
+    if (paneltoBattery > 0 && batterytoHVAC > 0) {
+      setActiveCartButton(false);
+    } else {
+      setActiveCartButton(true);
+    }
+  }, [customProductDistance]);
 
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
-
-  const handleRunEachDay = (value) => {
-    console.log("value ============= ", value);
-    setDailyRunTime(value);
-  }
 
   useEffect(() => {
     if (recommendedBTU > 0 && insulationValue > 0 && dailyRunTime > 0) {
@@ -408,7 +429,9 @@ const App = () => {
                       ) : (
                         <p>No image available</p>
                       )}
-
+                    </div>
+                    <div className='product-price'>
+                      <h1> ${ele.price} </h1>
                     </div>
                     <div className='title'>
                       <h1> {ele.displayName} </h1>
@@ -476,7 +499,9 @@ const App = () => {
                       ) : (
                         <p>No image available</p>
                       )}
-
+                    </div>
+                    <div className='product-price'>
+                      <h1> ${ele.price} </h1>
                     </div>
                     <div className='title'>
                       <h1> {ele.displayName} </h1>
@@ -489,7 +514,7 @@ const App = () => {
             <br />
             <div className='recommendedWatts'>
               <div>
-                Your recommended watts of Solar Capacity: {(Math.floor(neededHarvest / 3)).toLocaleString()} watts
+                Your recommended watts of Solar Capacity: {(Math.floor(neededHarvest * 1000 / 3)).toLocaleString()} watts
               </div>
             </div>
           </div>
@@ -518,7 +543,9 @@ const App = () => {
                       ) : (
                         <p>No image available</p>
                       )}
-
+                    </div>
+                    <div className='product-price'>
+                      <h1> ${ele.price} </h1>
                     </div>
                     <div className='title'>
                       <h1> {ele.displayName} </h1>
@@ -553,7 +580,9 @@ const App = () => {
                       ) : (
                         <p>No image available</p>
                       )}
-
+                    </div>
+                    <div className='product-price'>
+                      <h1> ${ele.price} </h1>
                     </div>
                     <div className='title'>
                       <h1> {ele.displayName} </h1>
@@ -568,7 +597,12 @@ const App = () => {
 
         <div className='ques-8-container'>
           <div className='ques-8'>
-            <h1> {customProductDistance.paneltoBattery} Feet from Panels to Batter / {customProductDistance.batterytoHVAC} Feet from Battery to HVAC </h1>
+            <h1>8. Add a PV cable / Battery cable hookup kit with breaker box.</h1>
+            <h1 className='sub-ques'> {customProductDistance.paneltoBattery} Feet from Panels to Batter / {customProductDistance.batterytoHVAC} Feet from Battery to HVAC </h1>
+            <div className='custom-variant-description'>
+              We can include a simple kit with appropriate gauge wires for the run between your solar panels and the charge controller/battery, and the right gauge battery cables with ring terminals to attach to the air conditioner. Just enter the distances between your solar array and your battery/controller, and the distance between your battery and the HVAC unit, and we will cut a set of red and black cables, attach the terminals, and include a simple inline breaker box to get you started.
+
+            </div>
           </div>
           <div className='collection-container'>
             <div className='custome-product'>
@@ -589,6 +623,10 @@ const App = () => {
                   <input type='number' value={customProductDistance.batterytoHVAC} name='batterytoHVAC' onChange={handleDistanceValue} />
                 </div>
               </div>
+
+              <div className='custom-variant-price'>
+                Wiring Kit Cost :  {calculateCustomePrice()}
+              </div>
             </div>
           </div>
 
@@ -599,7 +637,7 @@ const App = () => {
           <span className='price'> ${totalPrice} </span>
         </div>
 
-        <button className='cartButton' onClick={handleAddToCart}> Add To Cart </button>
+        <button className='cartButton' disabled={activecartButton} onClick={handleAddToCart}> Add To Cart </button>
       </div>
     </>
   );

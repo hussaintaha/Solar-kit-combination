@@ -161,13 +161,13 @@ input[type="number"]:focus-visible {
 .title h1 {
   font-size: 16px;
   margin: 10px 0 5px;
-  color: #333;
+  color: #555;
 }
 
-.products h1 {
-  font-size: 14px;
-  margin: 5px 0;
-  color: #555;
+.product-price>h1 {
+  font-size: large;
+  color: black;
+  margin: 13px 0px -30px 0px;
 }
 
 .insulation-options {
@@ -275,11 +275,18 @@ input[type="number"]:focus-visible {
   border-color: #00A1A7;
   transform: translateY(-2px);
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 
 .cartButton:active {
   transform: translateY(0);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cartButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  background-color: black;
 }
 
 .displayBTU {
@@ -303,4 +310,23 @@ input[type="number"]:focus-visible {
 .recommendedWatts {
   font-size: 18px;
   font-weight: 700;
+}
+
+.sub-ques {
+  /* border: 2px solid; */
+  /* padding: 5px; */
+  margin: 10px 30px;
+  font-size: larger;
+  /* color: #555; */
+}
+
+.custom-variant-description {
+  color: #555;
+  margin: 10px 30px;
+  font-size: large;
+}
+
+.custom-variant-price {
+  color: black;
+  font-size: larger;
 }
