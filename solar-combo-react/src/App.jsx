@@ -5,9 +5,9 @@ import Modal from './component/Modal';
 
 const App = () => {
 
-  console.log(" ========== 7777777777777777 =========");
+  console.log(" ========== 8888888888888888888888888 =========");
 
-
+  const [loading, setLoading] = useState(false);
   const [activecartButton, setActiveCartButton] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState({
@@ -201,6 +201,7 @@ const App = () => {
 
   // ============================= ADD TO CART ============================= //
   const handleAddToCart = async () => {
+    setLoading(true)
     let productsId = selectedProductId
 
     if (customProductDistance.batterytoHVAC && customProductDistance.paneltoBattery) {
@@ -266,10 +267,13 @@ const App = () => {
         if (getItmes.items.length) {
           window.location.href = "/cart"
         }
+        setLoading(false)
 
       } catch (error) {
         console.log("error  ====", error);
+        setLoading(false)
       } finally {
+        setLoading(false)
       }
     }
   }
@@ -637,7 +641,9 @@ const App = () => {
           <span className='price'> ${totalPrice} </span>
         </div>
 
-        <button className='cartButton' disabled={activecartButton} onClick={handleAddToCart}> Add To Cart </button>
+        <button className='cartButton' disabled={activecartButton} onClick={handleAddToCart}>
+          {loading ? <span className="loader"></span> : "Add To Cart"}
+        </button>
       </div>
     </>
   );
