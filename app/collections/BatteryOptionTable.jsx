@@ -66,6 +66,8 @@ const BatteryOptionTable = ({ selectHarvestValue }) => {
                 console.log('batteryListResponse:', batteryListResponse);
                 setSelectBatteryOptions(batteryListResponse?.products || []);
                 getBatteryOptionList();
+            } else {
+                shopify.toast.show('Please select harvest value');
             }
         } catch (error) {
             console.error('Error fetching Battery List:', error);
@@ -102,7 +104,7 @@ const BatteryOptionTable = ({ selectHarvestValue }) => {
                 console.log('solarPanelResponse ========= ', solarPanelResponse);
                 getBatteryOptionList();
             } else {
-                alert('Please select a Harvest value');
+                shopify.toast.show('Please select harvest value');
             }
         } catch (error) {
             console.error('Error adding air conditioner products:', error);

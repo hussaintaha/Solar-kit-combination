@@ -3,7 +3,7 @@
 client_id = "f06f43a1013bd4e8895a4a15f6820596"
 name = "solar-combination"
 handle = "solar-combination"
-application_url = "https://seven-britain-purchases-nursing.trycloudflare.com"
+application_url = "https://greetings-deutschland-senators-filled.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,16 +17,16 @@ scopes = "read_inventory,read_orders,read_products,write_orders,write_products"
 
 [auth]
 redirect_urls = [
-  "https://seven-britain-purchases-nursing.trycloudflare.com/auth/callback",
-  "https://seven-britain-purchases-nursing.trycloudflare.com/auth/shopify/callback",
-  "https://seven-britain-purchases-nursing.trycloudflare.com/api/auth/callback"
+  "https://greetings-deutschland-senators-filled.trycloudflare.com/auth/callback",
+  "https://greetings-deutschland-senators-filled.trycloudflare.com/auth/shopify/callback",
+  "https://greetings-deutschland-senators-filled.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
 api_version = "2024-07"
 
 [app_proxy]
-url = "https://seven-britain-purchases-nursing.trycloudflare.com"
+url = "https://greetings-deutschland-senators-filled.trycloudflare.com"
 subpath = "proxy"
 prefix = "apps"
 

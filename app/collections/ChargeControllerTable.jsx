@@ -57,7 +57,7 @@ const ChargeControllerTable = ({ selectHarvestValue }) => {
                 console.error('Error fetching solar panel products:', error);
             }
         } else {
-            alert("Please select harvest value");
+            shopify.toast.show('Please select harvest value');
         }
     };
 
@@ -79,7 +79,7 @@ const ChargeControllerTable = ({ selectHarvestValue }) => {
                 console.log('solarPanelResponse ========= ', solarPanelResponse);
                 getChargeControllerProducts();
             } else {
-                alert('Please select a Harvest value');
+                shopify.toast.show('Please select a Harvest value');
             }
         } catch (error) {
             console.error('Error adding air conditioner products:', error);

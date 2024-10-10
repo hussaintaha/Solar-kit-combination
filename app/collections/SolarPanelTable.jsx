@@ -92,7 +92,7 @@ const SolarPanelTable = () => {
                 console.error('Error fetching solar panel products:', error);
             }
         } else {
-            alert("Please select harvest value");
+            shopify.toast.show('Please select harvest value');
         }
     };
 
@@ -114,7 +114,7 @@ const SolarPanelTable = () => {
                 console.log('solarPanelResponse ========= ', solarPanelResponse);
                 getSolarPanelProducts()
             } else {
-                alert('Please select a Harvest value');
+                shopify.toast.show('Please select harvest value');
             }
         } catch (error) {
             console.error('Error adding solar panel products:', error);

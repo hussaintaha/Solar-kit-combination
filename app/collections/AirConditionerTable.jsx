@@ -77,7 +77,8 @@ const AirConditionerTable = () => {
 
                 setLoading(false);
             } else {
-                alert('Please select a BTU range');
+                // alert('Please select a BTU range');
+                shopify.toast.show('Please select a BTU range');
                 setLoading(false)
             }
         } catch (error) {
@@ -124,7 +125,8 @@ const AirConditionerTable = () => {
                 getAirConditionerProducts()
                 setLoading(false);
             } else {
-                alert('Please select a BTU range');
+                shopify.toast.show('Please select a BTU range');
+                // alert('Please select a BTU range');
                 setLoading(false)
             }
         } catch (error) {
