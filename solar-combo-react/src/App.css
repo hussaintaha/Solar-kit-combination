@@ -205,6 +205,26 @@ input[type="number"]:focus-visible {
   margin-top: 20px;
 }
 
+.insulation-option.selected {
+  border: 2px solid blue;
+  border-radius: 5px;
+}
+
+.runtime-selected {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 180px;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px #0000001a;
+  transition: background-color .3s ease;
+  border: 2px solid blue;
+  /* Different color for selected */
+  border-radius: 5px;
+}
+
 .runtimeOption-details {
   font-size: small;
 }

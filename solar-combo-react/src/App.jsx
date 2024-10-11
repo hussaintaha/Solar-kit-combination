@@ -5,7 +5,7 @@ import Modal from './component/Modal';
 
 const App = () => {
 
-  console.log(" ========== 333333333333333 =========");
+  console.log(" ========== 33333333333333333333333333 =========");
 
   const [loading, setLoading] = useState(false);
   const [activecartButton, setActiveCartButton] = useState(true)
@@ -49,7 +49,7 @@ const App = () => {
     { label: 'Good', value: 0.8, src: "https://app.fullbattery.com/insulation-images/good-insulated.jpeg", desc: "abc" },
     { label: 'Paranoid', value: 0.6, src: "https://app.fullbattery.com/insulation-images/paranoid-insulated.webp", desc: "abc" },
   ];
-  
+
   const runTimeOptions = [
     { label: 'Overhead Sun Only', value: 1, src: "https://app.fullbattery.com/runEachday-images/overhead-sun-only.jpg", desc: "abc" },
     { label: '6 Hours a day', value: 6, src: "https://app.fullbattery.com/runEachday-images/six-hours-day.jpeg", desc: "abc" },
@@ -386,7 +386,12 @@ const App = () => {
           <div className='ques-2-answer'>
             <div className='insulation-options'>
               {insulationOptions.map((option) => (
-                <div key={option.label} onClick={() => handleInsulationChange({ target: { value: option.value } })} style={{ cursor: "pointer" }} className='insulation-option'>
+                <div
+                  key={option.label}
+                  onClick={() => handleInsulationChange({ target: { value: option.value } })}
+                  style={{ cursor: "pointer" }}
+                  className={`insulation-option ${insulationValue === option.value ? 'selected' : ''}`} // Add selected class when this option is selected
+                >
                   <div className='option-details'>
                     <img src={option.src} alt={option.label} className='option-image' />
                     <label>
@@ -411,6 +416,7 @@ const App = () => {
               : ""} </div>
           </div>
         </div>
+
 
 
         <div className='ques-3-container ques-wrapper'>
@@ -456,7 +462,11 @@ const App = () => {
           </div>
           <div className='runtime-options'>
             {runTimeOptions.map((option) => (
-              <div ey={option.label} onClick={() => handleRunEachDay(option.value)} className='insulation-option'>
+              <div
+                key={option.label}
+                onClick={() => handleRunEachDay(option.value)}
+                className={dailyRunTime === option.value ? 'runtime-selected' : 'insulation-option'} // Conditional className
+              >
                 <img src={option.src} alt={option.label} className='option-image' />
                 <div className='runtimeOption-details'>
                   <label key={option.label}>
