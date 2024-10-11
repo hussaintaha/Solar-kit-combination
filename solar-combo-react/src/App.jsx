@@ -5,7 +5,7 @@ import Modal from './component/Modal';
 
 const App = () => {
 
-  console.log(" ========== 33333333333333333333333333 =========");
+  console.log(" ========== 44444444444444444444444 =========");
 
   const [loading, setLoading] = useState(false);
   const [activecartButton, setActiveCartButton] = useState(true)
@@ -411,7 +411,7 @@ const App = () => {
             </div>
             <div> {insulationValue ?
               <div className='displayBTU'>
-                <span> Recommended BTU :  {recommendedBTU.toLocaleString()} </span>
+                <span> Your recommended BTU: {recommendedBTU.toLocaleString()} </span>
               </div>
               : ""} </div>
           </div>
