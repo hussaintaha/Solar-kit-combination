@@ -1,13 +1,4 @@
-import {
-    Card,
-    Select,
-    IndexTable,
-    LegacyCard,
-    useIndexResourceState,
-    Text,
-    Button,
-    Icon,
-} from '@shopify/polaris';
+import { Card, Select, IndexTable, LegacyCard, useIndexResourceState, Text, Button, } from '@shopify/polaris';
 import { DeleteIcon, ArrowDownIcon, ArrowUpIcon } from '@shopify/polaris-icons';
 import React, { useEffect, useState } from 'react';
 import "../routes/styles/solarPanelproducts.css";
@@ -162,11 +153,6 @@ const SolarPanelTable = () => {
         { label: '10 - 20 kWh', value: '10to20kWh' },
         { label: '> 20 kWh', value: 'greaterThan20kWh' },
     ];
-
-    const resourceName = {
-        singular: 'product',
-        plural: 'products',
-    };
 
     const { selectedResources, allResourcesSelected, handleSelectionChange } =
         useIndexResourceState(solarPanelProducts);

@@ -5,7 +5,7 @@ import Modal from './component/Modal';
 
 const App = () => {
 
-  console.log(" ========== 8888888888888888888888888 =========");
+  console.log(" ========== 22222222222222222222 =========");
 
   const [loading, setLoading] = useState(false);
   const [activecartButton, setActiveCartButton] = useState(true)
@@ -44,10 +44,10 @@ const App = () => {
   });
 
   const insulationOptions = [
-    { label: 'Not Insulated', value: 3.0, src: "https://www.bobvila.com/wp-content/uploads/2022/09/The-Best-Insulation-Contractor-Options.jpg", desc: "abc" },
-    { label: 'Minimum', value: 1.6, src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSh4ZWDYaAEtTs2K1ZSgeF6us5P6l8IkvqQyw&s", desc: "abc" },
-    { label: 'Good', value: 0.8, src: "https://havelockwool.com/wp-content/uploads/2022/04/r-19-insulation-2-1024x683.jpeg", desc: "abc" },
-    { label: 'Paranoid', value: 0.6, src: "https://thumbs.dreamstime.com/b/thinking-others-opinion-concept-paranoid-man-head-funny-scary-faces-his-mind-brain-thinks-inside-his-brain-mind-218192654.jpg", desc: "abc" },
+    { label: 'Not Insulated', value: 3.0, src: "https://mangesh-nodea.amkwebsolutions.com/images/public/insulation-image/not-insulated-image.webp", desc: "abc" },
+    { label: 'Minimum', value: 1.6, src: "https://mangesh-nodea.amkwebsolutions.com/images/public/insulation-image/minimum-insulated.jpeg", desc: "abc" },
+    { label: 'Good', value: 0.8, src: "https://mangesh-nodea.amkwebsolutions.com/images/public/insulation-image/good-insulated.jpeg", desc: "abc" },
+    { label: 'Paranoid', value: 0.6, src: "https://mangesh-nodea.amkwebsolutions.com/images/public/insulation-image/paranoid-insulated.webp", desc: "abc" },
   ];
   const runTimeOptions = [
     { label: 'Overhead Sun Only', value: 1, src: "https://media.istockphoto.com/id/525206743/photo/solar-panel-on-a-red-roof.jpg?s=612x612&w=0&k=20&c=xcAkdNj8dFDhu8734FpRDAZDtN2bjr48RKEd9j2FL0U=", desc: "abc" },
@@ -76,7 +76,6 @@ const App = () => {
     return BTU;
   };
 
-
   const handleQuestions1_options = (e) => {
     const { name, value } = e.target;
 
@@ -97,7 +96,6 @@ const App = () => {
       return { ...updatedValues, totalVolume };
     });
   };
-
 
   const handleInsulationChange = (e) => {
     const insulationFactor = parseFloat(e.target.value);
@@ -178,24 +176,28 @@ const App = () => {
         [productType]: 0
       }));
     } else if (productId) {
-      const fetchProductsDetails = await fetch(`https://${Shopify.shop}/apps/proxy/api/getproductsDetail`, {
-        method: "POST",
-        headers: {
-          "content-type": "application/json"
-        },
-        body: JSON.stringify({ productId })
-      });
+      try {
+        const fetchProductsDetails = await fetch(`https://${Shopify.shop}/apps/proxy/api/getproductsDetail`, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json"
+          },
+          body: JSON.stringify({ productId })
+        });
 
-      const productDetails = await fetchProductsDetails.json();
-      const productPrice = parseFloat(productDetails.varientData.price);
+        const productDetails = await fetchProductsDetails.json();
+        const productPrice = parseFloat(productDetails.varientData.price);
 
-      setSelectedProductPrices((prevState) => ({
-        ...prevState,
-        [productType]: productPrice
-      }));
+        setSelectedProductPrices((prevState) => ({
+          ...prevState,
+          [productType]: productPrice
+        }));
+        setActiveCartButton(false);
+      } catch (error) {
+        console.log("error in selectproduct ==== ", error);
+        setActiveCartButton(true);
+      }
     }
-
-    setActiveCartButton(false);
   };
 
 
@@ -327,7 +329,7 @@ const App = () => {
     const { paneltoBattery, batterytoHVAC } = customProductDistance;
     if (paneltoBattery > 0 && batterytoHVAC > 0) {
       const wiringCost = (paneltoBattery * 4) + (batterytoHVAC * 6) + 33; // Example logic
-      return wiringCost;
+      return wiringCost.toLocaleString();
     }
     return 0;
   }
@@ -369,7 +371,7 @@ const App = () => {
               {spaceAndVolume.totalVolume > 0 && (
                 <div className='totalvolumeValue'>
                   <span>Total Volume: {spaceAndVolume.totalVolume.toLocaleString()} cubic feet</span>
-                  <span> Square Footage : {squareFoot} square feet </span>
+                  <span> Square Footage : {squareFoot.toLocaleString()} square feet </span>
                 </div>
               )}
             </div>
@@ -629,7 +631,7 @@ const App = () => {
               </div>
 
               <div className='custom-variant-price'>
-                Wiring Kit Cost :  {calculateCustomePrice()}
+                Wiring Kit Cost :  ${calculateCustomePrice()}
               </div>
             </div>
           </div>

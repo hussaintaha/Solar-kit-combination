@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Card, Page, Select, IndexTable, useIndexResourceState, Text, Badge, LegacyCard, Icon, SkeletonBodyText, SkeletonDisplayText } from '@shopify/polaris';
+import { Button, Card, Select, IndexTable, useIndexResourceState, Text, LegacyCard } from '@shopify/polaris';
 import { DeleteIcon, ArrowDownIcon, ArrowUpIcon } from '@shopify/polaris-icons';
 import "../routes/styles/settings.css"
 
 const AirConditionerTable = () => {
     const [selectedBTURange, setSelectBTURange] = useState('');
-    const [previouslySelectedIds, setPreviouslySelectedIds] = useState([]);
     const [airConditionerproducts, setAirConditionerProducts] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -58,11 +57,6 @@ const AirConditionerTable = () => {
                     type: 'variant',
                     multiple: true,
                 });
-                const newSelectedIds = selected.map((product) => ({
-                    id: product.id,
-                    variants: product.variants ? product.variants.map((variant) => ({ id: variant.id })) : [],
-                }));
-                setPreviouslySelectedIds(newSelectedIds);
 
                 setLoading(true);
                 const airConditionerAPI = await fetch('/api/sendAirConditionerProducts', {
@@ -107,11 +101,6 @@ const AirConditionerTable = () => {
                     type: 'variant',
                     multiple: true,
                 });
-                const newSelectedIds = selected.map((product) => ({
-                    id: product.id,
-                    variants: product.variants ? product.variants.map((variant) => ({ id: variant.id })) : [],
-                }));
-                setPreviouslySelectedIds(newSelectedIds);
 
                 setLoading(true);
                 const airConditionerAPI = await fetch('/api/addAirConditionerProducts', {
@@ -163,10 +152,6 @@ const AirConditionerTable = () => {
         }
     }, [selectedBTURange]);
 
-    const resourceName = {
-        singular: 'product',
-        plural: 'products',
-    };
 
     const { selectedResources, allResourcesSelected, handleSelectionChange } =
         useIndexResourceState(airConditionerproducts);
@@ -276,3 +261,14 @@ const AirConditionerTable = () => {
 };
 
 export default AirConditionerTable;
+
+
+
+
+
+// previously selected variants id
+// const newSelectedIds = selected.map((product) => ({
+//     id: product.id,
+//     variants: product.variants ? product.variants.map((variant) => ({ id: variant.id })) : [],
+// }));
+// setPreviouslySelectedIds(newSelectedIds);

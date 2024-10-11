@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { IndexTable, LegacyCard, Text, Button, Icon, useIndexResourceState, Badge } from '@shopify/polaris';
+import { IndexTable, LegacyCard, Text, Button, useIndexResourceState } from '@shopify/polaris';
 import { DeleteIcon, ArrowDownIcon, ArrowUpIcon } from '@shopify/polaris-icons';
 import "../routes/styles/battertList.css"
 
@@ -134,10 +134,7 @@ const BatteryOptionTable = ({ selectHarvestValue }) => {
         }
     }, [selectHarvestValue]);
 
-    const resourceName = {
-        singular: 'product',
-        plural: 'products',
-    };
+ 
 
     const { selectedResources, allResourcesSelected, handleSelectionChange } =
         useIndexResourceState(selectBatteryOptions);
