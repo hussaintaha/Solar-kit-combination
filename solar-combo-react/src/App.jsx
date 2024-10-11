@@ -44,17 +44,17 @@ const App = () => {
   });
 
   const insulationOptions = [
-    { label: 'Not Insulated', value: 3.0, src: "https://mangesh-nodea.amkwebsolutions.com/images/public/insulation-image/not-insulated-image.webp", desc: "abc" },
-    { label: 'Minimum', value: 1.6, src: "https://mangesh-nodea.amkwebsolutions.com/images/public/insulation-image/minimum-insulated.jpeg", desc: "abc" },
-    { label: 'Good', value: 0.8, src: "https://mangesh-nodea.amkwebsolutions.com/images/public/insulation-image/good-insulated.jpeg", desc: "abc" },
-    { label: 'Paranoid', value: 0.6, src: "https://mangesh-nodea.amkwebsolutions.com/images/public/insulation-image/paranoid-insulated.webp", desc: "abc" },
+    { label: 'Not Insulated', value: 3.0, src: "https://app.fullbattery.com/insulation-images/not-insulated-image.webp", desc: "abc" },
+    { label: 'Minimum', value: 1.6, src: "https://app.fullbattery.com/insulation-images/minimum-insulated.jpeg", desc: "abc" },
+    { label: 'Good', value: 0.8, src: "https://app.fullbattery.com/insulation-images/good-insulated.jpeg", desc: "abc" },
+    { label: 'Paranoid', value: 0.6, src: "https://app.fullbattery.com/insulation-images/paranoid-insulated.webp", desc: "abc" },
   ];
   
   const runTimeOptions = [
-    { label: 'Overhead Sun Only', value: 1, src: "https://mangesh-nodea.amkwebsolutions.com/images/public/runEachDay-image/overhead-sun-only.jpg", desc: "abc" },
-    { label: '6 Hours a day', value: 6, src: "https://mangesh-nodea.amkwebsolutions.com/images/public/runEachDay-image/six-hours-day.jpeg", desc: "abc" },
-    { label: '12 Hours a day', value: 12, src: "https://mangesh-nodea.amkwebsolutions.com/images/public/runEachDay-image/12-hours-day.jpeg", desc: "abc" },
-    { label: 'Full Blast 24/7', value: 24, src: "https://mangesh-nodea.amkwebsolutions.com/images/public/runEachDay-image/full-blast.jpeg", desc: "abc" },
+    { label: 'Overhead Sun Only', value: 1, src: "https://app.fullbattery.com/runEachday-images/overhead-sun-only.jpg", desc: "abc" },
+    { label: '6 Hours a day', value: 6, src: "https://app.fullbattery.com/runEachday-images/six-hours-day.jpeg", desc: "abc" },
+    { label: '12 Hours a day', value: 12, src: "https://app.fullbattery.com/runEachday-images/12-hours-day.jpeg", desc: "abc" },
+    { label: 'Full Blast 24/7', value: 24, src: "https://app.fullbattery.com/runEachday-images/full-blast.jpeg", desc: "abc" },
   ];
 
 
