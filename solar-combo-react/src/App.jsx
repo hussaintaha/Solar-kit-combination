@@ -49,11 +49,12 @@ const App = () => {
     { label: 'Good', value: 0.8, src: "https://mangesh-nodea.amkwebsolutions.com/images/public/insulation-image/good-insulated.jpeg", desc: "abc" },
     { label: 'Paranoid', value: 0.6, src: "https://mangesh-nodea.amkwebsolutions.com/images/public/insulation-image/paranoid-insulated.webp", desc: "abc" },
   ];
+  
   const runTimeOptions = [
-    { label: 'Overhead Sun Only', value: 1, src: "https://media.istockphoto.com/id/525206743/photo/solar-panel-on-a-red-roof.jpg?s=612x612&w=0&k=20&c=xcAkdNj8dFDhu8734FpRDAZDtN2bjr48RKEd9j2FL0U=", desc: "abc" },
-    { label: '6 Hours a day', value: 6, src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbsmHfXt8frbLN3689skTjxEGvrXrEhNxSUQ&s", desc: "abc" },
-    { label: '12 Hours a day', value: 12, src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQELDJIrxavYXnytK9YW_Z0dBLlye8YIPTHJpN4c1pbGDeR2kwHZW6pob27iTAFxYFWbKk&usqp=CAU", desc: "abc" },
-    { label: 'Full Blast 24/7', value: 24, src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSO0VUPQK6FhzefYLE_fKjDzO86_jIdZXc5cg&s", desc: "abc" },
+    { label: 'Overhead Sun Only', value: 1, src: "https://mangesh-nodea.amkwebsolutions.com/images/public/runEachDay-image/overhead-sun-only.jpg", desc: "abc" },
+    { label: '6 Hours a day', value: 6, src: "https://mangesh-nodea.amkwebsolutions.com/images/public/runEachDay-image/six-hours-day.jpeg", desc: "abc" },
+    { label: '12 Hours a day', value: 12, src: "https://mangesh-nodea.amkwebsolutions.com/images/public/runEachDay-image/12-hours-day.jpeg", desc: "abc" },
+    { label: 'Full Blast 24/7', value: 24, src: "https://mangesh-nodea.amkwebsolutions.com/images/public/runEachDay-image/full-blast.jpeg", desc: "abc" },
   ];
 
 
