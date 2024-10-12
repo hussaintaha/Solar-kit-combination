@@ -56,7 +56,6 @@ const SolarPanelTable = () => {
                 </>
             );
         }
-
         return name;
     };
 

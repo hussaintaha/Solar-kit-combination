@@ -96,17 +96,25 @@ const ChargeControllerTable = ({ selectHarvestValue }) => {
         }
     }
 
-    const formatDisplayName = (name, limit = 20) => {
-        if (name.length > limit) {
+    const formatDisplayName = (name, limit = 35) => {
+        // if (name.length > limit) {
+        //     return (
+        //         <>
+        //             {name.substring(0, limit)}<br />{name.substring(limit)}
+        //         </>
+        //     );
+        // }
+
+        const splitName = name.split(' - '); // Split the name based on the first hyphen
+        if (splitName.length > 1) {
             return (
                 <>
-                    {name.substring(0, limit)}<br />{name.substring(limit)}
+                    {splitName[0]}<br />{splitName[1]}
                 </>
             );
         }
         return name;
     };
-
     const handleDeleteCollectons = async (id) => {
         console.log("Deleting ID ====== ", id);
 
@@ -122,8 +130,6 @@ const ChargeControllerTable = ({ selectHarvestValue }) => {
         console.log("fetchDeletevariantsAPI response ===== ", response.products);
         setChargeControllerProducts(response.products);
     };
-
-
 
     useEffect(() => {
         if (selectHarvestValue) {

@@ -36,11 +36,20 @@ const BatteryOptionTable = ({ selectHarvestValue }) => {
         }
     }
 
-    const formatDisplayName = (name, limit = 20) => {
-        if (name.length > limit) {
+    const formatDisplayName = (name, limit = 35) => {
+        // if (name.length > limit) {
+        //     return (
+        //         <>
+        //             {name.substring(0, limit)}<br />{name.substring(limit)}
+        //         </>
+        //     );
+        // }
+
+        const splitName = name.split(' - '); // Split the name based on the first hyphen
+        if (splitName.length > 1) {
             return (
                 <>
-                    {name.substring(0, limit)}<br />{name.substring(limit)}
+                    {splitName[0]}<br />{splitName[1]}
                 </>
             );
         }
@@ -127,14 +136,11 @@ const BatteryOptionTable = ({ selectHarvestValue }) => {
         setSelectBatteryOptions(response.products);
     };
 
-
     useEffect(() => {
         if (selectHarvestValue) {
             getBatteryOptionList();
         }
     }, [selectHarvestValue]);
-
- 
 
     const { selectedResources, allResourcesSelected, handleSelectionChange } =
         useIndexResourceState(selectBatteryOptions);
@@ -182,7 +188,6 @@ const BatteryOptionTable = ({ selectHarvestValue }) => {
             </IndexTable.Cell>
         </IndexTable.Row>
     ));
-
 
     return (
         <div className='battery-option-container'>
