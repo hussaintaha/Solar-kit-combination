@@ -8,12 +8,6 @@ export const action = async ({ request }) => {
     // console.log("requestData ========== ", requestData);
 
     const { batterytoHVAC, paneltoBattery } = requestData
-
-    //calculate Product price
-    //Distance from Panels to Battery ___ ft ($a)
-    //Distance from Battery to HVAC ___ ft ($b)
-    //Price = $a*4+$b*6+33 
-
     const customProductPrice = (paneltoBattery * 4) + (batterytoHVAC * 6) + 33
     // console.log("customProductPrice ======== ", customProductPrice);
 
@@ -26,7 +20,7 @@ export const action = async ({ request }) => {
         tags: ["CustomWiringKit"],
         images: [
           {
-            src: "https://rakanonline.com/wp-content/uploads/2022/08/default-product-image.png"
+            src: "https://app.fullbattery.com/custom-product/custom-product.png"
           }
         ],
         variants: [
