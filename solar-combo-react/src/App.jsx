@@ -5,7 +5,7 @@ import Modal from './component/Modal';
 
 const App = () => {
 
-  console.log(" ========== 5555555555555555555555555 =========");
+  console.log(" ========== 666666666666666666666 =========");
 
   const [loading, setLoading] = useState(false);
   const [activecartButton, setActiveCartButton] = useState(true)
@@ -335,7 +335,7 @@ const App = () => {
     return 0;
   }
 
-  const totalPrice = Object.values(selectedProductPrices).reduce((acc, price) => acc + price, 0 + calculateCustomePrice()).toFixed(2);
+  const totalPrice = (Object.values(selectedProductPrices).reduce((acc, price) => acc + price, 0) + calculateCustomePrice()).toFixed(2);
 
 
   return (
