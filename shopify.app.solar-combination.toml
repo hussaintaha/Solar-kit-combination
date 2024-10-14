@@ -3,7 +3,7 @@
 client_id = "f06f43a1013bd4e8895a4a15f6820596"
 name = "solar-combination"
 handle = "solar-combination"
-application_url = "https://screensaver-vcr-undertake-approaches.trycloudflare.com"
+application_url = "https://techno-vacations-inspections-ties.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,16 +17,16 @@ scopes = "read_inventory,read_orders,read_products,write_orders,write_products"
 
 [auth]
 redirect_urls = [
-  "https://screensaver-vcr-undertake-approaches.trycloudflare.com/auth/callback",
-  "https://screensaver-vcr-undertake-approaches.trycloudflare.com/auth/shopify/callback",
-  "https://screensaver-vcr-undertake-approaches.trycloudflare.com/api/auth/callback"
+  "https://techno-vacations-inspections-ties.trycloudflare.com/auth/callback",
+  "https://techno-vacations-inspections-ties.trycloudflare.com/auth/shopify/callback",
+  "https://techno-vacations-inspections-ties.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
 api_version = "2024-07"
 
 [app_proxy]
-url = "https://screensaver-vcr-undertake-approaches.trycloudflare.com"
+url = "https://techno-vacations-inspections-ties.trycloudflare.com"
 subpath = "proxy"
 prefix = "apps"
 

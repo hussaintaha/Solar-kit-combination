@@ -11,7 +11,7 @@ export const action = async ({ request }) => {
 
         const updatedEntry = await batteryOptionsCollection.findOneAndUpdate(
             { harvestValue: selectHarvestValue },
-            { $addToSet: { products: { $each: selected } } },
+            { $set: { products: selected } },
             { new: true, upsert: true }
         );
 

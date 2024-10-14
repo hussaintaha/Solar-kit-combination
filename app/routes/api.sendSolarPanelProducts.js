@@ -11,8 +11,8 @@ export const action = async ({ request }) => {
 
         const updatedEntry = await solarPanelCollection.findOneAndUpdate(
             { harvestValue: selectHarvestValue },
-            { $addToSet: { products: { $each: selected } } },
-            { new: true, upsert: true } 
+            { $set: { products: selected } },
+            { new: true, upsert: true }
         );
 
         // console.log("Entry created or updated successfully:", updatedEntry);
