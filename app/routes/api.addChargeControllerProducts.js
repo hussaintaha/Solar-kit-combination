@@ -4,14 +4,14 @@ import chargeControllerCollection from "../Database/collections/chargeController
 export const action = async ({ request }) => {
     try {
         const selectedData = await request.json();
-        console.log("selectedData ======== ", selectedData);
+        // console.log("selectedData ======== ", selectedData);
 
         const { selectHarvestValue, selected } = selectedData;
-        console.log("selectHarvestValue ======== ", selectHarvestValue);
-        console.log("selected ======== ", selected);
+        // console.log("selectHarvestValue ======== ", selectHarvestValue);
+        // console.log("selected ======== ", selected);
 
         const existingEntry = await chargeControllerCollection.findOne({ harvestValue: selectHarvestValue });
-        console.log("existingEntry products before update ======== ", existingEntry.products);
+        // console.log("existingEntry products before update ======== ", existingEntry.products);
 
         const updatedAirConditionerEntry = await chargeControllerCollection.findOneAndUpdate(
             { harvestValue: selectHarvestValue },

@@ -5,7 +5,7 @@ import Modal from './component/Modal';
 
 const App = () => {
 
-  console.log(" ========== 333333333333333 =========");
+  console.log(" ========== 555555555555555555555555555555555555555 =========");
 
   const [loading, setLoading] = useState(false);
   const [activecartButton, setActiveCartButton] = useState(true)
@@ -114,7 +114,7 @@ const App = () => {
     try {
       const fetchproducts = await fetch(`https://${Shopify.shop}/apps/proxy/api/getCollectionProducts/?recommendedBTU=${BTU}`);
       const collectionProducts = await fetchproducts.json()
-      console.log("collectionProducts ====== ", collectionProducts);
+      // console.log("collectionProducts ====== ", collectionProducts);
       setProductData(collectionProducts.products);
     } catch (error) {
       console.log("error ========= ", error);
@@ -122,7 +122,7 @@ const App = () => {
   }
 
   const handleRunEachDay = (value) => {
-    console.log("value ============= ", value);
+    // console.log("value ============= ", value);
     setDailyRunTime(value);
   }
 
@@ -130,7 +130,7 @@ const App = () => {
     try {
       const fetchProducts = await fetch(`https://${Shopify.shop}/apps/proxy/api/getpanelCollections/?neededHarvestkWh=${neededHarvestkWh}`);
       const panelCollectionProducts = await fetchProducts.json()
-      console.log("panelCollectionProducts ====== ", panelCollectionProducts.products);
+      // console.log("panelCollectionProducts ====== ", panelCollectionProducts.products);
       setPanelCollection(panelCollectionProducts.products)
 
     } catch (error) {
@@ -142,7 +142,7 @@ const App = () => {
     try {
       const fetchProducts = await fetch(`https://${Shopify.shop}/apps/proxy/api/chargeControllerCollection/?neededHarvestkWh=${neededHarvestkWh}`);
       const chargeControllerProducts = await fetchProducts.json()
-      console.log("chargeControllerProducts ====== ", chargeControllerProducts.products);
+      // console.log("chargeControllerProducts ====== ", chargeControllerProducts.products);
       setChargeControllerProducts(chargeControllerProducts.products)
     } catch (error) {
       console.log("error ========= ", error);
@@ -153,7 +153,7 @@ const App = () => {
     try {
       const fetchProducts = await fetch(`https://${Shopify.shop}/apps/proxy/api/getBatteryOption/?neededHarvestkWh=${neededHarvestkWh}`);
       const batteryOptionProducts = await fetchProducts.json()
-      console.log("batteryOptionProducts ====== ", batteryOptionProducts.products);
+      // console.log("batteryOptionProducts ====== ", batteryOptionProducts.products);
       setBatteryOptions(batteryOptionProducts.products)
     } catch (error) {
       console.log("error ========= ", error);
@@ -161,7 +161,7 @@ const App = () => {
   }
 
   const handleSelectProduct = async (productType, productId) => {
-    console.log("productId ====== ", productId);
+    // console.log("productId ====== ", productId);
 
     const isDeselecting = selectedProductId[productType] === productId;
 
@@ -186,7 +186,7 @@ const App = () => {
         });
 
         const productDetails = await fetchProductsDetails.json();
-        console.log("productDetails ================= ", productDetails);
+        // console.log("productDetails ================= ", productDetails);
 
         const productPrice = parseFloat(productDetails.varientData.price);
 
@@ -217,7 +217,7 @@ const App = () => {
       });
 
       const createProductResponse = await createProductAPI.json();
-      console.log("createProductResponse ============ ", createProductResponse);
+      // console.log("createProductResponse ============ ", createProductResponse);
 
       if (createProductResponse) {
         productsId = {
@@ -238,7 +238,7 @@ const App = () => {
 
     const productIdresponse = await sendProductIDAPI.json()
     const productIdArray = productIdresponse.varientIdArray
-    console.log("productIdresponse ======== ", productIdArray);
+    // console.log("productIdresponse ======== ", productIdArray);
 
     if (productIdresponse.success) {
       let formData = {
@@ -259,7 +259,7 @@ const App = () => {
         });
 
         const getItmes = await additmesAPI.json()
-        console.log("getItmes ======= ", getItmes);
+        // console.log("getItmes ======= ", getItmes);
 
         if (getItmes.items.length) {
           window.location.href = "/cart"
@@ -276,7 +276,7 @@ const App = () => {
 
   const handleDistanceValue = (e) => {
     const { name, value } = e.target;
-    console.log("value ======== ", value);
+    // console.log("value ======== ", value);
 
     if (value >= 0) {
       setCustomProductDistance((prevState) => ({
@@ -305,7 +305,7 @@ const App = () => {
     if (recommendedBTU > 0 && insulationValue > 0 && dailyRunTime > 0) {
       // Calculates needed daily harvest in kWh:
       const neededHarvestkWh = (recommendedBTU / 16000) * dailyRunTime;
-      console.log("neededHarvestkWh ===================== ", neededHarvestkWh);
+      // console.log("neededHarvestkWh ===================== ", neededHarvestkWh);
       setNeededharvest(neededHarvestkWh);
 
       // Call the API with the new needed harvest

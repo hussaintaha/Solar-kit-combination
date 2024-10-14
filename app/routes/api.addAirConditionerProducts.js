@@ -4,12 +4,12 @@ import airConditionerCollection from "../Database/collections/airConditionerMode
 export const action = async ({ request }) => {
     try {
         const selectedData = await request.json()
-        console.log("selectedData ======== ", selectedData);
+        // console.log("selectedData ======== ", selectedData);
 
         const { selectedBTURange, selected } = selectedData
 
         const existingEntry = await airConditionerCollection.findOne({ btuRange: selectedBTURange });
-        console.log("existingEntry ========= ", existingEntry);
+        // console.log("existingEntry ========= ", existingEntry);
 
 
         const updatedAirConditionerEntry = await airConditionerCollection.findOneAndUpdate(
@@ -17,7 +17,7 @@ export const action = async ({ request }) => {
             { $addToSet: { products: { $each: selected } } },
             { new: true }
         );
-        console.log("Entry saved/updated successfully:", updatedAirConditionerEntry);
+        // console.log("Entry saved/updated successfully:", updatedAirConditionerEntry);
         return true
 
     } catch (error) {

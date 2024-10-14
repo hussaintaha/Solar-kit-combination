@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import { IndexTable, LegacyCard, Text, Button, useIndexResourceState } from '@shopify/polaris';
+import { IndexTable, LegacyCard, Text, Button, useIndexResourceState, SkeletonDisplayText, SkeletonBodyText } from '@shopify/polaris';
 import { DeleteIcon, ArrowDownIcon, ArrowUpIcon } from '@shopify/polaris-icons';
 import "../routes/styles/battertList.css"
 
 const BatteryOptionTable = ({ selectHarvestValue }) => {
 
     const [selectBatteryOptions, setSelectBatteryOptions] = useState([]);
-
+    const [loading, setLoading] = useState(false);
 
     const moveItem = (index, direction) => {
         const reorderedItems = [...selectBatteryOptions];
@@ -14,12 +14,13 @@ const BatteryOptionTable = ({ selectHarvestValue }) => {
         const newIndex = direction === 'up' ? index + 1 : index - 1;
         reorderedItems.splice(newIndex, 0, movedItem);
         setSelectBatteryOptions(reorderedItems);
-        console.log("reorderedItems ========= ", reorderedItems);
+        // console.log("reorderedItems ========= ", reorderedItems);
         saveReorderingItems(reorderedItems)
     };
 
     const saveReorderingItems = async (reorderedItems) => {
         try {
+            setLoading(true)
             const savereorderitmesAPI = await fetch("/api/saveReorderedItmes", {
                 method: "POST",
                 headers: {
@@ -28,22 +29,16 @@ const BatteryOptionTable = ({ selectHarvestValue }) => {
                 body: JSON.stringify({ data: reorderedItems, range: selectHarvestValue, collection: "selectBatteryOptions" })
             });
             const savereorderitmesJSON = await savereorderitmesAPI.json();
-            console.log("savereorderitmesJSON ====== ", savereorderitmesJSON);
-
+            // console.log("savereorderitmesJSON ====== ", savereorderitmesJSON);
+            setLoading(false)
         } catch (error) {
+            setLoading(false)
             console.log("error ====", error);
 
         }
     }
 
     const formatDisplayName = (name, limit = 35) => {
-        // if (name.length > limit) {
-        //     return (
-        //         <>
-        //             {name.substring(0, limit)}<br />{name.substring(limit)}
-        //         </>
-        //     );
-        // }
 
         const splitName = name.split(' - '); // Split the name based on the first hyphen
         if (splitName.length > 1) {
@@ -58,6 +53,7 @@ const BatteryOptionTable = ({ selectHarvestValue }) => {
 
     const sendBatteryOptionsList = async () => {
         try {
+            setLoading(true)
             if (selectHarvestValue) {
                 const selected = await shopify.resourcePicker({
                     type: 'variant',
@@ -72,31 +68,38 @@ const BatteryOptionTable = ({ selectHarvestValue }) => {
                 });
 
                 const batteryListResponse = await batteryListAPI.json();
-                console.log('batteryListResponse:', batteryListResponse);
+                // console.log('batteryListResponse:', batteryListResponse);
                 setSelectBatteryOptions(batteryListResponse?.products || []);
                 getBatteryOptionList();
+                setLoading(false)
             } else {
                 shopify.toast.show('Please select harvest value');
+                setLoading(false);
             }
         } catch (error) {
             console.error('Error fetching Battery List:', error);
+            setLoading(false)
         }
     }
 
     const getBatteryOptionList = async () => {
         try {
+            setLoading(true)
             const response = await fetch(`/api/getBatteryOptionsList/?selectHarvestValue=${selectHarvestValue}`);
             const result = await response.json();
-            console.log("result ===== ", result);
+            // console.log("result ===== ", result);
 
             setSelectBatteryOptions(result?.getVariants?.products || []);
+            setLoading(false)
         } catch (error) {
+            setLoading(false)
             console.error('Error fetching air conditioner products:', error);
         }
     }
 
     const addBatteryListproducts = async () => {
         try {
+            setLoading(true)
             if (selectHarvestValue) {
                 const selected = await shopify.resourcePicker({
                     type: 'variant',
@@ -110,30 +113,37 @@ const BatteryOptionTable = ({ selectHarvestValue }) => {
                 });
 
                 const solarPanelResponse = await airConditionerAPI.json();
-                console.log('solarPanelResponse ========= ', solarPanelResponse);
+                // console.log('solarPanelResponse ========= ', solarPanelResponse);
                 getBatteryOptionList();
             } else {
+                setLoading(false)
                 shopify.toast.show('Please select harvest value');
             }
         } catch (error) {
+            setLoading(false)
             console.error('Error adding air conditioner products:', error);
         }
     };
 
     const handleDeleteCollectons = async (id) => {
-        console.log("Deleting ID ====== ", id);
+        try {
+            setLoading(true)
+            // console.log("Deleting ID ====== ", id);
+            const fetchDeletevariantsAPI = await fetch("/api/deleteVariants", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ id, selectHarvestValue, productType: 'battery' })
+            });
 
-        const fetchDeletevariantsAPI = await fetch("/api/deleteVariants", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ id, selectHarvestValue, productType: 'battery' })
-        });
-
-        const response = await fetchDeletevariantsAPI.json();
-        console.log("fetchDeletevariantsAPI response ===== ", response.products);
-        setSelectBatteryOptions(response.products);
+            const response = await fetchDeletevariantsAPI.json();
+            // console.log("fetchDeletevariantsAPI response ===== ", response.products);
+            setSelectBatteryOptions(response.products);
+            setLoading(false)
+        } catch (error) {
+            setLoading(false)
+        }
     };
 
     useEffect(() => {
@@ -191,36 +201,51 @@ const BatteryOptionTable = ({ selectHarvestValue }) => {
 
     return (
         <div className='battery-option-container'>
-            <div className='battery-option-header'>
-                <Text variant="headingXl" as="h4">
-                    Battery Options List
-                </Text>
+            {loading ? (
+                <>
+                    <div className='battery-option-header'>
+                        <SkeletonDisplayText size="large" />
+                    </div>
 
-                <div className='battery-option-buttons action-buttons'>
-                    <Button primary onClick={sendBatteryOptionsList}>Select products</Button>
-                    <Button onClick={addBatteryListproducts}>Add Products</Button>
-                </div>
-            </div>
+                    <LegacyCard className="index-table-wrapper">
+                        <SkeletonBodyText />
+                    </LegacyCard>
+                </>
+            ) : (
+                <>
+                    <div className='battery-option-header'>
+                        <Text variant="headingXl" as="h4">
+                            Battery Options List
+                        </Text>
 
-            <LegacyCard className="index-table-wrapper">
-                <IndexTable
-                    resourceName={{ singular: 'product', plural: 'products' }}
-                    itemCount={selectBatteryOptions.length}
-                    selectedItemsCount={allResourcesSelected ? 'All' : selectedResources.length}
-                    headings={[
-                        { title: 'Image' },
-                        { title: 'ID' },
-                        { title: 'Product ID' },
-                        { title: 'Name' },
-                        { title: 'Actions' },
-                    ]}
-                    selectable={false}
-                >
-                    {rowMarkup}
-                </IndexTable>
-            </LegacyCard>
+                        <div className='battery-option-buttons action-buttons'>
+                            <Button primary onClick={sendBatteryOptionsList}>Select products</Button>
+                            <Button onClick={addBatteryListproducts}>Add Products</Button>
+                        </div>
+                    </div>
+
+                    <LegacyCard className="index-table-wrapper">
+                        <IndexTable
+                            resourceName={{ singular: 'product', plural: 'products' }}
+                            itemCount={selectBatteryOptions.length}
+                            selectedItemsCount={allResourcesSelected ? 'All' : selectedResources.length}
+                            headings={[
+                                { title: 'Image' },
+                                { title: 'ID' },
+                                { title: 'Product ID' },
+                                { title: 'Name' },
+                                { title: 'Actions' },
+                            ]}
+                            selectable={false}
+                        >
+                            {rowMarkup}
+                        </IndexTable>
+                    </LegacyCard>
+                </>
+            )}
         </div>
-    )
+    );
+
 }
 
 export default BatteryOptionTable

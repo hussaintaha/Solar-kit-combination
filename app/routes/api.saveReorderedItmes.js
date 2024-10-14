@@ -15,7 +15,7 @@ export const action = async ({ request }) => {
                 { new: true, upsert: true }
             );
 
-            console.log("updatedAirConditionerEntry ====== ", updatedAirConditionerEntry);
+            // console.log("updatedAirConditionerEntry ====== ", updatedAirConditionerEntry);
         }
         else if (collection === "solarPanelProducts") {
             const updatedSolarPanelEntry = await solarPanelCollection.findOneAndUpdate(
@@ -23,7 +23,7 @@ export const action = async ({ request }) => {
                 { $set: { products: data } },
                 { new: true, upsert: true }
             );
-            console.log("updatedSolarPanelEntry ====== ", updatedSolarPanelEntry);
+            // console.log("updatedSolarPanelEntry ====== ", updatedSolarPanelEntry);
         }
         else if (collection === "chargeControllerProducts") {
             const updatedchargeControllerEntry = await chargeControllerCollection.findOneAndUpdate(
@@ -31,7 +31,7 @@ export const action = async ({ request }) => {
                 { $set: { products: data } },
                 { new: true, upsert: true }
             );
-            console.log("updatedchargeControllerEntry ====== ", updatedchargeControllerEntry);
+            // console.log("updatedchargeControllerEntry ====== ", updatedchargeControllerEntry);
         }
         else if (collection === "selectBatteryOptions") {
             const updatedselectBatteryEntry = await batteryOptionsCollection.findOneAndUpdate(
@@ -39,7 +39,7 @@ export const action = async ({ request }) => {
                 { $set: { products: data } },
                 { new: true, upsert: true }
             );
-            console.log("updatedselectBatteryEntry ====== ", updatedselectBatteryEntry);
+            // console.log("updatedselectBatteryEntry ====== ", updatedselectBatteryEntry);/
         }
         return true;
     } catch (error) {

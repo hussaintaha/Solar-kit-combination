@@ -26,11 +26,11 @@ export const loader = async ({ request }) => {
             harvestValue = "greaterThan20kWh";
         }
 
-        console.log(`Determined harvest Range: ${harvestValue}`)
+        // console.log(`Determined harvest Range: ${harvestValue}`)
 
         const productsInRange = await batteryOptionsCollection.find({ harvestValue: harvestValue });
         if (productsInRange.length) {
-            console.log("productsInRange ======= ", productsInRange);
+            // console.log("productsInRange ======= ", productsInRange);
             return { products: productsInRange[0].products };
         } else {
             console.log(`No products found for harvest value: ${harvestValue}`);

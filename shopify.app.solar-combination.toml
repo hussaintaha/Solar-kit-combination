@@ -3,7 +3,7 @@
 client_id = "f06f43a1013bd4e8895a4a15f6820596"
 name = "solar-combination"
 handle = "solar-combination"
-application_url = "https://perform-directive-handhelds-annual.trycloudflare.com"
+application_url = "https://posted-interim-fought-ss.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,16 +17,16 @@ scopes = "read_inventory,read_orders,read_products,write_orders,write_products"
 
 [auth]
 redirect_urls = [
-  "https://perform-directive-handhelds-annual.trycloudflare.com/auth/callback",
-  "https://perform-directive-handhelds-annual.trycloudflare.com/auth/shopify/callback",
-  "https://perform-directive-handhelds-annual.trycloudflare.com/api/auth/callback"
+  "https://posted-interim-fought-ss.trycloudflare.com/auth/callback",
+  "https://posted-interim-fought-ss.trycloudflare.com/auth/shopify/callback",
+  "https://posted-interim-fought-ss.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
 api_version = "2024-07"
 
 [app_proxy]
-url = "https://perform-directive-handhelds-annual.trycloudflare.com"
+url = "https://posted-interim-fought-ss.trycloudflare.com"
 subpath = "proxy"
 prefix = "apps"
 

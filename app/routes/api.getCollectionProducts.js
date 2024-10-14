@@ -11,7 +11,7 @@ export const loader = async ({ request }) => {
         const url = new URL(request.url);
         const params = new URLSearchParams(url.search);
         const recommendedBTU = parseInt(params.get('recommendedBTU'), 10);
-        console.log("recommendedBTU =========== ", recommendedBTU);
+        // console.log("recommendedBTU =========== ", recommendedBTU);
 
         let btuRangeFromDB;
         if (recommendedBTU < 10000) {

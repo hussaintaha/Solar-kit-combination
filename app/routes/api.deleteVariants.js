@@ -6,11 +6,8 @@ import batteryOptionsCollection from "../Database/collections/batteryOptionsMode
 export const action = async ({ request }) => {
     try {
         const requestData = await request.json()
-        console.log("requestData ========== ", requestData);
+        // console.log("requestData ========== ", requestData);
         const { id, selectedBTURange, selectHarvestValue, productType } = requestData
-
-
-
 
         if (productType === 'airConditioner') {
             const checkVariantAndDelete = await airConditionerCollection.findOneAndUpdate(
@@ -18,11 +15,11 @@ export const action = async ({ request }) => {
                 { $pull: { products: { id: id } } },
                 { new: true }
             );
-            console.log("checkVariantAndDelete ====== ", checkVariantAndDelete);
+            // console.log("checkVariantAndDelete ====== ", checkVariantAndDelete);
 
             if (checkVariantAndDelete) {
                 const updatedEntry = await airConditionerCollection.findOne({ btuRange: selectedBTURange });
-                console.log("updatedEntry ========= ", updatedEntry);
+                // console.log("updatedEntry ========= ", updatedEntry);
                 return updatedEntry
             }
         }
@@ -33,11 +30,11 @@ export const action = async ({ request }) => {
                 { $pull: { products: { id: id } } },
                 { new: true }
             );
-            console.log("checkVariantAndDelete ====== ", checkVariantAndDelete);
+            // console.log("checkVariantAndDelete ====== ", checkVariantAndDelete);
 
             if (checkVariantAndDelete) {
                 const updatedEntry = await solarPanelCollection.findOne({ harvestValue: selectHarvestValue });
-                console.log("updatedEntry ========= ", updatedEntry);
+                // console.log("updatedEntry ========= ", updatedEntry);
                 return updatedEntry
             }
         }
@@ -48,11 +45,11 @@ export const action = async ({ request }) => {
                 { $pull: { products: { id: id } } },
                 { new: true }
             );
-            console.log("checkVariantAndDelete ====== ", checkVariantAndDelete);
+            // console.log("checkVariantAndDelete ====== ", checkVariantAndDelete);
 
             if (checkVariantAndDelete) {
                 const updatedEntry = await chargeControllerCollection.findOne({ harvestValue: selectHarvestValue });
-                console.log("updatedEntry ========= ", updatedEntry);
+                // console.log("updatedEntry ========= ", updatedEntry);
                 return updatedEntry
             }
         }
@@ -63,11 +60,11 @@ export const action = async ({ request }) => {
                 { $pull: { products: { id: id } } },
                 { new: true }
             );
-            console.log("checkVariantAndDelete ====== ", checkVariantAndDelete);
+            // console.log("checkVariantAndDelete ====== ", checkVariantAndDelete);
 
             if (checkVariantAndDelete) {
                 const updatedEntry = await batteryOptionsCollection.findOne({ harvestValue: selectHarvestValue });
-                console.log("updatedEntry ========= ", updatedEntry);
+                // console.log("updatedEntry ========= ", updatedEntry);
                 return updatedEntry
             }
         }

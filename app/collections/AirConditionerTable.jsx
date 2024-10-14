@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Card, Select, IndexTable, useIndexResourceState, Text, LegacyCard } from '@shopify/polaris';
+import { Button, Card, Select, IndexTable, useIndexResourceState, Text, LegacyCard, SkeletonBodyText, SkeletonDisplayText } from '@shopify/polaris';
 import { DeleteIcon, ArrowDownIcon, ArrowUpIcon } from '@shopify/polaris-icons';
 import "../routes/styles/settings.css"
 
@@ -14,11 +14,12 @@ const AirConditionerTable = () => {
         const newIndex = direction === 'up' ? index + 1 : index - 1;
         reorderedItems.splice(newIndex, 0, movedItem);
         setAirConditionerProducts(reorderedItems);
-        console.log("reorderedItems ========= ", reorderedItems);
+        // console.log("reorderedItems ========= ", reorderedItems);
         saveReorderingItems(reorderedItems)
     };
 
     const handleSelectChange = (e) => {
+        setLoading(true)
         setSelectBTURange(e);
     };
 
@@ -66,7 +67,7 @@ const AirConditionerTable = () => {
                 });
 
                 const airConditionerResponse = await airConditionerAPI.json();
-                console.log('airConditionerResponse ========= ', airConditionerResponse);
+                // console.log('airConditionerResponse ========= ', airConditionerResponse);
                 getAirConditionerProducts()
 
                 setLoading(false);
@@ -110,7 +111,7 @@ const AirConditionerTable = () => {
                 });
 
                 const airConditionerResponse = await airConditionerAPI.json();
-                console.log('airConditionerResponse ========= ', airConditionerResponse);
+                // console.log('airConditionerResponse ========= ', airConditionerResponse);
                 getAirConditionerProducts()
                 setLoading(false);
             } else {
@@ -126,7 +127,7 @@ const AirConditionerTable = () => {
 
     const handleDeleteCollectons = async (id) => {
         try {
-            console.log("Deleting ID ====== ", id);
+            // console.log("Deleting ID ====== ", id);
             setLoading(true)
             const fetchDeletevariantsAPI = await fetch("/api/deleteVariants", {
                 method: "POST",
@@ -137,7 +138,7 @@ const AirConditionerTable = () => {
             });
 
             const response = await fetchDeletevariantsAPI.json();
-            console.log("fetchDeletevariantsAPI response ===== ", response.products);
+            // console.log("fetchDeletevariantsAPI response ===== ", response.products);
             setAirConditionerProducts(response.products);
             setLoading(false)
         } catch (error) {
@@ -167,11 +168,10 @@ const AirConditionerTable = () => {
                 body: JSON.stringify({ data: reorderedItems, range: selectedBTURange, collection: "airConditionerproducts" })
             });
             const savereorderitmesJSON = await savereorderitmesAPI.json();
-            console.log("savereorderitmesJSON ====== ", savereorderitmesJSON);
+            // console.log("savereorderitmesJSON ====== ", savereorderitmesJSON);
 
         } catch (error) {
             console.log("error ====", error);
-
         }
     }
 
@@ -222,42 +222,61 @@ const AirConditionerTable = () => {
     return (
         <div className='main-container'>
             <Card sectioned>
-                <div className="btu-range-actions">
-                    <Select label="Select BTU Range" options={options} onChange={handleSelectChange} value={selectedBTURange} />
-                </div>
-
-                <div className="table-container">
-                    <div className="heading-container">
-                        <Text variant="headingXl" as="h4">
-                            Air Conditioner List
-                        </Text>
-                        <div className="action-buttons">
-                            <Button primary onClick={sendAirConditonerProduct}>Select Products</Button>
-                            <Button onClick={addAirConditionerProducts}>Add Products</Button>
+                {loading ? (
+                    <>
+                        {/* Skeleton loaders for different sections */}
+                        <div className="btu-range-actions">
+                            <SkeletonDisplayText size="small" />
                         </div>
-                    </div>
+                        <div className="table-container">
+                            <SkeletonDisplayText size="large" />
+                            <LegacyCard sectioned>
+                                <SkeletonBodyText />
+                            </LegacyCard>
+                        </div>
+                    </>
+                ) : (
+                    <>
+                        <div className="btu-range-actions">
+                            <Select label="Select BTU Range" options={options} onChange={handleSelectChange} value={selectedBTURange} />
+                        </div>
 
-                    <LegacyCard sectioned>
-                        <IndexTable
-                            resourceName={{ singular: 'product', plural: 'products' }}
-                            itemCount={airConditionerproducts.length}
-                            selectedItemsCount={allResourcesSelected ? 'All' : selectedResources.length}
-                            headings={[
-                                { title: 'Image' },
-                                { title: 'ID' },
-                                { title: 'Product ID' },
-                                { title: 'Name' },
-                                { title: 'Actions' },
-                            ]}
-                            selectable={false}
-                        >
-                            {rowMarkup}
-                        </IndexTable>
-                    </LegacyCard>
-                </div>
+                        <div className="table-container">
+                            <div className="heading-container">
+                                <Text variant="headingXl" as="h4">
+                                    Air Conditioner List
+                                </Text>
+                                <div className="action-buttons">
+                                    <Button primary onClick={sendAirConditonerProduct}>Select Products</Button>
+                                    <Button onClick={addAirConditionerProducts}>Add Products</Button>
+                                </div>
+                            </div>
+
+                            <LegacyCard sectioned>
+                                <IndexTable
+                                    resourceName={{ singular: 'product', plural: 'products' }}
+                                    itemCount={airConditionerproducts.length}
+                                    selectedItemsCount={allResourcesSelected ? 'All' : selectedResources.length}
+                                    headings={[
+                                        { title: 'Image' },
+                                        { title: 'ID' },
+                                        { title: 'Product ID' },
+                                        { title: 'Name' },
+                                        { title: 'Actions' },
+                                    ]}
+                                    selectable={false}
+                                >
+                                    {rowMarkup}
+                                </IndexTable>
+                            </LegacyCard>
+                        </div>
+                    </>
+                )}
             </Card>
         </div>
     );
+
+
 };
 
 export default AirConditionerTable;

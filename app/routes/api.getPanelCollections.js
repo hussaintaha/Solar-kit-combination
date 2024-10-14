@@ -38,7 +38,7 @@ export const loader = async ({ request }) => {
 
         const productsInRange = await solarPanelCollection.find({ harvestValue: harvestValue });
         if (productsInRange.length) {
-            console.log("productsInRange ======= ", productsInRange);
+            // console.log("productsInRange ======= ", productsInRange);
             return { products: productsInRange[0].products };
         } else {
             console.log(`No products found for harvest value: ${harvestValue}`);

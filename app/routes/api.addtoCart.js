@@ -10,14 +10,14 @@ export const action = async ({ request }) => {
         // console.log("requestObject ========== ", requestObject);
 
         const productIDObject = requestObject.selectedProductId;
-        console.log("productIDObject ====== ", productIDObject);
+        // console.log("productIDObject ====== ", productIDObject);
 
 
         let varientIdArray = [];
 
         const fetchPromises = Object.values(productIDObject).map(async (productId) => {
             if (productId) {
-                console.log(`Fetching product ID: ${productId}`);
+                // console.log(`Fetching product ID: ${productId}`);
 
                 const response = await fetch(`https://${session.shop}/admin/api/2024-07/variants/${productId}.json`, {
                     method: "GET",
