@@ -5,7 +5,7 @@ import Modal from './component/Modal';
 
 const App = () => {
 
-  console.log(" ========== 88888888888888888888888 =========");
+  console.log(" ========== 333333333333333 =========");
 
   const [loading, setLoading] = useState(false);
   const [activecartButton, setActiveCartButton] = useState(true)
@@ -110,7 +110,6 @@ const App = () => {
     }
   };
 
-
   const getCollectionProductsAPI = async (BTU) => {
     try {
       const fetchproducts = await fetch(`https://${Shopify.shop}/apps/proxy/api/getCollectionProducts/?recommendedBTU=${BTU}`);
@@ -187,16 +186,16 @@ const App = () => {
         });
 
         const productDetails = await fetchProductsDetails.json();
+        console.log("productDetails ================= ", productDetails);
+
         const productPrice = parseFloat(productDetails.varientData.price);
 
         setSelectedProductPrices((prevState) => ({
           ...prevState,
           [productType]: productPrice
         }));
-        setActiveCartButton(false);
       } catch (error) {
         console.log("error in selectproduct ==== ", error);
-        setActiveCartButton(true);
       }
     }
   };
@@ -227,9 +226,7 @@ const App = () => {
         }
       }
     }
-
     // console.log("productsIDs ========= ", productsId);
-
 
     const sendProductIDAPI = await fetch(`https://${Shopify.shop}/apps/proxy/api/addtoCart`, {
       method: "POST",
@@ -243,9 +240,7 @@ const App = () => {
     const productIdArray = productIdresponse.varientIdArray
     console.log("productIdresponse ======== ", productIdArray);
 
-
     if (productIdresponse.success) {
-
       let formData = {
         "items": productIdArray.map(productID => ({
           "id": productID,
@@ -253,7 +248,6 @@ const App = () => {
         }))
       }
       // console.log("forData ======== ", formData);
-
 
       try {
         const additmesAPI = await fetch(`${window.Shopify.routes.root}cart/add.js`, {
@@ -271,7 +265,6 @@ const App = () => {
           window.location.href = "/cart"
         }
         setLoading(false)
-
       } catch (error) {
         console.log("error  ====", error);
         setLoading(false)
@@ -280,7 +273,6 @@ const App = () => {
       }
     }
   }
-
 
   const handleDistanceValue = (e) => {
     const { name, value } = e.target;
@@ -309,7 +301,6 @@ const App = () => {
     setIsModalOpen(false);
   };
 
-
   useEffect(() => {
     if (recommendedBTU > 0 && insulationValue > 0 && dailyRunTime > 0) {
       // Calculates needed daily harvest in kWh:
@@ -337,10 +328,16 @@ const App = () => {
 
   const totalPrice = (Object.values(selectedProductPrices).reduce((acc, price) => acc + price, 0) + Number(calculateCustomePrice())).toFixed(2);
 
+  useEffect(() => {
+    if (totalPrice > 0) {
+      setActiveCartButton(false)
+    } else {
+      setActiveCartButton(true)
+    }
+  }, [totalPrice]);
 
   return (
     <>
-
       <div>
         <Modal show={isModalOpen} onClose={closeModal}>
           <h2>Warning</h2>
@@ -416,8 +413,6 @@ const App = () => {
               : ""} </div>
           </div>
         </div>
-
-
 
         <div className='ques-3-container ques-wrapper'>
           <div className='ques-3'>
@@ -610,7 +605,6 @@ const App = () => {
             </div>
           </div>
         </div>
-
 
         <div className='ques-8-container'>
           <div className='ques-8'>

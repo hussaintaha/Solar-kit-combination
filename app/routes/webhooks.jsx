@@ -16,7 +16,12 @@ export const action = async ({ request }) => {
   switch (topic) {
     case "APP_UNINSTALLED":
       if (session) {
-        await db.session.deleteMany({ where: { shop } });
+        try {
+          const deleteSession = await db.shopify_sessions.deleteMany({ where: { shop } });
+          console.log("deleteSession ======= ", deleteSession);
+        } catch (error) {
+          console.log("error ===== ", error);
+        }
       }
 
     case "ORDERS_FULFILLED": {
