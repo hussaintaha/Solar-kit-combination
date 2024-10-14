@@ -1,5 +1,6 @@
 import { authenticate } from "../shopify.server";
 import db from "../db.server";
+import shopifySessionModel from "../Database/session";
 
 export const action = async ({ request }) => {
   const { topic, shop, session, admin, payload } = await authenticate.webhook(request);
@@ -17,10 +18,12 @@ export const action = async ({ request }) => {
     case "APP_UNINSTALLED":
       if (session) {
         try {
-          const deleteSession = await db.shopify_sessions.deleteMany({ where: { shop } });
+          const deleteSession = await shopifySessionModel.deleteMany({ shop });
           console.log("deleteSession ======= ", deleteSession);
+          return deleteSession
         } catch (error) {
           console.log("error ===== ", error);
+          return error
         }
       }
 
