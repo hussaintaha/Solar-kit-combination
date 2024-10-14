@@ -1,5 +1,4 @@
 import { authenticate } from "../shopify.server";
-import db from "../db.server";
 import shopifySessionModel from "../Database/session";
 
 export const action = async ({ request }) => {
