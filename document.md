@@ -162,3 +162,10 @@ C. Deployment (2 hours)
 
 ================================================================================================================================
 
+mongosh
+show dbs
+use solar-combination
+
+
+db.shopify_sessoipsn.deleteMany({})
+db.shopify_sessions.find({})
