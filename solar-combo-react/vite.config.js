@@ -10,7 +10,7 @@
 
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-
+// import "../public/solar-combo-build/mai.js"
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -18,7 +18,7 @@ export default defineConfig({
   build: {
     watch: {},
     // outDir: '../extensions/product-options/assets/',  // Dist
-    outDir: '../extensions/solar-combo-extension/assets',     // Dev
+    outDir: '../public/',     // Dev
     rollupOptions: {
       input: '/src/main.jsx',
       output: {
