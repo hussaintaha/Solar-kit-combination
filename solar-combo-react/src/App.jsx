@@ -161,7 +161,7 @@ const App = () => {
   }
 
   const handleSelectProduct = async (productType, productId) => {
-    // console.log("productId ====== ", productId);
+    console.log("productId ====== ", productId);
 
     const isDeselecting = selectedProductId[productType] === productId;
 
@@ -186,7 +186,7 @@ const App = () => {
         });
 
         const productDetails = await fetchProductsDetails.json();
-        // console.log("productDetails ================= ", productDetails);
+        console.log("productDetails ================= ", productDetails);
 
         const productPrice = parseFloat(productDetails.varientData.price);
 
@@ -199,6 +199,10 @@ const App = () => {
       }
     }
   };
+
+
+  console.log("batteryOption === ", batteryOption);
+
 
 
   // ============================= ADD TO CART ============================= //
