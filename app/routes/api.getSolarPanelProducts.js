@@ -11,7 +11,7 @@ export const loader = async ({ request }) => {
         const getVariants = await solarPanelCollection.findOne({
             harvestValue: searchParams
         });
-        // console.log("getVariants == ", getVariants);
+        console.log("getVariants == ", getVariants);
         return json({ getVariants })
 
     } catch (error) {
