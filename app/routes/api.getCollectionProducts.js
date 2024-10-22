@@ -11,7 +11,7 @@ export const loader = async ({ request }) => {
         const url = new URL(request.url);
         const params = new URLSearchParams(url.search);
         const recommendedBTU = parseInt(params.get('recommendedBTU'), 10);
-        // console.log("recommendedBTU =========== ", recommendedBTU);
+        console.log("recommendedBTU =========== ", recommendedBTU);
 
         let btuRangeFromDB;
         if (recommendedBTU < 10000) {
@@ -22,10 +22,11 @@ export const loader = async ({ request }) => {
             btuRangeFromDB = 'greaterThan18000';
         }
 
-        // console.log(`Determined BTU Range: ${btuRangeFromDB}`);
+        console.log(`Determined BTU Range: ${btuRangeFromDB}`);
 
 
         const productsInRange = await airConditionerCollection.find({ btuRange: btuRangeFromDB });
+        console.log(" productsInRange =========== ", productsInRange);
 
 
         if (productsInRange.length > 0) {
@@ -33,7 +34,7 @@ export const loader = async ({ request }) => {
             return { products: productsInRange[0].products };
         } else {
             // console.log(`No products found for range: ${btuRangeFromDB}`);
-            return { products: [] }; 
+            return { products: [] };
         }
     } catch (error) {
         // Log any errors that occur and return the error message

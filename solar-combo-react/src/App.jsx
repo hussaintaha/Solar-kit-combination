@@ -5,7 +5,7 @@ import Modal from './component/Modal';
 
 const App = () => {
 
-  console.log(" ========== 666666666666666666666666666666666666 =========");
+  console.log(" ========== 7777777777777 =========");
 
   const [loading, setLoading] = useState(false);
   const [activecartButton, setActiveCartButton] = useState(true)
@@ -114,7 +114,7 @@ const App = () => {
     try {
       const fetchproducts = await fetch(`https://${location.host}/apps/proxy/api/getCollectionProducts/?recommendedBTU=${BTU}`);
       const collectionProducts = await fetchproducts.json()
-      // console.log("collectionProducts ====== ", collectionProducts);
+      console.log("collectionProducts ====== ", collectionProducts);
       setProductData(collectionProducts.products);
     } catch (error) {
       console.log("error ========= ", error);
@@ -130,7 +130,7 @@ const App = () => {
     try {
       const fetchProducts = await fetch(`https://${location.host}/apps/proxy/api/getpanelCollections/?neededHarvestkWh=${neededHarvestkWh}`);
       const panelCollectionProducts = await fetchProducts.json()
-      // console.log("panelCollectionProducts ====== ", panelCollectionProducts.products);
+      console.log("panelCollectionProducts ====== ", panelCollectionProducts.products);
       setPanelCollection(panelCollectionProducts.products)
 
     } catch (error) {
