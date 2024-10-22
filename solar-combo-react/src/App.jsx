@@ -112,7 +112,7 @@ const App = () => {
 
   const getCollectionProductsAPI = async (BTU) => {
     try {
-      const fetchproducts = await fetch(`https://${Shopify.shop}/apps/proxy/api/getCollectionProducts/?recommendedBTU=${BTU}`);
+      const fetchproducts = await fetch(`https://${location.host}/apps/proxy/api/getCollectionProducts/?recommendedBTU=${BTU}`);
       const collectionProducts = await fetchproducts.json()
       // console.log("collectionProducts ====== ", collectionProducts);
       setProductData(collectionProducts.products);
@@ -128,7 +128,7 @@ const App = () => {
 
   const getpanelCollectionAPI = async (neededHarvestkWh) => {
     try {
-      const fetchProducts = await fetch(`https://${Shopify.shop}/apps/proxy/api/getpanelCollections/?neededHarvestkWh=${neededHarvestkWh}`);
+      const fetchProducts = await fetch(`https://${location.host}/apps/proxy/api/getpanelCollections/?neededHarvestkWh=${neededHarvestkWh}`);
       const panelCollectionProducts = await fetchProducts.json()
       // console.log("panelCollectionProducts ====== ", panelCollectionProducts.products);
       setPanelCollection(panelCollectionProducts.products)
@@ -140,7 +140,7 @@ const App = () => {
 
   const getchargeControllerCollectionAPI = async (neededHarvestkWh) => {
     try {
-      const fetchProducts = await fetch(`https://${Shopify.shop}/apps/proxy/api/chargeControllerCollection/?neededHarvestkWh=${neededHarvestkWh}`);
+      const fetchProducts = await fetch(`https://${location.host}/apps/proxy/api/chargeControllerCollection/?neededHarvestkWh=${neededHarvestkWh}`);
       const chargeControllerProducts = await fetchProducts.json()
       // console.log("chargeControllerProducts ====== ", chargeControllerProducts.products);
       setChargeControllerProducts(chargeControllerProducts.products)
@@ -151,7 +151,7 @@ const App = () => {
 
   const getBettryCollectionAPI = async (neededHarvestkWh) => {
     try {
-      const fetchProducts = await fetch(`https://${Shopify.shop}/apps/proxy/api/getBatteryOption/?neededHarvestkWh=${neededHarvestkWh}`);
+      const fetchProducts = await fetch(`https://${location.host}/apps/proxy/api/getBatteryOption/?neededHarvestkWh=${neededHarvestkWh}`);
       const batteryOptionProducts = await fetchProducts.json()
       // console.log("batteryOptionProducts ====== ", batteryOptionProducts.products);
       setBatteryOptions(batteryOptionProducts.products)
@@ -177,7 +177,7 @@ const App = () => {
       }));
     } else if (productId) {
       try {
-        const fetchProductsDetails = await fetch(`https://${Shopify.shop}/apps/proxy/api/getproductsDetail`, {
+        const fetchProductsDetails = await fetch(`https://${location.host}/apps/proxy/api/getproductsDetail`, {
           method: "POST",
           headers: {
             "content-type": "application/json"
@@ -208,7 +208,7 @@ const App = () => {
 
     if (customProductDistance.batterytoHVAC && customProductDistance.paneltoBattery) {
       const { batterytoHVAC, paneltoBattery } = customProductDistance
-      const createProductAPI = await fetch(`https://${Shopify.shop}/apps/proxy/api/createCustomProduct`, {
+      const createProductAPI = await fetch(`https://${location.host}/apps/proxy/api/createCustomProduct`, {
         method: "POST",
         headers: {
           "content-type": "application/json"
@@ -228,7 +228,7 @@ const App = () => {
     }
     // console.log("productsIDs ========= ", productsId);
 
-    const sendProductIDAPI = await fetch(`https://${Shopify.shop}/apps/proxy/api/addtoCart`, {
+    const sendProductIDAPI = await fetch(`https://${location.host}/apps/proxy/api/addtoCart`, {
       method: "POST",
       headers: {
         "content-type": "application/json"
