@@ -1,3 +1,9 @@
+p:last-child {
+  /* margin-bottom: 0; */
+}
+.rte img {
+  /* height: auto; */
+}
 .App {
   text-align: center;
   padding: 20px;
@@ -179,7 +185,7 @@ input[type="number"]:focus-visible {
 
 .title h1 {
   font-size: 16px;
-  margin: 10px 0 5px;
+  /* margin: 10px 0 5px; */
   color: #555;
 }
 
