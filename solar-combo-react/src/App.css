@@ -173,7 +173,7 @@ input[type="number"]:focus-visible {
 
 .productsImage img {
   border-radius: 4px;
-  max-width: 100%; 
+  max-width: 100%;
   height: auto;
 }
 
@@ -278,9 +278,6 @@ input[type="number"]:focus-visible {
   margin-top: 5px;
 }
 
-
-
-
 .harvest-result {
   font-size: 18px;
   margin-top: 10px;
@@ -364,6 +361,11 @@ input[type="number"]:focus-visible {
   color: #555;
   margin: 10px 30px;
   font-size: large;
+}
+
+p {
+  color: #69727b;
+  /* margin: 0 0 19.44444px; */
 }
 
 .custom-variant-price {
