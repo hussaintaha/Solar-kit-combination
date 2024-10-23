@@ -186,7 +186,7 @@ input[type="number"]:focus-visible {
 .product-price>h1 {
   font-size: large;
   color: black;
-  margin: 13px 0px -30px 0px;
+  /* margin: 13px 0px -30px 0px; */
 }
 
 .insulation-options {
