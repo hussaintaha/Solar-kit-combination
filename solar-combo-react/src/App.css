@@ -173,7 +173,7 @@ input[type="number"]:focus-visible {
 
 .productsImage img {
   border-radius: 4px;
-  max-width: 100%;
+  max-width: 100%; 
   height: auto;
 }
 
