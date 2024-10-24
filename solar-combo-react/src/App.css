@@ -152,9 +152,14 @@ input[type="number"]:focus-visible {
   margin-top: 15px;
 }
 
+.total-price>p {
+  margin: 0px;
+  width: 150%;
+}
+
 .price {
   font-size: 25px;
-  color: #ff5722;
+  color: black;
   margin-left: 10px;
 }
 
@@ -448,8 +453,30 @@ p:last-child {
 
 @media screen and (max-width: 768px) {
 
-  /* Adjustments for mobile devices */
-  .product-image img {
+  .ques-1-container,
+  .ques-2-container,
+  .ques-3-container,
+  .ques-4-container,
+  .ques-5-container,
+  .ques-6-container,
+  .ques-7-container,
+  .ques-8-container {
+    background-color: #f5f5f5;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px #0000001a;
+  }
+
+  .insulation-options,
+  .runtime-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  u .product-image img {
     max-width: 70%;
     margin-bottom: 10px;
   }
