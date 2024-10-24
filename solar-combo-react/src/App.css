@@ -784,7 +784,7 @@ p:last-child {
   .runtime-options {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 15px;
     justify-content: center;
     margin-top: 20px;
   }
@@ -812,9 +812,8 @@ p:last-child {
 
 
   .build-kit-message>p {
-    width: 45%;
-  }
-
+    width: 90%;
+}
   .collection-products {
     display: flex;
     flex-wrap: nowrap;
@@ -831,6 +830,15 @@ p:last-child {
     width: 190px;
     transition: background-color .3s ease;
   }
+
+  .price {
+    font-size: 1.6rem;
+    letter-spacing: .1rem;
+    line-height: calc(1 + .5 / var(--font-body-scale));
+    color: rgb(var(--color-foreground));
+    margin: 0px 0px 0px 70px;
+  }
+
 }
 
 @media screen and (max-width: 480px) {
