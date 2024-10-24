@@ -5,7 +5,7 @@ import Modal from './component/Modal';
 
 const App = () => {
 
-  console.log(" ========== 11111111111111 =========");
+  console.log(" ========== 66666666 =========");
 
   const [loading, setLoading] = useState(false);
   const [activecartButton, setActiveCartButton] = useState(true)
@@ -44,17 +44,17 @@ const App = () => {
   });
 
   const insulationOptions = [
-    { label: 'Not Insulated', value: 3.0, src: "https://app.fullbattery.com/insulation-images/not-insulated-image.webp", desc: "abc" },
-    { label: 'Minimum', value: 1.6, src: "https://app.fullbattery.com/insulation-images/minimum-insulated.jpeg", desc: "abc" },
-    { label: 'Good', value: 0.8, src: "https://app.fullbattery.com/insulation-images/good-insulated.jpeg", desc: "abc" },
-    { label: 'Paranoid', value: 0.6, src: "https://app.fullbattery.com/insulation-images/paranoid-insulated.webp", desc: "abc" },
+    { label: 'Not Insulated', value: 3.0, src: "", desc: "A bare metal shed, RV, boat, a fabric tent, or plastic cover. The basics." },
+    { label: 'Minimum', value: 1.6, src: "", desc: "Metallic bubble wrap or light timber shed with some natural insulation." },
+    { label: 'Good', value: 0.8, src: "", desc: "Insulation on all sides of a solid frame. Spray foam, rockwool or fiberglass." },
+    { label: 'Paranoid', value: 0.6, src: "", desc: "You know your R-Values and you used them all. R 40-60. And it's SEALED." },
   ];
 
   const runTimeOptions = [
-    { label: 'Overhead Sun Only', value: 1, src: "https://app.fullbattery.com/runEachday-images/overhead-sun-only.jpg", desc: "abc" },
-    { label: '6 Hours a day', value: 6, src: "https://app.fullbattery.com/runEachday-images/six-hours-day.jpeg", desc: "abc" },
-    { label: '12 Hours a day', value: 12, src: "https://app.fullbattery.com/runEachday-images/12-hours-day.jpeg", desc: "abc" },
-    { label: 'Full Blast 24/7', value: 24, src: "https://app.fullbattery.com/runEachday-images/full-blast.jpeg", desc: "abc" },
+    { label: 'Overhead Sun Only', value: 1, src: "", desc: "I only need it to work when the sun is right over the panels during peak solar production." },
+    { label: '6 Hours a day', value: 6, src: "", desc: "I want to run the AC during dawn or dusk for some time, but will turn it off by bedtime." },
+    { label: '12 Hours a day', value: 12, src: "", desc: "The AC will be running most of the time during the day and into the late evening." },
+    { label: 'Full Blast 24/7', value: 24, src: "", desc: "I want enough solar and battery capacity to run it on full blast without turning it off, 24/7." },
   ];
 
 
@@ -201,9 +201,6 @@ const App = () => {
   };
 
 
-  console.log("batteryOption === ", batteryOption);
-
-
 
   // ============================= ADD TO CART ============================= //
   const handleAddToCart = async () => {
@@ -340,6 +337,10 @@ const App = () => {
     }
   }, [totalPrice]);
 
+
+  console.log("selectedProductId.selectSolarPanelProducts === ", selectedProductId.selectSolarPanelProducts);
+
+
   return (
     <>
       <div>
@@ -353,19 +354,30 @@ const App = () => {
         <div className='ques-1-container'>
           <div className='ques-1'>
             <h1>1. How big is the space you are heating / cooling?</h1>
-            <p style={{ margin: "-16px 0px 0px 22px" }}> Lets figure out the size of air conditioner you need in BTU/h or tons. 1 tons is same as 12,000 BTU/h. </p>
+            <p style={{ margin: "-16px 0px 0px 22px" }}> Let's figure out the size of air conditioner you need in BTU/h or tons. 1 ton is the same as 12,000 BTU/h. </p>
             <div className='ques-1-answer'>
               <div className='length'>
-                <span>Length</span> <input type='number' name='length' value={spaceAndVolume.length} onChange={handleQuestions1_options} />
+                <span>Length</span>
+                <div className='show-input-values'>
+                  <input type='number' name='length' value={spaceAndVolume.length} onChange={handleQuestions1_options} />
+                  <span className='unit'>Feet</span>
+                </div>
               </div>
+
               <div className='width'>
-                <span>Width</span> <input type='number' name='width' value={spaceAndVolume.width} onChange={handleQuestions1_options} />
+                <span>Width</span>
+                <div className='show-input-values' >
+                  <input type='number' name='width' value={spaceAndVolume.width} onChange={handleQuestions1_options} />
+                  <span className='unit'>Feet</span>
+                </div>
               </div>
+
               <div className='height'>
-                <span> Height </span><input type='number' name='height' value={spaceAndVolume.height} onChange={handleQuestions1_options} />
-              </div>
-              <div className='unit'>
-                <span>Feet</span>
+                <span> Height </span>
+                <div className='show-input-values' >
+                  <input type='number' name='height' value={spaceAndVolume.height} onChange={handleQuestions1_options} />
+                  <span className='unit'>Feet</span>
+                </div>
               </div>
             </div>
 
@@ -373,16 +385,19 @@ const App = () => {
               {spaceAndVolume.totalVolume > 0 && (
                 <div className='totalvolumeValue'>
                   <span>Total Volume: {spaceAndVolume.totalVolume.toLocaleString()} cubic feet</span>
-                  <span> Square Footage : {squareFoot.toLocaleString()} square feet </span>
+                  <span> Total Area: {squareFoot.toLocaleString()} square feet </span>
                 </div>
               )}
             </div>
           </div>
         </div>
 
-        <div className='ques-2-container'>
+        <div className='ques-2-container ques-wrapper' >
           <div className='ques-2'>
             <h1>2. How well is it insulated?</h1>
+            <p className='ques-2-description'>
+              The level of insulation makes a huge impact on the actual number of BTU's you have to move every hour to keep your place air conditioned. Vans and RV's usually select 'Minimum' or 'Not Insulated' for realistic numbers. Click an option to see your suggested cooling/heating capacity expressed in BTU-hours.
+            </p>
           </div>
           <div className='ques-2-answer'>
             <div className='insulation-options'>
@@ -452,12 +467,16 @@ const App = () => {
                 )
               })}
             </div>
+            <div className='build-kit-message'>
+              <p>Click an option to build your kit: click again to remove</p>
+            </div>
           </div>
         </div>
 
         <div className='ques-4-container'>
           <div className='ques-4'>
             <h1> 4. How long do you want to run it each day? </h1>
+            <p className='ques-4-description'> Usage patterns impact how much battery storage and solar power you need dramatically. If you only need the unit to work during peak daylight hours (1-3 hours before and after solar noon, assuming your panels are pointed properly), you do not need many panels or batteries. To air condition for more hours each day, you need increasingly more panels and batteries to capture the sun during peak production times and spread out the energy across the 24 hour cycle. Most people choose an option between 6 and 12 hours per day which allows you to run the air conditioner into the evening or night with zero reliance on grid power. Click an option to see your suggested daily harvest in kilowatt-hours. This is how much solar energy you need to produce each day. </p>
           </div>
           <div className='runtime-options'>
             {runTimeOptions.map((option) => (
@@ -493,7 +512,10 @@ const App = () => {
 
         <div className='ques-5-container ques-wrapper'>
           <div className='ques-5' >
-            <h1> 5. How many solar panels is needed for this? </h1>
+            <h1> 5. How many solar panels are needed for this? </h1>
+            <p className='ques-5-description'>
+              Solar panels do not produce 100% of their rated power. In many lighting conditions you'll be lucky to get 30% output, and during overcast or rainy days, panel production can drop to only 10% rated power. We keep this in mind to recommend a realistic Watts of Solar Power you need. More never hurts! Click an option to add it to your order.
+            </p>
           </div>
 
           <div className='collection-container' >
@@ -527,18 +549,21 @@ const App = () => {
                 )
               })}
             </div>
-            <br />
+            <div className='build-kit-message'>
+              <p>Click an option to build your kit: click again to remove</p>
+            </div>
             <div className='recommendedWatts'>
-              <div>
-                Your recommended watts of Solar Capacity: {(Math.floor(neededHarvest * 1000 / 3)).toLocaleString()} watts
-              </div>
+              <span className='recommendedWatts-value'>Your recommended watts of Solar Capacity: {(Math.floor(neededHarvest * 1000 / 3)).toLocaleString()} watts</span>
             </div>
           </div>
         </div>
 
         <div className='ques-6-container ques-wrapper'>
           <div className='ques-6'>
-            <h1>6. suitable charge controller </h1>
+            <h1>6. Choose a suitable Charge Controller </h1>
+            <p className='ques-6-description'>
+              Your solar panels output varying voltages and watts throughout the day. Wire the panels into a quality charge controller, which harvests the most power out of your panels and maintains your battery charge.
+            </p>
           </div>
           <div className='collection-container'>
             <div className='collection-products'>
@@ -570,12 +595,18 @@ const App = () => {
                 )
               })}
             </div>
+            <div className='build-kit-message'>
+              <p>Click an option to build your kit: click again to remove</p>
+            </div>
           </div>
         </div>
 
         <div className='ques-7-container ques-wrapper'>
           <div className='ques-7'>
-            <h1>7. battery options </h1>
+            <h1>7. Choose a battery </h1>
+            <p className='ques-7-description'>
+              Your battery capacity is measured in kilowatt hours (kWh). We calculated your needed daily harvest in Step 4. Your battery capacity should be at least as big as the daily harvest, but getting a larger battery will significantly increase its lifespan from the typical 5-10 years to 30-50 years because it will not cycle as hard each day. Ordering a battery with double, triple or even more total kWh than your daily harvest will also allow you to have a healthy reserve to get through days of no sun.
+            </p>
           </div>
           <div className='collection-container' >
             <div className='collection-products'>
@@ -607,35 +638,36 @@ const App = () => {
                 )
               })}
             </div>
+            <div className='build-kit-message'>
+              <p>Click an option to build your kit: click again to remove</p>
+            </div>
           </div>
         </div>
 
         <div className='ques-8-container'>
           <div className='ques-8'>
             <h1>8. Add a PV cable / Battery cable hookup kit with breaker box.</h1>
-            <h1 className='sub-ques'> {customProductDistance.paneltoBattery} Feet from Panels to Batter / {customProductDistance.batterytoHVAC} Feet from Battery to HVAC </h1>
-            <div className='custom-variant-description'>
-              We can include a simple kit with appropriate gauge wires for the run between your solar panels and the charge controller/battery, and the right gauge battery cables with ring terminals to attach to the air conditioner. Just enter the distances between your solar array and your battery/controller, and the distance between your battery and the HVAC unit, and we will cut a set of red and black cables, attach the terminals, and include a simple inline breaker box to get you started.
-
-            </div>
+            <p className='ques-8-description'>
+              We can include a simple kit with appropriate gauge wires for the run between your solar panels and the charge controller/battery, and the battery cables connecting the air conditioner to the battery. Just enter the distances between your solar array and your battery/controller, and the distance between your battery and the HVAC unit, and we will cut a set of red and black cables, attach the terminals, and include a simple inline breaker box to get you started.
+            </p>
           </div>
           <div className='collection-container'>
             <div className='custome-product'>
               <div className='pannel-battery-distance'>
-                <div className='distance-question'>
-                  <p> Distance from Panels to Battery in feet </p>
-                </div>
                 <div className='distance-answer'>
                   <input type='number' value={customProductDistance.paneltoBattery} name='paneltoBattery' onChange={handleDistanceValue} />
+                </div>
+                <div className='distance-question'>
+                  <p> feet PV cable between solar panels and charge controller/battery </p>
                 </div>
               </div>
 
               <div className='battery-HVAC-distance'>
-                <div className='distance-question'>
-                  <p> Distance from Battery to HVAC in feet </p>
-                </div>
                 <div className='distance-answer'>
                   <input type='number' value={customProductDistance.batterytoHVAC} name='batterytoHVAC' onChange={handleDistanceValue} />
+                </div>
+                <div className='distance-question'>
+                  <p> feet distance between the battery and AC outdoor unit </p>
                 </div>
               </div>
 
@@ -652,9 +684,11 @@ const App = () => {
           <span className='price'> ${totalPrice} </span>
         </div>
 
-        <button className='cartButton' disabled={activecartButton} onClick={handleAddToCart}>
-          {loading ? <span className="loader"></span> : "Add To Cart"}
-        </button>
+        <div className='cart-button-container'>
+          <button className='cartButton' disabled={activecartButton} onClick={handleAddToCart}>
+            {loading ? <span className="loader"></span> : "Add To Cart"}
+          </button>
+        </div>
       </div>
     </>
   );

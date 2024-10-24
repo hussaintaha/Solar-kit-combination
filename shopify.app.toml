@@ -3,7 +3,7 @@
 client_id = "f06f43a1013bd4e8895a4a15f6820596"
 name = "solar-combination"
 handle = "solar-combination"
-application_url = "https://attractions-assistant-il-placing.trycloudflare.com"
+application_url = "https://causing-fetish-automotive-secretary.trycloudflare.com"
 embedded = true
 
 [build]
@@ -25,14 +25,23 @@ redirect_urls = [
   "https://seekers-pill-eu-reproduction.trycloudflare.com/api/auth/callback",
   "https://attractions-assistant-il-placing.trycloudflare.com/auth/callback",
   "https://attractions-assistant-il-placing.trycloudflare.com/auth/shopify/callback",
-  "https://attractions-assistant-il-placing.trycloudflare.com/api/auth/callback"
+  "https://attractions-assistant-il-placing.trycloudflare.com/api/auth/callback",
+  "https://probably-framework-css-disaster.trycloudflare.com/auth/callback",
+  "https://probably-framework-css-disaster.trycloudflare.com/auth/shopify/callback",
+  "https://probably-framework-css-disaster.trycloudflare.com/api/auth/callback",
+  "https://mobiles-properly-provided-une.trycloudflare.com/auth/callback",
+  "https://mobiles-properly-provided-une.trycloudflare.com/auth/shopify/callback",
+  "https://mobiles-properly-provided-une.trycloudflare.com/api/auth/callback",
+  "https://causing-fetish-automotive-secretary.trycloudflare.com/auth/callback",
+  "https://causing-fetish-automotive-secretary.trycloudflare.com/auth/shopify/callback",
+  "https://causing-fetish-automotive-secretary.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
 api_version = "2024-07"
 
 [app_proxy]
-url = "https://attractions-assistant-il-placing.trycloudflare.com"
+url = "https://causing-fetish-automotive-secretary.trycloudflare.com"
 subpath = "proxy"
 prefix = "apps"
 

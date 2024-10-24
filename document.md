@@ -165,7 +165,22 @@ C. Deployment (2 hours)
 mongosh
 show dbs
 use solar-combination
-
-
 db.shopify_sessoipsn.deleteMany({})
 db.shopify_sessions.find({})
+
+
+
+
+Insulation imgaes
+https://app.fullbattery.com/insulation-images/not-insulated-image.webp
+https://app.fullbattery.com/insulation-images/minimum-insulated.jpeg
+https://app.fullbattery.com/insulation-images/good-insulated.jpeg
+https://app.fullbattery.com/insulation-images/paranoid-insulated.webp
+
+
+
+Each day
+https://app.fullbattery.com/runEachday-images/overhead-sun-only.jpg
+https://app.fullbattery.com/runEachday-images/six-hours-day.jpeg
+https://app.fullbattery.com/runEachday-images/12-hours-day.jpeg
+https://app.fullbattery.com/runEachday-images/full-blast.jpeg

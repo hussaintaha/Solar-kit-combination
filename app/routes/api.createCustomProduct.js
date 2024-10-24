@@ -15,7 +15,7 @@ export const action = async ({ request }) => {
 
     const productData = {
       product: {
-        title: `${paneltoBattery} Feet from Panels to Battery / ${batterytoHVAC} Feet from Battery to HVAC`,
+        title: ` Custom Cable Kit: ${paneltoBattery} Feet from Panels to Battery / ${batterytoHVAC} Feet from Battery to HVAC`,
         product_type: "Product",
         tags: ["CustomWiringKit"],
         images: [
