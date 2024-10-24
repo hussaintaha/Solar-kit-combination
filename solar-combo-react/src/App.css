@@ -467,6 +467,15 @@ p:last-child {
     box-shadow: 0 2px 4px #0000001a;
   }
 
+  .ques-1-answer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 10px;
+  }
+
   .insulation-options,
   .runtime-options {
     display: flex;
