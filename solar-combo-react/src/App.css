@@ -485,6 +485,34 @@ p:last-child {
     margin-top: 20px;
   }
 
+  .insulation-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 170px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px #0000001a;
+    transition: background-color .3s ease;
+  }
+
+  .totalvolumeValue {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    font-size: 17px;
+    margin-top: 0px;
+    font-weight: 600;
+  }
+
+  .cart-button-container {
+    text-align: center;
+  }
+
   .product-image img {
     max-width: 70%;
     margin-bottom: 10px;
@@ -568,6 +596,24 @@ p:last-child {
     flex-wrap: wrap;
   }
 
+  .insulation-options,
+  .runtime-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: start;
+    margin-top: 20px;
+  }
+
+  .price {
+    font-size: 1.6rem;
+    letter-spacing: .1rem;
+    line-height: calc(1 + .5 / var(--font-body-scale));
+    color: rgb(var(--color-foreground));
+    margin: 0px 0px 0px 105px;
+  }
+
+
   .recommendedWatts {
     font-size: 18px;
     font-weight: 700;
@@ -576,7 +622,7 @@ p:last-child {
   }
 
   .cartButton {
-    width: 40%;
+    width: 60%;
     padding: 12px 20px;
     background-color: #1a1a1a;
     color: #fff;
@@ -593,7 +639,7 @@ p:last-child {
     cursor: not-allowed;
     opacity: .5;
     background-color: #000;
-    width: 40%;
+    width: 60%;
   }
 
   .price {
@@ -619,6 +665,10 @@ p:last-child {
   .recommendedWatts-value {
     width: 100%;
   }
+
+  .build-kit-message>p {
+    width: 95%;
+  }
 }
 
 @media (max-width: 375px) {
@@ -640,7 +690,7 @@ p:last-child {
   .ques-1-answer {
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     gap: 25px;
     margin: 16px 0px;
@@ -652,8 +702,8 @@ p:last-child {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    width: 155px;
-    padding: 15px;
+    width: 150px;
+    padding: 8px;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 2px 4px #0000001a;
@@ -665,7 +715,7 @@ p:last-child {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    width: 155px;
+    width: 150px;
     padding: 15px;
     box-shadow: 0 2px 4px #0000001a;
     transition: background-color .3s ease;
@@ -681,9 +731,8 @@ p:last-child {
   }
 
   .build-kit-message>p {
-    width: 90%;
+    width: 55%;
   }
-
 
   .recommendedWatts-value {
     width: 100%;
@@ -697,13 +746,13 @@ p:last-child {
 
   .total-price {
     display: block;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 700;
     color: #333;
   }
 
   .price {
-    font-size: 2.6rem;
+    font-size: 1.6rem;
     letter-spacing: .1rem;
     line-height: calc(1 + .5 / var(--font-body-scale));
     color: rgb(var(--color-foreground));
@@ -711,7 +760,6 @@ p:last-child {
 
 
 }
-
 
 @media (max-width: 320) {
   .total-price {
@@ -721,8 +769,28 @@ p:last-child {
     color: #333;
   }
 
+  .ques-1-answer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    margin: 16px 0;
+    flex-wrap: wrap;
+  }
+
+
+  .insulation-options,
+  .runtime-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
   .cartButton {
-    width: 60%;
+    width: 80%;
     padding: 12px 20px;
     background-color: #1a1a1a;
     color: #fff;
@@ -739,11 +807,12 @@ p:last-child {
     cursor: not-allowed;
     opacity: .5;
     background-color: #000;
-    width: 60%;
+    width: 80%;
   }
 
+
   .build-kit-message>p {
-    width: 75%;
+    width: 45%;
   }
 
   .collection-products {
@@ -763,7 +832,6 @@ p:last-child {
     transition: background-color .3s ease;
   }
 }
-
 
 @media screen and (max-width: 480px) {
 
@@ -794,54 +862,4 @@ p:last-child {
     font-size: 16px;
     margin-top: 10px;
   }
-}
-
-@media (max-width: 320px) {
-  .ques-1-answer {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 25px;
-    margin: 16px 0;
-    flex-wrap: wrap;
-  }
-
-  .insulation-options,
-  .runtime-options {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    margin-top: 20px;
-  }
-
-  .total-price {
-    display: block;
-    font-size: 19px;
-    font-weight: 700;
-    color: #333;
-  }
-
-  .cartButton {
-    width: 50%;
-    padding: 12px 20px;
-    background-color: #1a1a1a;
-    color: #fff;
-    border: 2px solid transparent;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color .3s ease, transform .2s ease, box-shadow .2s ease;
-    box-shadow: 0 4px 6px #0000001a;
-  }
-
-  .cartButton:disabled {
-    cursor: not-allowed;
-    opacity: .5;
-    background-color: #000;
-    width: 50%;
-  }
-
 }

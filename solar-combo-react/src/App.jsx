@@ -5,7 +5,7 @@ import Modal from './component/Modal';
 
 const App = () => {
 
-  console.log(" ========== 111111111111111111111111111111111111111 =========");
+  console.log(" ========== 2222222 =========");
 
   const [loading, setLoading] = useState(false);
   const [activecartButton, setActiveCartButton] = useState(true)
