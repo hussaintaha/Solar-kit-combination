@@ -476,7 +476,7 @@ p:last-child {
     margin-top: 20px;
   }
 
-  u .product-image img {
+  .product-image img {
     max-width: 70%;
     margin-bottom: 10px;
   }
