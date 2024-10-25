@@ -728,6 +728,38 @@ p:last-child {
 
 @media (max-width: 375px) {
 
+  .ques-1 h1,
+  .ques-2 h1,
+  .ques-3 h1,
+  .ques-4 h1,
+  .ques-5 h1,
+  .ques-6 h1,
+  .ques-7 h1,
+  .ques-8 h1 {
+    font-size: 20px;
+    color: #000;
+  }
+
+  .ques-1-description,
+  .ques-2-description,
+  .ques-4-description,
+  .ques-5-description,
+  .ques-6-description,
+  .ques-7-description,
+  .ques-8-description {
+    color: #555;
+    margin: 0px 5px;
+    font-size: 15px;
+  }
+
+  .ques-1-answer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+  }
+
   .totalvolumeValue {
     display: flex;
     flex-direction: row;
@@ -740,16 +772,6 @@ p:last-child {
 
   .build-kit-message>p {
     width: 90%;
-  }
-
-  .ques-1-answer {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 25px;
-    margin: 16px 0px;
-    flex-wrap: wrap;
   }
 
   .insulation-option {
@@ -817,11 +839,29 @@ p:last-child {
 }
 
 @media (max-width: 320) {
-  .total-price {
-    display: block;
+
+  .ques-1 h1,
+  .ques-2 h1,
+  .ques-3 h1,
+  .ques-4 h1,
+  .ques-5 h1,
+  .ques-6 h1,
+  .ques-7 h1,
+  .ques-8 h1 {
     font-size: 19px;
-    font-weight: 700;
-    color: #333;
+    color: #000;
+  }
+
+  .ques-1-description,
+  .ques-2-description,
+  .ques-4-description,
+  .ques-5-description,
+  .ques-6-description,
+  .ques-7-description,
+  .ques-8-description {
+    color: #555;
+    margin: 0px 5px;
+    font-size: 13px;
   }
 
   .ques-1-answer {
@@ -830,8 +870,6 @@ p:last-child {
     justify-content: center;
     align-items: center;
     gap: 25px;
-    margin: 16px 0;
-    flex-wrap: wrap;
   }
 
 
@@ -839,35 +877,14 @@ p:last-child {
   .runtime-options {
     display: flex;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 5px;
     justify-content: center;
-    margin-top: 20px;
-  }
-
-  .cartButton {
-    width: 80%;
-    padding: 12px 20px;
-    background-color: #1a1a1a;
-    color: #fff;
-    border: 2px solid transparent;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color .3s ease, transform .2s ease, box-shadow .2s ease;
-    box-shadow: 0 4px 6px #0000001a;
-  }
-
-  .cartButton:disabled {
-    cursor: not-allowed;
-    opacity: .5;
-    background-color: #000;
-    width: 80%;
+    margin-top: 0px;
   }
 
 
   .build-kit-message>p {
-    width: 90%;
+    width: 100%;
   }
 
   .collection-products {
@@ -887,12 +904,50 @@ p:last-child {
     transition: background-color .3s ease;
   }
 
+  .pannel-battery-distance,
+  .battery-HVAC-distance {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    margin: 0 0px;
+  }
+
+
+  .total-price {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+  }
+
   .price {
-    font-size: 1.6rem;
+    font-size: 1.3rem;
     letter-spacing: .1rem;
     line-height: calc(1 + .5 / var(--font-body-scale));
     color: rgb(var(--color-foreground));
-    margin: 0px 0px 0px 70px;
+    margin: 0px 0px 0px 100px;
+  }
+
+  .cartButton {
+    width: 70%;
+    padding: 12px 20px;
+    background-color: #1a1a1a;
+    color: #fff;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color .3s ease, transform .2s ease, box-shadow .2s ease;
+    box-shadow: 0 4px 6px #0000001a;
+  }
+
+  .cartButton:disabled {
+    cursor: not-allowed;
+    opacity: .5;
+    background-color: #000;
+    width: 70%;
   }
 
 }
