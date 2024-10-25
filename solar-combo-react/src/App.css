@@ -694,6 +694,32 @@ p:last-child {
     margin-top: 20px;
   }
 
+  .insulation-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 170px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px #0000001a;
+    transition: background-color .3s ease;
+}
+
+  .runtime-selected {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 170px;
+    padding: 15px;
+    box-shadow: 0 2px 4px #0000001a;
+    transition: background-color .3s ease;
+    border: 2px solid blue;
+    border-radius: 5px;
+}
+
 
   .recommendedWatts {
     font-size: 18px;
@@ -824,11 +850,11 @@ p:last-child {
     align-items: center;
     text-align: center;
     width: 150px;
-    padding: 15px;
+    padding: 8px;
+    border: 2px solid blue;
+    border-radius: 8px;
     box-shadow: 0 2px 4px #0000001a;
     transition: background-color .3s ease;
-    border: 2px solid blue;
-    border-radius: 5px;
   }
 
   .cartButton:disabled {
@@ -1037,10 +1063,6 @@ p:last-child {
   }
 
 }
-
-
-
-
 
 
 @media screen and (max-width: 250px) {
