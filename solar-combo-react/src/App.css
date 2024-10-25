@@ -705,7 +705,7 @@ p:last-child {
     border-radius: 8px;
     box-shadow: 0 2px 4px #0000001a;
     transition: background-color .3s ease;
-}
+  }
 
   .runtime-selected {
     display: flex;
@@ -713,12 +713,12 @@ p:last-child {
     align-items: center;
     text-align: center;
     width: 170px;
-    padding: 15px;
+    padding: 5px;
     box-shadow: 0 2px 4px #0000001a;
     transition: background-color .3s ease;
     border: 2px solid blue;
     border-radius: 5px;
-}
+  }
 
 
   .recommendedWatts {
