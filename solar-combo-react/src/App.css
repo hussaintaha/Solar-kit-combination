@@ -591,11 +591,11 @@ p:last-child {
 
   .total-price>p {
     margin: 0;
-    width: 54%;
-}
+    width: 55%;
+  }
 
   .price {
-    display:-webkit-box;
+    display: -webkit-box;
     color: #000;
     margin-left: 10px
   }
@@ -661,19 +661,10 @@ p:last-child {
     margin-top: 20px;
   }
 
-  .price {
-    font-size: 1.6rem;
-    letter-spacing: .1rem;
-    line-height: calc(1 + .5 / var(--font-body-scale));
-    color: rgb(var(--color-foreground));
-    margin: 0px 0px 0px 105px;
-  }
-
 
   .recommendedWatts {
     font-size: 18px;
     font-weight: 700;
-    /* border: 1px solid; */
     width: 97%;
   }
 
@@ -699,11 +690,10 @@ p:last-child {
   }
 
   .price {
-    font-size: 2.6rem;
-    letter-spacing: .1rem;
-    line-height: calc(1 + .5 / var(--font-body-scale));
+    font-size: 1.6rem;
     color: rgb(var(--color-foreground));
-    margin: 130px;
+    margin: 0px 34%;
+    text-align: center;
   }
 
   .total-price {
@@ -712,6 +702,12 @@ p:last-child {
     font-weight: 700;
     color: #333;
     margin-top: 15px;
+  }
+
+  .total-price>p {
+    margin: 0;
+    width: 100%;
+    text-align: center;
   }
 
   .cart-button-container {
@@ -725,7 +721,7 @@ p:last-child {
   .build-kit-message>p {
     width: 95%;
     margin: 0px;
-}
+  }
 }
 
 @media (max-width: 375px) {
