@@ -172,9 +172,10 @@ input[type="number"]:focus-visible {
 .collection-products {
   display: flex;
   gap: 20px;
-  overflow-x: auto; /* Enables horizontal scrolling */
+  overflow-x: auto;
+  /* Enables horizontal scrolling */
   padding: 10px 0;
-  max-width: 100%; 
+  max-width: 100%;
 }
 
 .collection-products::-webkit-scrollbar {
@@ -195,7 +196,8 @@ input[type="number"]:focus-visible {
 }
 
 .products {
-  flex: 0 0 auto; /* Prevents products from wrapping to a new line */
+  flex: 0 0 auto;
+  /* Prevents products from wrapping to a new line */
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -292,6 +294,7 @@ input[type="number"]:focus-visible {
   margin-top: 5px;
 }
 
+.ques-1-description,
 .ques-2-description,
 .ques-4-description,
 .ques-5-description,
@@ -519,10 +522,6 @@ p:last-child {
     font-weight: 600;
   }
 
-  .cart-button-container {
-    text-align: center;
-  }
-
   .product-image img {
     max-width: 70%;
     margin-bottom: 10px;
@@ -557,9 +556,12 @@ p:last-child {
     margin-top: 20px;
   }
 
+  .cart-button-container {
+    text-align: center;
+  }
 
   .cartButton {
-    width: 25%;
+    width: 30%;
     padding: 12px 20px;
     background-color: #1a1a1a;
     color: #fff;
@@ -823,7 +825,8 @@ p:last-child {
 
   .build-kit-message>p {
     width: 90%;
-}
+  }
+
   .collection-products {
     display: flex;
     flex-wrap: nowrap;

@@ -5,7 +5,7 @@ import Modal from './component/Modal';
 
 const App = () => {
 
-  console.log(" ========== 3333333333333333 =========");
+  console.log(" ========== 444444444444 =========");
 
   const [loading, setLoading] = useState(false);
   const [activecartButton, setActiveCartButton] = useState(true)
@@ -354,7 +354,9 @@ const App = () => {
         <div className='ques-1-container'>
           <div className='ques-1'>
             <h1>1. How big is the space you are heating / cooling?</h1>
-            <p style={{ margin: "-16px 0px 0px 22px" }}> Let's figure out the size of air conditioner you need in BTU/h or tons. 1 ton is the same as 12,000 BTU/h. </p>
+            <p className='ques-1-description'>
+              Let's figure out the size of air conditioner you need in BTU/h or tons. 1 ton is the same as 12,000 BTU/h.
+            </p>
             <div className='ques-1-answer'>
               <div className='length'>
                 <span>Length</span>
@@ -432,46 +434,6 @@ const App = () => {
               : ""} </div>
           </div>
         </div>
-
-        {/* <div className='ques-3-container '>
-          <div className='ques-3'>
-            <h1>3. Select Air Conditioner</h1>
-          </div>
-          <div className='collection-container'>
-            <div className='collection-products'>
-              {productsData?.map((ele, index) => {
-                const isSelected = selectedProductId.selectAirConditionerProducts === ele.id.split("/")[4];
-                return (
-                  <div
-                    className='products' key={ele.id}
-                    onClick={() => handleSelectProduct('selectAirConditionerProducts', ele.id.split("/")[4])}
-                    style={{
-                      border: isSelected ? '2px solid blue' : '1px solid grey',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    <div className='productsImage'>
-                      {ele && ele.image && ele.image.originalSrc ? (
-                        <img src={ele.image.originalSrc} style={{ width: "100px", height: "100px" }} alt="Product" />
-                      ) : (
-                        <p>No image available</p>
-                      )}
-                    </div>
-                    <div className='product-price'>
-                      <h1> ${ele.price} </h1>
-                    </div>
-                    <div className='title'>
-                      <h1> {ele.displayName} </h1>
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-            <div className='build-kit-message'>
-              <p>Click an option to build your kit: click again to remove</p>
-            </div>
-          </div>
-        </div> */}
 
         <div className='ques-3-container'>
           <div className='ques-3'>
