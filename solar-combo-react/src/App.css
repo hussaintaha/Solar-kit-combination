@@ -802,8 +802,8 @@ p:last-child {
   }
 
   .build-kit-message>p {
-    width: 90%;
-  }
+    width: 100%;
+}
 
   .insulation-option {
     display: flex;
@@ -836,10 +836,6 @@ p:last-child {
     opacity: .5;
     background-color: #000;
     width: 45%;
-  }
-
-  .build-kit-message>p {
-    width: 55%;
   }
 
   .recommendedWatts-value {
@@ -900,7 +896,7 @@ p:last-child {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 25px;
+    gap: 4px;
   }
 
 
@@ -908,9 +904,68 @@ p:last-child {
   .runtime-options {
     display: flex;
     flex-wrap: wrap;
-    gap: 5px;
+    gap: 10px;
+    justify-content: start;
+    margin-top: 15px;
+  }
+
+  .insulation-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 126px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px #0000001a;
+    transition: background-color .3s ease;
+  }
+
+  .runtime-selected {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 126px;
+    padding: 5px;
+    box-shadow: 0 2px 4px #0000001a;
+    transition: background-color .3s ease;
+    border: 2px solid blue;
+    border-radius: 5px;
+  }
+
+  .option-image {
+    width: 105px;
+    height: 100px;
+    border-radius: 4px;
+  }
+
+  .option-details label {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #000;
     justify-content: center;
+    font-size: 13px;
+  }
+
+  .option-desc {
+    font-size: 14px;
+    color: #777;
     margin-top: 0px;
+  }
+
+  .harvest-result {
+    font-size: 15px;
+    margin-top: 19px;
+    font-weight: 700;
+  }
+
+  .recommendedWatts {
+    font-size: 15px;
+    font-weight: 700;
+    width: 97%;
   }
 
 
