@@ -596,8 +596,10 @@ p:last-child {
 
   .price {
     display: -webkit-box;
+    font-size: 25px;
     color: #000;
-    margin-left: 10px
+    margin-left: 10px;
+    width: auto;
   }
 
   .cart-button-container {
