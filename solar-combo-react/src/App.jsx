@@ -392,7 +392,7 @@ const App = () => {
           </div>
         </div>
 
-        <div className='ques-2-container ques-wrapper' >
+        <div className='ques-2-container' >
           <div className='ques-2'>
             <h1>2. How well is it insulated?</h1>
             <p className='ques-2-description'>
@@ -433,7 +433,7 @@ const App = () => {
           </div>
         </div>
 
-        {/* <div className='ques-3-container ques-wrapper'>
+        {/* <div className='ques-3-container '>
           <div className='ques-3'>
             <h1>3. Select Air Conditioner</h1>
           </div>
@@ -551,7 +551,7 @@ const App = () => {
           </div>
         </div>
 
-        <div className='ques-5-container ques-wrapper'>
+        <div className='ques-5-container '>
           <div className='ques-5' >
             <h1> 5. How many solar panels are needed for this? </h1>
             <p className='ques-5-description'>
@@ -599,7 +599,7 @@ const App = () => {
           </div>
         </div>
 
-        <div className='ques-6-container ques-wrapper'>
+        <div className='ques-6-container '>
           <div className='ques-6'>
             <h1>6. Choose a suitable Charge Controller </h1>
             <p className='ques-6-description'>
@@ -642,7 +642,7 @@ const App = () => {
           </div>
         </div>
 
-        <div className='ques-7-container ques-wrapper'>
+        <div className='ques-7-container '>
           <div className='ques-7'>
             <h1>7. Choose a battery </h1>
             <p className='ques-7-description'>
