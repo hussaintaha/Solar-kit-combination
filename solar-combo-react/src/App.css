@@ -628,7 +628,38 @@ p:last-child {
   }
 }
 
-@media (max-width: 425px) {
+@media screen and (max-width: 480px) {
+
+  /* Adjustments for very small screens */
+  .product-image img {
+    max-width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .custom-wiring-form {
+    width: 95%;
+    padding: 5px;
+  }
+
+  .custom-wiring-input input {
+    width: 100%;
+    padding: 6px;
+    font-size: 14px;
+  }
+
+  .custom-wiring-button button {
+    width: 100%;
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .total-price-container {
+    font-size: 16px;
+    margin-top: 10px;
+  }
+}
+
+@media screen and (max-width: 425px) {
 
   .ques-1-container,
   .ques-2-container,
@@ -726,7 +757,7 @@ p:last-child {
   }
 }
 
-@media (max-width: 375px) {
+@media screen and (max-width: 375px) {
 
   .ques-1 h1,
   .ques-2 h1,
@@ -950,35 +981,4 @@ p:last-child {
     width: 70%;
   }
 
-}
-
-@media screen and (max-width: 480px) {
-
-  /* Adjustments for very small screens */
-  .product-image img {
-    max-width: 100%;
-    margin-bottom: 10px;
-  }
-
-  .custom-wiring-form {
-    width: 95%;
-    padding: 5px;
-  }
-
-  .custom-wiring-input input {
-    width: 100%;
-    padding: 6px;
-    font-size: 14px;
-  }
-
-  .custom-wiring-button button {
-    width: 100%;
-    font-size: 14px;
-    padding: 10px;
-  }
-
-  .total-price-container {
-    font-size: 16px;
-    margin-top: 10px;
-  }
 }
