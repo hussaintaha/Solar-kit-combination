@@ -803,7 +803,7 @@ p:last-child {
 
   .build-kit-message>p {
     width: 100%;
-}
+  }
 
   .insulation-option {
     display: flex;
@@ -1036,4 +1036,146 @@ p:last-child {
     width: 70%;
   }
 
+}
+
+
+
+
+
+
+@media screen and (max-width: 250px) {
+
+  .ques-1 h1,
+  .ques-2 h1,
+  .ques-3 h1,
+  .ques-4 h1,
+  .ques-5 h1,
+  .ques-6 h1,
+  .ques-7 h1,
+  .ques-8 h1 {
+    font-size: 16px;
+    color: #000;
+  }
+
+  .ques-1-description,
+  .ques-2-description,
+  .ques-4-description,
+  .ques-5-description,
+  .ques-6-description,
+  .ques-7-description,
+  .ques-8-description {
+    color: #555;
+    margin: 0 0px;
+    font-size: 12px;
+  }
+
+  .ques-1-answer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .totalvolumeValue {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0px;
+    margin-top: 10px;
+    font-weight: 700;
+    font-size: 13px;
+  }
+
+  .insulation-options,
+  .runtime-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .insulation-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 165px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px #0000001a;
+    transition: background-color .3s ease;
+  }
+
+  .runtime-selected {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 165px;
+    padding: 5px;
+    box-shadow: 0 2px 4px #0000001a;
+    transition: background-color .3s ease;
+    border: 2px solid blue;
+    border-radius: 5px;
+  }
+
+  .option-image {
+    width: 140px;
+    height: 100px;
+    border-radius: 4px;
+  }
+
+  .displayBTU {
+    margin: 10px 0 0 10px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .build-kit-message>p {
+    width: 100%;
+  }
+
+  .recommendedWatts {
+    font-size: 14px;
+    font-weight: 700;
+    width: 97%;
+  }
+
+  .custome-product {
+    margin-top: 15px;
+  }
+
+  .pannel-battery-distance,
+  .battery-HVAC-distance {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    margin: 0;
+  }
+
+  .distance-answer {
+    width: 75px;
+  }
+
+  .custom-variant-price {
+    color: #000;
+    font-size: 15px;
+    font-weight: 600;
+    border: 1px solid;
+    width: 100%;
+    margin: 0px;
+  }
+
+  .price {
+    font-size: 1.3rem;
+    letter-spacing: .1rem;
+    line-height: calc(1 + .5 / var(--font-body-scale));
+    color: rgb(var(--color-foreground));
+    margin: 0px 0 0 60px;
+  }
 }
