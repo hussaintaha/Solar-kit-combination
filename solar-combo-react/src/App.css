@@ -95,27 +95,10 @@ input[type="number"]:focus-visible {
   outline: none;
 }
 
-
-
 .calculate-volume {
   display: flex;
   align-items: center;
   gap: 15px;
-}
-
-
-.cartButton {
-  background-color: #007bff;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 20px;
-  position: relative;
-  padding: 10px 20px;
 }
 
 .loader {
@@ -348,18 +331,22 @@ input[type="number"]:focus-visible {
   margin: 0px 30px;
 }
 
+.cart-button-container {
+  text-align: center;
+}
+
 .cartButton {
-  width: 20%;
+  width: 30%;
   padding: 12px 20px;
   background-color: #1a1a1a;
-  color: white;
+  color: #fff;
   border: 2px solid transparent;
   border-radius: 5px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color .3s ease, transform .2s ease, box-shadow .2s ease;
+  box-shadow: 0 4px 6px #0000001a;
 }
 
 .cartButton:hover {
