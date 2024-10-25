@@ -165,16 +165,25 @@ input[type="number"]:focus-visible {
 
 .collection-container {
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: start;
   flex-direction: column;
+  gap: 20px;
 }
 
 .collection-products {
   display: flex;
-  flex-wrap: nowrap;
   gap: 20px;
+  overflow-x: auto; /* Enables horizontal scrolling */
+  padding: 10px 0;
+  max-width: 100%; 
+}
+
+.collection-products::-webkit-scrollbar {
+  height: 8px;
+}
+
+.collection-products::-webkit-scrollbar-thumb {
+  background-color: #cccccc;
+  border-radius: 4px;
 }
 
 .ques-2-container {
@@ -186,6 +195,7 @@ input[type="number"]:focus-visible {
 }
 
 .products {
+  flex: 0 0 auto; /* Prevents products from wrapping to a new line */
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);

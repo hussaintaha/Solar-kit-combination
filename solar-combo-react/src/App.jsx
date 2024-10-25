@@ -51,7 +51,7 @@ const App = () => {
   ];
 
   const runTimeOptions = [
-    { label: 'Overhead Sun Only', value: 1, src: "https://app.fullbattery.com/runEachday-images/overhead-sun-only.jpg", desc: "I only need it to work when the sun is right over the panels during peak solar production." },
+    { label: 'Overhead Sun Only', value: 4, src: "https://app.fullbattery.com/runEachday-images/overhead-sun-only.jpg", desc: "I only need it to work when the sun is right over the panels during peak solar production." },
     { label: '6 Hours a day', value: 6, src: "https://app.fullbattery.com/runEachday-images/six-hours-day.jpeg", desc: "I want to run the AC during dawn or dusk for some time, but will turn it off by bedtime." },
     { label: '12 Hours a day', value: 12, src: "https://app.fullbattery.com/runEachday-images/12-hours-day.jpeg", desc: "The AC will be running most of the time during the day and into the late evening." },
     { label: 'Full Blast 24/7', value: 24, src: "https://app.fullbattery.com/runEachday-images/full-blast.jpeg", desc: "I want enough solar and battery capacity to run it on full blast without turning it off, 24/7." },
@@ -433,7 +433,47 @@ const App = () => {
           </div>
         </div>
 
-        <div className='ques-3-container ques-wrapper'>
+        {/* <div className='ques-3-container ques-wrapper'>
+          <div className='ques-3'>
+            <h1>3. Select Air Conditioner</h1>
+          </div>
+          <div className='collection-container'>
+            <div className='collection-products'>
+              {productsData?.map((ele, index) => {
+                const isSelected = selectedProductId.selectAirConditionerProducts === ele.id.split("/")[4];
+                return (
+                  <div
+                    className='products' key={ele.id}
+                    onClick={() => handleSelectProduct('selectAirConditionerProducts', ele.id.split("/")[4])}
+                    style={{
+                      border: isSelected ? '2px solid blue' : '1px solid grey',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    <div className='productsImage'>
+                      {ele && ele.image && ele.image.originalSrc ? (
+                        <img src={ele.image.originalSrc} style={{ width: "100px", height: "100px" }} alt="Product" />
+                      ) : (
+                        <p>No image available</p>
+                      )}
+                    </div>
+                    <div className='product-price'>
+                      <h1> ${ele.price} </h1>
+                    </div>
+                    <div className='title'>
+                      <h1> {ele.displayName} </h1>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+            <div className='build-kit-message'>
+              <p>Click an option to build your kit: click again to remove</p>
+            </div>
+          </div>
+        </div> */}
+
+        <div className='ques-3-container'>
           <div className='ques-3'>
             <h1>3. Select Air Conditioner</h1>
           </div>
@@ -472,6 +512,7 @@ const App = () => {
             </div>
           </div>
         </div>
+
 
         <div className='ques-4-container'>
           <div className='ques-4'>
