@@ -589,6 +589,11 @@ p:last-child {
     margin-top: 15px;
   }
 
+  .total-price>p {
+    margin: 0;
+    width: 54%;
+}
+
   .price {
     display:-webkit-box;
     color: #000;
@@ -719,7 +724,8 @@ p:last-child {
 
   .build-kit-message>p {
     width: 95%;
-  }
+    margin: 0px;
+}
 }
 
 @media (max-width: 375px) {
