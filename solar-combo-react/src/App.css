@@ -590,9 +590,9 @@ p:last-child {
   }
 
   .price {
-    font-size: 25px;
+    display:-webkit-box;
     color: #000;
-    margin-left: 10px;
+    margin-left: 10px
   }
 
   .cart-button-container {
