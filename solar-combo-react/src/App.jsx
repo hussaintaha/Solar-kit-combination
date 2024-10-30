@@ -5,7 +5,7 @@ import Modal from './component/Modal';
 
 const App = () => {
 
-  console.log(" ========== 1111111111111111111111111111111 =========");
+  console.log(" ========== 777777777 =========");
 
   const [loading, setLoading] = useState(false);
   const [activecartButton, setActiveCartButton] = useState(true)
@@ -337,10 +337,6 @@ const App = () => {
     }
   }, [totalPrice]);
 
-
-  console.log("selectedProductId.selectSolarPanelProducts === ", selectedProductId.selectSolarPanelProducts);
-
-
   return (
     <>
       <div>
@@ -386,8 +382,8 @@ const App = () => {
             <div className='calculate-volume'>
               {spaceAndVolume.totalVolume > 0 && (
                 <div className='totalvolumeValue'>
-                  <span>Total Volume: {spaceAndVolume.totalVolume.toLocaleString()} cubic feet</span>
-                  <span> Total Area: {squareFoot.toLocaleString()} square feet </span>
+                  <span>Total Volume: <span className='total-areaVolume-value'> {spaceAndVolume.totalVolume.toLocaleString()} cubic feet </span></span>
+                  <span> Total Area: <span className='total-areaVolume-value'> {squareFoot.toLocaleString()} square feet </span>  </span>
                 </div>
               )}
             </div>
@@ -429,7 +425,7 @@ const App = () => {
             </div>
             <div> {insulationValue ?
               <div className='displayBTU'>
-                <span> Your recommended BTU: {recommendedBTU.toLocaleString()} </span>
+                <span> Your recommended BTU: {recommendedBTU.toLocaleString()} BTU/h </span>
               </div>
               : ""} </div>
           </div>
@@ -470,7 +466,7 @@ const App = () => {
               })}
             </div>
             <div className='build-kit-message'>
-              <p>Click an option to build your kit: click again to remove</p>
+              <p>Click an option to build your kit; click again to remove</p>
             </div>
           </div>
         </div>
@@ -508,7 +504,7 @@ const App = () => {
 
           <div className='needed-harvest'>
             <div className='harvest-result'>
-              Your needed Harvest: {(Number(neededHarvest.toFixed(2))).toLocaleString()} kWh
+              <span> Your needed Harvest: {(Number(neededHarvest.toFixed(2))).toLocaleString()} kWh </span>
             </div>
           </div>
         </div>
@@ -553,7 +549,7 @@ const App = () => {
               })}
             </div>
             <div className='build-kit-message'>
-              <p>Click an option to build your kit: click again to remove</p>
+              <p>Click an option to build your kit; click again to remove</p>
             </div>
             <div className='recommendedWatts'>
               <span className='recommendedWatts-value'>Your recommended watts of Solar Capacity: {(Math.floor(neededHarvest * 1000 / 3)).toLocaleString()} watts</span>
@@ -599,7 +595,7 @@ const App = () => {
               })}
             </div>
             <div className='build-kit-message'>
-              <p>Click an option to build your kit: click again to remove</p>
+              <p>Click an option to build your kit; click again to remove</p>
             </div>
           </div>
         </div>
@@ -642,7 +638,7 @@ const App = () => {
               })}
             </div>
             <div className='build-kit-message'>
-              <p>Click an option to build your kit: click again to remove</p>
+              <p>Click an option to build your kit; click again to remove</p>
             </div>
           </div>
         </div>
@@ -675,7 +671,7 @@ const App = () => {
               </div>
 
               <div className='custom-variant-price'>
-                Wiring Kit Cost :  ${calculateCustomePrice()}
+                Wiring Kit Cost: ${calculateCustomePrice()}
               </div>
             </div>
           </div>
