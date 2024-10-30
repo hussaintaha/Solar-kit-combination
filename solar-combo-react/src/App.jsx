@@ -5,7 +5,7 @@ import Modal from './component/Modal';
 
 const App = () => {
 
-  console.log(" ========== 777777777 =========");
+  console.log(" ========== 999999999999 =========");
 
   const [loading, setLoading] = useState(false);
   const [activecartButton, setActiveCartButton] = useState(true)
@@ -37,7 +37,7 @@ const App = () => {
     selectSolarPanelProducts: 0,
     selectChargeControllerproducts: 0,
     selectBatteryOptions: 0
-  });
+  })
   const [customProductDistance, setCustomProductDistance] = useState({
     paneltoBattery: "",
     batterytoHVAC: ""
@@ -382,8 +382,15 @@ const App = () => {
             <div className='calculate-volume'>
               {spaceAndVolume.totalVolume > 0 && (
                 <div className='totalvolumeValue'>
-                  <span>Total Volume: <span className='total-areaVolume-value'> {spaceAndVolume.totalVolume.toLocaleString()} cubic feet </span></span>
-                  <span> Total Area: <span className='total-areaVolume-value'> {squareFoot.toLocaleString()} square feet </span>  </span>
+                  <div className="cubic-feet"> 
+                    <span>Total Volume:</span>
+                    <span className='total-areaVolume-value'> {spaceAndVolume.totalVolume.toLocaleString()} cubic feet </span>
+                 </div>
+
+                 <div className="square-feet">
+                  <span> Total Area:  </span>
+                  <span className='total-areaVolume-value'> {squareFoot.toLocaleString()} square feet </span> 
+                 </div>
                 </div>
               )}
             </div>
@@ -404,7 +411,7 @@ const App = () => {
                   key={option.label}
                   onClick={() => handleInsulationChange({ target: { value: option.value } })}
                   style={{ cursor: "pointer" }}
-                  className={`insulation-option ${insulationValue === option.value ? 'selected' : ''}`} // Add selected class when this option is selected
+                  className={`insulation-option ${insulationValue === option.value ? 'selected' : ''}`} 
                 >
                   <div className='option-details'>
                     <img src={option.src} alt={option.label} className='option-image' />
