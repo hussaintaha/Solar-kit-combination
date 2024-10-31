@@ -1,3 +1,11 @@
+body {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  color: #3d4246;
+  line-height: 1.3;
+}
+
 .App {
   text-align: center;
   padding: 20px;
@@ -69,7 +77,6 @@
   text-align: center;
 }
 
-
 .length,
 .width,
 .height {
@@ -97,7 +104,6 @@
   font-weight: 700;
 }
 
-
 .insulation-options,
 .runtime-options {
   display: grid;
@@ -118,7 +124,7 @@
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 2px 4px #0000001a;
-  transition: background-color .3s ease;
+  transition: background-color 0.3s ease;
 }
 
 .option-desc {
@@ -140,7 +146,7 @@
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0 2px 4px #0000001a;
-  transition: background-color .3s ease;
+  transition: background-color 0.3s ease;
   border: 2px solid blue;
   border-radius: 5px;
 }
@@ -182,7 +188,6 @@
   font-weight: 700;
 }
 
-
 .collection-container {
   display: flex;
   flex-direction: column;
@@ -207,7 +212,7 @@
   text-align: center;
   background-color: #fff;
   width: 180px;
-  transition: background-color .3s ease;
+  transition: background-color 0.3s ease;
 }
 
 .products:hover {
@@ -226,18 +231,16 @@
   height: auto;
 }
 
-.product-price>h1 {
+.product-price > h1 {
   font-size: large;
   color: black;
 }
 
-
-.build-kit-message>p {
+.build-kit-message > p {
   margin: 0px 0px 0px 35px;
 }
 
-
-input[type='number'] {
+input[type="number"] {
   padding: 8px;
   width: 100px;
   border: 1px solid #ccc;
@@ -246,17 +249,17 @@ input[type='number'] {
   text-align: center;
 }
 
-input[type='radio'] {
+input[type="radio"] {
   margin-right: 10px;
 }
 
-input[type='number']::-webkit-outer-spin-button,
-input[type='number']::-webkit-inner-spin-button {
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-input[type='number'] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
 
@@ -264,7 +267,6 @@ input[type="number"]:focus-visible {
   border: none;
   outline: none;
 }
-
 
 .pannel-battery-distance,
 .battery-HVAC-distance {
@@ -274,7 +276,7 @@ input[type="number"]:focus-visible {
   margin: 3px 25px;
 }
 
-.distance-question>p {
+.distance-question > p {
   color: black;
 }
 
@@ -289,7 +291,7 @@ input[type="number"]:focus-visible {
   text-align: center;
 }
 
-.total-price>p {
+.total-price > p {
   margin: 0px;
   width: 50%;
 }
@@ -298,7 +300,6 @@ input[type="number"]:focus-visible {
   font-size: 25px;
   color: black;
 }
-
 
 .cart-button-container {
   text-align: center;
@@ -315,13 +316,16 @@ input[type="number"]:focus-visible {
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color .3s ease, transform .2s ease, box-shadow .2s ease;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
   box-shadow: 0 4px 6px #0000001a;
 }
 
 .cartButton:hover {
-  background-color: #00C4CC;
-  border-color: #00A1A7;
+  background-color: #00c4cc;
+  border-color: #00a1a7;
   transform: translateY(-2px);
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
   cursor: pointer;
@@ -357,7 +361,6 @@ input[type="number"]:focus-visible {
     transform: rotate(360deg);
   }
 }
-
 
 .collection-products::-webkit-scrollbar {
   height: 8px;
@@ -395,17 +398,13 @@ p:last-child {
 
 .title,
 .title-wrapper-with-link {
-  margin: 0px
+  margin: 0px;
 }
 
 /* ========================================================================== */
 
-
-
-
 /* Default desktop styles (already in your code) */
 @media screen and (max-width: 1200px) {
-
   .ques-1-container,
   .ques-2-container,
   .ques-3-container,
@@ -447,7 +446,7 @@ p:last-child {
     /* text-align: center; */
   }
 
-  .total-price>p {
+  .total-price > p {
     margin: 0;
     width: 50%;
   }
@@ -458,14 +457,13 @@ p:last-child {
 }
 
 @media screen and (max-width: 1024px) {
-  .total-price>p {
+  .total-price > p {
     margin: 0;
     width: 65%;
   }
 }
 
 @media screen and (max-width: 989px) {
-
   .insulation-options,
   .runtime-options {
     grid-template-columns: 50% 50%;
@@ -484,7 +482,6 @@ p:last-child {
 }
 
 @media screen and (max-width: 768px) {
-
   .ques-1-description,
   .ques-2-description,
   .ques-4-description,
@@ -570,7 +567,7 @@ p:last-child {
     justify-content: start;
   }
 
-  .total-price>p {
+  .total-price > p {
     margin: 0;
     width: auto;
   }
@@ -597,20 +594,22 @@ p:last-child {
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color .3s ease, transform .2s ease, box-shadow .2s ease;
+    transition:
+      background-color 0.3s ease,
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
     box-shadow: 0 4px 6px #0000001a;
   }
 
   .cartButton:disabled {
     cursor: not-allowed;
-    opacity: .5;
+    opacity: 0.5;
     background-color: #000;
     width: 50%;
   }
 }
 
 @media screen and (max-width: 425px) {
-
   .ques-1-container,
   .ques-2-container,
   .ques-3-container,
@@ -632,11 +631,10 @@ p:last-child {
     text-align: center;
     padding: 5px;
     box-shadow: 0 2px 4px #0000001a;
-    transition: background-color .3s ease;
+    transition: background-color 0.3s ease;
     border: 2px solid blue;
     border-radius: 5px;
   }
-
 
   .recommendedWatts {
     font-size: 18px;
@@ -654,13 +652,16 @@ p:last-child {
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color .3s ease, transform .2s ease, box-shadow .2s ease;
+    transition:
+      background-color 0.3s ease,
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
     box-shadow: 0 4px 6px #0000001a;
   }
 
   .cartButton:disabled {
     cursor: not-allowed;
-    opacity: .5;
+    opacity: 0.5;
     background-color: #000;
     width: 60%;
   }
@@ -676,7 +677,7 @@ p:last-child {
     flex-direction: column !important;
   }
 
-  .total-price>p {
+  .total-price > p {
     margin: 0;
     width: 100%;
     text-align: center;
@@ -690,14 +691,13 @@ p:last-child {
     width: 100%;
   }
 
-  .build-kit-message>p {
+  .build-kit-message > p {
     width: 95%;
     margin: 0px;
   }
 }
 
 @media screen and (max-width: 375px) {
-
   .ques-1 h1,
   .ques-2 h1,
   .ques-3 h1,
@@ -706,7 +706,7 @@ p:last-child {
   .ques-6 h1,
   .ques-7 h1,
   .ques-8 h1 {
-    font-size: 20px;
+    font-size: 17px;
     color: #000;
   }
 
@@ -718,11 +718,11 @@ p:last-child {
   .ques-7-description,
   .ques-8-description {
     color: #555;
-    margin: 0px 5px;
-    font-size: 15px;
+    margin: 0px 0px;
+    font-size: 13px;
   }
 
-  input[type=number] {
+  input[type="number"] {
     width: 100%;
   }
 
@@ -732,20 +732,40 @@ p:last-child {
     justify-content: flex-start;
     align-items: center;
     gap: 4px;
+    margin: 5px 0px;
   }
 
   .totalvolumeValue {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: flex-start;
-    gap: 30px;
-    margin-top: 10px;
+    justify-content: space-evenly;
+    gap: 4px;
     font-weight: 700;
+    width: 100%;
   }
 
-  .build-kit-message>p {
+  .cubic-feet {
+    display: flex;
+    flex-direction: column;
     width: 100%;
+    font-size: 15px;
+  }
+
+  .square-feet {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    font-size: 15px;
+  }
+
+  .total-areaVolume-value {
+    font-size: 14px;
+  }
+
+  .build-kit-message > p {
+    width: 100%;
+    font-size: 15px;
   }
 
   .runtime-selected {
@@ -757,12 +777,35 @@ p:last-child {
     border: 2px solid blue;
     border-radius: 8px;
     box-shadow: 0 2px 4px #0000001a;
-    transition: background-color .3s ease;
+    transition: background-color 0.3s ease;
+  }
+
+  .displayBTU,
+  .harvest-result,
+  .recommendedWatts {
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .collection-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin: 0;
+  }
+
+  .collection-products {
+    display: flex;
+    gap: 5px;
+    overflow-x: auto;
+    padding: 8px 0px;
+    max-width: 100%;
   }
 
   .cartButton:disabled {
     cursor: not-allowed;
-    opacity: .5;
+    opacity: 0.5;
     background-color: #000;
     width: 45%;
   }
@@ -779,16 +822,13 @@ p:last-child {
 
   .price {
     font-size: 1.6rem;
-    letter-spacing: .1rem;
-    line-height: calc(1 + .5 / var(--font-body-scale));
+    letter-spacing: 0.1rem;
+    line-height: calc(1 + 0.5 / var(--font-body-scale));
     color: rgb(var(--color-foreground));
   }
-
-
 }
 
 @media screen and (max-width: 320px) {
-
   .ques-1 h1,
   .ques-2 h1,
   .ques-3 h1,
@@ -822,6 +862,12 @@ p:last-child {
     margin: 4px;
   }
 
+  .totalvolumeValue {
+    display: flex;
+    width: 100%;
+    font-size: small;
+  }
+
   .insulation-option {
     display: flex;
     flex-direction: column;
@@ -832,17 +878,7 @@ p:last-child {
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 2px 4px #0000001a;
-    transition: background-color .3s ease;
-  }
-
-  .insulation-options,
-  .runtime-options {
-    display: grid;
-    gap: 5px;
-    margin: 5px;
-    grid-template-columns: 25% 25% 25% 25%;
-    justify-content: center;
-    padding: 0 30px;
+    transition: background-color 0.3s ease;
   }
 
   .runtime-selected {
@@ -852,7 +888,7 @@ p:last-child {
     text-align: center;
     padding: 5px;
     box-shadow: 0 2px 4px #0000001a;
-    transition: background-color .3s ease;
+    transition: background-color 0.3s ease;
     border: 2px solid blue;
     border-radius: 5px;
   }
@@ -884,14 +920,15 @@ p:last-child {
     font-weight: 700;
   }
 
+  .displayBTU,
+  .harvest-result,
   .recommendedWatts {
-    font-size: 15px;
+    /* margin: 0 0 0 25px; */
+    font-size: 18px;
     font-weight: 700;
-    width: 97%;
   }
 
-
-  .build-kit-message>p {
+  .build-kit-message > p {
     width: 100%;
   }
 
@@ -909,7 +946,7 @@ p:last-child {
     text-align: center;
     background-color: #fff;
     width: 190px;
-    transition: background-color .3s ease;
+    transition: background-color 0.3s ease;
   }
 
   .pannel-battery-distance,
@@ -923,12 +960,11 @@ p:last-child {
 
   .price {
     font-size: 1.3rem;
-    letter-spacing: .1rem;
-    line-height: calc(1 + .5 / var(--font-body-scale));
+    letter-spacing: 0.1rem;
+    line-height: calc(1 + 0.5 / var(--font-body-scale));
     color: rgb(var(--color-foreground));
     margin: 0px 0px 0px 0px;
   }
-
 
   .cartButton {
     width: 70%;
@@ -940,21 +976,22 @@ p:last-child {
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color .3s ease, transform .2s ease, box-shadow .2s ease;
+    transition:
+      background-color 0.3s ease,
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
     box-shadow: 0 4px 6px #0000001a;
   }
 
   .cartButton:disabled {
     cursor: not-allowed;
-    opacity: .5;
+    opacity: 0.5;
     background-color: #000;
     width: 70%;
   }
-
 }
 
 @media screen and (max-width: 250px) {
-
   .ques-1 h1,
   .ques-2 h1,
   .ques-3 h1,
@@ -1005,7 +1042,7 @@ p:last-child {
     text-align: center;
     padding: 5px;
     box-shadow: 0 2px 4px #0000001a;
-    transition: background-color .3s ease;
+    transition: background-color 0.3s ease;
     border: 2px solid blue;
     border-radius: 5px;
   }
@@ -1022,7 +1059,7 @@ p:last-child {
     font-weight: 700;
   }
 
-  .build-kit-message>p {
+  .build-kit-message > p {
     width: 100%;
   }
 
@@ -1060,8 +1097,8 @@ p:last-child {
 
   .price {
     font-size: 1.3rem;
-    letter-spacing: .1rem;
-    line-height: calc(1 + .5 / var(--font-body-scale));
+    letter-spacing: 0.1rem;
+    line-height: calc(1 + 0.5 / var(--font-body-scale));
     color: rgb(var(--color-foreground));
     margin: 0px 0 0 60px;
   }
