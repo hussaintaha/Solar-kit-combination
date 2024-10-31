@@ -67,7 +67,7 @@ const AirConditionerTable = () => {
                 });
 
                 const airConditionerResponse = await airConditionerAPI.json();
-                // console.log('airConditionerResponse ========= ', airConditionerResponse);
+                console.log('airConditionerResponse ========= ', airConditionerResponse);
                 getAirConditionerProducts()
 
                 setLoading(false);

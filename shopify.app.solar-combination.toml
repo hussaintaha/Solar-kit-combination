@@ -3,7 +3,7 @@
 client_id = "f06f43a1013bd4e8895a4a15f6820596"
 name = "solar-combination"
 handle = "solar-combination"
-application_url = "https://br-racks-kid-individually.trycloudflare.com"
+application_url = "https://provision-focus-past-alabama.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,16 +17,22 @@ scopes = "read_inventory,read_orders,read_products,write_orders,write_products"
 
 [auth]
 redirect_urls = [
-  "https://br-racks-kid-individually.trycloudflare.com/auth/callback",
-  "https://br-racks-kid-individually.trycloudflare.com/auth/shopify/callback",
-  "https://br-racks-kid-individually.trycloudflare.com/api/auth/callback"
+  "https://app.fullbattery.com/auth/callback",
+  "https://app.fullbattery.com/auth/shopify/callback",
+  "https://app.fullbattery.com/api/auth/callback",
+  "https://horror-bulgarian-filename-comp.trycloudflare.com/auth/callback",
+  "https://horror-bulgarian-filename-comp.trycloudflare.com/auth/shopify/callback",
+  "https://horror-bulgarian-filename-comp.trycloudflare.com/api/auth/callback",
+  "https://provision-focus-past-alabama.trycloudflare.com/auth/callback",
+  "https://provision-focus-past-alabama.trycloudflare.com/auth/shopify/callback",
+  "https://provision-focus-past-alabama.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
 api_version = "2024-07"
 
 [app_proxy]
-url = "https://br-racks-kid-individually.trycloudflare.com"
+url = "https://provision-focus-past-alabama.trycloudflare.com"
 subpath = "proxy"
 prefix = "apps"
 

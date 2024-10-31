@@ -5,17 +5,27 @@ export const action = async ({ request }) => {
     const { session } = await authenticate.public.appProxy(request);
 
     const requestData = await request.json()
-    // console.log("requestData ========== ", requestData);
+    console.log("requestData ========== ", requestData);
 
     const { batterytoHVAC, paneltoBattery } = requestData
-    const customProductPrice = (paneltoBattery * 4) + (batterytoHVAC * 6) + 33
-    // console.log("customProductPrice ======== ", customProductPrice);
 
-
+    let title;
+    let customProductPrice = 0;
+    if (paneltoBattery && batterytoHVAC) {
+      title = `${paneltoBattery} Feet from Panels to Battery / ${batterytoHVAC} Feet from Battery to HVAC`;
+      customProductPrice = (paneltoBattery * 4) + (batterytoHVAC * 6) + 33;
+    } else if (paneltoBattery) {
+      title = `${paneltoBattery} Feet from Panels to Battery`;
+      customProductPrice = paneltoBattery * 4;
+    } else if (batterytoHVAC) {
+      title = `${batterytoHVAC} Feet from Battery to HVAC`;
+      customProductPrice = batterytoHVAC * 6 + 33;
+    }
+    console.log("customProductPrice ======== ", customProductPrice);
 
     const productData = {
       product: {
-        title: `Custom Cable Kit: ${paneltoBattery} Feet from Panels to Battery / ${batterytoHVAC} Feet from Battery to HVAC`,
+        title: `Custom Cable Kit: ${title}`,
         product_type: "Product",
         tags: ["CustomWiringKit"],
         images: [

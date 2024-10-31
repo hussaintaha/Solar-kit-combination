@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import Modal from "./component/Modal";
-import { InfoIcon } from "@shopify/polaris-icons";
 
 const App = () => {
-  console.log(" ========== 44444 =========");
+  console.log(" ========== 222222222222222 =========");
 
   const [loading, setLoading] = useState(false);
   const [activecartButton, setActiveCartButton] = useState(true);
@@ -208,10 +207,8 @@ const App = () => {
   };
 
   const handleSelectProduct = async (productType, productId) => {
-    console.log("productId ====== ", productId);
 
     const isDeselecting = selectedProductId[productType] === productId;
-
     setSelectedProductId((prevSelected) => ({
       ...prevSelected,
       [productType]: isDeselecting ? null : productId,
@@ -255,10 +252,9 @@ const App = () => {
     setLoading(true);
     let productsId = selectedProductId;
 
-    if (
-      customProductDistance.batterytoHVAC &&
-      customProductDistance.paneltoBattery
-    ) {
+    if (customProductDistance.batterytoHVAC || customProductDistance.paneltoBattery) {
+      console.log("customProductDistance value");
+
       const { batterytoHVAC, paneltoBattery } = customProductDistance;
       const createProductAPI = await fetch(
         `https://${location.host}/apps/proxy/api/createCustomProduct`,
@@ -272,7 +268,7 @@ const App = () => {
       );
 
       const createProductResponse = await createProductAPI.json();
-      // console.log("createProductResponse ============ ", createProductResponse);
+      console.log("createProductResponse ============ ", createProductResponse);
 
       if (createProductResponse) {
         productsId = {
@@ -351,7 +347,7 @@ const App = () => {
   useEffect(() => {
     const { paneltoBattery, batterytoHVAC } = customProductDistance;
 
-    if (paneltoBattery > 0 && batterytoHVAC > 0) {
+    if (paneltoBattery > 0 || batterytoHVAC > 0) {
       setActiveCartButton(false);
     } else {
       setActiveCartButton(true);
@@ -379,19 +375,25 @@ const App = () => {
 
   const calculateCustomePrice = () => {
     const { paneltoBattery, batterytoHVAC } = customProductDistance;
-    if (paneltoBattery > 0 && batterytoHVAC > 0) {
-      const wiringCost = paneltoBattery * 4 + batterytoHVAC * 6 + 33; // Example logic
-      return wiringCost.toLocaleString();
+    let wiringCost = 0;
+
+    if (paneltoBattery > 0) {
+      wiringCost = paneltoBattery * 4;
     }
-    return 0;
+
+    if (batterytoHVAC > 0) {
+      wiringCost = batterytoHVAC * 6 + 33;
+    }
+
+    if (paneltoBattery > 0 && batterytoHVAC > 0) {
+      wiringCost = (paneltoBattery * 4) + (batterytoHVAC * 6) + 33
+    }
+
+    return wiringCost.toLocaleString();
   };
 
-  const totalPrice = (
-    Object.values(selectedProductPrices).reduce(
-      (acc, price) => acc + price,
-      0,
-    ) + Number(calculateCustomePrice())
-  ).toFixed(2);
+  const totalPrice = (Object.values(selectedProductPrices).reduce((acc, price) => acc + price, 0) + Number(calculateCustomePrice())).toFixed(2);
+
 
   useEffect(() => {
     if (totalPrice > 0) {
@@ -400,6 +402,27 @@ const App = () => {
       setActiveCartButton(true);
     }
   }, [totalPrice]);
+
+  const handleInfo = async (variantdata) => {
+    console.log("variantdata ==== ", variantdata);
+
+    const fetchRedirectAPI = await fetch(`https://${location.host}/apps/proxy/api/redirectCustomer`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ variantdata })
+    });
+    const redirectAPIResponse = await fetchRedirectAPI.json()
+    console.log("redirectAPIResponse ==== ", redirectAPIResponse);
+
+    if (redirectAPIResponse) {
+      window.open(redirectAPIResponse, "_blank")
+    }
+
+  }
+
+
 
   return (
     <>
@@ -551,8 +574,7 @@ const App = () => {
             <div className="collection-products">
               {productsData?.map((ele, index) => {
                 const isSelected =
-                  selectedProductId.selectAirConditionerProducts ===
-                  ele.id.split("/")[4];
+                  selectedProductId.selectAirConditionerProducts === ele.id.split("/")[4];
                 return (
                   <div
                     className="products"
@@ -566,8 +588,25 @@ const App = () => {
                     style={{
                       border: isSelected ? "2px solid blue" : "1px solid grey",
                       cursor: "pointer",
+                      position: "relative",
                     }}
                   >
+                    <div
+                      className="info-icon"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleInfo(ele);
+                      }}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 512 512"
+                        width="20" height="20"
+                        aria-hidden="true"
+                      >
+                        <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
+                      </svg>
+                    </div>
                     <div className="productsImage">
                       {ele && ele.image && ele.image.originalSrc ? (
                         <img
@@ -584,9 +623,6 @@ const App = () => {
                     </div>
                     <div className="title">
                       <h1> {ele.displayName} </h1>
-                    </div>
-                    <div>
-                      <Icon source={InfoIcon} tone="base" />
                     </div>
                   </div>
                 );
@@ -663,16 +699,11 @@ const App = () => {
           </div>
         </div>
 
-        <div className="ques-5-container ">
+        <div className="ques-5-container">
           <div className="ques-5">
-            <h1> 5. How many solar panels are needed for this? </h1>
+            <h1>5. How many solar panels are needed for this?</h1>
             <p className="ques-5-description">
-              Solar panels do not produce 100% of their rated power. In many
-              lighting conditions you'll be lucky to get 30% output, and during
-              overcast or rainy days, panel production can drop to only 10%
-              rated power. We keep this in mind to recommend a realistic Watts
-              of Solar Power you need. More never hurts! Click an option to add
-              it to your order.
+              Solar panels do not produce 100% of their rated power. In many lighting conditions you'll be lucky to get 30% output, and during overcast or rainy days, panel production can drop to only 10% rated power. We keep this in mind to recommend a realistic Watts of Solar Power you need. More never hurts! Click an option to add it to your order.
             </p>
           </div>
 
@@ -680,8 +711,7 @@ const App = () => {
             <div className="collection-products">
               {panelCollection?.map((ele, index) => {
                 const isSelected =
-                  selectedProductId.selectSolarPanelProducts ===
-                  ele.id.split("/")[4];
+                  selectedProductId.selectSolarPanelProducts === ele.id.split("/")[4];
                 return (
                   <div
                     className="products"
@@ -689,14 +719,31 @@ const App = () => {
                     onClick={() =>
                       handleSelectProduct(
                         "selectSolarPanelProducts",
-                        ele.id.split("/")[4],
+                        ele.id.split("/")[4]
                       )
                     }
                     style={{
                       border: isSelected ? "2px solid blue" : "1px solid grey",
                       cursor: "pointer",
+                      position: "relative" // Enable absolute positioning for the icon
                     }}
                   >
+                    <div className="info-icon"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleInfo(ele);
+                      }}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 512 512"
+                        width="20" height="20"
+                        aria-hidden="true"
+                      >
+                        <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
+                      </svg>
+                    </div>
+
                     <div className="productsImage">
                       {ele && ele.image && ele.image.originalSrc ? (
                         <img
@@ -761,6 +808,23 @@ const App = () => {
                       cursor: "pointer",
                     }}
                   >
+
+                    <div className="info-icon"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleInfo(ele);
+                      }}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 512 512"
+                        width="20" height="20"
+                        aria-hidden="true"
+                      >
+                        <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
+                      </svg>
+                    </div>
+
                     <div className="productsImage">
                       {ele && ele.image && ele.image.originalSrc ? (
                         <img
@@ -823,6 +887,23 @@ const App = () => {
                       cursor: "pointer",
                     }}
                   >
+
+                    <div className="info-icon"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleInfo(ele);
+                      }}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 512 512"
+                        width="20" height="20"
+                        aria-hidden="true"
+                      >
+                        <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
+                      </svg>
+                    </div>
+
                     <div className="productsImage">
                       {ele && ele.image && ele.image.originalSrc ? (
                         <img

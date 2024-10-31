@@ -8,7 +8,7 @@ export const action = async ({ request }) => {
         // console.log("session =======", session);
 
         const productId = await request.json();
-        console.log("productId ====== ", productId);
+        // console.log("productId ====== ", productId);
 
         const variantID = productId.productId
 
@@ -23,7 +23,7 @@ export const action = async ({ request }) => {
             });
 
             const productData = await fetchProducts.json();
-            console.log("productData ======= ", productData);
+            // console.log("productData ======= ", productData);
 
             const varientData = productData.variant
             return { varientData }
