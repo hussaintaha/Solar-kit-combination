@@ -17,7 +17,7 @@ export const action = async ({ request }) => {
     case "APP_UNINSTALLED":
       if (session) {
         try {
-          const deleteSession = await shopifySessionModel.deleteMany({ shop });
+          const deleteSession = await shopifySessionModel.deleteOne({ shop: shop });
           console.log("deleteSession ======= ", deleteSession);
           return deleteSession
         } catch (error) {

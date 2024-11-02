@@ -3,7 +3,7 @@
 client_id = "f06f43a1013bd4e8895a4a15f6820596"
 name = "solar-combination"
 handle = "solar-combination"
-application_url = "https://provision-focus-past-alabama.trycloudflare.com"
+application_url = "https://overview-consulting-filled-messenger.trycloudflare.com"
 embedded = true
 
 [build]
@@ -25,14 +25,20 @@ redirect_urls = [
   "https://horror-bulgarian-filename-comp.trycloudflare.com/api/auth/callback",
   "https://provision-focus-past-alabama.trycloudflare.com/auth/callback",
   "https://provision-focus-past-alabama.trycloudflare.com/auth/shopify/callback",
-  "https://provision-focus-past-alabama.trycloudflare.com/api/auth/callback"
+  "https://provision-focus-past-alabama.trycloudflare.com/api/auth/callback",
+  "https://tourism-deposits-queensland-una.trycloudflare.com/auth/callback",
+  "https://tourism-deposits-queensland-una.trycloudflare.com/auth/shopify/callback",
+  "https://tourism-deposits-queensland-una.trycloudflare.com/api/auth/callback",
+  "https://overview-consulting-filled-messenger.trycloudflare.com/auth/callback",
+  "https://overview-consulting-filled-messenger.trycloudflare.com/auth/shopify/callback",
+  "https://overview-consulting-filled-messenger.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
 api_version = "2024-07"
 
 [app_proxy]
-url = "https://provision-focus-past-alabama.trycloudflare.com"
+url = "https://overview-consulting-filled-messenger.trycloudflare.com"
 subpath = "proxy"
 prefix = "apps"
 
