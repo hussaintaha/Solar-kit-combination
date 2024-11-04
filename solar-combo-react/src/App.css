@@ -17,6 +17,9 @@ body {
   flex-direction: column;
   gap: 10px;
   margin-bottom: 0px;
+  height: 100%;
+  max-height: 800px;
+  overflow-y: scroll;
 }
 
 .ques-1-container,
@@ -80,6 +83,10 @@ body {
   display: flex;
   flex-direction: column;
   gap: 5px;
+}
+
+.show-input-values>input {
+  font-size: 17px;
 }
 
 .unit {
@@ -255,7 +262,7 @@ input[type="number"] {
   width: 100px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 14px;
+  font-size: 17px;
   text-align: center;
 }
 
@@ -464,7 +471,7 @@ p:last-child {
     color: #333;
     margin-top: 15px;
     justify-content: space-evenly;
-    /* text-align: center; */
+    gap: 5px;
   }
 
   .total-price>p {

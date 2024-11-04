@@ -3,7 +3,7 @@ import "./App.css";
 import Modal from "./component/Modal";
 
 const App = () => {
-  console.log(" ========== 3333333333333333333333333333333333333333333 =========");
+  console.log(" ========== 5555 =========");
 
   const [loading, setLoading] = useState(false);
   const [activecartButton, setActiveCartButton] = useState(true);
@@ -988,9 +988,11 @@ const App = () => {
           </div>
         </div>
 
-        <div className="float-container">
+       
+      </div>
+      <div className="float-container">
           <div className="total-price">
-            <p style={{ margin: "0px" }}> Total price of selected products:</p>
+            <p style={{ margin: '0px' }}> Total price of selected products:</p>
             <span className="price"> ${totalPrice} </span>
           </div>
           <div className="cart-button-container">
@@ -999,11 +1001,10 @@ const App = () => {
               disabled={activecartButton}
               onClick={handleAddToCart}
             >
-              {loading ? <span className="loader"></span> : "Add To Cart"}
+              {loading ? <span className="loader"></span> : 'Add To Cart'}
             </button>
           </div>
         </div>
-      </div>
     </>
   );
 };
