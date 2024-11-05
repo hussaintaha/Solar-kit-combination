@@ -4,7 +4,7 @@ import Modal from "./component/Modal";
 import { createPortal } from "react-dom";
 
 const App = () => {
-  console.log(" ========== 777777777777777777777777 =========");
+  console.log(" ========== 222222222222222222222222222222222 =========");
 
   const [loading, setLoading] = useState(false);
   const [activecartButton, setActiveCartButton] = useState(true);
@@ -353,7 +353,7 @@ const App = () => {
       const scrollTop = window.scrollY;
 
       if (floatContainerRect.bottom < 0 || floatContainerRect.top > window.innerHeight) {
-        document.querySelector(".float-container-body").style.display = "block"
+        document.querySelector(".float-container-body").style.display = "flex"
       } else {
         document.querySelector(".float-container-body").style.display = "none"
       }
@@ -1030,11 +1030,11 @@ const App = () => {
           <div class="cart-btn">
           <div className="total-price">
             <p style={{ margin: '0px' }}> Your Total:</p>
-            <span className="price"> ${totalPrice} </span>
+            <span className="price custom-price"> ${totalPrice} </span>
           </div>
           <div className="cart-button-container">
             <button
-              className="cartButton"
+              className="cartButton custom-cart-button"
               disabled={activecartButton}
               onClick={handleAddToCart}
             >
