@@ -4,7 +4,7 @@ import Modal from "./component/Modal";
 import { createPortal } from "react-dom";
 
 const App = () => {
-  console.log(" ========== 222222222222222222222222222222222 =========");
+  console.log(" ========== 333333333333333333 =========");
 
   const [loading, setLoading] = useState(false);
   const [activecartButton, setActiveCartButton] = useState(true);
@@ -435,8 +435,10 @@ const App = () => {
     const redirectAPIResponse = await fetchRedirectAPI.json()
     console.log("redirectAPIResponse ==== ", redirectAPIResponse);
 
-    if (redirectAPIResponse) {
-      window.open(redirectAPIResponse, "_blank")
+    const newWindow = window.open("", "_blank");  // Opens a blank new tab immediately
+
+    if (redirectAPIResponse && newWindow) {
+      newWindow.location.href = redirectAPIResponse;  // Redirects to the actual URL once it's ready
     }
 
   }
@@ -488,7 +490,7 @@ const App = () => {
               </div>
 
               <div className="height">
-                <span> Height </span>
+                <span> Ceiling Height </span>
                 <div className="show-input-values">
                   <input
                     type="number"
@@ -598,12 +600,22 @@ const App = () => {
                   <div
                     className="products"
                     key={ele.id}
-                    onClick={() =>
-                      handleSelectProduct(
-                        "selectAirConditionerProducts",
-                        ele.id.split("/")[4],
-                      )
-                    }
+                    onClick={(event) => {
+
+                      console.log('event', event.nativeEvent.target.localName)
+
+                      if (
+                        (event.nativeEvent.target.localName === 'svg') ||
+                        (event.nativeEvent.target.localName === 'path') ||
+                        (event.nativeEvent.target.localName === 'div' && event.nativeEvent.target.className === 'info-icon')
+                      ) {
+                      } else {
+                        handleSelectProduct(
+                          "selectAirConditionerProducts",
+                          ele.id.split("/")[4],
+                        )
+                      }
+                    }}
                     style={{
                       border: isSelected ? "2px solid blue" : "1px solid grey",
                       cursor: "pointer",
@@ -612,8 +624,8 @@ const App = () => {
                   >
                     <div
                       className="info-icon"
-                      onClick={(e) => {
-                        e.stopPropagation();
+                      onClick={(event) => {
+                        // event.stopPropagation();
                         handleInfo(ele);
                       }}
                     >
@@ -735,12 +747,22 @@ const App = () => {
                   <div
                     className="products"
                     key={ele.id}
-                    onClick={() =>
-                      handleSelectProduct(
-                        "selectSolarPanelProducts",
-                        ele.id.split("/")[4]
-                      )
-                    }
+                    onClick={(event) => {
+
+                      console.log('event', event.nativeEvent.target.localName)
+
+                      if (
+                        (event.nativeEvent.target.localName === 'svg') ||
+                        (event.nativeEvent.target.localName === 'path') ||
+                        (event.nativeEvent.target.localName === 'div' && event.nativeEvent.target.className === 'info-icon')
+                      ) {
+                      } else {
+                        handleSelectProduct(
+                          "selectSolarPanelProducts",
+                          ele.id.split("/")[4],
+                        )
+                      }
+                    }}
                     style={{
                       border: isSelected ? "2px solid blue" : "1px solid grey",
                       cursor: "pointer",
@@ -749,7 +771,7 @@ const App = () => {
                   >
                     <div className="info-icon"
                       onClick={(e) => {
-                        e.stopPropagation();
+                        // e.stopPropagation();
                         handleInfo(ele);
                       }}
                     >
@@ -816,12 +838,22 @@ const App = () => {
                   <div
                     className="products"
                     key={ele.id}
-                    onClick={() =>
-                      handleSelectProduct(
-                        "selectChargeControllerproducts",
-                        ele.id.split("/")[4],
-                      )
-                    }
+                    onClick={(event) => {
+
+                      console.log('event', event.nativeEvent.target.localName)
+
+                      if (
+                        (event.nativeEvent.target.localName === 'svg') ||
+                        (event.nativeEvent.target.localName === 'path') ||
+                        (event.nativeEvent.target.localName === 'div' && event.nativeEvent.target.className === 'info-icon')
+                      ) {
+                      } else {
+                        handleSelectProduct(
+                          "selectChargeControllerproducts",
+                          ele.id.split("/")[4],
+                        )
+                      }
+                    }}
                     style={{
                       border: isSelected ? "2px solid blue" : "1px solid grey",
                       cursor: "pointer",
@@ -830,7 +862,7 @@ const App = () => {
 
                     <div className="info-icon"
                       onClick={(e) => {
-                        e.stopPropagation();
+                        // e.stopPropagation();
                         handleInfo(ele);
                       }}
                     >
@@ -895,12 +927,22 @@ const App = () => {
                   <div
                     className="products"
                     key={ele.id}
-                    onClick={() =>
-                      handleSelectProduct(
-                        "selectBatteryOptions",
-                        ele.id.split("/")[4],
-                      )
-                    }
+                    onClick={(event) => {
+
+                      console.log('event', event.nativeEvent.target.localName)
+
+                      if (
+                        (event.nativeEvent.target.localName === 'svg') ||
+                        (event.nativeEvent.target.localName === 'path') ||
+                        (event.nativeEvent.target.localName === 'div' && event.nativeEvent.target.className === 'info-icon')
+                      ) {
+                      } else {
+                        handleSelectProduct(
+                          "selectBatteryOptions",
+                          ele.id.split("/")[4],
+                        )
+                      }
+                    }}
                     style={{
                       border: isSelected ? "2px solid blue" : "1px solid grey",
                       cursor: "pointer",
@@ -909,7 +951,7 @@ const App = () => {
 
                     <div className="info-icon"
                       onClick={(e) => {
-                        e.stopPropagation();
+                        // e.stopPropagation();
                         handleInfo(ele);
                       }}
                     >
@@ -1028,19 +1070,19 @@ const App = () => {
       {createPortal(
         <div className="float-container-body custom-cart_btn">
           <div class="cart-btn">
-          <div className="total-price">
-            <p style={{ margin: '0px' }}> Your Total:</p>
-            <span className="price custom-price"> ${totalPrice} </span>
-          </div>
-          <div className="cart-button-container">
-            <button
-              className="cartButton custom-cart-button"
-              disabled={activecartButton}
-              onClick={handleAddToCart}
-            >
-              {loading ? <span className="loader"></span> : 'Add To Cart'}
-            </button>
-          </div>
+            <div className="total-price">
+              <p style={{ margin: '0px' }}> Your Total:</p>
+              <span className="price custom-price"> ${totalPrice} </span>
+            </div>
+            <div className="cart-button-container">
+              <button
+                className="cartButton custom-cart-button"
+                disabled={activecartButton}
+                onClick={handleAddToCart}
+              >
+                {loading ? <span className="loader"></span> : 'Add To Cart'}
+              </button>
+            </div>
           </div>
         </div>,
         document.body
