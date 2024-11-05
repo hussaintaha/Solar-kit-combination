@@ -1,21 +1,49 @@
 import { json } from "@remix-run/node";
 import chargeControllerCollection from "../Database/collections/chargeControllerModel";
+import { authenticate } from "../shopify.server";
+
 
 export const action = async ({ request }) => {
     try {
         const selectedData = await request.json();
         // console.log("selectedData ======== ", selectedData);
 
-        const { selectHarvestValue, selected } = selectedData;
-        // console.log("selectHarvestValue ======== ", selectHarvestValue);
-        // console.log("selected ======== ", selected);
+        const { session } = await authenticate.admin(request);
+        console.log("session === ", session);
 
-        const existingEntry = await chargeControllerCollection.findOne({ harvestValue: selectHarvestValue });
-        // console.log("existingEntry products before update ======== ", existingEntry.products);
+        const { selectHarvestValue, selected } = selectedData;
+
+        const updatedProducts = await Promise.all(selected.map(async (product) => {
+
+            console.log("product ====== ", product.product.id);
+
+            const splitProductId = product.product.id.split("/")[4];
+            // console.log("splitProductId === ", splitProductId);
+
+            const response = await fetch(`https://${session.shop}/admin/api/2024-10/products/${splitProductId}.json`, {
+                method: "GET",
+                headers: {
+                    "X-Shopify-Access-Token": session.accessToken
+                }
+            });
+            const productData = await response.json();
+            // console.log("productData ==== ", productData.product.handle);
+
+            return {
+                ...product,
+                handle: productData.product.handle
+            };
+
+        }));
+        // console.log("updatedProducts ====== ", updatedProducts);
+
+
+
+
 
         const updatedAirConditionerEntry = await chargeControllerCollection.findOneAndUpdate(
             { harvestValue: selectHarvestValue },
-            { $addToSet: { products: { $each: selected } } }, // Change to $push if needed
+            { $addToSet: { products: { $each: updatedProducts } } }, // Change to $push if needed
             { new: true }
         );
 

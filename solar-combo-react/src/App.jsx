@@ -4,8 +4,9 @@ import Modal from "./component/Modal";
 import { createPortal } from "react-dom";
 
 const App = () => {
-  console.log(" ========== 333333333333333333 =========");
+  console.log(" ========== 8888888888888888888888888888888888888 =========");
 
+  const [redirectURL, setRedirectURL] = useState("")
   const [loading, setLoading] = useState(false);
   const [activecartButton, setActiveCartButton] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -423,24 +424,14 @@ const App = () => {
   }, [totalPrice]);
 
   const handleInfo = async (variantdata) => {
+
     console.log("variantdata ==== ", variantdata);
+    const splitId = variantdata.id.split("/")[4]
+    console.log("splitId", splitId);
 
-    const fetchRedirectAPI = await fetch(`https://${location.host}/apps/proxy/api/redirectCustomer`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ variantdata })
-    });
-    const redirectAPIResponse = await fetchRedirectAPI.json()
-    console.log("redirectAPIResponse ==== ", redirectAPIResponse);
-
-    const newWindow = window.open("", "_blank");  // Opens a blank new tab immediately
-
-    if (redirectAPIResponse && newWindow) {
-      newWindow.location.href = redirectAPIResponse;  // Redirects to the actual URL once it's ready
-    }
-
+    const productUrl = `https://${location.host}/products/${variantdata.handle}?variant=${splitId}`;
+    setRedirectURL(productUrl)
+    return productUrl
   }
 
 
@@ -629,15 +620,18 @@ const App = () => {
                         handleInfo(ele);
                       }}
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 512 512"
-                        width="20" height="20"
-                        aria-hidden="true"
-                      >
-                        <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
-                      </svg>
+                      <a href={redirectURL} target="_blank">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 512 512"
+                          width="20" height="20"
+                          aria-hidden="true"
+                        >
+                          <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
+                        </svg>
+                      </a>
                     </div>
+
                     <div className="productsImage">
                       {ele && ele.image && ele.image.originalSrc ? (
                         <img
@@ -775,14 +769,13 @@ const App = () => {
                         handleInfo(ele);
                       }}
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 512 512"
-                        width="20" height="20"
-                        aria-hidden="true"
-                      >
-                        <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
-                      </svg>
+                      <a ref={handleInfo(ele)}>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="20" aria-hidden="true">
+                          <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
+                        </svg>
+                      </a>
+
+
                     </div>
 
                     <div className="productsImage">
@@ -1048,9 +1041,9 @@ const App = () => {
             </div>
           </div>
         </div>
-
-
       </div>
+
+
       <div className="float-container">
         <div className="total-price">
           <p style={{ margin: '0px' }}> Your Total:</p>

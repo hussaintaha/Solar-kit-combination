@@ -3,7 +3,7 @@
 client_id = "f06f43a1013bd4e8895a4a15f6820596"
 name = "solar-combination"
 handle = "solar-combination"
-application_url = "https://overview-consulting-filled-messenger.trycloudflare.com"
+application_url = "https://also-helena-allowing-issued.trycloudflare.com"
 embedded = true
 
 [build]
@@ -31,14 +31,23 @@ redirect_urls = [
   "https://tourism-deposits-queensland-una.trycloudflare.com/api/auth/callback",
   "https://overview-consulting-filled-messenger.trycloudflare.com/auth/callback",
   "https://overview-consulting-filled-messenger.trycloudflare.com/auth/shopify/callback",
-  "https://overview-consulting-filled-messenger.trycloudflare.com/api/auth/callback"
+  "https://overview-consulting-filled-messenger.trycloudflare.com/api/auth/callback",
+  "https://waterproof-ana-broadband-evening.trycloudflare.com/auth/callback",
+  "https://waterproof-ana-broadband-evening.trycloudflare.com/auth/shopify/callback",
+  "https://waterproof-ana-broadband-evening.trycloudflare.com/api/auth/callback",
+  "https://demonstration-events-altered-sticky.trycloudflare.com/auth/callback",
+  "https://demonstration-events-altered-sticky.trycloudflare.com/auth/shopify/callback",
+  "https://demonstration-events-altered-sticky.trycloudflare.com/api/auth/callback",
+  "https://also-helena-allowing-issued.trycloudflare.com/auth/callback",
+  "https://also-helena-allowing-issued.trycloudflare.com/auth/shopify/callback",
+  "https://also-helena-allowing-issued.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
 api_version = "2024-07"
 
 [app_proxy]
-url = "https://overview-consulting-filled-messenger.trycloudflare.com"
+url = "https://also-helena-allowing-issued.trycloudflare.com"
 subpath = "proxy"
 prefix = "apps"
 
