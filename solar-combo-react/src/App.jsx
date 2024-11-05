@@ -1026,7 +1026,8 @@ const App = () => {
       </div>
 
       {createPortal(
-        <div className="float-container-body">
+        <div className="float-container-body custom-cart_btn">
+          <div class="cart-btn">
           <div className="total-price">
             <p style={{ margin: '0px' }}> Your Total:</p>
             <span className="price"> ${totalPrice} </span>
@@ -1039,6 +1040,7 @@ const App = () => {
             >
               {loading ? <span className="loader"></span> : 'Add To Cart'}
             </button>
+          </div>
           </div>
         </div>,
         document.body
