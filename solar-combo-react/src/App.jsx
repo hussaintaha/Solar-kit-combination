@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import Modal from "./component/Modal";
+import { createPortal } from "react-dom";
 
 const App = () => {
-  console.log(" ========== 5555 =========");
+  console.log(" ========== 777777777777777777777777 =========");
 
   const [loading, setLoading] = useState(false);
   const [activecartButton, setActiveCartButton] = useState(true);
@@ -342,6 +343,24 @@ const App = () => {
       }));
     }
   };
+
+  useEffect(() => {
+    console.log('useEffect first');
+    document.querySelector(".float-container-body").style.display = "none"
+    window.onscroll = () => {
+      const float_container = document.querySelector('.float-container')
+      const floatContainerRect = float_container.getBoundingClientRect();
+      const scrollTop = window.scrollY;
+
+      if (floatContainerRect.bottom < 0 || floatContainerRect.top > window.innerHeight) {
+        document.querySelector(".float-container-body").style.display = "block"
+      } else {
+        document.querySelector(".float-container-body").style.display = "none"
+      }
+      // console.log('float_container', float_container.offsetTop, float_container.offsetBottom)
+
+    }
+  }, [])
 
   // useEffect to check if both values are filled or not
   useEffect(() => {
@@ -988,11 +1007,28 @@ const App = () => {
           </div>
         </div>
 
-       
+
       </div>
       <div className="float-container">
+        <div className="total-price">
+          <p style={{ margin: '0px' }}> Your Total:</p>
+          <span className="price"> ${totalPrice} </span>
+        </div>
+        <div className="cart-button-container">
+          <button
+            className="cartButton"
+            disabled={activecartButton}
+            onClick={handleAddToCart}
+          >
+            {loading ? <span className="loader"></span> : 'Add To Cart'}
+          </button>
+        </div>
+      </div>
+
+      {createPortal(
+        <div className="float-container-body">
           <div className="total-price">
-            <p style={{ margin: '0px' }}> Total price of selected products:</p>
+            <p style={{ margin: '0px' }}> Your Total:</p>
             <span className="price"> ${totalPrice} </span>
           </div>
           <div className="cart-button-container">
@@ -1004,7 +1040,9 @@ const App = () => {
               {loading ? <span className="loader"></span> : 'Add To Cart'}
             </button>
           </div>
-        </div>
+        </div>,
+        document.body
+      )}
     </>
   );
 };
