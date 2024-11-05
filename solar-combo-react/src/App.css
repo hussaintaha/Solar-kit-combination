@@ -718,6 +718,20 @@ p:last-child {
 
 }
 
+@media (min-width: 425px) and (max-width: 615px) {
+  .cart-btn .total-price {
+    display: flex;
+    align-items: center;
+    font-size: 25px;
+    font-weight: 700;
+    color: #4d2d2d;
+    margin: 0px 0px 0px 0px;
+    justify-content: center;
+    gap: 0px;
+    flex-direction: column;
+  }
+}
+
 @media screen and (max-width: 425px) {
   .cart-btn {
     flex-direction: column;
@@ -730,6 +744,8 @@ p:last-child {
     justify-content: center;
     align-items: center;
     margin: 0 0 0 0%;
+    flex-direction: column;
+
   }
 
   .custom-cart_btn .cart-button-container {
