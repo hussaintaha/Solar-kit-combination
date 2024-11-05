@@ -31,14 +31,6 @@ const AirConditionerTable = () => {
     ];
 
     const formatDisplayName = (name, limit = 35) => {
-        // if (name.length > limit) {
-        //     return (
-        //         <>
-        //             {name.substring(0, limit)}<br />{name.substring(limit)}
-        //         </>
-        //     );
-        // }
-
         const splitName = name.split(' - '); // Split the name based on the first hyphen
         if (splitName.length > 1) {
             return (
@@ -102,6 +94,8 @@ const AirConditionerTable = () => {
                     type: 'variant',
                     multiple: true,
                 });
+                console.log("selected ==== ", selected);
+
 
                 setLoading(true);
                 const airConditionerAPI = await fetch('/api/addAirConditionerProducts', {
@@ -115,7 +109,7 @@ const AirConditionerTable = () => {
                 getAirConditionerProducts()
                 setLoading(false);
             } else {
-                shopify.toast.show('Please select a BTU range');
+                shopify.toast.show('Please select a BTU rangeeeeeee');
                 // alert('Please select a BTU range');
                 setLoading(false)
             }
@@ -280,14 +274,3 @@ const AirConditionerTable = () => {
 };
 
 export default AirConditionerTable;
-
-
-
-
-
-// previously selected variants id
-// const newSelectedIds = selected.map((product) => ({
-//     id: product.id,
-//     variants: product.variants ? product.variants.map((variant) => ({ id: variant.id })) : [],
-// }));
-// setPreviouslySelectedIds(newSelectedIds);
