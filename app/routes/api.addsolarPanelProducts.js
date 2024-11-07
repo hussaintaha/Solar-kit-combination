@@ -12,6 +12,8 @@ export const action = async ({ request }) => {
         console.log("session === ", session);
 
         const { selectHarvestValue, selected } = selectedData;
+        console.log("selectHarvestValue === ", selectHarvestValue);
+
 
         const updatedProducts = await Promise.all(selected.map(async (product) => {
             console.log("product ====== ", product.product.id);
@@ -32,13 +34,14 @@ export const action = async ({ request }) => {
             };
 
         }));
-        // console.log("updatedProducts ====== ", updatedProducts);
+        console.log("updatedProducts ====== ", updatedProducts);
 
         const updatedAirConditionerEntry = await solarPanelCollection.findOneAndUpdate(
             { harvestValue: selectHarvestValue },
             { $addToSet: { products: { $each: updatedProducts } } }, // Change to $push if needed
             { new: true }
         );
+        console.log("updatedAirConditionerEntry ====== ", updatedAirConditionerEntry);
 
         if (!updatedAirConditionerEntry) {
             console.log("No matching entry found for harvestValue:", selectHarvestValue);

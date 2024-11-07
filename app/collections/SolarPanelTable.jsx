@@ -98,7 +98,7 @@ const SolarPanelTable = () => {
                 });
 
                 const solarPanelResponse = await airConditionerAPI.json();
-                // console.log('solarPanelResponse ========= ', solarPanelResponse);
+                console.log('solarPanelResponse ========= ', solarPanelResponse);
                 getSolarPanelProducts();
                 setLoading(false);
             } else {

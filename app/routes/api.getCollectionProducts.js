@@ -1,11 +1,11 @@
-import { authenticate } from "../shopify.server";
+// import { authenticate } from "../shopify.server";
 import airConditionerCollection from "../Database/collections/airConditionerModel";
 
 export const loader = async ({ request }) => {
     try {
 
         // Authenticate and get admin client for API access
-        const { admin } = await authenticate.public.appProxy(request);
+        // const { admin } = await authenticate.public.appProxy(request);
 
         // Parse the URL to get the recommendedBTU query parameter
         const url = new URL(request.url);

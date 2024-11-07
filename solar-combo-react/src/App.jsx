@@ -4,7 +4,7 @@ import Modal from "./component/Modal";
 import { createPortal } from "react-dom";
 
 const App = () => {
-  console.log(" ========== 8888888888888888888888888888888888888 =========");
+  console.log(" ========== 33333333333333333333 =========");
 
   const [redirectURL, setRedirectURL] = useState("")
   const [loading, setLoading] = useState(false);
@@ -351,6 +351,8 @@ const App = () => {
     window.onscroll = () => {
       const float_container = document.querySelector('.float-container')
       const floatContainerRect = float_container.getBoundingClientRect();
+      console.log("floatContainerRect ======== ", floatContainerRect);
+
       const scrollTop = window.scrollY;
 
       if (floatContainerRect.bottom < 0 || floatContainerRect.top > window.innerHeight) {
@@ -359,9 +361,9 @@ const App = () => {
         document.querySelector(".float-container-body").style.display = "none"
       }
       // console.log('float_container', float_container.offsetTop, float_container.offsetBottom)
-
     }
   }, [])
+
 
   // useEffect to check if both values are filled or not
   useEffect(() => {
@@ -1061,7 +1063,7 @@ const App = () => {
       </div>
 
       {createPortal(
-        <div className="float-container-body custom-cart_btn">
+        <div className="float-container-body custom-cart_btn page-width">
           <div class="cart-btn">
             <div className="total-price">
               <p style={{ margin: '0px' }}> Your Total:</p>
