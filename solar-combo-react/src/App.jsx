@@ -25,10 +25,10 @@ const App = () => {
   const [chargeControllerProducts, setChargeControllerProducts] = useState([]);
   const [batteryOption, setBatteryOptions] = useState([]);
   const [spaceAndVolume, setSpaceAndVolume] = useState({
-    length: "",
-    width: "",
+    length: null,
+    width: null,
     height: 8,
-    totalVolume: "",
+    totalVolume: null,
   });
   const [squareFoot, setSquareFoot] = useState("");
   const [recommendedBTU, setRecommendedBTU] = useState(0);
