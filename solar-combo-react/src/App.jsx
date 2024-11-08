@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import Modal from "./component/Modal";
-import { createPortal } from "react-dom";
+// import { createPortal } from "react-dom";
 
 const App = () => {
-  console.log(" ========== 555555555555555555555555555555555555555 =========");
+  console.log(" ========== 2222222222 =========");
 
   const local_base_url = 'https://acres-corporations-furnishings-degree.trycloudflare.com/api';
   const production_base_url = `https://${location.host}/apps/proxy/api`
@@ -25,10 +25,10 @@ const App = () => {
   const [chargeControllerProducts, setChargeControllerProducts] = useState([]);
   const [batteryOption, setBatteryOptions] = useState([]);
   const [spaceAndVolume, setSpaceAndVolume] = useState({
-    length: null,
-    width: null,
+    length: "",
+    width: "",
     height: 8,
-    totalVolume: null,
+    totalVolume: "",
   });
   const [squareFoot, setSquareFoot] = useState("");
   const [recommendedBTU, setRecommendedBTU] = useState(0);
@@ -142,11 +142,15 @@ const App = () => {
 
   const handleInsulationChange = (e) => {
     const insulationFactor = parseFloat(e.target.value);
+    console.log("insulationFactor === ", insulationFactor);
+
     setInsulationValue(insulationFactor);
 
     const { length, width, height } = spaceAndVolume;
     if (length && width && insulationFactor) {
       const newBTU = calculateBTU(length, width, height, insulationFactor);
+      console.log("newBTU =====", newBTU);
+
       setRecommendedBTU(newBTU);
       getCollectionProductsAPI(newBTU);
     }
@@ -348,32 +352,9 @@ const App = () => {
     }
   }, [customProductDistance]);
 
-  // useEffect(() => {
-  //   const { paneltoBattery, batterytoHVAC } = customProductDistance;
-  //   const shouldActivateButton = paneltoBattery > 0 || batterytoHVAC > 0;
-  //   if (activecartButton !== !shouldActivateButton) {
-  //     setActiveCartButton(!shouldActivateButton);
-  //   }
-  // }, [customProductDistance, activecartButton]);
-
   const closeModal = () => {
     setIsModalOpen(false);
   };
-
-  // useEffect(() => {
-  //   if (recommendedBTU > 0 && insulationValue > 0 && dailyRunTime > 0) {
-  //     // Calculates needed daily harvest in kWh:
-  //     const neededHarvestkWh = (recommendedBTU / 16000) * dailyRunTime;
-  //     console.log("neededHarvestkWh ===================== ", neededHarvestkWh);
-  //     setNeededharvest(neededHarvestkWh);
-
-  //     // Call the API with the new needed harvest
-  //     await getpanelCollectionAPI(neededHarvestkWh);
-  //     await getchargeControllerCollectionAPI(neededHarvestkWh);
-  //     await getBettryCollectionAPI(neededHarvestkWh);
-  //   } else {
-  //   }
-  // }, [recommendedBTU, insulationValue, dailyRunTime]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -432,25 +413,28 @@ const App = () => {
   }
 
   // handle float container
-  useEffect(() => {
-    console.log('useEffect first');
-    document.querySelector(".float-container-body").style.display = "none"
-    window.onscroll = () => {
-      const float_container = document.querySelector('.float-container')
-      // console.log("float_container ===== ", float_container);
-      const floatContainerRect = float_container.getBoundingClientRect();
-      // console.log("floatContainerRect ======== ", floatContainerRect);
+  // useEffect(() => {
+  //   console.log('useEffect first');
+  //   document.querySelector(".float-container-body").style.display = "none"
+  //   window.onscroll = () => {
+  //     const float_container = document.querySelector('.float-container')
+  //     // console.log("float_container ===== ", float_container);
+  //     const floatContainerRect = float_container.getBoundingClientRect();
+  //     // console.log("floatContainerRect ======== ", floatContainerRect);
 
-      const scrollTop = window.scrollY;
+  //     const scrollTop = window.scrollY;
 
-      if (floatContainerRect.bottom < 0 || floatContainerRect.top > window.innerHeight) {
-        document.querySelector(".float-container-body").style.display = "flex"
-      } else {
-        document.querySelector(".float-container-body").style.display = "none"
-      }
-      // console.log('float_container', float_container.offsetTop, float_container.offsetBottom)
-    }
-  }, [])
+  //     if (floatContainerRect.bottom < 0 || floatContainerRect.top > window.innerHeight) {
+  //       document.querySelector(".float-container-body").style.display = "flex"
+  //     } else {
+  //       document.querySelector(".float-container-body").style.display = "none"
+  //     }
+  //     // console.log('float_container', float_container.offsetTop, float_container.offsetBottom)
+  //   }
+  // }, [])
+
+  console.log("insulationValue ==== ", insulationValue);
+
 
 
 
@@ -550,14 +534,14 @@ const App = () => {
           </div>
           <div className="ques-2-answer">
             <div className="insulation-options">
-              {insulationOptions.map((option) => (
+              {insulationOptions?.map((option) => (
                 <div
                   key={option.label}
+                  style={{ cursor: "pointer" }}
+                  className={`insulation-option ${insulationValue === option.value ? "selected" : ""}`}
                   onClick={() =>
                     handleInsulationChange({ target: { value: option.value } })
                   }
-                  style={{ cursor: "pointer" }}
-                  className={`insulation-option ${insulationValue === option.value ? "selected" : ""}`}
                 >
                   <div className="option-details">
                     <img
@@ -570,8 +554,8 @@ const App = () => {
                         type="radio"
                         name="insulation"
                         value={option.value}
-                        checked={insulationValue === option.value}
                         onChange={handleInsulationChange}
+                        checked={insulationValue === option.value}
                       />
                       {option.label}
                     </label>
@@ -580,24 +564,37 @@ const App = () => {
                 </div>
               ))}
             </div>
+
             <div>
-              {" "}
-              {insulationValue ? (
-                <div className="displayBTU">
-                  <span>
-                    {" "}
-                    Your recommended BTU: {recommendedBTU.toLocaleString()}{" "}
-                    BTU/h{" "}
-                  </span>
-                </div>
-              ) : (
-                ""
-              )}{" "}
+              <div className="displayBTU">
+                <span>
+                  Your recommended BTU: BTU/h
+                </span>
+              </div>
             </div>
+
           </div>
         </div>
 
-        <div className="ques-3-container">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        {/* <div className="ques-3-container">
           <div className="ques-3">
             <h1>3. Select Air Conditioner</h1>
           </div>
@@ -1041,7 +1038,7 @@ const App = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="float-container">
@@ -1060,7 +1057,7 @@ const App = () => {
         </div>
       </div>
 
-      {createPortal(
+      {/* {createPortal(
         <div className="float-container-body custom-cart_btn page-width">
           <div class="cart-btn">
             <div className="total-price">
@@ -1079,7 +1076,7 @@ const App = () => {
           </div>
         </div>,
         document.body
-      )}
+      )} */}
     </>
   );
 };
