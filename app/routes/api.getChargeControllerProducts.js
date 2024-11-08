@@ -11,7 +11,7 @@ export const loader = async ({ request }) => {
         const getVariants = await chargeControllerCollection.findOne({
             harvestValue: searchParams
         });
-        // console.log("getVariants == ", getVariants);
+        console.log("getVariants =============== ", getVariants);
         return json({ getVariants })
 
     } catch (error) {
@@ -19,4 +19,3 @@ export const loader = async ({ request }) => {
         return error
     }
 }
-

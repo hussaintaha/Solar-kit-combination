@@ -1,10 +1,10 @@
-import { authenticate } from "../shopify.server";
+// import { authenticate } from "../shopify.server";
 import solarPanelCollection from "../Database/collections/solarPanelModel";
 
 export const loader = async ({ request }) => {
     try {
 
-        const { session, admin } = await authenticate.public.appProxy(request);
+        // const { session, admin } = await authenticate.public.appProxy(request);
         // console.log("session =======", session);
 
         const urlString = request.url
@@ -12,7 +12,6 @@ export const loader = async ({ request }) => {
         const url = new URL(urlString);
         const params = new URLSearchParams(url.search);
 
-        // Get the value of 'neededHarvestkWh' from the URL query string
         let neededHarvestkWh = parseFloat(params.get('neededHarvestkWh'));
         // console.log("neededHarvestkWh =========== ", Number(neededHarvestkWh).toFixed(2));
 
@@ -37,11 +36,11 @@ export const loader = async ({ request }) => {
         // console.log(`Determined harvest Range: ${harvestValue}`)
 
         const productsInRange = await solarPanelCollection.find({ harvestValue: harvestValue });
-        if (productsInRange.length) {
-            console.log("productsInRange ======= ", productsInRange);
+        if (productsInRange.length > 0) {
+            console.log("productsInRange 1111 ======= ", productsInRange);
             return { products: productsInRange[0].products };
         } else {
-            console.log(`No products found for harvest value: ${harvestValue}`);
+            console.log(`No products found for harvest value 111 : ${harvestValue}`);
             return { products: [] };
         }
     } catch (error) {
@@ -49,40 +48,3 @@ export const loader = async ({ request }) => {
         return error
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const fetchCollectionProducts = await fetch(`https://${session.shop}/admin/api/2024-01/collections/${collectionID}/products.json`, {
-//     method: "GET",
-//     headers: {
-//         'X-Shopify-Access-Token': session.accessToken,
-//         'Content-Type': 'application/json'
-//     }
-// });
-
-// const collectionsProducts = await fetchCollectionProducts.json()
-// const collectionproductDetails = collectionsProducts.products;
-
-
-// const productImages = {};
-// const productTitles = {};
-
-// collectionproductDetails.forEach(product => {
-//     if (product.images.length > 0) {
-//         productImages[product.id] = product.images[0];
-//     }
-//     productTitles[product.id] = product.title;
-// });
-
-
-// const collectionproductsId = collectionproductDetails.map(product => product.id);

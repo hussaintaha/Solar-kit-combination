@@ -1,5 +1,6 @@
 // import { authenticate } from "../shopify.server";
 import airConditionerCollection from "../Database/collections/airConditionerModel";
+// import { authenticate } from "../shopify.server";
 
 export const loader = async ({ request }) => {
     try {
@@ -9,6 +10,7 @@ export const loader = async ({ request }) => {
 
         // Parse the URL to get the recommendedBTU query parameter
         const url = new URL(request.url);
+        
         const params = new URLSearchParams(url.search);
         const recommendedBTU = parseInt(params.get('recommendedBTU'), 10);
         console.log("recommendedBTU =========== ", recommendedBTU);

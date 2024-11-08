@@ -4,30 +4,33 @@ import Modal from "./component/Modal";
 import { createPortal } from "react-dom";
 
 const App = () => {
-  console.log(" ========== 33333333333333333333 =========");
+  console.log(" ========== 44444444444444444444444444 =========");
+
+  const local_base_url = 'https://acres-corporations-furnishings-degree.trycloudflare.com/api';
+  const production_base_url = `https://${location.host}app/proxy/api`
 
   const [redirectURL, setRedirectURL] = useState("")
   const [loading, setLoading] = useState(false);
   const [activecartButton, setActiveCartButton] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState({
-    selectAirConditionerProducts: null,
-    selectSolarPanelProducts: null,
-    selectChargeControllerproducts: null,
-    selectBatteryOptions: null,
-    selectCustomOptions: null,
+    selectAirConditionerProducts: "",
+    selectSolarPanelProducts: "",
+    selectChargeControllerproducts: "",
+    selectBatteryOptions: "",
+    selectCustomOptions: "",
   });
   const [productsData, setProductData] = useState([]);
   const [panelCollection, setPanelCollection] = useState([]);
   const [chargeControllerProducts, setChargeControllerProducts] = useState([]);
   const [batteryOption, setBatteryOptions] = useState([]);
   const [spaceAndVolume, setSpaceAndVolume] = useState({
-    length: null,
-    width: null,
+    length: "",
+    width: "",
     height: 8,
-    totalVolume: null,
+    totalVolume: "",
   });
-  const [squareFoot, setSquareFoot] = useState(null);
+  const [squareFoot, setSquareFoot] = useState("");
   const [recommendedBTU, setRecommendedBTU] = useState(0);
   const [insulationValue, setInsulationValue] = useState(0);
   const [dailyRunTime, setDailyRunTime] = useState(0);
@@ -97,6 +100,7 @@ const App = () => {
     },
   ];
 
+  // =========================== step 1 to 3 =========================== //  
   const calculateBTU = (length, width, height, insulationFactor) => {
     let BTU = 0;
     const area = length * width; // Calculate square footage once
@@ -150,17 +154,16 @@ const App = () => {
 
   const getCollectionProductsAPI = async (BTU) => {
     try {
-      const fetchproducts = await fetch(
-        `https://${location.host}/apps/proxy/api/getCollectionProducts/?recommendedBTU=${BTU}`,
-      );
+      const fetchproducts = await fetch(`${production_base_url}/getCollectionProducts/?recommendedBTU=${BTU}`,);
       const collectionProducts = await fetchproducts.json();
-      console.log("collectionProducts ====== ", collectionProducts);
+      // console.log("collectionProducts ====== ", collectionProducts);
       setProductData(collectionProducts.products);
     } catch (error) {
       console.log("error ========= ", error);
     }
   };
 
+  // =========================== step 4 to 8 =========================== //  
   const handleRunEachDay = (value) => {
     // console.log("value ============= ", value);
     setDailyRunTime(value);
@@ -168,14 +171,9 @@ const App = () => {
 
   const getpanelCollectionAPI = async (neededHarvestkWh) => {
     try {
-      const fetchProducts = await fetch(
-        `https://${location.host}/apps/proxy/api/getpanelCollections/?neededHarvestkWh=${neededHarvestkWh}`,
-      );
+      const fetchProducts = await fetch(`${production_base_url}/getpanelCollections/?neededHarvestkWh=${neededHarvestkWh}`);
       const panelCollectionProducts = await fetchProducts.json();
-      console.log(
-        "panelCollectionProducts ====== ",
-        panelCollectionProducts.products,
-      );
+      // console.log("panelCollectionProducts ====== ", panelCollectionProducts.products);
       setPanelCollection(panelCollectionProducts.products);
     } catch (error) {
       console.log("error ========= ", error);
@@ -184,9 +182,7 @@ const App = () => {
 
   const getchargeControllerCollectionAPI = async (neededHarvestkWh) => {
     try {
-      const fetchProducts = await fetch(
-        `https://${location.host}/apps/proxy/api/chargeControllerCollection/?neededHarvestkWh=${neededHarvestkWh}`,
-      );
+      const fetchProducts = await fetch(`${production_base_url}/chargeControllerCollection/?neededHarvestkWh=${neededHarvestkWh}`);
       const chargeControllerProducts = await fetchProducts.json();
       // console.log("chargeControllerProducts ====== ", chargeControllerProducts.products);
       setChargeControllerProducts(chargeControllerProducts.products);
@@ -197,9 +193,7 @@ const App = () => {
 
   const getBettryCollectionAPI = async (neededHarvestkWh) => {
     try {
-      const fetchProducts = await fetch(
-        `https://${location.host}/apps/proxy/api/getBatteryOption/?neededHarvestkWh=${neededHarvestkWh}`,
-      );
+      const fetchProducts = await fetch(`${production_base_url}/getBatteryOption/?neededHarvestkWh=${neededHarvestkWh}`);
       const batteryOptionProducts = await fetchProducts.json();
       // console.log("batteryOptionProducts ====== ", batteryOptionProducts.products);
       setBatteryOptions(batteryOptionProducts.products);
@@ -223,8 +217,7 @@ const App = () => {
       }));
     } else if (productId) {
       try {
-        const fetchProductsDetails = await fetch(
-          `https://${location.host}/apps/proxy/api/getproductsDetail`,
+        const fetchProductsDetails = await fetch(`https://${production_base_url}/getproductsDetail`,
           {
             method: "POST",
             headers: {
@@ -235,7 +228,7 @@ const App = () => {
         );
 
         const productDetails = await fetchProductsDetails.json();
-        console.log("productDetails ================= ", productDetails);
+        // console.log("productDetails ================= ", productDetails);
 
         const productPrice = parseFloat(productDetails.varientData.price);
 
@@ -258,8 +251,7 @@ const App = () => {
       console.log("customProductDistance value");
 
       const { batterytoHVAC, paneltoBattery } = customProductDistance;
-      const createProductAPI = await fetch(
-        `https://${location.host}/apps/proxy/api/createCustomProduct`,
+      const createProductAPI = await fetch(`https://${production_base_url}/createCustomProduct`,
         {
           method: "POST",
           headers: {
@@ -270,7 +262,7 @@ const App = () => {
       );
 
       const createProductResponse = await createProductAPI.json();
-      console.log("createProductResponse ============ ", createProductResponse);
+      // console.log("createProductResponse ============ ", createProductResponse);
 
       if (createProductResponse) {
         productsId = {
@@ -282,7 +274,7 @@ const App = () => {
     // console.log("productsIDs ========= ", productsId);
 
     const sendProductIDAPI = await fetch(
-      `https://${location.host}/apps/proxy/api/addtoCart`,
+      `https://${production_base_url}/addtoCart`,
       {
         method: "POST",
         headers: {
@@ -345,54 +337,60 @@ const App = () => {
     }
   };
 
-  useEffect(() => {
-    console.log('useEffect first');
-    document.querySelector(".float-container-body").style.display = "none"
-    window.onscroll = () => {
-      const float_container = document.querySelector('.float-container')
-      const floatContainerRect = float_container.getBoundingClientRect();
-      console.log("floatContainerRect ======== ", floatContainerRect);
-
-      const scrollTop = window.scrollY;
-
-      if (floatContainerRect.bottom < 0 || floatContainerRect.top > window.innerHeight) {
-        document.querySelector(".float-container-body").style.display = "flex"
-      } else {
-        document.querySelector(".float-container-body").style.display = "none"
-      }
-      // console.log('float_container', float_container.offsetTop, float_container.offsetBottom)
-    }
-  }, [])
-
 
   // useEffect to check if both values are filled or not
+  // useEffect(() => {
+  //   const { paneltoBattery, batterytoHVAC } = customProductDistance;
+  //   if (paneltoBattery > 0 || batterytoHVAC > 0) {
+  //     setActiveCartButton(false);
+  //   } else {
+  //     setActiveCartButton(true);
+  //   }
+  // }, [customProductDistance]);
+
   useEffect(() => {
     const { paneltoBattery, batterytoHVAC } = customProductDistance;
-
-    if (paneltoBattery > 0 || batterytoHVAC > 0) {
-      setActiveCartButton(false);
-    } else {
-      setActiveCartButton(true);
+    const shouldActivateButton = paneltoBattery > 0 || batterytoHVAC > 0;
+    if (activecartButton !== !shouldActivateButton) {
+      setActiveCartButton(!shouldActivateButton);
     }
-  }, [customProductDistance]);
+  }, [customProductDistance, activecartButton]);
 
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
-  useEffect(() => {
-    if (recommendedBTU > 0 && insulationValue > 0 && dailyRunTime > 0) {
-      // Calculates needed daily harvest in kWh:
-      const neededHarvestkWh = (recommendedBTU / 16000) * dailyRunTime;
-      // console.log("neededHarvestkWh ===================== ", neededHarvestkWh);
-      setNeededharvest(neededHarvestkWh);
+  // useEffect(() => {
+  //   if (recommendedBTU > 0 && insulationValue > 0 && dailyRunTime > 0) {
+  //     // Calculates needed daily harvest in kWh:
+  //     const neededHarvestkWh = (recommendedBTU / 16000) * dailyRunTime;
+  //     console.log("neededHarvestkWh ===================== ", neededHarvestkWh);
+  //     setNeededharvest(neededHarvestkWh);
 
-      // Call the API with the new needed harvest
-      getpanelCollectionAPI(neededHarvestkWh);
-      getchargeControllerCollectionAPI(neededHarvestkWh);
-      getBettryCollectionAPI(neededHarvestkWh);
-    } else {
-    }
+  //     // Call the API with the new needed harvest
+  //     await getpanelCollectionAPI(neededHarvestkWh);
+  //     await getchargeControllerCollectionAPI(neededHarvestkWh);
+  //     await getBettryCollectionAPI(neededHarvestkWh);
+  //   } else {
+  //   }
+  // }, [recommendedBTU, insulationValue, dailyRunTime]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (recommendedBTU > 0 && insulationValue > 0 && dailyRunTime > 0) {
+        // Calculate needed daily harvest in kWh:
+        const neededHarvestkWh = (recommendedBTU / 16000) * dailyRunTime;
+        // console.log("neededHarvestkWh ===================== ", neededHarvestkWh);
+        setNeededharvest(neededHarvestkWh);
+
+        // Call the APIs with the new needed harvest
+        await getpanelCollectionAPI(neededHarvestkWh);
+        await getchargeControllerCollectionAPI(neededHarvestkWh);
+        await getBettryCollectionAPI(neededHarvestkWh);
+      }
+    };
+
+    fetchData();
   }, [recommendedBTU, insulationValue, dailyRunTime]);
 
   const calculateCustomePrice = () => {
@@ -426,15 +424,33 @@ const App = () => {
   }, [totalPrice]);
 
   const handleInfo = async (variantdata) => {
-
-    console.log("variantdata ==== ", variantdata);
     const splitId = variantdata.id.split("/")[4]
-    console.log("splitId", splitId);
 
     const productUrl = `https://${location.host}/products/${variantdata.handle}?variant=${splitId}`;
     setRedirectURL(productUrl)
     return productUrl
   }
+
+  // handle float container
+  useEffect(() => {
+    console.log('useEffect first');
+    document.querySelector(".float-container-body").style.display = "none"
+    window.onscroll = () => {
+      const float_container = document.querySelector('.float-container')
+      // console.log("float_container ===== ", float_container);
+      const floatContainerRect = float_container.getBoundingClientRect();
+      // console.log("floatContainerRect ======== ", floatContainerRect);
+
+      const scrollTop = window.scrollY;
+
+      if (floatContainerRect.bottom < 0 || floatContainerRect.top > window.innerHeight) {
+        document.querySelector(".float-container-body").style.display = "flex"
+      } else {
+        document.querySelector(".float-container-body").style.display = "none"
+      }
+      // console.log('float_container', float_container.offsetTop, float_container.offsetBottom)
+    }
+  }, [])
 
 
 
@@ -448,6 +464,7 @@ const App = () => {
       </div>
 
       <div className="question-container">
+
         <div className="ques-1-container">
           <div className="ques-1">
             <h1>1. How big is the space you are heating / cooling?</h1>
@@ -594,9 +611,6 @@ const App = () => {
                     className="products"
                     key={ele.id}
                     onClick={(event) => {
-
-                      console.log('event', event.nativeEvent.target.localName)
-
                       if (
                         (event.nativeEvent.target.localName === 'svg') ||
                         (event.nativeEvent.target.localName === 'path') ||
@@ -622,7 +636,7 @@ const App = () => {
                         handleInfo(ele);
                       }}
                     >
-                      <a href={redirectURL} target="_blank">
+                      <a href={redirectURL ? redirectURL : ""} target="_blank">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 512 512"
@@ -703,9 +717,7 @@ const App = () => {
                       name="runTime"
                       value={option.value}
                       checked={dailyRunTime === option.value}
-                      onChange={(e) =>
-                        setDailyRunTime(parseInt(e.target.value))
-                      }
+                      onChange={(e) => setDailyRunTime(parseInt(e.target.value))}
                     />
                     {option.label}
                   </label>
@@ -717,11 +729,7 @@ const App = () => {
 
           <div className="needed-harvest">
             <div className="harvest-result">
-              <span>
-                {" "}
-                Your needed Harvest:{" "}
-                {Number(neededHarvest.toFixed(2)).toLocaleString()} kWh{" "}
-              </span>
+              <span> Your needed Harvest: {Number(neededHarvest.toFixed(2)).toLocaleString()} kWh </span>
             </div>
           </div>
         </div>
@@ -744,9 +752,6 @@ const App = () => {
                     className="products"
                     key={ele.id}
                     onClick={(event) => {
-
-                      console.log('event', event.nativeEvent.target.localName)
-
                       if (
                         (event.nativeEvent.target.localName === 'svg') ||
                         (event.nativeEvent.target.localName === 'path') ||
@@ -762,7 +767,7 @@ const App = () => {
                     style={{
                       border: isSelected ? "2px solid blue" : "1px solid grey",
                       cursor: "pointer",
-                      position: "relative" // Enable absolute positioning for the icon
+                      position: "relative"
                     }}
                   >
                     <div className="info-icon"
@@ -771,13 +776,11 @@ const App = () => {
                         handleInfo(ele);
                       }}
                     >
-                      <a ref={handleInfo(ele)}>
+                      <a href={redirectURL ? redirectURL : ""} target="_blank">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="20" aria-hidden="true">
                           <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
                         </svg>
                       </a>
-
-
                     </div>
 
                     <div className="productsImage">
@@ -805,10 +808,7 @@ const App = () => {
               <p>Click an option to build your kit; click again to remove</p>
             </div>
             <div className="recommendedWatts">
-              <span className="recommendedWatts-value">
-                Your recommended watts of Solar Capacity:{" "}
-                {Math.floor((neededHarvest * 1000) / 3).toLocaleString()} watts
-              </span>
+              <span className="recommendedWatts-value"> Your recommended watts of Solar Capacity: {Math.floor((neededHarvest * 1000) / 3).toLocaleString()} watts </span>
             </div>
           </div>
         </div>
@@ -834,9 +834,6 @@ const App = () => {
                     className="products"
                     key={ele.id}
                     onClick={(event) => {
-
-                      console.log('event', event.nativeEvent.target.localName)
-
                       if (
                         (event.nativeEvent.target.localName === 'svg') ||
                         (event.nativeEvent.target.localName === 'path') ||
@@ -861,14 +858,16 @@ const App = () => {
                         handleInfo(ele);
                       }}
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 512 512"
-                        width="20" height="20"
-                        aria-hidden="true"
-                      >
-                        <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
-                      </svg>
+                      <a href={redirectURL ? redirectURL : ""} target="_blank">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 512 512"
+                          width="20" height="20"
+                          aria-hidden="true"
+                        >
+                          <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
+                        </svg>
+                      </a>
                     </div>
 
                     <div className="productsImage">
@@ -923,9 +922,6 @@ const App = () => {
                     className="products"
                     key={ele.id}
                     onClick={(event) => {
-
-                      console.log('event', event.nativeEvent.target.localName)
-
                       if (
                         (event.nativeEvent.target.localName === 'svg') ||
                         (event.nativeEvent.target.localName === 'path') ||
@@ -950,14 +946,17 @@ const App = () => {
                         handleInfo(ele);
                       }}
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 512 512"
-                        width="20" height="20"
-                        aria-hidden="true"
-                      >
-                        <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
-                      </svg>
+
+                      <a href={redirectURL ? redirectURL : ""} target="_blank">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 512 512"
+                          width="20" height="20"
+                          aria-hidden="true"
+                        >
+                          <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
+                        </svg>
+                      </a>
                     </div>
 
                     <div className="productsImage">
@@ -1044,7 +1043,6 @@ const App = () => {
           </div>
         </div>
       </div>
-
 
       <div className="float-container">
         <div className="total-price">

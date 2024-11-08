@@ -1,10 +1,10 @@
-import { authenticate } from "../shopify.server";
+// import { authenticate } from "../shopify.server";
 import chargeControllerCollection from "../Database/collections/chargeControllerModel";
 
 export const loader = async ({ request }) => {
     try {
 
-        const { session, admin } = await authenticate.public.appProxy(request);
+        // const { session, admin } = await authenticate.public.appProxy(request);
         // console.log("session =======", session);
 
         const urlString = request.url
@@ -36,10 +36,10 @@ export const loader = async ({ request }) => {
 
         const productsInRange = await chargeControllerCollection.find({ harvestValue: harvestValue });
         if (productsInRange.length) {
-            // console.log("productsInRange ======= ", productsInRange);
+            // console.log("ChargeController_productsInRange ======= ", productsInRange);
             return { products: productsInRange[0].products };
         } else {
-            console.log(`No products found for harvest value: ${harvestValue}`);
+            console.log(`No products found for ChargeController: ${harvestValue}`);
             return { products: [] };
         }
     } catch (error) {
