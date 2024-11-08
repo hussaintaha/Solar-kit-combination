@@ -3,7 +3,7 @@
 client_id = "f06f43a1013bd4e8895a4a15f6820596"
 name = "solar-combination"
 handle = "solar-combination"
-application_url = "https://acres-corporations-furnishings-degree.trycloudflare.com"
+application_url = "https://attitude-manual-exciting-van.trycloudflare.com"
 embedded = true
 
 [build]
@@ -19,14 +19,20 @@ scopes = "read_inventory,read_orders,read_products,write_orders,write_products"
 redirect_urls = [
   "https://acres-corporations-furnishings-degree.trycloudflare.com/auth/callback",
   "https://acres-corporations-furnishings-degree.trycloudflare.com/auth/shopify/callback",
-  "https://acres-corporations-furnishings-degree.trycloudflare.com/api/auth/callback"
+  "https://acres-corporations-furnishings-degree.trycloudflare.com/api/auth/callback",
+  "https://surfaces-situation-chef-bristol.trycloudflare.com/auth/callback",
+  "https://surfaces-situation-chef-bristol.trycloudflare.com/auth/shopify/callback",
+  "https://surfaces-situation-chef-bristol.trycloudflare.com/api/auth/callback",
+  "https://attitude-manual-exciting-van.trycloudflare.com/auth/callback",
+  "https://attitude-manual-exciting-van.trycloudflare.com/auth/shopify/callback",
+  "https://attitude-manual-exciting-van.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
 api_version = "2024-07"
 
 [app_proxy]
-url = "https://acres-corporations-furnishings-degree.trycloudflare.com"
+url = "https://attitude-manual-exciting-van.trycloudflare.com"
 subpath = "proxy"
 prefix = "apps"
 

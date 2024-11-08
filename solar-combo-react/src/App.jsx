@@ -4,10 +4,10 @@ import Modal from "./component/Modal";
 import { createPortal } from "react-dom";
 
 const App = () => {
-  console.log(" ========== 44444444444444444444444444 =========");
+  console.log(" ========== 555555555555555555555555555555555555555 =========");
 
   const local_base_url = 'https://acres-corporations-furnishings-degree.trycloudflare.com/api';
-  const production_base_url = `https://${location.host}app/proxy/api`
+  const production_base_url = `https://${location.host}/apps/proxy/api`
 
   const [redirectURL, setRedirectURL] = useState("")
   const [loading, setLoading] = useState(false);
@@ -217,7 +217,7 @@ const App = () => {
       }));
     } else if (productId) {
       try {
-        const fetchProductsDetails = await fetch(`https://${production_base_url}/getproductsDetail`,
+        const fetchProductsDetails = await fetch(`${production_base_url}/getproductsDetail`,
           {
             method: "POST",
             headers: {
@@ -251,7 +251,7 @@ const App = () => {
       console.log("customProductDistance value");
 
       const { batterytoHVAC, paneltoBattery } = customProductDistance;
-      const createProductAPI = await fetch(`https://${production_base_url}/createCustomProduct`,
+      const createProductAPI = await fetch(`${production_base_url}/createCustomProduct`,
         {
           method: "POST",
           headers: {
@@ -274,7 +274,7 @@ const App = () => {
     // console.log("productsIDs ========= ", productsId);
 
     const sendProductIDAPI = await fetch(
-      `https://${production_base_url}/addtoCart`,
+      `${production_base_url}/addtoCart`,
       {
         method: "POST",
         headers: {
@@ -339,22 +339,22 @@ const App = () => {
 
 
   // useEffect to check if both values are filled or not
-  // useEffect(() => {
-  //   const { paneltoBattery, batterytoHVAC } = customProductDistance;
-  //   if (paneltoBattery > 0 || batterytoHVAC > 0) {
-  //     setActiveCartButton(false);
-  //   } else {
-  //     setActiveCartButton(true);
-  //   }
-  // }, [customProductDistance]);
-
   useEffect(() => {
     const { paneltoBattery, batterytoHVAC } = customProductDistance;
-    const shouldActivateButton = paneltoBattery > 0 || batterytoHVAC > 0;
-    if (activecartButton !== !shouldActivateButton) {
-      setActiveCartButton(!shouldActivateButton);
+    if (paneltoBattery > 0 || batterytoHVAC > 0) {
+      setActiveCartButton(false);
+    } else {
+      setActiveCartButton(true);
     }
-  }, [customProductDistance, activecartButton]);
+  }, [customProductDistance]);
+
+  // useEffect(() => {
+  //   const { paneltoBattery, batterytoHVAC } = customProductDistance;
+  //   const shouldActivateButton = paneltoBattery > 0 || batterytoHVAC > 0;
+  //   if (activecartButton !== !shouldActivateButton) {
+  //     setActiveCartButton(!shouldActivateButton);
+  //   }
+  // }, [customProductDistance, activecartButton]);
 
   const closeModal = () => {
     setIsModalOpen(false);
