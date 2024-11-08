@@ -1,15 +1,10 @@
+import { createPortal } from "react-dom";
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import Modal from "./component/Modal";
-import { createPortal } from "react-dom";
-// import { createPortal } from "react-dom";
 
 const App = () => {
-  console.log(" ========== 2222222222 =========");
-
-  const local_base_url = 'https://steady-gt-treat-fluid.trycloudflare.com/api';
-  const production_base_url = `https://${location.host}/apps/proxy/api`
-
+  
   const [redirectURL, setRedirectURL] = useState("")
   const [loading, setLoading] = useState(false);
   const [activecartButton, setActiveCartButton] = useState(true);
@@ -46,7 +41,7 @@ const App = () => {
     paneltoBattery: "",
     batterytoHVAC: "",
   });
-
+  
   const insulationOptions = [
     {
       label: "Not Insulated",
@@ -74,6 +69,11 @@ const App = () => {
     },
   ];
 
+  console.log(" ========== &*&&*&*&*&*&*&&*&*&*&*&*&*&*&*&* =========");
+
+  const local_base_url = 'https://steady-gt-treat-fluid.trycloudflare.com/api';
+  const production_base_url = `https://${location.host}/apps/proxy/api`
+  
   const runTimeOptions = [
     {
       label: "Overhead Sun Only",
@@ -159,7 +159,7 @@ const App = () => {
 
   const getCollectionProductsAPI = async (BTU) => {
     try {
-      const fetchproducts = await fetch(`${local_base_url}/getCollectionProducts/?recommendedBTU=${BTU}`,);
+      const fetchproducts = await fetch(`${production_base_url}/getCollectionProducts/?recommendedBTU=${BTU}`,);
       const collectionProducts = await fetchproducts.json();
       // console.log("collectionProducts ====== ", collectionProducts);
       setProductData(collectionProducts.products);
@@ -176,7 +176,7 @@ const App = () => {
 
   const getpanelCollectionAPI = async (neededHarvestkWh) => {
     try {
-      const fetchProducts = await fetch(`${local_base_url}/getpanelCollections/?neededHarvestkWh=${neededHarvestkWh}`);
+      const fetchProducts = await fetch(`${production_base_url}/getpanelCollections/?neededHarvestkWh=${neededHarvestkWh}`);
       const panelCollectionProducts = await fetchProducts.json();
       // console.log("panelCollectionProducts ====== ", panelCollectionProducts.products);
       setPanelCollection(panelCollectionProducts.products);
@@ -187,7 +187,7 @@ const App = () => {
 
   const getchargeControllerCollectionAPI = async (neededHarvestkWh) => {
     try {
-      const fetchProducts = await fetch(`${local_base_url}/chargeControllerCollection/?neededHarvestkWh=${neededHarvestkWh}`);
+      const fetchProducts = await fetch(`${production_base_url}/chargeControllerCollection/?neededHarvestkWh=${neededHarvestkWh}`);
       const chargeControllerProducts = await fetchProducts.json();
       // console.log("chargeControllerProducts ====== ", chargeControllerProducts.products);
       setChargeControllerProducts(chargeControllerProducts.products);
@@ -198,7 +198,7 @@ const App = () => {
 
   const getBettryCollectionAPI = async (neededHarvestkWh) => {
     try {
-      const fetchProducts = await fetch(`${local_base_url}/getBatteryOption/?neededHarvestkWh=${neededHarvestkWh}`);
+      const fetchProducts = await fetch(`${production_base_url}/getBatteryOption/?neededHarvestkWh=${neededHarvestkWh}`);
       const batteryOptionProducts = await fetchProducts.json();
       // console.log("batteryOptionProducts ====== ", batteryOptionProducts.products);
       setBatteryOptions(batteryOptionProducts.products);
@@ -222,7 +222,7 @@ const App = () => {
       }));
     } else if (productId) {
       try {
-        const fetchProductsDetails = await fetch(`${local_base_url}/getproductsDetail`,
+        const fetchProductsDetails = await fetch(`${production_base_url}/getproductsDetail`,
           {
             method: "POST",
             headers: {
@@ -256,7 +256,7 @@ const App = () => {
       console.log("customProductDistance value");
 
       const { batterytoHVAC, paneltoBattery } = customProductDistance;
-      const createProductAPI = await fetch(`${local_base_url}/createCustomProduct`,
+      const createProductAPI = await fetch(`${production_base_url}/createCustomProduct`,
         {
           method: "POST",
           headers: {
@@ -279,7 +279,7 @@ const App = () => {
     // console.log("productsIDs ========= ", productsId);
 
     const sendProductIDAPI = await fetch(
-      `${local_base_url}/addtoCart`,
+      `${production_base_url}/addtoCart`,
       {
         method: "POST",
         headers: {
@@ -577,7 +577,7 @@ const App = () => {
           </div>
         </div>
 
- <div className="ques-3-container">
+        <div className="ques-3-container">
           <div className="ques-3">
             <h1>3. Select Air Conditioner</h1>
           </div>
@@ -655,7 +655,7 @@ const App = () => {
           </div>
         </div>
 
-        <div className="ques-4-container">
+         <div className="ques-4-container">
           <div className="ques-4">
             <h1> 4. How long do you want to run it each day? </h1>
             <p className="ques-4-description">
@@ -1022,6 +1022,7 @@ const App = () => {
             </div>
           </div>
         </div>
+      
       </div>
 
       <div className="float-container">

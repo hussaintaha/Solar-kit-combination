@@ -1,11 +1,10 @@
-// import { authenticate } from "../shopify.server";
+import { authenticate } from "../shopify.server";
 import solarPanelCollection from "../Database/collections/solarPanelModel";
 
 export const loader = async ({ request }) => {
     try {
 
-        // const { session, admin } = await authenticate.public.appProxy(request);
-        // console.log("session =======", session);
+        await authenticate.public.appProxy(request);
 
         const urlString = request.url
         // console.log("urlString ======= ", urlString);

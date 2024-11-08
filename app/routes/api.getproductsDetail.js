@@ -1,13 +1,11 @@
 import { authenticate } from "../shopify.server";
-// /home/vowelweb/solar-combo-app/solar-combination/app/routes/api.getproductsDetail.js
 import shopifySessionModel from "../Database/session";
 
 
 export const action = async ({ request }) => {
     try {
 
-        // const { session } = await authenticate.public.appProxy(request);
-        // console.log("session =======", session);
+        await authenticate.public.appProxy(request);
 
         const session = await shopifySessionModel.findOne()
         console.log("session ==== ", session);

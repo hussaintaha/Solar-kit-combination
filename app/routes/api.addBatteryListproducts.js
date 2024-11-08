@@ -6,21 +6,12 @@ import { authenticate } from "../shopify.server";
 export const action = async ({ request }) => {
     try {
         const selectedData = await request.json();
-        // console.log("selectedData ======== ", selectedData);
 
         const { session } = await authenticate.admin(request);
-        console.log("session === ", session);
-
         const { selectHarvestValue, selected } = selectedData;
 
-
         const updatedProducts = await Promise.all(selected.map(async (product) => {
-
-            console.log("product ====== ", product.product.id);
-
             const splitProductId = product.product.id.split("/")[4];
-            // console.log("splitProductId === ", splitProductId);
-
             const response = await fetch(`https://${session.shop}/admin/api/2024-10/products/${splitProductId}.json`, {
                 method: "GET",
                 headers: {
@@ -36,8 +27,6 @@ export const action = async ({ request }) => {
             };
 
         }));
-        // console.log("updatedProducts ====== ", updatedProducts);
-
 
         const updatedAirConditionerEntry = await batteryOptionsCollection.findOneAndUpdate(
             { harvestValue: selectHarvestValue },
@@ -51,7 +40,7 @@ export const action = async ({ request }) => {
         }
 
         const updatedEntry = await batteryOptionsCollection.findOne({ harvestValue: selectHarvestValue });
-        console.log("Updated Entry after operation:", updatedEntry);
+        // console.log("Updated Entry after operation:", updatedEntry);
         return json({ success: true, updatedEntry });
 
     } catch (error) {
