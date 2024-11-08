@@ -3,7 +3,7 @@
 client_id = "f06f43a1013bd4e8895a4a15f6820596"
 name = "solar-combination"
 handle = "solar-combination"
-application_url = "https://attitude-manual-exciting-van.trycloudflare.com"
+application_url = "https://steady-gt-treat-fluid.trycloudflare.com"
 embedded = true
 
 [build]
@@ -25,14 +25,20 @@ redirect_urls = [
   "https://surfaces-situation-chef-bristol.trycloudflare.com/api/auth/callback",
   "https://attitude-manual-exciting-van.trycloudflare.com/auth/callback",
   "https://attitude-manual-exciting-van.trycloudflare.com/auth/shopify/callback",
-  "https://attitude-manual-exciting-van.trycloudflare.com/api/auth/callback"
+  "https://attitude-manual-exciting-van.trycloudflare.com/api/auth/callback",
+  "https://created-brush-flood-filing.trycloudflare.com/auth/callback",
+  "https://created-brush-flood-filing.trycloudflare.com/auth/shopify/callback",
+  "https://created-brush-flood-filing.trycloudflare.com/api/auth/callback",
+  "https://steady-gt-treat-fluid.trycloudflare.com/auth/callback",
+  "https://steady-gt-treat-fluid.trycloudflare.com/auth/shopify/callback",
+  "https://steady-gt-treat-fluid.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
 api_version = "2024-07"
 
 [app_proxy]
-url = "https://attitude-manual-exciting-van.trycloudflare.com"
+url = "https://steady-gt-treat-fluid.trycloudflare.com"
 subpath = "proxy"
 prefix = "apps"
 

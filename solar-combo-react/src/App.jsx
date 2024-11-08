@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import Modal from "./component/Modal";
+import { createPortal } from "react-dom";
 // import { createPortal } from "react-dom";
 
 const App = () => {
   console.log(" ========== 2222222222 =========");
 
-  const local_base_url = 'https://acres-corporations-furnishings-degree.trycloudflare.com/api';
+  const local_base_url = 'https://steady-gt-treat-fluid.trycloudflare.com/api';
   const production_base_url = `https://${location.host}/apps/proxy/api`
 
   const [redirectURL, setRedirectURL] = useState("")
@@ -158,7 +159,7 @@ const App = () => {
 
   const getCollectionProductsAPI = async (BTU) => {
     try {
-      const fetchproducts = await fetch(`${production_base_url}/getCollectionProducts/?recommendedBTU=${BTU}`,);
+      const fetchproducts = await fetch(`${local_base_url}/getCollectionProducts/?recommendedBTU=${BTU}`,);
       const collectionProducts = await fetchproducts.json();
       // console.log("collectionProducts ====== ", collectionProducts);
       setProductData(collectionProducts.products);
@@ -175,7 +176,7 @@ const App = () => {
 
   const getpanelCollectionAPI = async (neededHarvestkWh) => {
     try {
-      const fetchProducts = await fetch(`${production_base_url}/getpanelCollections/?neededHarvestkWh=${neededHarvestkWh}`);
+      const fetchProducts = await fetch(`${local_base_url}/getpanelCollections/?neededHarvestkWh=${neededHarvestkWh}`);
       const panelCollectionProducts = await fetchProducts.json();
       // console.log("panelCollectionProducts ====== ", panelCollectionProducts.products);
       setPanelCollection(panelCollectionProducts.products);
@@ -186,7 +187,7 @@ const App = () => {
 
   const getchargeControllerCollectionAPI = async (neededHarvestkWh) => {
     try {
-      const fetchProducts = await fetch(`${production_base_url}/chargeControllerCollection/?neededHarvestkWh=${neededHarvestkWh}`);
+      const fetchProducts = await fetch(`${local_base_url}/chargeControllerCollection/?neededHarvestkWh=${neededHarvestkWh}`);
       const chargeControllerProducts = await fetchProducts.json();
       // console.log("chargeControllerProducts ====== ", chargeControllerProducts.products);
       setChargeControllerProducts(chargeControllerProducts.products);
@@ -197,7 +198,7 @@ const App = () => {
 
   const getBettryCollectionAPI = async (neededHarvestkWh) => {
     try {
-      const fetchProducts = await fetch(`${production_base_url}/getBatteryOption/?neededHarvestkWh=${neededHarvestkWh}`);
+      const fetchProducts = await fetch(`${local_base_url}/getBatteryOption/?neededHarvestkWh=${neededHarvestkWh}`);
       const batteryOptionProducts = await fetchProducts.json();
       // console.log("batteryOptionProducts ====== ", batteryOptionProducts.products);
       setBatteryOptions(batteryOptionProducts.products);
@@ -221,7 +222,7 @@ const App = () => {
       }));
     } else if (productId) {
       try {
-        const fetchProductsDetails = await fetch(`${production_base_url}/getproductsDetail`,
+        const fetchProductsDetails = await fetch(`${local_base_url}/getproductsDetail`,
           {
             method: "POST",
             headers: {
@@ -255,7 +256,7 @@ const App = () => {
       console.log("customProductDistance value");
 
       const { batterytoHVAC, paneltoBattery } = customProductDistance;
-      const createProductAPI = await fetch(`${production_base_url}/createCustomProduct`,
+      const createProductAPI = await fetch(`${local_base_url}/createCustomProduct`,
         {
           method: "POST",
           headers: {
@@ -278,7 +279,7 @@ const App = () => {
     // console.log("productsIDs ========= ", productsId);
 
     const sendProductIDAPI = await fetch(
-      `${production_base_url}/addtoCart`,
+      `${local_base_url}/addtoCart`,
       {
         method: "POST",
         headers: {
@@ -413,25 +414,25 @@ const App = () => {
   }
 
   // handle float container
-  // useEffect(() => {
-  //   console.log('useEffect first');
-  //   document.querySelector(".float-container-body").style.display = "none"
-  //   window.onscroll = () => {
-  //     const float_container = document.querySelector('.float-container')
-  //     // console.log("float_container ===== ", float_container);
-  //     const floatContainerRect = float_container.getBoundingClientRect();
-  //     // console.log("floatContainerRect ======== ", floatContainerRect);
+  useEffect(() => {
+    console.log('useEffect first');
+    document.querySelector(".float-container-body").style.display = "none"
+    window.onscroll = () => {
+      const float_container = document.querySelector('.float-container')
+      // console.log("float_container ===== ", float_container);
+      const floatContainerRect = float_container.getBoundingClientRect();
+      // console.log("floatContainerRect ======== ", floatContainerRect);
 
-  //     const scrollTop = window.scrollY;
+      const scrollTop = window.scrollY;
 
-  //     if (floatContainerRect.bottom < 0 || floatContainerRect.top > window.innerHeight) {
-  //       document.querySelector(".float-container-body").style.display = "flex"
-  //     } else {
-  //       document.querySelector(".float-container-body").style.display = "none"
-  //     }
-  //     // console.log('float_container', float_container.offsetTop, float_container.offsetBottom)
-  //   }
-  // }, [])
+      if (floatContainerRect.bottom < 0 || floatContainerRect.top > window.innerHeight) {
+        document.querySelector(".float-container-body").style.display = "flex"
+      } else {
+        document.querySelector(".float-container-body").style.display = "none"
+      }
+      // console.log('float_container', float_container.offsetTop, float_container.offsetBottom)
+    }
+  }, [])
 
   console.log("insulationValue ==== ", insulationValue);
 
@@ -568,7 +569,7 @@ const App = () => {
             <div>
               <div className="displayBTU">
                 <span>
-                  Your recommended BTU: BTU/h
+                  Your recommended BTU: {recommendedBTU} BTU/h
                 </span>
               </div>
             </div>
@@ -576,25 +577,7 @@ const App = () => {
           </div>
         </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        {/* <div className="ques-3-container">
+ <div className="ques-3-container">
           <div className="ques-3">
             <h1>3. Select Air Conditioner</h1>
           </div>
@@ -1038,7 +1021,7 @@ const App = () => {
               </div>
             </div>
           </div>
-        </div> */}
+        </div>
       </div>
 
       <div className="float-container">
@@ -1057,9 +1040,9 @@ const App = () => {
         </div>
       </div>
 
-      {/* {createPortal(
+      {createPortal(
         <div className="float-container-body custom-cart_btn page-width">
-          <div class="cart-btn">
+          <div className="cart-btn">
             <div className="total-price">
               <p style={{ margin: '0px' }}> Your Total:</p>
               <span className="price custom-price"> ${totalPrice} </span>
@@ -1076,7 +1059,7 @@ const App = () => {
           </div>
         </div>,
         document.body
-      )} */}
+      )}
     </>
   );
 };
