@@ -394,12 +394,22 @@ const App = () => {
       console.log("wiringCost ==== ", wiringCost);
     }
 
-    return wiringCost.toLocaleString();
+    return wiringCost;
   };
 
-  const totalPrice = Number((Object.values(selectedProductPrices).reduce((acc, price) => acc + Number(price), 0))).toFixed(2);
-  // const totalPrice = Object.values(selectedProductPrices).reduce((acc, price) => acc + Number(price), 0) + calculateCustomePrice();
-  console.log("totalPrice (number) ====== ", totalPrice);
+
+  const customAmoutCheck = calculateCustomePrice()
+  console.log("customAmoutCheck ========== ", typeof customAmoutCheck);
+
+
+  Object.keys(selectedProductPrices).forEach(key => {
+    console.log(`${key}: ${typeof selectedProductPrices[key]}`);
+  });
+
+
+  const totalPrice = (Object.values(selectedProductPrices).reduce((acc, price) => acc + price, 0) + Number(calculateCustomePrice())).toFixed(2)
+  const formattedTotalprice = Number(totalPrice).toLocaleString()
+  console.log("formattedTotalprice ====== ", formattedTotalprice);
 
   useEffect(() => {
     if (totalPrice > 0) {
@@ -418,25 +428,25 @@ const App = () => {
   }
 
   // handle float container
-  // useEffect(() => {
-  //   console.log('useEffect first');
-  //   document.querySelector(".float-container-body").style.display = "none"
-  //   window.onscroll = () => {
-  //     const float_container = document.querySelector('.float-container')
-  //     // console.log("float_container ===== ", float_container);
-  //     const floatContainerRect = float_container.getBoundingClientRect();
-  //     // console.log("floatContainerRect ======== ", floatContainerRect);
+  useEffect(() => {
+    console.log('useEffect first');
+    document.querySelector(".float-container-body").style.display = "none"
+    window.onscroll = () => {
+      const float_container = document.querySelector('.float-container')
+      // console.log("float_container ===== ", float_container);
+      const floatContainerRect = float_container.getBoundingClientRect();
+      // console.log("floatContainerRect ======== ", floatContainerRect);
 
-  //     const scrollTop = window.scrollY;
+      const scrollTop = window.scrollY;
 
-  //     if (floatContainerRect.bottom < 0 || floatContainerRect.top > window.innerHeight) {
-  //       document.querySelector(".float-container-body").style.display = "flex"
-  //     } else {
-  //       document.querySelector(".float-container-body").style.display = "none"
-  //     }
-  //     // console.log('float_container', float_container.offsetTop, float_container.offsetBottom)
-  //   }
-  // }, [])
+      if (floatContainerRect.bottom < 0 || floatContainerRect.top > window.innerHeight) {
+        document.querySelector(".float-container-body").style.display = "flex"
+      } else {
+        document.querySelector(".float-container-body").style.display = "none"
+      }
+      // console.log('float_container', float_container.offsetTop, float_container.offsetBottom)
+    }
+  }, [])
 
 
   return (
@@ -1027,7 +1037,7 @@ const App = () => {
       <div className="float-container">
         <div className="total-price">
           <p style={{ margin: '0px' }}> Your Total:</p>
-          <span className="price"> ${totalPrice.toLocaleString()} </span>
+          <span className="price"> ${formattedTotalprice} </span>
         </div>
         <div className="cart-button-container">
           <button
@@ -1040,7 +1050,28 @@ const App = () => {
         </div>
       </div>
 
-     
+      {createPortal(
+        <div className="float-container-body custom-cart_btn page-width">
+          <div className="cart-btn">
+            <div className="total-price">
+              <p style={{ margin: '0px' }}> Your Total:</p>
+              <span className="price custom-price"> ${formattedTotalprice} </span>
+            </div>
+            <div className="cart-button-container">
+              <button
+                className="cartButton custom-cart-button"
+                disabled={activecartButton}
+                onClick={handleAddToCart}
+              >
+                {loading ? <span className="loader"></span> : 'Add To Cart'}
+              </button>
+            </div>
+          </div>
+        </div>,
+        document.body
+      )}
+
+
     </>
   );
 };
