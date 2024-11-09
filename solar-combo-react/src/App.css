@@ -283,10 +283,6 @@ input[type="number"]::-webkit-inner-spin-button {
   margin: 0;
 }
 
-/* input[type="number"] {
-  -moz-appearance: textfield;
-} */
-
 input[type="number"]:focus-visible {
   border: none;
   outline: none;
@@ -476,9 +472,11 @@ p:last-child {
   gap: 4px;
   margin: 0px;
 }
-#ShopifyChat {
+
+/* #ShopifyChat {
   bottom: 70px!important;
-}
+} */
+
 .custom-cart_btn p {
   color: #fffcfc!important;
   width: 100%;
@@ -588,11 +586,13 @@ p:last-child {
     align-items: center;
   }
 }
+
 @media screen and (min-width: 750px) and (max-width: 768px){
   .cart-btn {
     width: 83.33%!important;
 }
 }
+
 @media screen and (max-width: 768px) {
 
   .ques-1-description,

@@ -4,7 +4,7 @@ import "./App.css";
 import Modal from "./component/Modal";
 
 const App = () => {
-  
+
   const [redirectURL, setRedirectURL] = useState("")
   const [loading, setLoading] = useState(false);
   const [activecartButton, setActiveCartButton] = useState(true);
@@ -38,10 +38,10 @@ const App = () => {
     selectBatteryOptions: 0,
   });
   const [customProductDistance, setCustomProductDistance] = useState({
-    paneltoBattery: "",
-    batterytoHVAC: "",
+    paneltoBattery: 0,
+    batterytoHVAC: 0,
   });
-  
+
   const insulationOptions = [
     {
       label: "Not Insulated",
@@ -69,11 +69,11 @@ const App = () => {
     },
   ];
 
-  console.log(" ========== &*&&*&*&*&*&*&&*&*&*&*&*&*&*&*&* =========");
+  console.log(" ========== 111111111 =========");
 
   const local_base_url = 'https://steady-gt-treat-fluid.trycloudflare.com/api';
   const production_base_url = `https://${location.host}/apps/proxy/api`
-  
+
   const runTimeOptions = [
     {
       label: "Overhead Sun Only",
@@ -236,6 +236,8 @@ const App = () => {
         // console.log("productDetails ================= ", productDetails);
 
         const productPrice = parseFloat(productDetails.varientData.price);
+        console.log("productPrice === ", productPrice);
+
 
         setSelectedProductPrices((prevState) => ({
           ...prevState,
@@ -389,13 +391,15 @@ const App = () => {
 
     if (paneltoBattery > 0 && batterytoHVAC > 0) {
       wiringCost = (paneltoBattery * 4) + (batterytoHVAC * 6) + 33
+      console.log("wiringCost ==== ", wiringCost);
     }
 
     return wiringCost.toLocaleString();
   };
 
-  const totalPrice = (Object.values(selectedProductPrices).reduce((acc, price) => acc + price, 0) + Number(calculateCustomePrice())).toFixed(2);
-
+  const totalPrice = Number((Object.values(selectedProductPrices).reduce((acc, price) => acc + Number(price), 0))).toFixed(2);
+  // const totalPrice = Object.values(selectedProductPrices).reduce((acc, price) => acc + Number(price), 0) + calculateCustomePrice();
+  console.log("totalPrice (number) ====== ", totalPrice);
 
   useEffect(() => {
     if (totalPrice > 0) {
@@ -414,29 +418,25 @@ const App = () => {
   }
 
   // handle float container
-  useEffect(() => {
-    console.log('useEffect first');
-    document.querySelector(".float-container-body").style.display = "none"
-    window.onscroll = () => {
-      const float_container = document.querySelector('.float-container')
-      // console.log("float_container ===== ", float_container);
-      const floatContainerRect = float_container.getBoundingClientRect();
-      // console.log("floatContainerRect ======== ", floatContainerRect);
+  // useEffect(() => {
+  //   console.log('useEffect first');
+  //   document.querySelector(".float-container-body").style.display = "none"
+  //   window.onscroll = () => {
+  //     const float_container = document.querySelector('.float-container')
+  //     // console.log("float_container ===== ", float_container);
+  //     const floatContainerRect = float_container.getBoundingClientRect();
+  //     // console.log("floatContainerRect ======== ", floatContainerRect);
 
-      const scrollTop = window.scrollY;
+  //     const scrollTop = window.scrollY;
 
-      if (floatContainerRect.bottom < 0 || floatContainerRect.top > window.innerHeight) {
-        document.querySelector(".float-container-body").style.display = "flex"
-      } else {
-        document.querySelector(".float-container-body").style.display = "none"
-      }
-      // console.log('float_container', float_container.offsetTop, float_container.offsetBottom)
-    }
-  }, [])
-
-  console.log("insulationValue ==== ", insulationValue);
-
-
+  //     if (floatContainerRect.bottom < 0 || floatContainerRect.top > window.innerHeight) {
+  //       document.querySelector(".float-container-body").style.display = "flex"
+  //     } else {
+  //       document.querySelector(".float-container-body").style.display = "none"
+  //     }
+  //     // console.log('float_container', float_container.offsetTop, float_container.offsetBottom)
+  //   }
+  // }, [])
 
 
   return (
@@ -655,7 +655,7 @@ const App = () => {
           </div>
         </div>
 
-         <div className="ques-4-container">
+        <div className="ques-4-container">
           <div className="ques-4">
             <h1> 4. How long do you want to run it each day? </h1>
             <p className="ques-4-description">
@@ -988,16 +988,15 @@ const App = () => {
                 <div className="distance-answer">
                   <input
                     type="number"
-                    value={customProductDistance.paneltoBattery}
+                    value={customProductDistance.paneltoBattery === 0 ? "" : customProductDistance.paneltoBattery}
                     name="paneltoBattery"
                     onChange={handleDistanceValue}
                   />
                 </div>
                 <div className="distance-question">
                   <p>
-                    {" "}
                     feet PV cable between solar panels and charge
-                    controller/battery{" "}
+                    controller/battery
                   </p>
                 </div>
               </div>
@@ -1006,7 +1005,7 @@ const App = () => {
                 <div className="distance-answer">
                   <input
                     type="number"
-                    value={customProductDistance.batterytoHVAC}
+                    value={customProductDistance.batterytoHVAC === 0 ? "" : customProductDistance.batterytoHVAC}
                     name="batterytoHVAC"
                     onChange={handleDistanceValue}
                   />
@@ -1017,18 +1016,18 @@ const App = () => {
               </div>
 
               <div className="custom-variant-price">
-                Wiring Kit Cost: ${calculateCustomePrice()}
+                Wiring Kit Cost: ${calculateCustomePrice().toLocaleString()}
               </div>
             </div>
           </div>
         </div>
-      
+
       </div>
 
       <div className="float-container">
         <div className="total-price">
           <p style={{ margin: '0px' }}> Your Total:</p>
-          <span className="price"> ${totalPrice} </span>
+          <span className="price"> ${totalPrice.toLocaleString()} </span>
         </div>
         <div className="cart-button-container">
           <button
@@ -1041,26 +1040,7 @@ const App = () => {
         </div>
       </div>
 
-      {createPortal(
-        <div className="float-container-body custom-cart_btn page-width">
-          <div className="cart-btn">
-            <div className="total-price">
-              <p style={{ margin: '0px' }}> Your Total:</p>
-              <span className="price custom-price"> ${totalPrice} </span>
-            </div>
-            <div className="cart-button-container">
-              <button
-                className="cartButton custom-cart-button"
-                disabled={activecartButton}
-                onClick={handleAddToCart}
-              >
-                {loading ? <span className="loader"></span> : 'Add To Cart'}
-              </button>
-            </div>
-          </div>
-        </div>,
-        document.body
-      )}
+     
     </>
   );
 };
