@@ -418,25 +418,25 @@ const App = () => {
   }
 
   // handle float container
-  // useEffect(() => {
-  //   console.log('useEffect first');
-  //   document.querySelector(".float-container-body").style.display = "none"
-  //   window.onscroll = () => {
-  //     const float_container = document.querySelector('.float-container')
-  //     // console.log("float_container ===== ", float_container);
-  //     const floatContainerRect = float_container.getBoundingClientRect();
-  //     // console.log("floatContainerRect ======== ", floatContainerRect);
+  useEffect(() => {
+    console.log('useEffect first');
+    document.querySelector(".float-container-body").style.display = "none"
+    window.onscroll = () => {
+      const float_container = document.querySelector('.float-container')
+      // console.log("float_container ===== ", float_container);
+      const floatContainerRect = float_container.getBoundingClientRect();
+      // console.log("floatContainerRect ======== ", floatContainerRect);
 
-  //     const scrollTop = window.scrollY;
+      const scrollTop = window.scrollY;
 
-  //     if (floatContainerRect.bottom < 0 || floatContainerRect.top > window.innerHeight) {
-  //       document.querySelector(".float-container-body").style.display = "flex"
-  //     } else {
-  //       document.querySelector(".float-container-body").style.display = "none"
-  //     }
-  //     // console.log('float_container', float_container.offsetTop, float_container.offsetBottom)
-  //   }
-  // }, [])
+      if (floatContainerRect.bottom < 0 || floatContainerRect.top > window.innerHeight) {
+        document.querySelector(".float-container-body").style.display = "flex"
+      } else {
+        document.querySelector(".float-container-body").style.display = "none"
+      }
+      // console.log('float_container', float_container.offsetTop, float_container.offsetBottom)
+    }
+  }, [])
 
 
   return (
