@@ -69,7 +69,7 @@ const App = () => {
     },
   ];
 
-  console.log(" ========== 222222222222222222222 =========");
+  console.log(" ========== 1111111 =========");
 
   const local_base_url = 'https://steady-gt-treat-fluid.trycloudflare.com/api';
   const production_base_url = `https://${location.host}/apps/proxy/api`
