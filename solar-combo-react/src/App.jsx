@@ -459,7 +459,6 @@ const App = () => {
       </div>
 
       <div className="question-container">
-
         <div className="ques-1-container">
           <div className="ques-1">
             <h1>1. How big is the space you are heating / cooling?</h1>
@@ -1031,7 +1030,6 @@ const App = () => {
             </div>
           </div>
         </div>
-
       </div>
 
       <div className="float-container">
@@ -1053,19 +1051,20 @@ const App = () => {
       {createPortal(
         <div className="float-container-body custom-cart_btn page-width">
           <div className="cart-btn">
-            <div className="total-price">
-              <p style={{ margin: '0px' }}> Your Total:</p>
-              <span className="price custom-price"> ${formattedTotalprice} </span>
-            </div>
-            <div className="cart-button-container">
-              <button
-                className="cartButton custom-cart-button"
-                disabled={activecartButton}
-                onClick={handleAddToCart}
-              >
-                {loading ? <span className="loader"></span> : 'Add To Cart'}
-              </button>
-            </div>
+              <div className="total-price">
+                <p style={{ margin: '0px' }}> Your Total:</p>
+                <span className="price custom-price"> ${formattedTotalprice} </span>
+              </div>
+              <div className="cart-button-container">
+                <button
+                  className="cartButton custom-cart-button"
+                  disabled={activecartButton}
+                  onClick={handleAddToCart}
+                >
+                  {loading ? <span className="loader"></span> : 'Add To Cart'}
+                </button>
+              </div>
+           
           </div>
         </div>,
         document.body
