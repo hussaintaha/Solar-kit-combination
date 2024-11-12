@@ -104,7 +104,7 @@ const App = () => {
   // =========================== step 1 to 3 =========================== //  
   const calculateBTU = (length, width, height, insulationFactor) => {
     let BTU = 0;
-    const area = length * width; // Calculate square footage once
+    const area = length * width; // Calculate square footage
 
     if (height < 6) {
       BTU = area * 10 * insulationFactor;
@@ -114,8 +114,7 @@ const App = () => {
       BTU = area * 27 * insulationFactor;
     }
 
-    setSquareFoot(area); // Set square footage once
-
+    setSquareFoot(area);
     return BTU;
   };
 
@@ -126,8 +125,7 @@ const App = () => {
       const updatedValues = { ...prev, [name]: parseFloat(value) || null };
       const { length, width, height } = updatedValues;
 
-      const totalVolume =
-        length && width && height ? length * width * height : 0;
+      const totalVolume = length && width && height ? length * width * height : 0;
       setSquareFoot(length * width);
 
       if (length && width && height && insulationValue) {
@@ -143,15 +141,11 @@ const App = () => {
 
   const handleInsulationChange = (e) => {
     const insulationFactor = parseFloat(e.target.value);
-    console.log("insulationFactor === ", insulationFactor);
-
     setInsulationValue(insulationFactor);
 
     const { length, width, height } = spaceAndVolume;
     if (length && width && insulationFactor) {
       const newBTU = calculateBTU(length, width, height, insulationFactor);
-      console.log("newBTU =====", newBTU);
-
       setRecommendedBTU(newBTU);
       getCollectionProductsAPI(newBTU);
     }
@@ -170,7 +164,6 @@ const App = () => {
 
   // =========================== step 4 to 8 =========================== //  
   const handleRunEachDay = (value) => {
-    // console.log("value ============= ", value);
     setDailyRunTime(value);
   };
 
@@ -208,7 +201,6 @@ const App = () => {
   };
 
   const handleSelectProduct = async (productType, productId) => {
-
     const isDeselecting = selectedProductId[productType] === productId;
     setSelectedProductId((prevSelected) => ({
       ...prevSelected,
@@ -236,9 +228,6 @@ const App = () => {
         // console.log("productDetails ================= ", productDetails);
 
         const productPrice = parseFloat(productDetails.varientData.price);
-        console.log("productPrice === ", productPrice);
-
-
         setSelectedProductPrices((prevState) => ({
           ...prevState,
           [productType]: productPrice,
@@ -255,8 +244,6 @@ const App = () => {
     let productsId = selectedProductId;
 
     if (customProductDistance.batterytoHVAC || customProductDistance.paneltoBattery) {
-      console.log("customProductDistance value");
-
       const { batterytoHVAC, paneltoBattery } = customProductDistance;
       const createProductAPI = await fetch(`${production_base_url}/createCustomProduct`,
         {
@@ -280,8 +267,7 @@ const App = () => {
     }
     // console.log("productsIDs ========= ", productsId);
 
-    const sendProductIDAPI = await fetch(
-      `${production_base_url}/addtoCart`,
+    const sendProductIDAPI = await fetch(`${production_base_url}/addtoCart`,
       {
         method: "POST",
         headers: {
@@ -293,8 +279,6 @@ const App = () => {
 
     const productIdresponse = await sendProductIDAPI.json();
     const productIdArray = productIdresponse.varientIdArray;
-    // console.log("productIdresponse ======== ", productIdArray);
-
     if (productIdresponse.success) {
       let formData = {
         items: productIdArray.map((productID) => ({
@@ -302,11 +286,9 @@ const App = () => {
           quantity: 1,
         })),
       };
-      // console.log("forData ======== ", formData);
 
       try {
-        const additmesAPI = await fetch(
-          `${window.Shopify.routes.root}cart/add.js`,
+        const additmesAPI = await fetch(`${window.Shopify.routes.root}cart/add.js`,
           {
             method: "POST",
             headers: {
@@ -334,7 +316,6 @@ const App = () => {
 
   const handleDistanceValue = (e) => {
     const { name, value } = e.target;
-    // console.log("value ======== ", value);
 
     if (value >= 0) {
       setCustomProductDistance((prevState) => ({
@@ -343,7 +324,6 @@ const App = () => {
       }));
     }
   };
-
 
   // useEffect to check if both values are filled or not
   useEffect(() => {
@@ -362,18 +342,16 @@ const App = () => {
   useEffect(() => {
     const fetchData = async () => {
       if (recommendedBTU > 0 && insulationValue > 0 && dailyRunTime > 0) {
-        // Calculate needed daily harvest in kWh:
+
         const neededHarvestkWh = (recommendedBTU / 16000) * dailyRunTime;
-        // console.log("neededHarvestkWh ===================== ", neededHarvestkWh);
         setNeededharvest(neededHarvestkWh);
 
-        // Call the APIs with the new needed harvest
+        // Calling the APIs with the new needed harvest
         await getpanelCollectionAPI(neededHarvestkWh);
         await getchargeControllerCollectionAPI(neededHarvestkWh);
         await getBettryCollectionAPI(neededHarvestkWh);
       }
     };
-
     fetchData();
   }, [recommendedBTU, insulationValue, dailyRunTime]);
 
@@ -384,32 +362,20 @@ const App = () => {
     if (paneltoBattery > 0) {
       wiringCost = paneltoBattery * 4;
     }
-
     if (batterytoHVAC > 0) {
       wiringCost = batterytoHVAC * 6 + 33;
     }
-
     if (paneltoBattery > 0 && batterytoHVAC > 0) {
       wiringCost = (paneltoBattery * 4) + (batterytoHVAC * 6) + 33
-      console.log("wiringCost ==== ", wiringCost);
     }
-
     return wiringCost;
   };
 
 
-  const customAmoutCheck = calculateCustomePrice()
-  console.log("customAmoutCheck ========== ", typeof customAmoutCheck);
-
-
-  Object.keys(selectedProductPrices).forEach(key => {
-    console.log(`${key}: ${typeof selectedProductPrices[key]}`);
-  });
-
-
   const totalPrice = (Object.values(selectedProductPrices).reduce((acc, price) => acc + price, 0) + Number(calculateCustomePrice())).toFixed(2)
-  const formattedTotalprice = Number(totalPrice).toLocaleString()
-  console.log("formattedTotalprice ====== ", formattedTotalprice);
+  const formattedTotalprice = Number(totalPrice).toLocaleString();
+  console.log("formattedTotalprice ==== ", formattedTotalprice);
+
 
   useEffect(() => {
     if (totalPrice > 0) {
@@ -421,7 +387,6 @@ const App = () => {
 
   const handleInfo = async (variantdata) => {
     const splitId = variantdata.id.split("/")[4]
-
     const productUrl = `https://${location.host}/products/${variantdata.handle}?variant=${splitId}`;
     setRedirectURL(productUrl)
     return productUrl
@@ -429,22 +394,16 @@ const App = () => {
 
   // handle float container
   useEffect(() => {
-    console.log('useEffect first');
     document.querySelector(".float-container-body").style.display = "none"
     window.onscroll = () => {
       const float_container = document.querySelector('.float-container')
-      // console.log("float_container ===== ", float_container);
       const floatContainerRect = float_container.getBoundingClientRect();
-      // console.log("floatContainerRect ======== ", floatContainerRect);
-
-      const scrollTop = window.scrollY;
 
       if (floatContainerRect.bottom < 0 || floatContainerRect.top > window.innerHeight) {
         document.querySelector(".float-container-body").style.display = "flex"
       } else {
         document.querySelector(".float-container-body").style.display = "none"
       }
-      // console.log('float_container', float_container.offsetTop, float_container.offsetBottom)
     }
   }, [])
 
@@ -459,6 +418,7 @@ const App = () => {
       </div>
 
       <div className="question-container">
+
         <div className="ques-1-container">
           <div className="ques-1">
             <h1>1. How big is the space you are heating / cooling?</h1>
@@ -466,6 +426,7 @@ const App = () => {
               Let's figure out the size of air conditioner you need in BTU/h or
               tons. 1 ton is the same as 12,000 BTU/h.
             </p>
+
             <div className="ques-1-answer">
               <div className="length">
                 <span>Length</span>
@@ -513,16 +474,14 @@ const App = () => {
                   <div className="cubic-feet">
                     <span>Total Volume:</span>
                     <span className="total-areaVolume-value">
-                      {" "}
-                      {spaceAndVolume.totalVolume.toLocaleString()} cubic feet{" "}
+                      {spaceAndVolume.totalVolume.toLocaleString()} cubic feet
                     </span>
                   </div>
 
                   <div className="square-feet">
                     <span> Total Area: </span>
                     <span className="total-areaVolume-value">
-                      {" "}
-                      {squareFoot.toLocaleString()} square feet{" "}
+                      {squareFoot.toLocaleString()} square feet
                     </span>
                   </div>
                 </div>
@@ -530,6 +489,7 @@ const App = () => {
             </div>
           </div>
         </div>
+
 
         <div className="ques-2-container">
           <div className="ques-2">
@@ -542,6 +502,7 @@ const App = () => {
               suggested cooling/heating capacity expressed in BTU-hours.
             </p>
           </div>
+
           <div className="ques-2-answer">
             <div className="insulation-options">
               {insulationOptions?.map((option) => (
@@ -549,9 +510,7 @@ const App = () => {
                   key={option.label}
                   style={{ cursor: "pointer" }}
                   className={`insulation-option ${insulationValue === option.value ? "selected" : ""}`}
-                  onClick={() =>
-                    handleInsulationChange({ target: { value: option.value } })
-                  }
+                  onClick={() => handleInsulationChange({ target: { value: option.value } })}
                 >
                   <div className="option-details">
                     <img
@@ -582,9 +541,9 @@ const App = () => {
                 </span>
               </div>
             </div>
-
           </div>
         </div>
+
 
         <div className="ques-3-container">
           <div className="ques-3">
@@ -593,8 +552,7 @@ const App = () => {
           <div className="collection-container">
             <div className="collection-products">
               {productsData?.map((ele, index) => {
-                const isSelected =
-                  selectedProductId.selectAirConditionerProducts === ele.id.split("/")[4];
+                const isSelected = selectedProductId.selectAirConditionerProducts === ele.id.split("/")[4];
                 return (
                   <div
                     className="products"
@@ -606,10 +564,7 @@ const App = () => {
                         (event.nativeEvent.target.localName === 'div' && event.nativeEvent.target.className === 'info-icon')
                       ) {
                       } else {
-                        handleSelectProduct(
-                          "selectAirConditionerProducts",
-                          ele.id.split("/")[4],
-                        )
+                        handleSelectProduct("selectAirConditionerProducts", ele.id.split("/")[4],)
                       }
                     }}
                     style={{
@@ -620,18 +575,10 @@ const App = () => {
                   >
                     <div
                       className="info-icon"
-                      onClick={(event) => {
-                        // event.stopPropagation();
-                        handleInfo(ele);
-                      }}
+                      onClick={(event) => { handleInfo(ele) }}
                     >
                       <a href={redirectURL ? redirectURL : ""} target="_blank">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 512 512"
-                          width="20" height="20"
-                          aria-hidden="true"
-                        >
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="20" aria-hidden="true">
                           <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
                         </svg>
                       </a>
@@ -658,17 +605,18 @@ const App = () => {
                 );
               })}
             </div>
+
             <div className="build-kit-message">
               <p>Click an option to build your kit; click again to remove</p>
             </div>
           </div>
         </div>
 
+
         <div className="ques-4-container">
           <div className="ques-4">
             <h1> 4. How long do you want to run it each day? </h1>
             <p className="ques-4-description">
-              {" "}
               Usage patterns impact how much battery storage and solar power you
               need dramatically. If you only need the unit to work during peak
               daylight hours (1-3 hours before and after solar noon, assuming
@@ -680,7 +628,7 @@ const App = () => {
               which allows you to run the air conditioner into the evening or
               night with zero reliance on grid power. Click an option to see
               your suggested daily harvest in kilowatt-hours. This is how much
-              solar energy you need to produce each day.{" "}
+              solar energy you need to produce each day.
             </p>
           </div>
           <div className="runtime-options">
@@ -689,10 +637,8 @@ const App = () => {
                 key={option.label}
                 onClick={() => handleRunEachDay(option.value)}
                 className={
-                  dailyRunTime === option.value
-                    ? "runtime-selected"
-                    : "insulation-option"
-                } // Conditional className
+                  dailyRunTime === option.value ? "runtime-selected" : "insulation-option"
+                }
               >
                 <img
                   src={option.src}
@@ -723,6 +669,7 @@ const App = () => {
           </div>
         </div>
 
+
         <div className="ques-5-container">
           <div className="ques-5">
             <h1>5. How many solar panels are needed for this?</h1>
@@ -734,8 +681,7 @@ const App = () => {
           <div className="collection-container">
             <div className="collection-products">
               {panelCollection?.map((ele, index) => {
-                const isSelected =
-                  selectedProductId.selectSolarPanelProducts === ele.id.split("/")[4];
+                const isSelected = selectedProductId.selectSolarPanelProducts === ele.id.split("/")[4];
                 return (
                   <div
                     className="products"
@@ -747,10 +693,7 @@ const App = () => {
                         (event.nativeEvent.target.localName === 'div' && event.nativeEvent.target.className === 'info-icon')
                       ) {
                       } else {
-                        handleSelectProduct(
-                          "selectSolarPanelProducts",
-                          ele.id.split("/")[4],
-                        )
+                        handleSelectProduct("selectSolarPanelProducts", ele.id.split("/")[4],)
                       }
                     }}
                     style={{
@@ -761,7 +704,6 @@ const App = () => {
                   >
                     <div className="info-icon"
                       onClick={(e) => {
-                        // e.stopPropagation();
                         handleInfo(ele);
                       }}
                     >
@@ -802,6 +744,7 @@ const App = () => {
           </div>
         </div>
 
+
         <div className="ques-6-container ">
           <div className="ques-6">
             <h1>6. Choose a suitable Charge Controller </h1>
@@ -815,9 +758,7 @@ const App = () => {
           <div className="collection-container">
             <div className="collection-products">
               {chargeControllerProducts?.map((ele, index) => {
-                const isSelected =
-                  selectedProductId.selectChargeControllerproducts ===
-                  ele.id.split("/")[4];
+                const isSelected = selectedProductId.selectChargeControllerproducts === ele.id.split("/")[4];
                 return (
                   <div
                     className="products"
@@ -829,10 +770,7 @@ const App = () => {
                         (event.nativeEvent.target.localName === 'div' && event.nativeEvent.target.className === 'info-icon')
                       ) {
                       } else {
-                        handleSelectProduct(
-                          "selectChargeControllerproducts",
-                          ele.id.split("/")[4],
-                        )
+                        handleSelectProduct("selectChargeControllerproducts", ele.id.split("/")[4])
                       }
                     }}
                     style={{
@@ -843,17 +781,11 @@ const App = () => {
 
                     <div className="info-icon"
                       onClick={(e) => {
-                        // e.stopPropagation();
                         handleInfo(ele);
                       }}
                     >
                       <a href={redirectURL ? redirectURL : ""} target="_blank">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 512 512"
-                          width="20" height="20"
-                          aria-hidden="true"
-                        >
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="20" aria-hidden="true">
                           <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
                         </svg>
                       </a>
@@ -870,12 +802,8 @@ const App = () => {
                         <p>No image available</p>
                       )}
                     </div>
-                    <div className="product-price">
-                      <h1> ${ele.price} </h1>
-                    </div>
-                    <div className="title">
-                      <h1> {ele.displayName} </h1>
-                    </div>
+                    <div className="product-price"> <h1> ${ele.price} </h1> </div>
+                    <div className="title"> <h1> {ele.displayName} </h1></div>
                   </div>
                 );
               })}
@@ -885,6 +813,7 @@ const App = () => {
             </div>
           </div>
         </div>
+
 
         <div className="ques-7-container ">
           <div className="ques-7">
@@ -903,9 +832,7 @@ const App = () => {
           <div className="collection-container">
             <div className="collection-products">
               {batteryOption?.map((ele, index) => {
-                const isSelected =
-                  selectedProductId.selectBatteryOptions ===
-                  ele.id.split("/")[4];
+                const isSelected = selectedProductId.selectBatteryOptions === ele.id.split("/")[4];
                 return (
                   <div
                     className="products"
@@ -917,10 +844,7 @@ const App = () => {
                         (event.nativeEvent.target.localName === 'div' && event.nativeEvent.target.className === 'info-icon')
                       ) {
                       } else {
-                        handleSelectProduct(
-                          "selectBatteryOptions",
-                          ele.id.split("/")[4],
-                        )
+                        handleSelectProduct("selectBatteryOptions", ele.id.split("/")[4])
                       }
                     }}
                     style={{
@@ -930,19 +854,11 @@ const App = () => {
                   >
 
                     <div className="info-icon"
-                      onClick={(e) => {
-                        // e.stopPropagation();
-                        handleInfo(ele);
-                      }}
+                      onClick={(e) => { handleInfo(ele) }}
                     >
 
                       <a href={redirectURL ? redirectURL : ""} target="_blank">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 512 512"
-                          width="20" height="20"
-                          aria-hidden="true"
-                        >
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="20" aria-hidden="true">
                           <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
                         </svg>
                       </a>
@@ -959,12 +875,8 @@ const App = () => {
                         <p>No image available</p>
                       )}
                     </div>
-                    <div className="product-price">
-                      <h1> ${ele.price} </h1>
-                    </div>
-                    <div className="title">
-                      <h1> {ele.displayName} </h1>
-                    </div>
+                    <div className="product-price"> <h1> ${ele.price} </h1> </div>
+                    <div className="title"> <h1> {ele.displayName} </h1> </div>
                   </div>
                 );
               })}
@@ -975,11 +887,10 @@ const App = () => {
           </div>
         </div>
 
+
         <div className="ques-8-container">
           <div className="ques-8">
-            <h1>
-              8. Add a PV cable / Battery cable hookup kit with breaker box.
-            </h1>
+            <h1> 8. Add a PV cable / Battery cable hookup kit with breaker box. </h1>
             <p className="ques-8-description">
               We can include a simple kit with appropriate gauge wires for the
               run between your solar panels and the charge controller/battery,
@@ -1030,7 +941,10 @@ const App = () => {
             </div>
           </div>
         </div>
+
       </div>
+
+
 
       <div className="float-container">
         <div className="total-price">
@@ -1051,26 +965,24 @@ const App = () => {
       {createPortal(
         <div className="float-container-body custom-cart_btn page-width">
           <div className="cart-btn">
-              <div className="total-price">
-                <p style={{ margin: '0px' }}> Your Total:</p>
-                <span className="price custom-price"> ${formattedTotalprice} </span>
-              </div>
-              <div className="cart-button-container">
-                <button
-                  className="cartButton custom-cart-button"
-                  disabled={activecartButton}
-                  onClick={handleAddToCart}
-                >
-                  {loading ? <span className="loader"></span> : 'Add To Cart'}
-                </button>
-              </div>
-           
+            <div className="total-price">
+              <p style={{ margin: '0px' }}> Your Total:</p>
+              <span className="price custom-price"> ${formattedTotalprice} </span>
+            </div>
+            <div className="cart-button-container">
+              <button
+                className="cartButton custom-cart-button"
+                disabled={activecartButton}
+                onClick={handleAddToCart}
+              >
+                {loading ? <span className="loader"></span> : 'Add To Cart'}
+              </button>
+            </div>
+
           </div>
         </div>,
         document.body
       )}
-
-
     </>
   );
 };
