@@ -5,14 +5,12 @@ export const loader = async ({ request }) => {
     try {
         await authenticate.public.appProxy(request);
 
-
         const urlString = request.url
         const url = new URL(urlString);
 
         const params = new URLSearchParams(url.search);
 
         const neededHarvestkWh = params.get('neededHarvestkWh');
-        console.log("neededHarvestkWh ======== ", neededHarvestkWh);
         let harvestValue;
 
         if (neededHarvestkWh < 4) {
@@ -25,11 +23,9 @@ export const loader = async ({ request }) => {
             harvestValue = "greaterThan20kWh";
         }
 
-        // console.log(`Determined harvest Range: ${harvestValue}`)
-
         const productsInRange = await batteryOptionsCollection.find({ harvestValue: harvestValue });
         if (productsInRange.length) {
-            console.log("BatteryOption_productsInRange ======= ", productsInRange);
+            // console.log("BatteryOption_productsInRange ======= ", productsInRange);
             return { products: productsInRange[0].products };
         } else {
             console.log(`No products found for harvest value: ${harvestValue}`);

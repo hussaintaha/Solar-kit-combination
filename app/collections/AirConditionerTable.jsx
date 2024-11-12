@@ -31,7 +31,7 @@ const AirConditionerTable = () => {
     ];
 
     const formatDisplayName = (name, limit = 35) => {
-        const splitName = name.split(' - '); // Split the name based on the first hyphen
+        const splitName = name.split(' - ');
         if (splitName.length > 1) {
             return (
                 <>
@@ -59,7 +59,7 @@ const AirConditionerTable = () => {
                 });
 
                 const airConditionerResponse = await airConditionerAPI.json();
-                console.log('airConditionerResponse ========= ', airConditionerResponse);
+                // console.log('airConditionerResponse ========= ', airConditionerResponse);
                 getAirConditionerProducts()
 
                 setLoading(false);
@@ -94,8 +94,7 @@ const AirConditionerTable = () => {
                     type: 'variant',
                     multiple: true,
                 });
-                console.log("selected ==== ", selected);
-
+                // console.log("selected ==== ", selected);
 
                 setLoading(true);
                 const airConditionerAPI = await fetch('/api/addAirConditionerProducts', {
@@ -147,10 +146,8 @@ const AirConditionerTable = () => {
         }
     }, [selectedBTURange]);
 
-
     const { selectedResources, allResourcesSelected, handleSelectionChange } =
         useIndexResourceState(airConditionerproducts);
-
 
     const saveReorderingItems = async (reorderedItems) => {
         try {
@@ -218,7 +215,6 @@ const AirConditionerTable = () => {
             <Card sectioned>
                 {loading ? (
                     <>
-                        {/* Skeleton loaders for different sections */}
                         <div className="btu-range-actions">
                             <SkeletonDisplayText size="small" />
                         </div>

@@ -42,6 +42,11 @@ const App = () => {
     batterytoHVAC: 0,
   });
 
+  console.log(" ========== 222222 =========");
+  const local_base_url = 'https://steady-gt-treat-fluid.trycloudflare.com/api';
+  const production_base_url = `https://${location.host}/apps/proxy/api`
+
+
   const insulationOptions = [
     {
       label: "Not Insulated",
@@ -52,7 +57,7 @@ const App = () => {
     {
       label: "Minimum",
       value: 1.6,
-      src: "https://app.fullbattery.com/insulation-images/minimum-insulated.jpeg",
+      src: "https://app.fullbattery.com/insulation-images/minimum-insulated.webp",
       desc: "Metallic bubble wrap or light timber shed with some natural insulation.",
     },
     {
@@ -68,11 +73,6 @@ const App = () => {
       desc: "You know your R-Values and you used them all. R 40-60. And it's SEALED.",
     },
   ];
-
-  console.log(" ========== 1111111 =========");
-
-  const local_base_url = 'https://steady-gt-treat-fluid.trycloudflare.com/api';
-  const production_base_url = `https://${location.host}/apps/proxy/api`
 
   const runTimeOptions = [
     {
@@ -374,7 +374,6 @@ const App = () => {
 
   const totalPrice = (Object.values(selectedProductPrices).reduce((acc, price) => acc + price, 0) + Number(calculateCustomePrice())).toFixed(2)
   const formattedTotalprice = Number(totalPrice).toLocaleString();
-  console.log("formattedTotalprice ==== ", formattedTotalprice);
 
 
   useEffect(() => {

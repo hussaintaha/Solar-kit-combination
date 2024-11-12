@@ -1,18 +1,15 @@
 import airConditionerCollection from "../Database/collections/airConditionerModel";
-import { authenticate } from "../shopify.server";
+import { authenticate, apiVersion } from "../shopify.server";
 
 export const action = async ({ request }) => {
     try {
         const selectedData = await request.json();
-
         const { session } = await authenticate.admin(request);
-        console.log("session === ", session);
-
         const { selectedBTURange, selected } = selectedData;
 
         const updatedProducts = await Promise.all(selected.map(async (product) => {
             const splitProductId = product.product.id.split("/")[4];
-            const response = await fetch(`https://${session.shop}/admin/api/2024-10/products/${splitProductId}.json`, {
+            const response = await fetch(`https://${session.shop}/admin/api/${apiVersion}/products/${splitProductId}.json`, {
                 method: "GET",
                 headers: {
                     "X-Shopify-Access-Token": session.accessToken
@@ -38,3 +35,4 @@ export const action = async ({ request }) => {
         return error;
     }
 };
+

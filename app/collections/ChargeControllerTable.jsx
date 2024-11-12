@@ -8,7 +8,6 @@ const ChargeControllerTable = ({ selectHarvestValue }) => {
     const [chargeControllerProducts, setChargeControllerProducts] = useState([]);
     const [loading, setLoading] = useState(false);
 
-
     const moveItem = (index, direction) => {
         const reorderedItems = [...chargeControllerProducts];
         const [movedItem] = reorderedItems.splice(index, 1);
@@ -111,8 +110,7 @@ const ChargeControllerTable = ({ selectHarvestValue }) => {
     }
 
     const formatDisplayName = (name, limit = 35) => {
-
-        const splitName = name.split(' - '); // Split the name based on the first hyphen
+        const splitName = name.split(' - ');
         if (splitName.length > 1) {
             return (
                 <>
@@ -126,7 +124,6 @@ const ChargeControllerTable = ({ selectHarvestValue }) => {
     const handleDeleteCollectons = async (id) => {
         try {
             setLoading(true)
-            // console.log("Deleting ID ====== ", id);
             const fetchDeletevariantsAPI = await fetch("/api/deleteVariants", {
                 method: "POST",
                 headers: {

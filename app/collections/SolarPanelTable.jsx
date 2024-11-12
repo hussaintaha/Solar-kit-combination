@@ -41,7 +41,7 @@ const SolarPanelTable = () => {
     }
 
     const formatDisplayName = (name, limit = 35) => {
-        const splitName = name.split(' - '); // Split the name based on the first hyphen
+        const splitName = name.split(' - ');
         if (splitName.length > 1) {
             return (
                 <>
@@ -98,7 +98,7 @@ const SolarPanelTable = () => {
                 });
 
                 const solarPanelResponse = await airConditionerAPI.json();
-                console.log('solarPanelResponse ========= ', solarPanelResponse);
+                // console.log('solarPanelResponse ========= ', solarPanelResponse);
                 getSolarPanelProducts();
                 setLoading(false);
             } else {

@@ -39,8 +39,7 @@ const BatteryOptionTable = ({ selectHarvestValue }) => {
     }
 
     const formatDisplayName = (name, limit = 35) => {
-
-        const splitName = name.split(' - '); // Split the name based on the first hyphen
+        const splitName = name.split(' - '); 
         if (splitName.length > 1) {
             return (
                 <>
@@ -59,7 +58,6 @@ const BatteryOptionTable = ({ selectHarvestValue }) => {
                     type: 'variant',
                     multiple: true,
                 });
-
 
                 const batteryListAPI = await fetch('/api/sendBatteryOptionsList', {
                     method: 'POST',
@@ -128,7 +126,6 @@ const BatteryOptionTable = ({ selectHarvestValue }) => {
     const handleDeleteCollectons = async (id) => {
         try {
             setLoading(true)
-            // console.log("Deleting ID ====== ", id);
             const fetchDeletevariantsAPI = await fetch("/api/deleteVariants", {
                 method: "POST",
                 headers: {
@@ -154,7 +151,6 @@ const BatteryOptionTable = ({ selectHarvestValue }) => {
 
     const { selectedResources, allResourcesSelected, handleSelectionChange } =
         useIndexResourceState(selectBatteryOptions);
-
 
     const rowMarkup = selectBatteryOptions.map((item, index) => (
         <IndexTable.Row

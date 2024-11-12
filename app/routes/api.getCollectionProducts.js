@@ -1,6 +1,5 @@
 import { authenticate } from "../shopify.server";
 import airConditionerCollection from "../Database/collections/airConditionerModel";
-// import { authenticate } from "../shopify.server";
 
 export const loader = async ({ request }) => {
     try {
@@ -11,7 +10,6 @@ export const loader = async ({ request }) => {
 
         const params = new URLSearchParams(url.search);
         const recommendedBTU = parseInt(params.get('recommendedBTU'), 10);
-        console.log("recommendedBTU =========== ", recommendedBTU);
 
         let btuRangeFromDB;
         if (recommendedBTU < 10000) {
@@ -22,12 +20,7 @@ export const loader = async ({ request }) => {
             btuRangeFromDB = 'greaterThan18000';
         }
 
-        console.log(`Determined BTU Range: ${btuRangeFromDB}`);
-
-
         const productsInRange = await airConditionerCollection.find({ btuRange: btuRangeFromDB });
-        console.log(" productsInRange =========== ", productsInRange);
-
 
         if (productsInRange.length > 0) {
             // console.log("Found products in range:", productsInRange[0].products);

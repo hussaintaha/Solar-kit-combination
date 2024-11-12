@@ -1,15 +1,10 @@
-import { authenticate } from "../shopify.server";
-import shopifySessionModel from "../Database/session";
-
+import { authenticate, apiVersion } from "../shopify.server";
 
 export const action = async ({ request }) => {
     try {
 
-        await authenticate.public.appProxy(request);
-
-        const session = await shopifySessionModel.findOne()
-        console.log("session ==== ", session);
-
+        const {session} = await authenticate.public.appProxy(request);
+        // const session = await shopifySessionModel.findOne()
 
         const productId = await request.json();
         // console.log("productId ====== ", productId);
@@ -18,7 +13,7 @@ export const action = async ({ request }) => {
 
         if (productId) {
 
-            const fetchProducts = await fetch(`https://${session.shop}/admin/api/2024-07/variants/${variantID}.json`, {
+            const fetchProducts = await fetch(`https://${session.shop}/admin/api/${apiVersion}/variants/${variantID}.json`, {
                 method: "GET",
                 headers: {
                     'X-Shopify-Access-Token': session.accessToken,
@@ -41,3 +36,4 @@ export const action = async ({ request }) => {
 
     }
 }
+

@@ -5,10 +5,8 @@ export const loader = async ({ request }) => {
     try {
 
         await authenticate.public.appProxy(request);
-
         const urlString = request.url
         const url = new URL(urlString);
-
         const params = new URLSearchParams(url.search);
 
         // Get the value of 'neededHarvestkWh' from the URL query string
@@ -47,35 +45,3 @@ export const loader = async ({ request }) => {
 
     }
 }
-
-
-
-
-
-
-
-
-// const fetchCollectionProducts = await fetch(`https://${session.shop}/admin/api/2024-01/collections/${collectionID}/products.json`, {
-//     method: "GET",
-//     headers: {
-//         'X-Shopify-Access-Token': session.accessToken,
-//         'Content-Type': 'application/json'
-//     }
-// });
-
-// const collectionsProducts = await fetchCollectionProducts.json()
-// const collectionproductDetails = collectionsProducts.products;
-
-
-// const productImages = {};
-// const productTitles = {};
-
-// collectionproductDetails.forEach(product => {
-//     if (product.images.length > 0) {
-//         productImages[product.id] = product.images[0];
-//     }
-//     productTitles[product.id] = product.title;
-// });
-
-
-// const collectionproductsId = collectionproductDetails.map(product => product.id);

@@ -3,16 +3,13 @@ import solarPanelCollection from "../Database/collections/solarPanelModel";
 
 export const loader = async ({ request }) => {
     try {
-
         await authenticate.public.appProxy(request);
 
         const urlString = request.url
-        // console.log("urlString ======= ", urlString);
         const url = new URL(urlString);
         const params = new URLSearchParams(url.search);
 
         let neededHarvestkWh = parseFloat(params.get('neededHarvestkWh'));
-        // console.log("neededHarvestkWh =========== ", Number(neededHarvestkWh).toFixed(2));
 
         let variantId = [];
 
@@ -31,12 +28,8 @@ export const loader = async ({ request }) => {
             harvestValue = "greaterThan20kWh";
         }
 
-
-        // console.log(`Determined harvest Range: ${harvestValue}`)
-
         const productsInRange = await solarPanelCollection.find({ harvestValue: harvestValue });
         if (productsInRange.length > 0) {
-            console.log("productsInRange 1111 ======= ", productsInRange);
             return { products: productsInRange[0].products };
         } else {
             console.log(`No products found for harvest value 111 : ${harvestValue}`);

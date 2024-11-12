@@ -1,10 +1,15 @@
+import { authenticate } from "../shopify.server";
 import airConditionerCollection from "../Database/collections/airConditionerModel";
 import solarPanelCollection from "../Database/collections/solarPanelModel";
 import chargeControllerCollection from "../Database/collections/chargeControllerModel";
 import batteryOptionsCollection from "../Database/collections/batteryOptionsModel";
 
+
 export const action = async ({ request }) => {
     try {
+
+        await authenticate.admin(request)
+
         const requestData = await request.json();
         const { data, range, collection } = requestData;
 
@@ -14,8 +19,6 @@ export const action = async ({ request }) => {
                 { $set: { products: data } },
                 { new: true, upsert: true }
             );
-
-            // console.log("updatedAirConditionerEntry ====== ", updatedAirConditionerEntry);
         }
         else if (collection === "solarPanelProducts") {
             const updatedSolarPanelEntry = await solarPanelCollection.findOneAndUpdate(
@@ -23,7 +26,6 @@ export const action = async ({ request }) => {
                 { $set: { products: data } },
                 { new: true, upsert: true }
             );
-            // console.log("updatedSolarPanelEntry ====== ", updatedSolarPanelEntry);
         }
         else if (collection === "chargeControllerProducts") {
             const updatedchargeControllerEntry = await chargeControllerCollection.findOneAndUpdate(
@@ -31,7 +33,6 @@ export const action = async ({ request }) => {
                 { $set: { products: data } },
                 { new: true, upsert: true }
             );
-            // console.log("updatedchargeControllerEntry ====== ", updatedchargeControllerEntry);
         }
         else if (collection === "selectBatteryOptions") {
             const updatedselectBatteryEntry = await batteryOptionsCollection.findOneAndUpdate(
@@ -39,7 +40,6 @@ export const action = async ({ request }) => {
                 { $set: { products: data } },
                 { new: true, upsert: true }
             );
-            // console.log("updatedselectBatteryEntry ====== ", updatedselectBatteryEntry);/
         }
         return true;
     } catch (error) {
@@ -47,3 +47,5 @@ export const action = async ({ request }) => {
         return error;
     }
 }
+
+

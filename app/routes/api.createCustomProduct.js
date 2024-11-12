@@ -1,16 +1,16 @@
-import { authenticate } from "../shopify.server";
+import { authenticate, apiVersion } from "../shopify.server";
 
 export const action = async ({ request }) => {
   try {
     const { session } = await authenticate.public.appProxy(request);
 
     const requestData = await request.json()
-    console.log("requestData ========== ", requestData);
 
     const { batterytoHVAC, paneltoBattery } = requestData
 
     let title;
     let customProductPrice = 0;
+
     if (paneltoBattery && batterytoHVAC) {
       title = `${paneltoBattery} Feet from Panels to Battery / ${batterytoHVAC} Feet from Battery to HVAC`;
       customProductPrice = (paneltoBattery * 4) + (batterytoHVAC * 6) + 33;
@@ -21,7 +21,6 @@ export const action = async ({ request }) => {
       title = `${batterytoHVAC} Feet from Battery to HVAC`;
       customProductPrice = batterytoHVAC * 6 + 33;
     }
-    console.log("customProductPrice ======== ", customProductPrice);
 
     const productData = {
       product: {
@@ -53,7 +52,7 @@ export const action = async ({ request }) => {
       }
     };
 
-    const createProducts = await fetch(`https://${session.shop}/admin/api/2024-07/products.json`, {
+    const createProducts = await fetch(`https://${session.shop}/admin/api/${apiVersion}/products.json`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
