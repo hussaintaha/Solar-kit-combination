@@ -1,10 +1,9 @@
 import { createPortal } from "react-dom";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./App.css";
 import Modal from "./component/Modal";
 
 const App = () => {
-
   const [redirectURL, setRedirectURL] = useState("")
   const [loading, setLoading] = useState(false);
   const [activecartButton, setActiveCartButton] = useState(true);
@@ -41,6 +40,8 @@ const App = () => {
     paneltoBattery: 0,
     batterytoHVAC: 0,
   });
+
+  const floatContainerRef = useRef(null);
 
   console.log(" ========== 4444444444444444444444444 =========");
   const local_base_url = 'https://steady-gt-treat-fluid.trycloudflare.com/api';
@@ -373,18 +374,11 @@ const App = () => {
 
 
   const totalPrice = (Object.values(selectedProductPrices).reduce((acc, price) => acc + price, 0) + Number(calculateCustomePrice())).toFixed(2);
-  console.log("totalPrice ====== ", totalPrice);
-
   const formattedTotalprice = Number(totalPrice);
-  console.log("formattedTotalprice == ", formattedTotalprice);
-
-
   const newPrice = (formattedTotalprice).toLocaleString('en-US', {
     style: 'currency',
     currency: 'USD',
   });
-
-  console.log("newPrice ====== ", newPrice);
 
 
   useEffect(() => {
@@ -404,19 +398,40 @@ const App = () => {
 
   // handle float container
   useEffect(() => {
+
     document.querySelector(".float-container-body").style.display = "none"
     window.onscroll = () => {
+      if (window.innerWidth > 768) {
+        document.querySelector(".banner-image").src = "https://cdn.shopify.com/s/files/1/1307/6829/files/main2_2048x2048.webp?v=1731552077"
+      }
+      else if (window.innerWidth <= 768) {
+        document.querySelector(".banner-image").src = "https://t4.ftcdn.net/jpg/09/44/77/41/240_F_944774193_IQAWR2RH0LyWLdecoxX8x2dxYDcPpQVP.jpg"
+      }
+
+
+
+
       const float_container = document.querySelector('.float-container')
       const floatContainerRect = float_container.getBoundingClientRect();
-
-      if (floatContainerRect.bottom < 0 || floatContainerRect.top > window.innerHeight) {
-        document.querySelector(".float-container-body").style.display = "flex"
+      if (floatContainerRect.bottom < 0) {
+        document.querySelector(".float-container-body").style.display = "none";
+      } else if (floatContainerRect.bottom < 0 || floatContainerRect.top > window.innerHeight) {
+        document.querySelector(".float-container-body").style.display = "flex";
       } else {
-        document.querySelector(".float-container-body").style.display = "none"
+        document.querySelector(".float-container-body").style.display = "none";
       }
     }
-  }, [])
+  }, []);
 
+
+
+  // display banner image
+  useEffect(() => {
+    const bannerImageContainer = document.querySelector('.banner-image-container');
+    if (floatContainerRef.current && bannerImageContainer) {
+      floatContainerRef.current.after(bannerImageContainer);
+    }
+  }, [])
 
   return (
     <>
@@ -956,7 +971,7 @@ const App = () => {
 
 
 
-      <div className="float-container">
+      <div ref={floatContainerRef} className="float-container">
         <div className="total-price">
           <p style={{ margin: '0px' }}> Your Total:</p>
           <span className="real-price"> {newPrice} </span>
@@ -967,7 +982,7 @@ const App = () => {
             disabled={activecartButton}
             onClick={handleAddToCart}
           >
-            {loading ? <span className="loader"></span> : 'Add To Cart'}
+            {loading ? <span className="loader"></span> : <> Add To Cart </>}
           </button>
         </div>
       </div>
