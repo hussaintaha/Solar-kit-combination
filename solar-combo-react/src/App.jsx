@@ -42,7 +42,7 @@ const App = () => {
     batterytoHVAC: 0,
   });
 
-  console.log(" ========== 222222 =========");
+  console.log(" ========== 4444444444444444444444444 =========");
   const local_base_url = 'https://steady-gt-treat-fluid.trycloudflare.com/api';
   const production_base_url = `https://${location.host}/apps/proxy/api`
 
@@ -372,8 +372,19 @@ const App = () => {
   };
 
 
-  const totalPrice = (Object.values(selectedProductPrices).reduce((acc, price) => acc + price, 0) + Number(calculateCustomePrice())).toFixed(2)
-  const formattedTotalprice = Number(totalPrice).toLocaleString();
+  const totalPrice = (Object.values(selectedProductPrices).reduce((acc, price) => acc + price, 0) + Number(calculateCustomePrice())).toFixed(2);
+  console.log("totalPrice ====== ", totalPrice);
+
+  const formattedTotalprice = Number(totalPrice);
+  console.log("formattedTotalprice == ", formattedTotalprice);
+
+
+  const newPrice = (formattedTotalprice).toLocaleString('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
+
+  console.log("newPrice ====== ", newPrice);
 
 
   useEffect(() => {
@@ -536,7 +547,7 @@ const App = () => {
             <div>
               <div className="displayBTU">
                 <span>
-                  Your recommended BTU: {recommendedBTU} BTU/h
+                  Your recommended BTU: {recommendedBTU.toLocaleString()} BTU/h
                 </span>
               </div>
             </div>
@@ -948,7 +959,7 @@ const App = () => {
       <div className="float-container">
         <div className="total-price">
           <p style={{ margin: '0px' }}> Your Total:</p>
-          <span className="price"> ${formattedTotalprice} </span>
+          <span className="real-price"> {newPrice} </span>
         </div>
         <div className="cart-button-container">
           <button
@@ -966,7 +977,7 @@ const App = () => {
           <div className="cart-btn">
             <div className="total-price">
               <p style={{ margin: '0px' }}> Your Total:</p>
-              <span className="price custom-price"> ${formattedTotalprice} </span>
+              <span className="price custom-price"> {newPrice} </span>
             </div>
             <div className="cart-button-container">
               <button

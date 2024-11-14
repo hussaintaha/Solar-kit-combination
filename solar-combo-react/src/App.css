@@ -6,13 +6,17 @@ body {
   line-height: 1.3;
 }
 
-/* #ShopifyChat {
+p {
+  color: #69727b;
+  margin: 0px;
+}
+
+#ShopifyChat {
   position: fixed !important;
-  bottom: 24px !important;
-  z-index: 2147483646 !important;
+  bottom: 19px !important;
+  z-index: 2147483647 !important;
   right: 16px !important;
-  height: 60px !important;
-} */
+}
 
 .App {
   text-align: center;
@@ -205,10 +209,10 @@ body {
 .displayBTU,
 .harvest-result,
 .recommendedWatts {
-  /* margin: 0px 0 0 25px; */
   font-size: 18px;
   font-weight: 700;
-  text-align: center;
+  text-align: left;
+  padding: 4px 37px;
 }
 
 .collection-container {
@@ -216,6 +220,10 @@ body {
   flex-direction: column;
   gap: 10px;
   margin: 0px;
+}
+
+.custome-product {
+  margin: 10px;
 }
 
 .collection-products {
@@ -293,7 +301,7 @@ input[type="number"]:focus-visible {
   display: flex;
   justify-content: start;
   gap: 20px;
-  margin: 3px 25px;
+  margin: 15px 0px 15px 10px;
   align-items: center;
 }
 
@@ -301,32 +309,15 @@ input[type="number"]:focus-visible {
   color: black;
 }
 
-
 .total-price {
   display: flex;
   align-items: center;
-  font-size: 20px;
+  font-size: 25px;
   font-weight: 700;
   color: #333;
   margin-top: 15px;
   justify-content: start;
   gap: 8px;
-}
-
-
-.total-price>p {
-  margin: 0;
-  width: 14%;
-
-}
-
-.cart-btn p {
-  color: #fff;
-
-}
-
-.price {
-  color: black;
 }
 
 .cart-button-container {
@@ -335,7 +326,7 @@ input[type="number"]:focus-visible {
 }
 
 .cartButton {
-  width: 30%;
+  width: 40%;
   padding: 12px 20px;
   background-color: #1a1a1a;
   color: #fff;
@@ -369,6 +360,7 @@ input[type="number"]:focus-visible {
   opacity: 0.5;
   background-color: black;
   width: 40%;
+  padding: 12px 20px;
 }
 
 .loader {
@@ -411,10 +403,6 @@ input[type="number"]:focus-visible {
   font-size: large;
 }
 
-p {
-  color: #69727b;
-}
-
 p:last-child {
   padding: 0px;
 }
@@ -422,7 +410,8 @@ p:last-child {
 .custom-variant-price {
   color: #000;
   font-size: x-large;
-  margin: 0px 30px;
+  font-weight: 600;
+  margin: 0px 10px;
 }
 
 .title,
@@ -435,17 +424,31 @@ p:last-child {
   padding: 10px;
 }
 
+.real-price {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+
+
+/* #ShopifyChat {
+  bottom: 70px!important;
+} */
+
+
+
+/* ====================================================== Float Conatiner CSS ======================================================  */
+
 .float-container-body {
   display: none;
   position: sticky;
-  bottom: 0;
-  justify-content: space-between;
+  bottom: 21px;
+  justify-content: flex-start;
   align-items: center;
-  /* margin: auto; */
   text-align: center;
-  /* background-color: #000; */
   width: 100%;
-  /* max-width: 100%; */
   border-radius: 5px 5px 0 0;
 }
 
@@ -453,42 +456,15 @@ p:last-child {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: .5rem 1rem;
-  /* gap: 20px; */
-  width: 83.33333%;
+  padding: .7rem 1.5rem;
   background-color: #000;
-  margin: 0 auto;
+  gap: 10rem;
+  border-radius: 20px;
 }
-
-.custom-cart_btn .cart-button-container {
-  text-align: right;
-  margin: 0;
-}
-
-.cart-btn .total-price {
-  display: flex;
-  align-items: center;
-  font-size: 25px;
-  font-weight: 700;
-  justify-content: flex-end;
-  gap: 4px;
-  margin: 0px;
-}
-
-/* #ShopifyChat {
-  bottom: 70px!important;
-} */
 
 .custom-cart_btn p {
   color: #fffcfc !important;
   width: 100%;
-}
-
-.custom-cart_btn .cartButton {
-  width: max-content;
-  border: 2px solid #fff;
-  opacity: 1 !important;
-  color: #fff;
 }
 
 .custom-price {
@@ -496,6 +472,43 @@ p:last-child {
   width: fit-content !important;
 }
 
+.cart-btn .total-price {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 700;
+  justify-content: flex-end;
+  gap: 4px;
+  margin: 0;
+}
+
+.cart-btn p {
+  color: #fff;
+}
+
+.custom-cart_btn .cart-button-container {
+  text-align: right;
+  margin: 0;
+}
+
+.custom-cart_btn .cartButton {
+  width: max-content;
+  border: 2px solid #fff;
+  opacity: 1 !important;
+  color: #fff;
+  font-size: 18px;
+  padding: 5px 15px;
+}
+
+.custom-cart_btn .cartButton:disabled {
+  width: max-content;
+  border: 2px solid #fff;
+  color: #fff;
+  font-size: 18px;
+  padding: 5px 15px;
+  cursor: not-allowed;
+  opacity: .5 !important;
+}
 
 
 /* ========================================================================== */
@@ -536,13 +549,13 @@ p:last-child {
   .total-price {
     display: flex;
     align-items: center;
-    font-size: 18px;
+    font-size: 25px;
     font-weight: 700;
     color: #333;
     margin-top: 15px;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     gap: 5px;
-  }
+}
 
   .total-price>p {
     margin: 0;
@@ -556,8 +569,49 @@ p:last-child {
 
 @media screen and (max-width: 1024px) {
 
+  .total-price {
+    display: flex;
+    align-items: center;
+    font-size: 25px;
+    font-weight: 700;
+    color: #333;
+    margin-top: 15px;
+    justify-content: flex-start;
+    gap: 5px;
+  }
+
   .total-price>p {
     margin: 0;
+  }
+
+  .cart-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .7rem 1.5rem;
+    background-color: #000;
+    gap: 10rem;
+    border-radius: 20px;
+  }
+
+  .custome-product {
+    margin: 15px 0px 0px 0px;
+  }
+
+  .pannel-battery-distance,
+  .battery-HVAC-distance {
+    display: flex;
+    justify-content: start;
+    gap: 20px;
+    margin: 6px 0px 15px 22px;
+    align-items: center;
+  }
+
+  .custom-variant-price {
+    color: #000;
+    font-size: x-large;
+    font-weight: 600;
+    margin: 0px 0px 0px 20px;
   }
 
 }
@@ -585,12 +639,6 @@ p:last-child {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-  }
-}
-
-@media screen and (min-width: 750px) and (max-width: 768px) {
-  .cart-btn {
-    width: 83.33% !important;
   }
 }
 
@@ -629,6 +677,15 @@ p:last-child {
     align-items: center;
     gap: 10px;
     margin: 20px 10px;
+  }
+
+  .displayBTU,
+  .harvest-result,
+  .recommendedWatts {
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    /* padding: 4px 37px; */
   }
 
   .totalvolumeValue {
@@ -672,11 +729,11 @@ p:last-child {
   .total-price {
     display: flex;
     align-items: center;
-    font-size: 18px;
+    font-size: 22px;
     font-weight: 700;
     color: #333;
     margin-top: 15px;
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   .total-price>p {
@@ -684,21 +741,11 @@ p:last-child {
     width: auto;
   }
 
-  .cart-btn p,
-  .custom-price {
-    font-size: 20px !important;
-  }
-
-  .cart-btn .price {
-    color: #fff !important;
-  }
-
   .price {
     display: -webkit-box;
     font-size: 25px;
     color: #000;
     margin-left: 10px;
-    width: auto;
   }
 
   .cart-button-container {
@@ -729,16 +776,94 @@ p:last-child {
     /* width: 50%; */
   }
 
-  .custom-cart_btn p {
-    width: max-content;
+  .cart-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .7rem 1.5rem;
+    background-color: #000;
+    gap: 5rem;
+  }
+
+  .cart-btn p,
+  .custom-price {
+    font-size: 20px !important;
+    color: #fff !important;
+  }
+
+  .custome-product {
+    margin: 15px 0px 0px 30px;
+  }
+
+  .pannel-battery-distance,
+  .battery-HVAC-distance {
+    display: flex;
+    justify-content: start;
+    gap: 20px;
+    margin: 0px 0px 15px 0px;
+    align-items: center;
+  }
+
+  .custom-variant-price {
+    color: #000;
+    font-size: x-large;
+    font-weight: 600;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 550px) {
+
+  .float-container-body {
+    display: none;
+    position: sticky;
+    bottom: 21px;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    border-radius: 5px 5px 0 0;
   }
 
   .cart-btn {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    padding: .5rem;
-    width: 100%;
-    /* gap: 70px; */
+    padding: 10px 1rem;
+    background-color: #000;
+    gap: 1.5rem;
+  }
+
+  .cart-btn .total-price {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 0 0 0 0%;
+    flex-direction: row !important;
+  }
+
+  .custom-cart_btn .cartButton:disabled {
+    border: 2px solid #fff;
+    opacity: .5 !important;
+    color: #fff;
+    font-size: 11px;
+    padding: 13px 10px;
+    cursor: not-allowed;
+  }
+
+  .custom-cart_btn .cartButton {
+    border: 2px solid #fff;
+    opacity: 1 !important;
+    color: #fff;
+    font-size: 11px;
+    padding: 13px 10px;
+  }
+
+  .cart-btn p,
+  .custom-price {
+    color: #fff !important;
+    font-size: 16px !important;
+    margin: 0px;
   }
 }
 
@@ -747,25 +872,45 @@ p:last-child {
     font-size: 12px !important;
   }
 
+  .cart-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 1rem;
+    background-color: #000;
+    gap: 1.5rem;
+  }
+
   .cart-btn p,
   .custom-price {
-    font-size: 22px !important;
+    font-size: 15px !important;
     color: #fff;
+    margin: 0px !important;
   }
 
   .cart-btn .total-price {
     display: flex;
-    /* width: 100%; */
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between;
+    align-items: flex-start;
     margin: 0 0 0 0%;
-    flex-direction: column;
-
+    flex-direction: row !important;
   }
 
-  .custom-cart_btn .cart-button-container {
-    text-align: center;
-    padding-right: 0;
+  .custom-cart_btn .cartButton {
+    border: 2px solid #fff;
+    opacity: 1 !important;
+    color: #fff;
+    font-size: 11px;
+    padding: 13px 10px;
+  }
+
+  .custom-cart_btn .cartButton:disabled {
+    border: 2px solid #fff;
+    opacity: 0.5 !important;
+    color: #fff;
+    font-size: 11px;
+    padding: 13px 10px;
+    cursor: not-allowed;
   }
 
   .ques-1-container,
@@ -794,14 +939,18 @@ p:last-child {
     border-radius: 5px;
   }
 
+  .displayBTU,
+  .harvest-result,
   .recommendedWatts {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
-    width: 97%;
+    text-align: center;
+    /* padding: 4px 37px; */
   }
 
+
   .cartButton {
-    width: 60%;
+    width: 70%;
     padding: 10px;
     background-color: #1a1a1a;
     color: #fff;
@@ -819,24 +968,24 @@ p:last-child {
 
   .cartButton:disabled {
     cursor: not-allowed;
-    opacity: 0.5;
+    opacity: .5;
     background-color: #000;
-  }
-
-  .price {
-    font-size: 1.6rem;
-    color: rgb(var(--color-foreground));
-    margin: 0px 34%;
-    text-align: center;
+    width: 70%;
   }
 
   .total-price {
-    flex-direction: column !important;
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 700;
+    color: #333;
+    margin-top: 15px;
+    justify-content: flex-start;
+    flex-direction: row !important;
   }
 
   .total-price>p {
     margin: 0;
-    width: 100%;
     text-align: center;
   }
 
@@ -853,44 +1002,47 @@ p:last-child {
     margin: 0px;
   }
 
-  .custom-cart-button {
-    width: max-content;
-    font-size: 22px;
+  .pannel-battery-distance,
+  .battery-HVAC-distance {
+    display: flex;
+    justify-content: start;
+    gap: 20px;
+    margin: 10px 20px;
+    align-items: center;
   }
 
-  .custom-cart-button:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-    background-color: #000;
-    width: max-content;
-    font-size: 22px;
+  .custome-product {
+    margin: 0px !important;
   }
+
+  .custom-variant-price {
+    color: #000;
+    font-size: large;
+    font-weight: 600;
+    margin: 20px 0 0 20px;
+  }
+
+}
+
+@media screen and (max-width: 375px) {
 
   .cart-btn {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    padding: .5rem;
-    width: 100%;
-    flex-direction: column;
-    gap: 5px;
+    padding: 10px 10px;
+    background-color: #000;
+    gap: 16px;
   }
 
   .cart-btn .total-price {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 115px 5px 0;
-    flex-direction: column;
+    margin: 0 0 0 0%;
+    flex-direction: column !important;
   }
 
-  .custom-cart_btn .cart-button-container {
-    text-align: center;
-    padding-right: 0;
-    margin: 0px 115px 0px 0px;
-  }
-}
-
-@media screen and (max-width: 375px) {
 
   .ques-1 h1,
   .ques-2 h1,
@@ -914,10 +1066,6 @@ p:last-child {
     color: #555;
     margin: 0px 0px;
     font-size: 13px;
-  }
-
-  input[type="number"] {
-    width: 100%;
   }
 
   .ques-1-answer {
@@ -1008,63 +1156,67 @@ p:last-child {
     width: 100%;
   }
 
+  .custome-product {
+    margin: 15px 0px 0px 0px !important;
+  }
+
+  .pannel-battery-distance,
+  .battery-HVAC-distance {
+    display: flex;
+    justify-content: start;
+    gap: 20px;
+    margin: 10px 0px 10px 0px;
+    align-items: center;
+  }
+
   .custom-variant-price {
     color: #000;
     font-size: large;
     font-weight: 600;
-  }
-
-  .price {
-    font-size: 1.6rem;
-    letter-spacing: 0.1rem;
-    line-height: calc(1 + 0.5 / var(--font-body-scale));
-    color: rgb(var(--color-foreground));
-  }
-
-  .cart-btn p,
-  .custom-price {
-    font-size: 18px !important;
-    color: #fff;
-  }
-
-  .custom-cart-button {
-    width: max-content;
-    font-size: 18px;
-  }
-
-  .custom-cart-button:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-    background-color: #000;
-    width: max-content;
-    font-size: 18px;
+    margin: 0px;
   }
 
   .cart-btn {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    padding: .5rem;
-    width: 100%;
-    flex-direction: column;
-    gap: 5px;
+    padding: 10px 1rem;
+    background-color: #000;
+    gap: 1.5rem;
+  }
+
+  .total-price {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 700;
+    color: #333;
+    margin-top: 15px;
+    justify-content: flex-start;
+    flex-direction: row !important;
+  }
+
+}
+
+@media screen and (max-width: 320px) {
+
+  .cart-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 10px;
+    background-color: #000;
+    gap: 16px;
   }
 
   .cart-btn .total-price {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 115px 5px 0;
-    flex-direction: column;
+    margin: 0 0 0 0%;
+    flex-direction: column !important;
   }
 
-  .custom-cart_btn .cart-button-container {
-    text-align: center;
-    padding-right: 0;
-    margin: 0px 115px 0px 0px;
-  }
-}
-
-@media screen and (max-width: 320px) {
 
   .chat-ui {
     height: 330px;
@@ -1164,9 +1316,11 @@ p:last-child {
   .displayBTU,
   .harvest-result,
   .recommendedWatts {
-    /* margin: 0 0 0 25px; */
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
   }
 
   .build-kit-message>p {
@@ -1190,21 +1344,17 @@ p:last-child {
     transition: background-color 0.3s ease;
   }
 
+  .custome-product {
+    margin: 15px 0px 0px 0px !important;
+  }
+
   .pannel-battery-distance,
   .battery-HVAC-distance {
     display: flex;
     align-items: center;
     justify-content: flex-start;
     gap: 10px;
-    margin: 0 0px;
-  }
-
-  .price {
-    font-size: 1.3rem;
-    letter-spacing: 0.1rem;
-    line-height: calc(1 + 0.5 / var(--font-body-scale));
-    color: rgb(var(--color-foreground));
-    margin: 0px 0px 0px 0px;
+    margin: 0px 0px 15px 0px !important;
   }
 
   .cartButton {
@@ -1231,50 +1381,6 @@ p:last-child {
     width: 70%;
   }
 
-  .cart-btn p,
-  .custom-price {
-    font-size: 18px !important;
-    color: #fff;
-  }
-
-  .custom-cart-button {
-    cursor: not-allowed;
-    opacity: 0.5;
-    background-color: #000;
-    width: max-content;
-    font-size: 18px !important;
-  }
-
-  .custom-cart-button:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-    background-color: #000;
-    width: max-content;
-    font-size: 18px !important;
-  }
-
-  .cart-btn {
-    display: flex;
-    align-items: center;
-    padding: .5rem;
-    width: 100%;
-    flex-direction: column;
-    gap: 5px;
-  }
-
-  .cart-btn .total-price {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 115px 5px 0;
-    flex-direction: column;
-  }
-
-  .custom-cart_btn .cart-button-container {
-    text-align: center;
-    padding-right: 0;
-    margin: 0px 115px 0px 0px;
-  }
 }
 
 @media screen and (max-width: 250px) {
