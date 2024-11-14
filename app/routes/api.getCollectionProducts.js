@@ -4,7 +4,7 @@ import airConditionerCollection from "../Database/collections/airConditionerMode
 export const loader = async ({ request }) => {
     try {
 
-        await authenticate.public.appProxy(request);
+        // await authenticate.public.appProxy(request);
 
         const url = new URL(request.url);
 

@@ -3,7 +3,7 @@
 client_id = "f06f43a1013bd4e8895a4a15f6820596"
 name = "solar-combination"
 handle = "solar-combination"
-application_url = "https://steady-gt-treat-fluid.trycloudflare.com"
+application_url = "https://apollo-hb-grab-fr.trycloudflare.com"
 embedded = true
 
 [build]
@@ -19,14 +19,20 @@ scopes = "read_inventory,read_orders,read_products,write_orders,write_products"
 redirect_urls = [
   "https://steady-gt-treat-fluid.trycloudflare.com/auth/callback",
   "https://steady-gt-treat-fluid.trycloudflare.com/auth/shopify/callback",
-  "https://steady-gt-treat-fluid.trycloudflare.com/api/auth/callback"
+  "https://steady-gt-treat-fluid.trycloudflare.com/api/auth/callback",
+  "https://tank-cached-ec-stockings.trycloudflare.com/auth/callback",
+  "https://tank-cached-ec-stockings.trycloudflare.com/auth/shopify/callback",
+  "https://tank-cached-ec-stockings.trycloudflare.com/api/auth/callback",
+  "https://apollo-hb-grab-fr.trycloudflare.com/auth/callback",
+  "https://apollo-hb-grab-fr.trycloudflare.com/auth/shopify/callback",
+  "https://apollo-hb-grab-fr.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
 api_version = "2024-07"
 
 [app_proxy]
-url = "https://steady-gt-treat-fluid.trycloudflare.com"
+url = "https://apollo-hb-grab-fr.trycloudflare.com"
 subpath = "proxy"
 prefix = "apps"
 
