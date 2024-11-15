@@ -9,8 +9,10 @@ body {
 .banner-image-container {
   position: relative;
   left: 50%;
-  margin-left: -45vw;
-  padding: 40px 0px 10px 0px;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  width: 100vw;
 }
 
 p {
@@ -522,33 +524,7 @@ p:last-child {
 
 /* Default desktop styles (already in your code) */
 
-@media screen and (min-width: 1201px) and (max-width: 1440px) {
-  .banner-image-container {
-    position: relative;
-    left: 23%;
-    margin-left: -30vw;
-    padding: 40px 0 10px;
-  }
-}
-
-/* Medium desktop screens (1025px to 1200px) */
-@media screen and (min-width: 1025px) and (max-width: 1200px) {
-  .banner-image-container {
-    position: relative;
-    left: 10%;
-    margin-left: -15vw;
-    padding: 40px 0 10px;
-  }
-}
-
 @media screen and (max-width: 1024px) {
-
-  .banner-image-container {
-    position: relative;
-    left: 10%;
-    margin-left: -15vw;
-    padding: 40px 0 10px;
-  }
 
   .total-price {
     display: flex;

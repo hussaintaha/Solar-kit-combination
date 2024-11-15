@@ -1,4 +1,4 @@
-import { authenticate, apiVersion } from "../shopify.server";
+import { apiVersion } from "../shopify.server";
 import shopifySessionModel from "../Database/session";
 export const action = async ({ request }) => {
     try {

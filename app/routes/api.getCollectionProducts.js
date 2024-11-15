@@ -1,4 +1,4 @@
-import { authenticate } from "../shopify.server";
+// import { authenticate } from "../shopify.server";
 import airConditionerCollection from "../Database/collections/airConditionerModel";
 
 export const loader = async ({ request }) => {
