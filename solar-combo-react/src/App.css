@@ -272,6 +272,13 @@ p {
   height: auto;
 }
 
+.img-not-available {
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .product-price>h1 {
   font-size: large;
   color: black;

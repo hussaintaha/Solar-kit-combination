@@ -441,7 +441,6 @@ const App = () => {
       </div>
 
       <div className="question-container">
-
         <div className="ques-1-container">
           <div className="ques-1">
             <h1>1. How big is the space you are heating / cooling?</h1>
@@ -513,7 +512,6 @@ const App = () => {
           </div>
         </div>
 
-
         <div className="ques-2-container">
           <div className="ques-2">
             <h1>2. How well is it insulated?</h1>
@@ -567,7 +565,6 @@ const App = () => {
           </div>
         </div>
 
-
         <div className="ques-3-container">
           <div className="ques-3">
             <h1>3. Select Air Conditioner</h1>
@@ -615,7 +612,7 @@ const App = () => {
                           alt="Product"
                         />
                       ) : (
-                        <p>No image available</p>
+                        <p className="img-not-available">No image available</p>
                       )}
                     </div>
                     <div className="product-price">
@@ -634,7 +631,6 @@ const App = () => {
             </div>
           </div>
         </div>
-
 
         <div className="ques-4-container">
           <div className="ques-4">
@@ -692,7 +688,6 @@ const App = () => {
           </div>
         </div>
 
-
         <div className="ques-5-container">
           <div className="ques-5">
             <h1>5. How many solar panels are needed for this?</h1>
@@ -745,7 +740,7 @@ const App = () => {
                           alt="Product"
                         />
                       ) : (
-                        <p>No image available</p>
+                        <p className="img-not-available">No image available</p>
                       )}
                     </div>
                     <div className="product-price">
@@ -766,7 +761,6 @@ const App = () => {
             </div>
           </div>
         </div>
-
 
         <div className="ques-6-container ">
           <div className="ques-6">
@@ -822,7 +816,7 @@ const App = () => {
                           alt="Product"
                         />
                       ) : (
-                        <p>No image available</p>
+                        <p className="img-not-available">No image available</p>
                       )}
                     </div>
                     <div className="product-price"> <h1> ${ele.price} </h1> </div>
@@ -836,7 +830,6 @@ const App = () => {
             </div>
           </div>
         </div>
-
 
         <div className="ques-7-container ">
           <div className="ques-7">
@@ -895,7 +888,7 @@ const App = () => {
                           alt="Product"
                         />
                       ) : (
-                        <p>No image available</p>
+                        <p className="img-not-available">No image available</p>
                       )}
                     </div>
                     <div className="product-price"> <h1> ${ele.price} </h1> </div>
@@ -909,7 +902,6 @@ const App = () => {
             </div>
           </div>
         </div>
-
 
         <div className="ques-8-container">
           <div className="ques-8">
@@ -964,10 +956,7 @@ const App = () => {
             </div>
           </div>
         </div>
-
       </div>
-
-
 
       <div ref={floatContainerRef} className="float-container">
         <div className="total-price">
