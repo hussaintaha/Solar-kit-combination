@@ -1,10 +1,10 @@
-import { apiVersion } from "../shopify.server";
-import shopifySessionModel from "../Database/session";
+import {authenticate, apiVersion } from "../shopify.server";
+// import shopifySessionModel from "../Database/session";
 export const action = async ({ request }) => {
     try {
 
-        // const {session} = await authenticate.public.appProxy(request);
-        const session = await shopifySessionModel.findOne()
+        const {session} = await authenticate.public.appProxy(request);
+        // const session = await shopifySessionModel.findOne()
 
         const productId = await request.json();
         // console.log("productId ====== ", productId);

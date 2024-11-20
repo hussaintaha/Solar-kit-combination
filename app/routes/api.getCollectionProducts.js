@@ -1,11 +1,9 @@
-// import { authenticate } from "../shopify.server";
+import { authenticate } from "../shopify.server";
 import airConditionerCollection from "../Database/collections/airConditionerModel";
 
 export const loader = async ({ request }) => {
     try {
-
-        // await authenticate.public.appProxy(request);
-
+        await authenticate.public.appProxy(request);
         const url = new URL(request.url);
 
         const params = new URLSearchParams(url.search);
