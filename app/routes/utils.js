@@ -1,8 +1,7 @@
-import { apiVersion } from "../shopify.server";
 
 export const shopifyGraphql = async (session, query) => {
     try {
-        const response = await fetch(`https://${session.shop}/admin/api/${apiVersion}/graphql.json`, {
+        const response = await fetch(`https://${session.shop}/admin/api/2024-10/graphql.json`, {
             method: "POST",
             headers: {
                 'X-Shopify-Access-Token': session.accessToken,
