@@ -1,6 +1,5 @@
 import { request } from "http";
 import shopifySessionModel from "../Database/session";
-import { apiVersion } from "../shopify.server";
 import { shopifyGraphql } from "./utils";
 
 
