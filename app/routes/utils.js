@@ -14,11 +14,9 @@ export const shopifyGraphql = async (session, query) => {
             const reponseJson = await response.json()
             console.log("reponseJson ==== ", reponseJson);
             return reponseJson
+        } else {
+            return false
         }
-
-
-        return true
-
     } catch (error) {
         console.log("error in shopifyGraphql:", error);
         return error
