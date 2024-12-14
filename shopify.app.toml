@@ -1,7 +1,7 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "f06f43a1013bd4e8895a4a15f6820596"
-application_url = "https://papers-builder-award-a.trycloudflare.com"
+application_url = "https://app.fullbattery.com"
 embedded = true
 name = "solar-combination"
 handle = "solar-combination"
@@ -15,13 +15,13 @@ scopes = "read_inventory,read_orders,read_products,write_orders,write_products"
 
 [auth]
 redirect_urls = [
-  "https://papers-builder-award-a.trycloudflare.com/auth/callback",
-  "https://papers-builder-award-a.trycloudflare.com/auth/shopify/callback",
-  "https://papers-builder-award-a.trycloudflare.com/api/auth/callback"
+  "https://app.fullbattery.com/auth/callback",
+  "https://app.fullbattery.com/auth/shopify/callback",
+  "https://app.fullbattery.com/api/auth/callback"
 ]
 
 [app_proxy]
-url = "https://papers-builder-award-a.trycloudflare.com"
+url = "https://app.fullbattery.com"
 subpath = "proxy"
 prefix = "apps"
 
@@ -31,3 +31,4 @@ embedded = false
 [build]
 dev_store_url = "quickstart-629da44c.myshopify.com"
 automatically_update_urls_on_dev = true
+include_config_on_deploy = true

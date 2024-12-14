@@ -438,6 +438,7 @@ p:last-child {
 .float-container {
   background-color: #fff;
   padding: 10px;
+  margin-bottom: 30px;
 }
 
 .real-price {
@@ -1516,4 +1517,11 @@ p:last-child {
     width: max-content;
     font-size: 15px !important;
   }
+}
+
+
+.page-width--narrow {
+  max-width: 100% !important;
+  padding: 0 !important;
+  text-align: center !important;
 }

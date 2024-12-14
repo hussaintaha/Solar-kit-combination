@@ -43,7 +43,7 @@ const App = () => {
 
   const floatContainerRef = useRef(null);
 
-  console.log(" ========== 2222222222222222222222222222222222222 =========");
+  console.log(" ========== 888888888888 =========");
   const local_base_url = 'https://steady-gt-treat-fluid.trycloudflare.com/api';
   const production_base_url = `https://${location.host}/apps/proxy/api`
 
@@ -399,21 +399,26 @@ const App = () => {
   // handle float container
   useEffect(() => {
 
-    // const updateBannerImage = () => {
-    //   const bannerImage = document.querySelector(".banner-image");
-    //   if (bannerImage) {
-    //     if (window.innerWidth <= 480) {
-    //       bannerImage.src = "https://www.shutterstock.com/image-vector/colorful-abstract-banner-template-dummy-260nw-1538379314.jpg";
-    //     } else if (window.innerWidth <= 1024) {
-    //       bannerImage.src = "https://t4.ftcdn.net/jpg/09/44/77/41/240_F_944774193_IQAWR2RH0LyWLdecoxX8x2dxYDcPpQVP.jpg";
-    //     } else {
-    //       bannerImage.src = "https://cdn.shopify.com/s/files/1/1307/6829/files/main2_2048x2048.webp?v=1731552077";
-    //     }
-    //   }
-    // };
+    const rteDiv = document.querySelector(".rte");
+    if (rteDiv && floatContainerRef.current) {
+      floatContainerRef.current.after(rteDiv);
+    }
 
-    // updateBannerImage();
-    // window.addEventListener("resize", updateBannerImage);
+    const updateBannerImage = () => {
+      const bannerImage = document.querySelector(".banner-image");
+      if (bannerImage) {
+        if (window.innerWidth <= 480) {
+          bannerImage.src = "https://www.shutterstock.com/image-vector/colorful-abstract-banner-template-dummy-260nw-1538379314.jpg";
+        } else if (window.innerWidth <= 1024) {
+          bannerImage.src = "https://t4.ftcdn.net/jpg/09/44/77/41/240_F_944774193_IQAWR2RH0LyWLdecoxX8x2dxYDcPpQVP.jpg";
+        } else {
+          bannerImage.src = "https://cdn.shopify.com/s/files/1/1307/6829/files/main2_2048x2048.webp?v=1731552077";
+        }
+      }
+    };
+
+    updateBannerImage();
+    window.addEventListener("resize", updateBannerImage);
 
 
     document.querySelector(".float-container-body").style.display = "none";
@@ -439,6 +444,20 @@ const App = () => {
           <p>This is a warning message!</p>
         </Modal>
       </div>
+
+
+      <div class="banner-image-container">
+        <img
+          class="banner-image"
+          width="100%"
+          height="auto"
+          alt=""
+          data-mce-fragment="1"
+          data-mce-style="float: none;"
+          data-mce-src="https://cdn.shopify.com/s/files/1/1307/6829/files/main-med.webp?v=1733014704"
+        />
+      </div>
+
 
       <div className="question-container">
         <div className="ques-1-container">
@@ -978,8 +997,8 @@ const App = () => {
         <div className="float-container-body custom-cart_btn page-width">
           <div className="cart-btn">
             <div className="total-price">
-              <p style={{ margin: '0px' }}> Your Total:</p>
-              <span className="price custom-price"> {newPrice} </span>
+              <p style={{ margin: '0px',  }}> Your Total:</p>
+              <span className="custom-price"> {newPrice} </span>
             </div>
             <div className="cart-button-container">
               <button

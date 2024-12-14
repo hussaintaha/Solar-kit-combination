@@ -6,8 +6,8 @@ export default defineConfig({
   plugins: [react()],
   build: {
     watch: {},
-    // outDir: '../extensions/solar-combo-extension/assets/',  // Dist
-    outDir: '../public/',     // Dev
+    outDir: '../extensions/solar-combo-extension/assets/',  // Dist
+    // outDir: '../public/',     // Dev
     rollupOptions: {
       input: '/src/main.jsx',
       output: {
