@@ -43,7 +43,7 @@ const App = () => {
 
   const floatContainerRef = useRef(null);
 
-  console.log(" ========== 888888888888 =========");
+  console.log(" ========== 333333333333333333 =========");
   const local_base_url = 'https://steady-gt-treat-fluid.trycloudflare.com/api';
   const production_base_url = `https://${location.host}/apps/proxy/api`
 
@@ -475,6 +475,7 @@ const App = () => {
                   <input
                     type="number"
                     name="length"
+                    inputMode="numeric"
                     value={spaceAndVolume.length}
                     onChange={handleQuestions1_options}
                   />
@@ -488,6 +489,7 @@ const App = () => {
                   <input
                     type="number"
                     name="width"
+                    inputMode="numeric"
                     value={spaceAndVolume.width}
                     onChange={handleQuestions1_options}
                   />
@@ -501,6 +503,7 @@ const App = () => {
                   <input
                     type="number"
                     name="height"
+                    inputMode="numeric"
                     value={spaceAndVolume.height}
                     onChange={handleQuestions1_options}
                   />
@@ -942,6 +945,7 @@ const App = () => {
                 <div className="distance-answer">
                   <input
                     type="number"
+                    inputMode="numeric"
                     value={customProductDistance.paneltoBattery === 0 ? "" : customProductDistance.paneltoBattery}
                     name="paneltoBattery"
                     onChange={handleDistanceValue}
@@ -959,6 +963,7 @@ const App = () => {
                 <div className="distance-answer">
                   <input
                     type="number"
+                    inputMode="numeric"
                     value={customProductDistance.batterytoHVAC === 0 ? "" : customProductDistance.batterytoHVAC}
                     name="batterytoHVAC"
                     onChange={handleDistanceValue}
@@ -997,7 +1002,7 @@ const App = () => {
         <div className="float-container-body custom-cart_btn page-width">
           <div className="cart-btn">
             <div className="total-price">
-              <p style={{ margin: '0px',  }}> Your Total:</p>
+              <p style={{ margin: '0px', }}> Your Total:</p>
               <span className="custom-price"> {newPrice} </span>
             </div>
             <div className="cart-button-container">

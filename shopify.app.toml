@@ -6,6 +6,11 @@ embedded = true
 name = "solar-combination"
 handle = "solar-combination"
 
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "quickstart-629da44c.myshopify.com"
+include_config_on_deploy = true
+
 [webhooks]
 api_version = "2024-07"
 
@@ -27,8 +32,3 @@ prefix = "apps"
 
 [pos]
 embedded = false
-
-[build]
-dev_store_url = "quickstart-629da44c.myshopify.com"
-automatically_update_urls_on_dev = true
-include_config_on_deploy = true
