@@ -43,7 +43,7 @@ const App = () => {
 
   const floatContainerRef = useRef(null);
 
-  console.log(" ========== 333333333333333333 =========");
+  console.log(" ========== 33333333333333333 =========");
   const local_base_url = 'https://steady-gt-treat-fluid.trycloudflare.com/api';
   const production_base_url = `https://${location.host}/apps/proxy/api`
 
@@ -516,16 +516,16 @@ const App = () => {
               {spaceAndVolume.totalVolume > 0 && (
                 <div className="totalvolumeValue">
                   <div className="cubic-feet">
-                    <span>Total Volume:</span>
+                    <span>Total Volume: </span>
                     <span className="total-areaVolume-value">
-                      {spaceAndVolume.totalVolume.toLocaleString()} cubic feet
+                      {spaceAndVolume.totalVolume.toLocaleString()} <span className="areaVolume-unit"> cubic feet </span>
                     </span>
                   </div>
 
                   <div className="square-feet">
                     <span> Total Area: </span>
                     <span className="total-areaVolume-value">
-                      {squareFoot.toLocaleString()} square feet
+                      {squareFoot.toLocaleString()} <span className="areaVolume-unit"> square feet </span>
                     </span>
                   </div>
                 </div>
