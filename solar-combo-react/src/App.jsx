@@ -412,7 +412,7 @@ const App = () => {
         } else if (window.innerWidth <= 1024) {
           bannerImage.src = "https://t4.ftcdn.net/jpg/09/44/77/41/240_F_944774193_IQAWR2RH0LyWLdecoxX8x2dxYDcPpQVP.jpg";
         } else {
-          bannerImage.src = "https://cdn.shopify.com/s/files/1/1307/6829/files/main2_2048x2048.webp?v=1731552077";
+          bannerImage.src = "https://app.fullbattery.com/background-images/large-screen-bg-img.webp";
         }
       }
     };
