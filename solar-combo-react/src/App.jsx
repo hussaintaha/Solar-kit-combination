@@ -43,7 +43,7 @@ const App = () => {
 
   const floatContainerRef = useRef(null);
 
-  console.log(" ========== 555555555555555555555555555555555555555 =========");
+  console.log(" ========== 6666 =========");
   const local_base_url = 'https://steady-gt-treat-fluid.trycloudflare.com/api';
   const production_base_url = `https://${location.host}/apps/proxy/api`
 
@@ -408,9 +408,9 @@ const App = () => {
       const bannerImage = document.querySelector(".banner-image");
       if (bannerImage) {
         if (window.innerWidth <= 480) {
-          bannerImage.src = "https://www.shutterstock.com/image-vector/colorful-abstract-banner-template-dummy-260nw-1538379314.jpg";
+          bannerImage.src = "https://app.fullbattery.com/background-images/small-screen-bg-img.webp";
         } else if (window.innerWidth <= 1024) {
-          bannerImage.src = "https://t4.ftcdn.net/jpg/09/44/77/41/240_F_944774193_IQAWR2RH0LyWLdecoxX8x2dxYDcPpQVP.jpg";
+          bannerImage.src = "https://app.fullbattery.com/background-images/medium-screen-bg-img.jpg";
         } else {
           bannerImage.src = "https://app.fullbattery.com/background-images/large-screen-bg-img.webp";
         }
