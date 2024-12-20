@@ -461,7 +461,7 @@ p:last-child {
 .float-container-body {
   display: none;
   position: sticky;
-  bottom: 21px;
+  bottom: 25px;
   justify-content: flex-start;
   align-items: center;
   text-align: center;
@@ -477,6 +477,7 @@ p:last-child {
   background-color: #000;
   gap: 10rem;
   border-radius: 20px;
+  margin-left: -70px;
 }
 
 .custom-cart_btn p {
