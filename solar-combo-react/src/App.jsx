@@ -52,7 +52,7 @@ const App = () => {
     {
       label: "Not Insulated",
       value: 3.0,
-      src: "https://app.fullbattery.com/insulation-images/not-insulated-image.webp",
+      src: "https://app.fullbattery.com/insulation-images/not-insulated-image.jpg",
       desc: "A bare metal shed, RV, boat, a fabric tent, or plastic cover. The basics.",
     },
     {
