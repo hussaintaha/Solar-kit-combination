@@ -1,7 +1,7 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "a09c06b8d74e31fbcfe0ea426414e7e4"
-application_url = "https://outdoor-polished-peer-memorial.trycloudflare.com"
+application_url = "https://theme-arctic-counsel-bruce.trycloudflare.com"
 embedded = true
 name = "solar-combination-local"
 handle = "solar-combination-local"
@@ -15,9 +15,9 @@ scopes = "read_inventory,read_orders,read_products,write_orders,write_products"
 
 [auth]
 redirect_urls = [
-  "https://outdoor-polished-peer-memorial.trycloudflare.com/auth/callback",
-  "https://outdoor-polished-peer-memorial.trycloudflare.com/auth/shopify/callback",
-  "https://outdoor-polished-peer-memorial.trycloudflare.com/api/auth/callback"
+  "https://theme-arctic-counsel-bruce.trycloudflare.com/auth/callback",
+  "https://theme-arctic-counsel-bruce.trycloudflare.com/auth/shopify/callback",
+  "https://theme-arctic-counsel-bruce.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]
