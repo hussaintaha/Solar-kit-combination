@@ -1,5 +1,6 @@
 import { authenticate } from "../shopify.server";
 import shopifySessionModel from "../Database/session";
+import { updateProductVariant } from "./updateProductVariant";
 
 export const action = async ({ request }) => {
   const { topic, shop, session, admin, payload } = await authenticate.webhook(request);
@@ -71,6 +72,15 @@ export const action = async ({ request }) => {
       } catch (error) {
         console.log("error in delete product ======== ", error);
         return error
+      }
+    }
+
+    case "PRODUCTS_UPDATE": {
+      console.log("PRODUCTS_UPDATE Payload");
+      if (payload.variants.length > 0) {
+        const response = await updateProductVariant(session, payload.variants);
+        console.log("response ==== ", response);
+
       }
     }
 

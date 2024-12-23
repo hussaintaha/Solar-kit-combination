@@ -183,7 +183,8 @@ const SolarPanelTable = () => {
                 </Text>
             </IndexTable.Cell>
             <IndexTable.Cell>{item.product?.id.split("/")[4]}</IndexTable.Cell>
-            <IndexTable.Cell>{formatDisplayName(item.displayName)}</IndexTable.Cell>
+            <IndexTable.Cell>{item?.price}</IndexTable.Cell>
+            <IndexTable.Cell>{formatDisplayName(item.displayName)}/{item.title}</IndexTable.Cell>
             <IndexTable.Cell>
                 <div style={{ display: 'flex', gap: '10px' }}>
                     {/* Move Up Button */}
@@ -270,6 +271,7 @@ const SolarPanelTable = () => {
                                             { title: 'Image' },
                                             { title: 'ID' },
                                             { title: 'Product ID' },
+                                            { title: "price" },
                                             { title: 'Name' },
                                             { title: 'Actions' },
                                         ]}

@@ -11,11 +11,12 @@ export const shopifyGraphql = async (session, query) => {
         });
 
         if (response.status === 200) {
-            const reponseJson = await response.json()
-            console.log("reponseJson ==== ", reponseJson);
-            return reponseJson
+            const responseJson = await response.json();
+            console.log("Shopify GraphQL Response:", responseJson);
+            return responseJson;
         } else {
-            return false
+            console.error("Shopify GraphQL request failed:", response.statusText);
+            return false;
         }
     } catch (error) {
         console.log("error in shopifyGraphql:", error);

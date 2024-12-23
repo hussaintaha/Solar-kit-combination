@@ -104,7 +104,7 @@ const AirConditionerTable = () => {
                 });
 
                 const airConditionerResponse = await airConditionerAPI.json();
-                // console.log('airConditionerResponse ========= ', airConditionerResponse);
+                console.log('airConditionerResponse ========= ', airConditionerResponse);
                 getAirConditionerProducts()
                 setLoading(false);
             } else {
@@ -181,11 +181,13 @@ const AirConditionerTable = () => {
             </IndexTable.Cell>
             <IndexTable.Cell>
                 <Text variant="bodyMd" fontWeight="bold" as="span">
-                    {item.id.split("/")[4]}
+                    {item?.id?.split("/")[4]}
                 </Text>
             </IndexTable.Cell>
             <IndexTable.Cell>{item.product?.id.split("/")[4]}</IndexTable.Cell>
-            <IndexTable.Cell>{formatDisplayName(item.displayName)}</IndexTable.Cell>
+            <IndexTable.Cell>{item?.price}</IndexTable.Cell>
+            <div className="title"> <IndexTable.Cell>{formatDisplayName(item?.displayName)}/{item.title}</IndexTable.Cell> </div>
+
             <IndexTable.Cell>
                 <div style={{ display: 'flex', gap: '10px' }}>
                     {/* Move Up Button */}
@@ -208,6 +210,8 @@ const AirConditionerTable = () => {
             </IndexTable.Cell>
         </IndexTable.Row>
     ));
+
+    console.log("airConditionerproducts ===== ", airConditionerproducts);
 
 
     return (
@@ -251,6 +255,7 @@ const AirConditionerTable = () => {
                                         { title: 'Image' },
                                         { title: 'ID' },
                                         { title: 'Product ID' },
+                                        { title: 'Price' },
                                         { title: 'Name' },
                                         { title: 'Actions' },
                                     ]}
