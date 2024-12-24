@@ -58,8 +58,8 @@ p {
 
 .info-icon {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 15px;
+  right: 15px;
   color: #f0f0f0;
   cursor: pointer;
 }
@@ -446,13 +446,25 @@ p:last-child {
   margin-top: 0;
   margin-bottom: 0;
 }
+/* -------------------------------------------- */
 #solar-combo {
   width: 100%!important;
   margin: auto;
   text-align: left;
 }
 
-
+.productsImage img {
+  width: 100%!important;
+  height: 100%!important;
+}
+.banner-image-container {
+  width: 100%!important;
+}
+.info-icon svg {
+  border: 1px solid #fff;
+  border-radius: 50%;
+}
+/* ------------------------------------- */
 /* #ShopifyChat {
   bottom: 70px!important;
 } */

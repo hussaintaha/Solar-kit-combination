@@ -4,7 +4,7 @@ import "./App.css";
 import Modal from "./component/Modal";
 
 const App = () => {
-  const [redirectURL, setRedirectURL] = useState("")
+  const [redirectURL, setRedirectURL] = useState("");
   const [loading, setLoading] = useState(false);
   const [activecartButton, setActiveCartButton] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -43,10 +43,9 @@ const App = () => {
 
   const floatContainerRef = useRef(null);
 
-  console.log(" ========== 3333333333333333333333 =========");
-  const local_base_url = 'https://steady-gt-treat-fluid.trycloudflare.com/api';
-  const production_base_url = `https://${location.host}/apps/proxy/api`
-
+  console.log(" ========== 22222222222222 =========");
+  const local_base_url = "https://steady-gt-treat-fluid.trycloudflare.com/api";
+  const production_base_url = `https://${location.host}/apps/proxy/api`;
 
   const insulationOptions = [
     {
@@ -102,7 +101,7 @@ const App = () => {
     },
   ];
 
-  // =========================== step 1 to 3 =========================== //  
+  // =========================== step 1 to 3 =========================== //
   const calculateBTU = (length, width, height, insulationFactor) => {
     let BTU = 0;
     const area = length * width; // Calculate square footage
@@ -126,7 +125,8 @@ const App = () => {
       const updatedValues = { ...prev, [name]: parseFloat(value) || null };
       const { length, width, height } = updatedValues;
 
-      const totalVolume = length && width && height ? length * width * height : 0;
+      const totalVolume =
+        length && width && height ? length * width * height : 0;
       setSquareFoot(length * width);
 
       if (length && width && height && insulationValue) {
@@ -154,7 +154,9 @@ const App = () => {
 
   const getCollectionProductsAPI = async (BTU) => {
     try {
-      const fetchproducts = await fetch(`${production_base_url}/getCollectionProducts/?recommendedBTU=${BTU}`,);
+      const fetchproducts = await fetch(
+        `${production_base_url}/getCollectionProducts/?recommendedBTU=${BTU}`,
+      );
       const collectionProducts = await fetchproducts.json();
       // console.log("collectionProducts ====== ", collectionProducts);
       setProductData(collectionProducts.products);
@@ -163,14 +165,16 @@ const App = () => {
     }
   };
 
-  // =========================== step 4 to 8 =========================== //  
+  // =========================== step 4 to 8 =========================== //
   const handleRunEachDay = (value) => {
     setDailyRunTime(value);
   };
 
   const getpanelCollectionAPI = async (neededHarvestkWh) => {
     try {
-      const fetchProducts = await fetch(`${production_base_url}/getpanelCollections/?neededHarvestkWh=${neededHarvestkWh}`);
+      const fetchProducts = await fetch(
+        `${production_base_url}/getpanelCollections/?neededHarvestkWh=${neededHarvestkWh}`,
+      );
       const panelCollectionProducts = await fetchProducts.json();
       // console.log("panelCollectionProducts ====== ", panelCollectionProducts.products);
       setPanelCollection(panelCollectionProducts.products);
@@ -181,7 +185,9 @@ const App = () => {
 
   const getchargeControllerCollectionAPI = async (neededHarvestkWh) => {
     try {
-      const fetchProducts = await fetch(`${production_base_url}/chargeControllerCollection/?neededHarvestkWh=${neededHarvestkWh}`);
+      const fetchProducts = await fetch(
+        `${production_base_url}/chargeControllerCollection/?neededHarvestkWh=${neededHarvestkWh}`,
+      );
       const chargeControllerProducts = await fetchProducts.json();
       // console.log("chargeControllerProducts ====== ", chargeControllerProducts.products);
       setChargeControllerProducts(chargeControllerProducts.products);
@@ -192,7 +198,9 @@ const App = () => {
 
   const getBettryCollectionAPI = async (neededHarvestkWh) => {
     try {
-      const fetchProducts = await fetch(`${production_base_url}/getBatteryOption/?neededHarvestkWh=${neededHarvestkWh}`);
+      const fetchProducts = await fetch(
+        `${production_base_url}/getBatteryOption/?neededHarvestkWh=${neededHarvestkWh}`,
+      );
       const batteryOptionProducts = await fetchProducts.json();
       // console.log("batteryOptionProducts ====== ", batteryOptionProducts.products);
       setBatteryOptions(batteryOptionProducts.products);
@@ -215,7 +223,8 @@ const App = () => {
       }));
     } else if (productId) {
       try {
-        const fetchProductsDetails = await fetch(`${production_base_url}/getproductsDetail`,
+        const fetchProductsDetails = await fetch(
+          `${production_base_url}/getproductsDetail`,
           {
             method: "POST",
             headers: {
@@ -244,9 +253,13 @@ const App = () => {
     setLoading(true);
     let productsId = selectedProductId;
 
-    if (customProductDistance.batterytoHVAC || customProductDistance.paneltoBattery) {
+    if (
+      customProductDistance.batterytoHVAC ||
+      customProductDistance.paneltoBattery
+    ) {
       const { batterytoHVAC, paneltoBattery } = customProductDistance;
-      const createProductAPI = await fetch(`${production_base_url}/createCustomProduct`,
+      const createProductAPI = await fetch(
+        `${production_base_url}/createCustomProduct`,
         {
           method: "POST",
           headers: {
@@ -268,15 +281,13 @@ const App = () => {
     }
     // console.log("productsIDs ========= ", productsId);
 
-    const sendProductIDAPI = await fetch(`${production_base_url}/addtoCart`,
-      {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({ selectedProductId: productsId }),
+    const sendProductIDAPI = await fetch(`${production_base_url}/addtoCart`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
       },
-    );
+      body: JSON.stringify({ selectedProductId: productsId }),
+    });
 
     const productIdresponse = await sendProductIDAPI.json();
     const productIdArray = productIdresponse.varientIdArray;
@@ -289,7 +300,8 @@ const App = () => {
       };
 
       try {
-        const additmesAPI = await fetch(`${window.Shopify.routes.root}cart/add.js`,
+        const additmesAPI = await fetch(
+          `${window.Shopify.routes.root}cart/add.js`,
           {
             method: "POST",
             headers: {
@@ -343,7 +355,6 @@ const App = () => {
   useEffect(() => {
     const fetchData = async () => {
       if (recommendedBTU > 0 && insulationValue > 0 && dailyRunTime > 0) {
-
         const neededHarvestkWh = (recommendedBTU / 16000) * dailyRunTime;
         setNeededharvest(neededHarvestkWh);
 
@@ -367,19 +378,22 @@ const App = () => {
       wiringCost = batterytoHVAC * 6 + 33;
     }
     if (paneltoBattery > 0 && batterytoHVAC > 0) {
-      wiringCost = (paneltoBattery * 4) + (batterytoHVAC * 6) + 33
+      wiringCost = paneltoBattery * 4 + batterytoHVAC * 6 + 33;
     }
     return wiringCost;
   };
 
-
-  const totalPrice = (Object.values(selectedProductPrices).reduce((acc, price) => acc + price, 0) + Number(calculateCustomePrice())).toFixed(2);
+  const totalPrice = (
+    Object.values(selectedProductPrices).reduce(
+      (acc, price) => acc + price,
+      0,
+    ) + Number(calculateCustomePrice())
+  ).toFixed(2);
   const formattedTotalprice = Number(totalPrice);
-  const newPrice = (formattedTotalprice).toLocaleString('en-US', {
-    style: 'currency',
-    currency: 'USD',
+  const newPrice = formattedTotalprice.toLocaleString("en-US", {
+    style: "currency",
+    currency: "USD",
   });
-
 
   useEffect(() => {
     if (totalPrice > 0) {
@@ -390,15 +404,14 @@ const App = () => {
   }, [totalPrice]);
 
   const handleInfo = async (variantdata) => {
-    const splitId = variantdata.id.split("/")[4]
+    const splitId = variantdata.id.split("/")[4];
     const productUrl = `https://${location.host}/products/${variantdata.handle}?variant=${splitId}`;
-    setRedirectURL(productUrl)
-    return productUrl
-  }
+    setRedirectURL(productUrl);
+    return productUrl;
+  };
 
   // handle float container
   useEffect(() => {
-
     const rteDiv = document.querySelector(".rte");
     if (rteDiv && floatContainerRef.current) {
       floatContainerRef.current.after(rteDiv);
@@ -420,20 +433,21 @@ const App = () => {
     // updateBannerImage();
     // window.addEventListener("resize", updateBannerImage);
 
-
     document.querySelector(".float-container-body").style.display = "none";
     window.onscroll = () => {
-
-      const float_container = document.querySelector('.float-container')
+      const float_container = document.querySelector(".float-container");
       const floatContainerRect = float_container.getBoundingClientRect();
       if (floatContainerRect.bottom < 0) {
         document.querySelector(".float-container-body").style.display = "none";
-      } else if (floatContainerRect.bottom < 0 || floatContainerRect.top > window.innerHeight) {
+      } else if (
+        floatContainerRect.bottom < 0 ||
+        floatContainerRect.top > window.innerHeight
+      ) {
         document.querySelector(".float-container-body").style.display = "flex";
       } else {
         document.querySelector(".float-container-body").style.display = "none";
       }
-    }
+    };
   }, []);
 
   return (
@@ -444,7 +458,6 @@ const App = () => {
           <p>This is a warning message!</p>
         </Modal>
       </div>
-
 
       <div class="banner-image-container">
         <img
@@ -457,7 +470,6 @@ const App = () => {
           data-mce-src="https://cdn.shopify.com/s/files/1/1307/6829/files/main-med.webp?v=1733014704"
         />
       </div>
-
 
       <div className="question-container">
         <div className="ques-1-container">
@@ -518,14 +530,16 @@ const App = () => {
                   <div className="cubic-feet">
                     <span>Total Volume: </span>
                     <span className="total-areaVolume-value">
-                      {spaceAndVolume.totalVolume.toLocaleString()} <span className="areaVolume-unit"> cubic feet </span>
+                      {spaceAndVolume.totalVolume.toLocaleString()}{" "}
+                      <span className="areaVolume-unit"> cubic feet </span>
                     </span>
                   </div>
 
                   <div className="square-feet">
                     <span> Total Area: </span>
                     <span className="total-areaVolume-value">
-                      {squareFoot.toLocaleString()} <span className="areaVolume-unit"> square feet </span>
+                      {squareFoot.toLocaleString()}{" "}
+                      <span className="areaVolume-unit"> square feet </span>
                     </span>
                   </div>
                 </div>
@@ -553,7 +567,9 @@ const App = () => {
                   key={option.label}
                   style={{ cursor: "pointer" }}
                   className={`insulation-option ${insulationValue === option.value ? "selected" : ""}`}
-                  onClick={() => handleInsulationChange({ target: { value: option.value } })}
+                  onClick={() =>
+                    handleInsulationChange({ target: { value: option.value } })
+                  }
                 >
                   <div className="option-details">
                     <img
@@ -594,19 +610,25 @@ const App = () => {
           <div className="collection-container">
             <div className="collection-products">
               {productsData?.map((ele, index) => {
-                const isSelected = selectedProductId.selectAirConditionerProducts === ele.id.split("/")[4];
+                const isSelected =
+                  selectedProductId.selectAirConditionerProducts ===
+                  ele.id.split("/")[4];
                 return (
                   <div
                     className="products"
                     key={ele.id}
                     onClick={(event) => {
                       if (
-                        (event.nativeEvent.target.localName === 'svg') ||
-                        (event.nativeEvent.target.localName === 'path') ||
-                        (event.nativeEvent.target.localName === 'div' && event.nativeEvent.target.className === 'info-icon')
+                        event.nativeEvent.target.localName === "svg" ||
+                        event.nativeEvent.target.localName === "path" ||
+                        (event.nativeEvent.target.localName === "div" &&
+                          event.nativeEvent.target.className === "info-icon")
                       ) {
                       } else {
-                        handleSelectProduct("selectAirConditionerProducts", ele.id.split("/")[4],)
+                        handleSelectProduct(
+                          "selectAirConditionerProducts",
+                          ele.id.split("/")[4],
+                        );
                       }
                     }}
                     style={{
@@ -617,11 +639,33 @@ const App = () => {
                   >
                     <div
                       className="info-icon"
-                      onClick={(event) => { handleInfo(ele) }}
+                      onClick={(event) => {
+                        handleInfo(ele);
+                      }}
                     >
                       <a href={redirectURL ? redirectURL : ""} target="_blank">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="20" aria-hidden="true">
+                        {/* <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 512 512"
+                          width="20"
+                          height="20"
+                          aria-hidden="true"
+                        >
                           <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
+                        </svg> */}
+
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 800 800"
+                          fill="none"
+                        >
+                          <circle cx="400" cy="400" r="400" fill="white" />
+                          <path
+                            d="M400 0C179.086 0 0 179.086 0 400C0 620.914 179.086 800 400 800C620.914 800 800 620.914 800 400C800 179.086 620.914 0 400 0ZM400 134.483C444.473 134.483 480.528 170.536 480.528 215.011C480.528 259.486 444.475 295.539 400 295.539C355.527 295.539 319.472 259.486 319.472 215.011C319.472 170.536 355.527 134.483 400 134.483ZM485.142 665.517H314.859V597.403H370.589V431.764H336.531V363.65H438.702V369.842V431.764V597.403H485.142V665.517Z"
+                            fill="black"
+                          />
                         </svg>
                       </a>
                     </div>
@@ -678,7 +722,9 @@ const App = () => {
                 key={option.label}
                 onClick={() => handleRunEachDay(option.value)}
                 className={
-                  dailyRunTime === option.value ? "runtime-selected" : "insulation-option"
+                  dailyRunTime === option.value
+                    ? "runtime-selected"
+                    : "insulation-option"
                 }
               >
                 <img
@@ -693,7 +739,9 @@ const App = () => {
                       name="runTime"
                       value={option.value}
                       checked={dailyRunTime === option.value}
-                      onChange={(e) => setDailyRunTime(parseInt(e.target.value))}
+                      onChange={(e) =>
+                        setDailyRunTime(parseInt(e.target.value))
+                      }
                     />
                     {option.label}
                   </label>
@@ -705,7 +753,11 @@ const App = () => {
 
           <div className="needed-harvest">
             <div className="harvest-result">
-              <span> Your needed Harvest: {Number(neededHarvest.toFixed(2)).toLocaleString()} kWh </span>
+              <span>
+                {" "}
+                Your needed Harvest:{" "}
+                {Number(neededHarvest.toFixed(2)).toLocaleString()} kWh{" "}
+              </span>
             </div>
           </div>
         </div>
@@ -714,42 +766,74 @@ const App = () => {
           <div className="ques-5">
             <h1>5. How many solar panels are needed for this?</h1>
             <p className="ques-5-description">
-              Solar panels do not produce 100% of their rated power. In many lighting conditions you'll be lucky to get 30% output, and during overcast or rainy days, panel production can drop to only 10% rated power. We keep this in mind to recommend a realistic Watts of Solar Power you need. More never hurts! Click an option to add it to your order.
+              Solar panels do not produce 100% of their rated power. In many
+              lighting conditions you'll be lucky to get 30% output, and during
+              overcast or rainy days, panel production can drop to only 10%
+              rated power. We keep this in mind to recommend a realistic Watts
+              of Solar Power you need. More never hurts! Click an option to add
+              it to your order.
             </p>
           </div>
 
           <div className="collection-container">
             <div className="collection-products">
               {panelCollection?.map((ele, index) => {
-                const isSelected = selectedProductId.selectSolarPanelProducts === ele.id.split("/")[4];
+                const isSelected =
+                  selectedProductId.selectSolarPanelProducts ===
+                  ele.id.split("/")[4];
                 return (
                   <div
                     className="products"
                     key={ele.id}
                     onClick={(event) => {
                       if (
-                        (event.nativeEvent.target.localName === 'svg') ||
-                        (event.nativeEvent.target.localName === 'path') ||
-                        (event.nativeEvent.target.localName === 'div' && event.nativeEvent.target.className === 'info-icon')
+                        event.nativeEvent.target.localName === "svg" ||
+                        event.nativeEvent.target.localName === "path" ||
+                        (event.nativeEvent.target.localName === "div" &&
+                          event.nativeEvent.target.className === "info-icon")
                       ) {
                       } else {
-                        handleSelectProduct("selectSolarPanelProducts", ele.id.split("/")[4],)
+                        handleSelectProduct(
+                          "selectSolarPanelProducts",
+                          ele.id.split("/")[4],
+                        );
                       }
                     }}
                     style={{
                       border: isSelected ? "2px solid blue" : "1px solid grey",
                       cursor: "pointer",
-                      position: "relative"
+                      position: "relative",
                     }}
                   >
-                    <div className="info-icon"
+                    <div
+                      className="info-icon"
                       onClick={(e) => {
                         handleInfo(ele);
                       }}
                     >
                       <a href={redirectURL ? redirectURL : ""} target="_blank">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="20" aria-hidden="true">
+                        {/* <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 512 512"
+                          width="20"
+                          height="20"
+                          aria-hidden="true"
+                        >
                           <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
+                        </svg> */}
+
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 800 800"
+                          fill="none"
+                        >
+                          <circle cx="400" cy="400" r="400" fill="white" />
+                          <path
+                            d="M400 0C179.086 0 0 179.086 0 400C0 620.914 179.086 800 400 800C620.914 800 800 620.914 800 400C800 179.086 620.914 0 400 0ZM400 134.483C444.473 134.483 480.528 170.536 480.528 215.011C480.528 259.486 444.475 295.539 400 295.539C355.527 295.539 319.472 259.486 319.472 215.011C319.472 170.536 355.527 134.483 400 134.483ZM485.142 665.517H314.859V597.403H370.589V431.764H336.531V363.65H438.702V369.842V431.764V597.403H485.142V665.517Z"
+                            fill="black"
+                          />
                         </svg>
                       </a>
                     </div>
@@ -779,7 +863,13 @@ const App = () => {
               <p>Click an option to build your kit; click again to remove</p>
             </div>
             <div className="recommendedWatts">
-              <span className="recommendedWatts-value"> Your recommended watts of Solar Capacity: {Math.floor((neededHarvest * 1000) / 3).toLocaleString()} watts </span>
+              <span className="recommendedWatts-value">
+                {" "}
+                Your recommended watts of Solar Capacity:{" "}
+                {Math.floor(
+                  (neededHarvest * 1000) / 3,
+                ).toLocaleString()} watts{" "}
+              </span>
             </div>
           </div>
         </div>
@@ -797,19 +887,25 @@ const App = () => {
           <div className="collection-container">
             <div className="collection-products">
               {chargeControllerProducts?.map((ele, index) => {
-                const isSelected = selectedProductId.selectChargeControllerproducts === ele.id.split("/")[4];
+                const isSelected =
+                  selectedProductId.selectChargeControllerproducts ===
+                  ele.id.split("/")[4];
                 return (
                   <div
                     className="products"
                     key={ele.id}
                     onClick={(event) => {
                       if (
-                        (event.nativeEvent.target.localName === 'svg') ||
-                        (event.nativeEvent.target.localName === 'path') ||
-                        (event.nativeEvent.target.localName === 'div' && event.nativeEvent.target.className === 'info-icon')
+                        event.nativeEvent.target.localName === "svg" ||
+                        event.nativeEvent.target.localName === "path" ||
+                        (event.nativeEvent.target.localName === "div" &&
+                          event.nativeEvent.target.className === "info-icon")
                       ) {
                       } else {
-                        handleSelectProduct("selectChargeControllerproducts", ele.id.split("/")[4])
+                        handleSelectProduct(
+                          "selectChargeControllerproducts",
+                          ele.id.split("/")[4],
+                        );
                       }
                     }}
                     style={{
@@ -817,15 +913,29 @@ const App = () => {
                       cursor: "pointer",
                     }}
                   >
-
-                    <div className="info-icon"
+                    <div
+                      className="info-icon"
                       onClick={(e) => {
                         handleInfo(ele);
                       }}
                     >
                       <a href={redirectURL ? redirectURL : ""} target="_blank">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="20" aria-hidden="true">
-                          <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
+                        {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="20" aria-hidden="true"> */}
+                        {/* <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" /> */}
+                        {/* </svg> */}
+
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 800 800"
+                          fill="none"
+                        >
+                          <circle cx="400" cy="400" r="400" fill="white" />
+                          <path
+                            d="M400 0C179.086 0 0 179.086 0 400C0 620.914 179.086 800 400 800C620.914 800 800 620.914 800 400C800 179.086 620.914 0 400 0ZM400 134.483C444.473 134.483 480.528 170.536 480.528 215.011C480.528 259.486 444.475 295.539 400 295.539C355.527 295.539 319.472 259.486 319.472 215.011C319.472 170.536 355.527 134.483 400 134.483ZM485.142 665.517H314.859V597.403H370.589V431.764H336.531V363.65H438.702V369.842V431.764V597.403H485.142V665.517Z"
+                            fill="black"
+                          />
                         </svg>
                       </a>
                     </div>
@@ -841,8 +951,14 @@ const App = () => {
                         <p className="img-not-available">No image available</p>
                       )}
                     </div>
-                    <div className="product-price"> <h1> ${ele.price} </h1> </div>
-                    <div className="title"> <h1> {ele.displayName} </h1></div>
+                    <div className="product-price">
+                      {" "}
+                      <h1> ${ele.price} </h1>{" "}
+                    </div>
+                    <div className="title">
+                      {" "}
+                      <h1> {ele.displayName} </h1>
+                    </div>
                   </div>
                 );
               })}
@@ -870,19 +986,25 @@ const App = () => {
           <div className="collection-container">
             <div className="collection-products">
               {batteryOption?.map((ele, index) => {
-                const isSelected = selectedProductId.selectBatteryOptions === ele.id.split("/")[4];
+                const isSelected =
+                  selectedProductId.selectBatteryOptions ===
+                  ele.id.split("/")[4];
                 return (
                   <div
                     className="products"
                     key={ele.id}
                     onClick={(event) => {
                       if (
-                        (event.nativeEvent.target.localName === 'svg') ||
-                        (event.nativeEvent.target.localName === 'path') ||
-                        (event.nativeEvent.target.localName === 'div' && event.nativeEvent.target.className === 'info-icon')
+                        event.nativeEvent.target.localName === "svg" ||
+                        event.nativeEvent.target.localName === "path" ||
+                        (event.nativeEvent.target.localName === "div" &&
+                          event.nativeEvent.target.className === "info-icon")
                       ) {
                       } else {
-                        handleSelectProduct("selectBatteryOptions", ele.id.split("/")[4])
+                        handleSelectProduct(
+                          "selectBatteryOptions",
+                          ele.id.split("/")[4],
+                        );
                       }
                     }}
                     style={{
@@ -890,14 +1012,35 @@ const App = () => {
                       cursor: "pointer",
                     }}
                   >
-
-                    <div className="info-icon"
-                      onClick={(e) => { handleInfo(ele) }}
+                    <div
+                      className="info-icon"
+                      onClick={(e) => {
+                        handleInfo(ele);
+                      }}
                     >
-
                       <a href={redirectURL ? redirectURL : ""} target="_blank">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="20" aria-hidden="true">
+                        {/* <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 512 512"
+                          width="20"
+                          height="20"
+                          aria-hidden="true"
+                        >
                           <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
+                        </svg> */}
+
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 800 800"
+                          fill="none"
+                        >
+                          <circle cx="400" cy="400" r="400" fill="white" />
+                          <path
+                            d="M400 0C179.086 0 0 179.086 0 400C0 620.914 179.086 800 400 800C620.914 800 800 620.914 800 400C800 179.086 620.914 0 400 0ZM400 134.483C444.473 134.483 480.528 170.536 480.528 215.011C480.528 259.486 444.475 295.539 400 295.539C355.527 295.539 319.472 259.486 319.472 215.011C319.472 170.536 355.527 134.483 400 134.483ZM485.142 665.517H314.859V597.403H370.589V431.764H336.531V363.65H438.702V369.842V431.764V597.403H485.142V665.517Z"
+                            fill="black"
+                          />
                         </svg>
                       </a>
                     </div>
@@ -913,8 +1056,14 @@ const App = () => {
                         <p className="img-not-available">No image available</p>
                       )}
                     </div>
-                    <div className="product-price"> <h1> ${ele.price} </h1> </div>
-                    <div className="title"> <h1> {ele.displayName} </h1> </div>
+                    <div className="product-price">
+                      {" "}
+                      <h1> ${ele.price} </h1>{" "}
+                    </div>
+                    <div className="title">
+                      {" "}
+                      <h1> {ele.displayName} </h1>{" "}
+                    </div>
                   </div>
                 );
               })}
@@ -927,7 +1076,10 @@ const App = () => {
 
         <div className="ques-8-container">
           <div className="ques-8">
-            <h1> 8. Add a PV cable / Battery cable hookup kit with breaker box. </h1>
+            <h1>
+              {" "}
+              8. Add a PV cable / Battery cable hookup kit with breaker box.{" "}
+            </h1>
             <p className="ques-8-description">
               We can include a simple kit with appropriate gauge wires for the
               run between your solar panels and the charge controller/battery,
@@ -946,7 +1098,11 @@ const App = () => {
                   <input
                     type="number"
                     inputMode="numeric"
-                    value={customProductDistance.paneltoBattery === 0 ? "" : customProductDistance.paneltoBattery}
+                    value={
+                      customProductDistance.paneltoBattery === 0
+                        ? ""
+                        : customProductDistance.paneltoBattery
+                    }
                     name="paneltoBattery"
                     onChange={handleDistanceValue}
                   />
@@ -964,7 +1120,11 @@ const App = () => {
                   <input
                     type="number"
                     inputMode="numeric"
-                    value={customProductDistance.batterytoHVAC === 0 ? "" : customProductDistance.batterytoHVAC}
+                    value={
+                      customProductDistance.batterytoHVAC === 0
+                        ? ""
+                        : customProductDistance.batterytoHVAC
+                    }
                     name="batterytoHVAC"
                     onChange={handleDistanceValue}
                   />
@@ -984,7 +1144,7 @@ const App = () => {
 
       <div ref={floatContainerRef} className="float-container">
         <div className="total-price">
-          <p style={{ margin: '0px' }}> Your Total:</p>
+          <p style={{ margin: "0px" }}> Your Total:</p>
           <span className="real-price"> {newPrice} </span>
         </div>
         <div className="cart-button-container">
@@ -1002,7 +1162,7 @@ const App = () => {
         <div className="float-container-body custom-cart_btn page-width">
           <div className="cart-btn">
             <div className="total-price">
-              <p style={{ margin: '0px', }}> Your Total:</p>
+              <p style={{ margin: "0px" }}> Your Total:</p>
               <span className="custom-price"> {newPrice} </span>
             </div>
             <div className="cart-button-container">
@@ -1011,13 +1171,12 @@ const App = () => {
                 disabled={activecartButton}
                 onClick={handleAddToCart}
               >
-                {loading ? <span className="loader"></span> : 'Add To Cart'}
+                {loading ? <span className="loader"></span> : "Add To Cart"}
               </button>
             </div>
-
           </div>
         </div>,
-        document.body
+        document.body,
       )}
     </>
   );
