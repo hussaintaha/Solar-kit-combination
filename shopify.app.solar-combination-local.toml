@@ -1,10 +1,15 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "a09c06b8d74e31fbcfe0ea426414e7e4"
-application_url = "https://theme-arctic-counsel-bruce.trycloudflare.com"
+application_url = "https://lights-dance-dispatch-triple.trycloudflare.com"
 embedded = true
 name = "solar-combination-local"
 handle = "solar-combination-local"
+
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "quickstart-629da44c.myshopify.com"
+include_config_on_deploy = true
 
 [webhooks]
 api_version = "2024-10"
@@ -15,15 +20,10 @@ scopes = "read_inventory,read_orders,read_products,write_orders,write_products"
 
 [auth]
 redirect_urls = [
-  "https://theme-arctic-counsel-bruce.trycloudflare.com/auth/callback",
-  "https://theme-arctic-counsel-bruce.trycloudflare.com/auth/shopify/callback",
-  "https://theme-arctic-counsel-bruce.trycloudflare.com/api/auth/callback"
+  "https://lights-dance-dispatch-triple.trycloudflare.com/auth/callback",
+  "https://lights-dance-dispatch-triple.trycloudflare.com/auth/shopify/callback",
+  "https://lights-dance-dispatch-triple.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]
 embedded = false
-
-[build]
-dev_store_url = "quickstart-629da44c.myshopify.com"
-automatically_update_urls_on_dev = true
-include_config_on_deploy = true

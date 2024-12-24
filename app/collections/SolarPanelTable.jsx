@@ -61,7 +61,7 @@ const SolarPanelTable = () => {
                     multiple: true,
                 });
 
-                const airConditionerAPI = await fetch('/api/sendSolarPanelProducts', {
+                const airConditionerAPI = await fetch('/api/selectSolarPanelProducts', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ selectHarvestValue, selected }),

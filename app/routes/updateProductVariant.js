@@ -4,7 +4,7 @@ import chargeControllerCollection from "../Database/collections/chargeController
 import solarPanelCollection from "../Database/collections/solarPanelModel";
 import { shopifyGraphql } from "./utils";
 
-export const updateProductVariant = async (session, variantsData) => {
+export const updateProductVariant = async (session, apiVersion, variantsData) => {
   try {
     console.log("updateProductVariant function");
     // console.log("variantsData === ", variantsData);
@@ -60,7 +60,7 @@ export const updateProductVariant = async (session, variantsData) => {
           console.log("checkVariantInCollection ==== ", checkVariantInCollection);
 
           if (checkVariantInCollection.length > 0) {
-            const updateDatainDB = await shopifyGraphql(session, query);
+            const updateDatainDB = await shopifyGraphql(session, apiVersion, query);
 
             if (updateDatainDB && updateDatainDB.data && updateDatainDB.data.productVariant) {
               const updateProductVariantInDB = await collection.updateMany(

@@ -52,7 +52,7 @@ const AirConditionerTable = () => {
                 });
 
                 setLoading(true);
-                const airConditionerAPI = await fetch('/api/sendAirConditionerProducts', {
+                const airConditionerAPI = await fetch('/api/selectAirConditionerProducts', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ selectedBTURange, selected }),

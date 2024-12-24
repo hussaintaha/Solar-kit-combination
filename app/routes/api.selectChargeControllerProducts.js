@@ -1,7 +1,8 @@
+import { apiVersion, authenticate } from "../shopify.server";
 import { json } from "@remix-run/node";
 import chargeControllerCollection from "../Database/collections/chargeControllerModel";
-import { authenticate, apiVersion } from "../shopify.server";
 import { shopifyGraphql } from "./utils";
+
 
 export const action = async ({ request }) => {
   try {
@@ -11,6 +12,7 @@ export const action = async ({ request }) => {
 
     const updatedProducts = await Promise.all(selected.map(async (product) => {
       const splitProductId = product.product.id.split("/")[4];
+
 
       const query = `
         query GetProduct {
@@ -31,24 +33,15 @@ export const action = async ({ request }) => {
 
     }));
 
-    const updatedAirConditionerEntry = await chargeControllerCollection.findOneAndUpdate(
+    const updatedEntry = await chargeControllerCollection.findOneAndUpdate(
       { harvestValue: selectHarvestValue },
-      { $addToSet: { products: { $each: updatedProducts } } }, // Change to $push if needed
-      { new: true }
+      { $set: { products: updatedProducts } },
+      { new: true, upsert: true }
     );
-
-    if (!updatedAirConditionerEntry) {
-      console.log("No matching entry found for harvestValue:", selectHarvestValue);
-      return json({ success: false, message: "No matching entry found." });
-    }
-
-    const updatedEntry = await chargeControllerCollection.findOne({ harvestValue: selectHarvestValue });
-    return json({ success: true, updatedEntry });
+    return json(updatedEntry);
 
   } catch (error) {
-    console.log("error ========= ", error);
-    return json({ success: false, message: error.message });
+    console.error("Error ========= ", error);
+    return json({ error: "An error occurred while processing your request." }, { status: 500 });
   }
 };
-
-

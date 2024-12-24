@@ -1,7 +1,7 @@
 
-export const shopifyGraphql = async (session, query) => {
+export const shopifyGraphql = async (session, apiVersion, query) => {
     try {
-        const response = await fetch(`https://${session.shop}/admin/api/2024-10/graphql.json`, {
+        const response = await fetch(`https://${session.shop}/admin/api/${apiVersion}/graphql.json`, {
             method: "POST",
             headers: {
                 'X-Shopify-Access-Token': session.accessToken,

@@ -1,4 +1,4 @@
-import { authenticate } from "../shopify.server";
+import { apiVersion, authenticate } from "../shopify.server";
 import shopifySessionModel from "../Database/session";
 import { updateProductVariant } from "./updateProductVariant";
 
@@ -78,7 +78,7 @@ export const action = async ({ request }) => {
     case "PRODUCTS_UPDATE": {
       console.log("PRODUCTS_UPDATE Payload");
       if (payload.variants.length > 0) {
-        const response = await updateProductVariant(session, payload.variants);
+        const response = await updateProductVariant(session, apiVersion, payload.variants);
         console.log("response ==== ", response);
 
       }

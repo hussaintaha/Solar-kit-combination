@@ -46,7 +46,7 @@ const ChargeControllerTable = ({ selectHarvestValue }) => {
                     multiple: true,
                 });
 
-                const airConditionerAPI = await fetch('/api/sendChargeControllerProducts', {
+                const airConditionerAPI = await fetch('/api/selectChargeControllerProducts', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ selectHarvestValue, selected }),
