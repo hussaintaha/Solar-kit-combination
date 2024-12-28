@@ -1,7 +1,7 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "a09c06b8d74e31fbcfe0ea426414e7e4"
-application_url = "https://lights-dance-dispatch-triple.trycloudflare.com"
+application_url = "https://brothers-begins-forests-lights.trycloudflare.com"
 embedded = true
 name = "solar-combination-local"
 handle = "solar-combination-local"
@@ -20,9 +20,9 @@ scopes = "read_inventory,read_orders,read_products,write_orders,write_products"
 
 [auth]
 redirect_urls = [
-  "https://lights-dance-dispatch-triple.trycloudflare.com/auth/callback",
-  "https://lights-dance-dispatch-triple.trycloudflare.com/auth/shopify/callback",
-  "https://lights-dance-dispatch-triple.trycloudflare.com/api/auth/callback"
+  "https://brothers-begins-forests-lights.trycloudflare.com/auth/callback",
+  "https://brothers-begins-forests-lights.trycloudflare.com/auth/shopify/callback",
+  "https://brothers-begins-forests-lights.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]

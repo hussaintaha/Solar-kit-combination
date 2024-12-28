@@ -1,0 +1,21 @@
+.variant-image {
+  width: 10%;
+}
+
+.title-variant {
+  width: 40%;
+}
+
+.upc-code {
+  width: 20%;
+  margin-right: 100px;
+}
+.resource-picker-btn {
+  display: flex;
+  justify-content: end;
+  margin-bottom: 30px;
+}
+
+.sync-list-continer{
+  margin-bottom: 50px;
+}
