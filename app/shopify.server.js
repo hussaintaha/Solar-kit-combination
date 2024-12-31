@@ -9,11 +9,11 @@ import {
 import { MongoDBSessionStorage } from "@shopify/shopify-app-session-storage-mongodb";
 import { restResources } from "@shopify/shopify-api/rest/admin/2024-07";
 import "./db.server";
-import dotenv from "dotenv"
-import { CronJob } from 'cron';
+import dotenv from "dotenv";
+import { CronJob } from "cron";
 import { checkCustomProducts } from "./routes/checkCustomProducts";
 
-dotenv.config()
+dotenv.config();
 
 const job = new CronJob(
   "0 0 * * *", // Every day at midnight (00:00)
@@ -22,10 +22,11 @@ const job = new CronJob(
     await checkCustomProducts();
   },
   null,
-  true
+  true,
 );
 
 job.start(); // Start the cron job
+
 
 
 const shopify = shopifyApp({
@@ -36,7 +37,10 @@ const shopify = shopifyApp({
   appUrl: process.env.SHOPIFY_APP_URL || "",
   authPathPrefix: "/auth",
   // sessionStorage: new PrismaSessionStorage(prisma),
-  sessionStorage: new MongoDBSessionStorage("mongodb://localhost:27017", "solar-combination"),
+  sessionStorage: new MongoDBSessionStorage(
+    "mongodb://localhost:27017",
+    "solar-combination",
+  ),
   distribution: AppDistribution.AppStore,
   restResources,
   webhooks: {
@@ -55,8 +59,7 @@ const shopify = shopifyApp({
     PRODUCTS_UPDATE: {
       deliveryMethod: DeliveryMethod.Http,
       callbackUrl: "/webhooks",
-    }
-    
+    },
   },
   hooks: {
     afterAuth: async ({ session }) => {
@@ -69,7 +72,6 @@ const shopify = shopifyApp({
   ...(process.env.SHOP_CUSTOM_DOMAIN
     ? { customShopDomains: [process.env.SHOP_CUSTOM_DOMAIN] }
     : {}),
-
 });
 
 
@@ -82,3 +84,5 @@ export const unauthenticated = shopify.unauthenticated;
 export const login = shopify.login;
 export const registerWebhooks = shopify.registerWebhooks;
 export const sessionStorage = shopify.sessionStorage;
+
+

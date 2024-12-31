@@ -43,8 +43,8 @@ const App = () => {
 
   const floatContainerRef = useRef(null);
 
-  console.log(" ========== 22222222222222 =========");
-  const local_base_url = "https://steady-gt-treat-fluid.trycloudflare.com/api";
+  console.log(" ========== 555555555555 =========");
+  const local_base_url = `https://${location.host}/apps/local/api`;
   const production_base_url = `https://${location.host}/apps/proxy/api`;
 
   const insulationOptions = [
@@ -155,7 +155,7 @@ const App = () => {
   const getCollectionProductsAPI = async (BTU) => {
     try {
       const fetchproducts = await fetch(
-        `${production_base_url}/getCollectionProducts/?recommendedBTU=${BTU}`,
+        `${local_base_url}/getCollectionProducts/?recommendedBTU=${BTU}`,
       );
       const collectionProducts = await fetchproducts.json();
       // console.log("collectionProducts ====== ", collectionProducts);
@@ -173,7 +173,7 @@ const App = () => {
   const getpanelCollectionAPI = async (neededHarvestkWh) => {
     try {
       const fetchProducts = await fetch(
-        `${production_base_url}/getpanelCollections/?neededHarvestkWh=${neededHarvestkWh}`,
+        `${local_base_url}/getpanelCollections/?neededHarvestkWh=${neededHarvestkWh}`,
       );
       const panelCollectionProducts = await fetchProducts.json();
       // console.log("panelCollectionProducts ====== ", panelCollectionProducts.products);
@@ -186,7 +186,7 @@ const App = () => {
   const getchargeControllerCollectionAPI = async (neededHarvestkWh) => {
     try {
       const fetchProducts = await fetch(
-        `${production_base_url}/chargeControllerCollection/?neededHarvestkWh=${neededHarvestkWh}`,
+        `${local_base_url}/chargeControllerCollection/?neededHarvestkWh=${neededHarvestkWh}`,
       );
       const chargeControllerProducts = await fetchProducts.json();
       // console.log("chargeControllerProducts ====== ", chargeControllerProducts.products);
@@ -199,7 +199,7 @@ const App = () => {
   const getBettryCollectionAPI = async (neededHarvestkWh) => {
     try {
       const fetchProducts = await fetch(
-        `${production_base_url}/getBatteryOption/?neededHarvestkWh=${neededHarvestkWh}`,
+        `${local_base_url}/getBatteryOption/?neededHarvestkWh=${neededHarvestkWh}`,
       );
       const batteryOptionProducts = await fetchProducts.json();
       // console.log("batteryOptionProducts ====== ", batteryOptionProducts.products);
@@ -224,7 +224,7 @@ const App = () => {
     } else if (productId) {
       try {
         const fetchProductsDetails = await fetch(
-          `${production_base_url}/getproductsDetail`,
+          `${local_base_url}/getproductsDetail`,
           {
             method: "POST",
             headers: {
@@ -259,7 +259,7 @@ const App = () => {
     ) {
       const { batterytoHVAC, paneltoBattery } = customProductDistance;
       const createProductAPI = await fetch(
-        `${production_base_url}/createCustomProduct`,
+        `${local_base_url}/createCustomProduct`,
         {
           method: "POST",
           headers: {
@@ -270,7 +270,7 @@ const App = () => {
       );
 
       const createProductResponse = await createProductAPI.json();
-      // console.log("createProductResponse ============ ", createProductResponse);
+      console.log("createProductResponse ============ ", createProductResponse);
 
       if (createProductResponse) {
         productsId = {
@@ -281,7 +281,7 @@ const App = () => {
     }
     // console.log("productsIDs ========= ", productsId);
 
-    const sendProductIDAPI = await fetch(`${production_base_url}/addtoCart`, {
+    const sendProductIDAPI = await fetch(`${local_base_url}/addtoCart`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -416,22 +416,6 @@ const App = () => {
     if (rteDiv && floatContainerRef.current) {
       floatContainerRef.current.after(rteDiv);
     }
-
-    // const updateBannerImage = () => {
-    //   const bannerImage = document.querySelector(".banner-image");
-    //   if (bannerImage) {
-    //     if (window.innerWidth <= 480) {
-    //       bannerImage.src = "https://app.fullbattery.com/background-images/small-screen-bg-img.webp";
-    //     } else if (window.innerWidth <= 1024) {
-    //       bannerImage.src = "https://app.fullbattery.com/background-images/medium-screen-bg-img.jpg";
-    //     } else {
-    //       bannerImage.src = "https://app.fullbattery.com/background-images/large-screen-bg-img.webp";
-    //     }
-    //   }
-    // };
-
-    // updateBannerImage();
-    // window.addEventListener("resize", updateBannerImage);
 
     document.querySelector(".float-container-body").style.display = "none";
     window.onscroll = () => {

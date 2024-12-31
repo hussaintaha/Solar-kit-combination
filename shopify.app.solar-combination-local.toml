@@ -1,7 +1,7 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "a09c06b8d74e31fbcfe0ea426414e7e4"
-application_url = "https://brothers-begins-forests-lights.trycloudflare.com"
+application_url = "https://worship-entrance-races-bass.trycloudflare.com"
 embedded = true
 name = "solar-combination-local"
 handle = "solar-combination-local"
@@ -16,13 +16,13 @@ api_version = "2024-10"
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "read_inventory,read_orders,read_products,write_orders,write_products"
+scopes = "read_inventory,read_orders,read_products,write_inventory,write_locations,write_orders,write_products"
 
 [auth]
 redirect_urls = [
-  "https://brothers-begins-forests-lights.trycloudflare.com/auth/callback",
-  "https://brothers-begins-forests-lights.trycloudflare.com/auth/shopify/callback",
-  "https://brothers-begins-forests-lights.trycloudflare.com/api/auth/callback"
+  "https://worship-entrance-races-bass.trycloudflare.com/auth/callback",
+  "https://worship-entrance-races-bass.trycloudflare.com/auth/shopify/callback",
+  "https://worship-entrance-races-bass.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]
