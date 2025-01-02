@@ -108,7 +108,7 @@ const AirConditionerTable = () => {
                 getAirConditionerProducts()
                 setLoading(false);
             } else {
-                shopify.toast.show('Please select a BTU rangeeeeeee');
+                shopify.toast.show('Please select a BTU range');
                 // alert('Please select a BTU range');
                 setLoading(false)
             }

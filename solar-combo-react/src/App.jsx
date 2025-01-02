@@ -43,7 +43,7 @@ const App = () => {
 
   const floatContainerRef = useRef(null);
 
-  console.log(" ========== 555555555555 =========");
+  console.log(" ========== 777777777777 =========");
   const local_base_url = `https://${location.host}/apps/local/api`;
   const production_base_url = `https://${location.host}/apps/proxy/api`;
 
@@ -155,7 +155,7 @@ const App = () => {
   const getCollectionProductsAPI = async (BTU) => {
     try {
       const fetchproducts = await fetch(
-        `${local_base_url}/getCollectionProducts/?recommendedBTU=${BTU}`,
+        `${production_base_url}/getCollectionProducts/?recommendedBTU=${BTU}`,
       );
       const collectionProducts = await fetchproducts.json();
       // console.log("collectionProducts ====== ", collectionProducts);
@@ -173,7 +173,7 @@ const App = () => {
   const getpanelCollectionAPI = async (neededHarvestkWh) => {
     try {
       const fetchProducts = await fetch(
-        `${local_base_url}/getpanelCollections/?neededHarvestkWh=${neededHarvestkWh}`,
+        `${production_base_url}/getpanelCollections/?neededHarvestkWh=${neededHarvestkWh}`,
       );
       const panelCollectionProducts = await fetchProducts.json();
       // console.log("panelCollectionProducts ====== ", panelCollectionProducts.products);
@@ -186,7 +186,7 @@ const App = () => {
   const getchargeControllerCollectionAPI = async (neededHarvestkWh) => {
     try {
       const fetchProducts = await fetch(
-        `${local_base_url}/chargeControllerCollection/?neededHarvestkWh=${neededHarvestkWh}`,
+        `${production_base_url}/chargeControllerCollection/?neededHarvestkWh=${neededHarvestkWh}`,
       );
       const chargeControllerProducts = await fetchProducts.json();
       // console.log("chargeControllerProducts ====== ", chargeControllerProducts.products);
@@ -199,7 +199,7 @@ const App = () => {
   const getBettryCollectionAPI = async (neededHarvestkWh) => {
     try {
       const fetchProducts = await fetch(
-        `${local_base_url}/getBatteryOption/?neededHarvestkWh=${neededHarvestkWh}`,
+        `${production_base_url}/getBatteryOption/?neededHarvestkWh=${neededHarvestkWh}`,
       );
       const batteryOptionProducts = await fetchProducts.json();
       // console.log("batteryOptionProducts ====== ", batteryOptionProducts.products);
@@ -224,7 +224,7 @@ const App = () => {
     } else if (productId) {
       try {
         const fetchProductsDetails = await fetch(
-          `${local_base_url}/getproductsDetail`,
+          `${production_base_url}/getproductsDetail`,
           {
             method: "POST",
             headers: {
@@ -259,7 +259,7 @@ const App = () => {
     ) {
       const { batterytoHVAC, paneltoBattery } = customProductDistance;
       const createProductAPI = await fetch(
-        `${local_base_url}/createCustomProduct`,
+        `${production_base_url}/createCustomProduct`,
         {
           method: "POST",
           headers: {
@@ -281,7 +281,7 @@ const App = () => {
     }
     // console.log("productsIDs ========= ", productsId);
 
-    const sendProductIDAPI = await fetch(`${local_base_url}/addtoCart`, {
+    const sendProductIDAPI = await fetch(`${production_base_url}/addtoCart`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
