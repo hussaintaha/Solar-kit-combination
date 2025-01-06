@@ -43,33 +43,32 @@ const App = () => {
 
   const floatContainerRef = useRef(null);
 
-  console.log(" ========== 777777777777 =========");
-  const local_base_url = `https://${location.host}/apps/local/api`;
+  console.log(" ========== 6666666 =========");
   const production_base_url = `https://${location.host}/apps/proxy/api`;
 
   const insulationOptions = [
     {
       label: "Not Insulated",
       value: 3.0,
-      src: "https://app.fullbattery.com/insulation-images/not-insulated-image.jpg",
+      src: "https://app.fullbattery.com/insulation-images/not-insulated.jpg",
       desc: "A bare metal shed, RV, boat, a fabric tent, or plastic cover. The basics.",
     },
     {
       label: "Minimum",
       value: 1.6,
-      src: "https://app.fullbattery.com/insulation-images/minimum-insulated.webp",
+      src: "https://app.fullbattery.com/insulation-images/minimun-insulated.jpg",
       desc: "Metallic bubble wrap or light timber shed with some natural insulation.",
     },
     {
       label: "Good",
       value: 0.8,
-      src: "https://app.fullbattery.com/insulation-images/good-insulated.jpeg",
+      src: "https://app.fullbattery.com/insulation-images/good-insulated.jpg",
       desc: "Insulation on all sides of a solid frame. Spray foam, rockwool or fiberglass.",
     },
     {
       label: "Paranoid",
       value: 0.6,
-      src: "https://app.fullbattery.com/insulation-images/paranoid-insulated.webp",
+      src: "https://app.fullbattery.com/insulation-images/paranoid-insulated.jpg",
       desc: "You know your R-Values and you used them all. R 40-60. And it's SEALED.",
     },
   ];
