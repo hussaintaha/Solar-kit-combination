@@ -43,7 +43,7 @@ const App = () => {
 
   const floatContainerRef = useRef(null);
 
-  console.log(" ========== 6666666 =========");
+  console.log(" ========== 8888888 =========");
   const production_base_url = `https://${location.host}/apps/proxy/api`;
 
   const insulationOptions = [
@@ -56,7 +56,7 @@ const App = () => {
     {
       label: "Minimum",
       value: 1.6,
-      src: "https://app.fullbattery.com/insulation-images/minimun-insulated.jpg",
+      src: "https://app.fullbattery.com/insulation-images/minimum-insulated.jpg",
       desc: "Metallic bubble wrap or light timber shed with some natural insulation.",
     },
     {
@@ -83,19 +83,19 @@ const App = () => {
     {
       label: "6 Hours a day",
       value: 6,
-      src: "https://app.fullbattery.com/runEachday-images/six-hours-day.jpeg",
+      src: "https://app.fullbattery.com/runEachday-images/six-hours-day.jpg",
       desc: "I want to run the AC during dawn or dusk for some time, but will turn it off by bedtime.",
     },
     {
       label: "12 Hours a day",
       value: 12,
-      src: "https://app.fullbattery.com/runEachday-images/12-hours-day.jpeg",
+      src: "https://app.fullbattery.com/runEachday-images/12-hours-day.png",
       desc: "The AC will be running most of the time during the day and into the late evening.",
     },
     {
       label: "Full Blast 24/7",
       value: 24,
-      src: "https://app.fullbattery.com/runEachday-images/full-blast.jpeg",
+      src: "https://app.fullbattery.com/runEachday-images/24*7-full-blast-image.jpg",
       desc: "I want enough solar and battery capacity to run it on full blast without turning it off, 24/7.",
     },
   ];
