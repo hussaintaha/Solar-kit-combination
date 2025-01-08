@@ -50,25 +50,25 @@ const App = () => {
     {
       label: "Not Insulated",
       value: 3.0,
-      src: "https://app.fullbattery.com/insulation-images/not-insulated.jpg",
+      src: "https://app.fullbattery.com/insulation-images/not-insulated-image.webp",
       desc: "A bare metal shed, RV, boat, a fabric tent, or plastic cover. The basics.",
     },
     {
       label: "Minimum",
       value: 1.6,
-      src: "https://app.fullbattery.com/insulation-images/minimum-insulated.jpg",
+      src: "https://app.fullbattery.com/insulation-images/minimum-insulated.webp",
       desc: "Metallic bubble wrap or light timber shed with some natural insulation.",
     },
     {
       label: "Good",
       value: 0.8,
-      src: "https://app.fullbattery.com/insulation-images/good-insulated.jpg",
+      src: "https://app.fullbattery.com/insulation-images/good-insulated.webp",
       desc: "Insulation on all sides of a solid frame. Spray foam, rockwool or fiberglass.",
     },
     {
       label: "Paranoid",
       value: 0.6,
-      src: "https://app.fullbattery.com/insulation-images/paranoid-insulated.jpg",
+      src: "https://app.fullbattery.com/insulation-images/paranoid-insulated.webp",
       desc: "You know your R-Values and you used them all. R 40-60. And it's SEALED.",
     },
   ];
@@ -77,25 +77,25 @@ const App = () => {
     {
       label: "Overhead Sun Only",
       value: 4,
-      src: "https://app.fullbattery.com/runEachday-images/overhead-sun-only.jpg",
+      src: "https://app.fullbattery.com/runEachday-images/overhead-sun-only.webp",
       desc: "I only need it to work when the sun is right over the panels during peak solar production.",
     },
     {
       label: "6 Hours a day",
       value: 6,
-      src: "https://app.fullbattery.com/runEachday-images/six-hours-day.jpg",
+      src: "https://app.fullbattery.com/runEachday-images/6-hours-day.webp",
       desc: "I want to run the AC during dawn or dusk for some time, but will turn it off by bedtime.",
     },
     {
       label: "12 Hours a day",
       value: 12,
-      src: "https://app.fullbattery.com/runEachday-images/12-hours-day.png",
+      src: "https://app.fullbattery.com/runEachday-images/12-hours-day.webp",
       desc: "The AC will be running most of the time during the day and into the late evening.",
     },
     {
       label: "Full Blast 24/7",
       value: 24,
-      src: "https://app.fullbattery.com/runEachday-images/24*7-full-blast-image.jpg",
+      src: "https://app.fullbattery.com/runEachday-images/full-day.webp",
       desc: "I want enough solar and battery capacity to run it on full blast without turning it off, 24/7.",
     },
   ];
