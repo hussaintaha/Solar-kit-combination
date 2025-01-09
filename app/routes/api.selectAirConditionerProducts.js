@@ -5,15 +5,17 @@ import { shopifyGraphql } from "./utils";
 
 export const action = async ({ request }) => {
   try {
-    const selectedData = await request.json()
+    const selectedData = await request.json();
     const { session } = await authenticate.admin(request);
     const { selectedBTURange, selected } = selectedData;
 
-    const updatedProducts = await Promise.all(selected.map(async (product) => {
-      const splitProductId = product.product.id.split("/")[4];
+    console.log("dfljhugdikbghikdfbgikdfbgdikbgikdbgdikbg");
 
+    const updatedProducts = await Promise.all(
+      selected.map(async (product) => {
+        const splitProductId = product.product.id.split("/")[4];
 
-      const query = `
+        const query = `
         query GetProduct {
           product(id: "gid://shopify/Product/${splitProductId}") {
             id
@@ -22,27 +24,27 @@ export const action = async ({ request }) => {
         }
       `;
 
-      const response = await shopifyGraphql(session, apiVersion, query);
-      if (response && response.data && response.data.product) {
-        return {
-          ...product,
-          handle: response.data.product.handle
-        };
-      }
+        const response = await shopifyGraphql(session, apiVersion, query);
+        console.log("response airconditioner ", response);
 
-    }));
-
-    const updatedAirConditionerEntry = await airConditionerCollection.findOneAndUpdate(
-      { btuRange: selectedBTURange },
-      { $set: { products: updatedProducts } },
-      { new: true, upsert: true }
+        if (response && response.data && response.data.product) {
+          return {
+            ...product,
+            handle: response.data.product.handle,
+          };
+        }
+      }),
     );
-    return json({ updatedAirConditionerEntry });
 
+    const updatedAirConditionerEntry =
+      await airConditionerCollection.findOneAndUpdate(
+        { btuRange: selectedBTURange },
+        { $set: { products: updatedProducts } },
+        { new: true, upsert: true },
+      );
+    return json({ updatedAirConditionerEntry });
   } catch (error) {
     console.log("error ========= ", error);
-    return error
+    return error;
   }
-}
-
-
+};

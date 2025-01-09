@@ -4,13 +4,16 @@ import chargeControllerCollection from "../Database/collections/chargeController
 import solarPanelCollection from "../Database/collections/solarPanelModel";
 import { shopifyGraphql } from "./utils";
 
-export const updateProductVariant = async (session, apiVersion, variantsData) => {
+export const updateProductVariant = async (
+  session,
+  apiVersion,
+  variantsData,
+) => {
   try {
     console.log("updateProductVariant function");
-    // console.log("variantsData === ", variantsData);
+    console.log("variantsData === ", variantsData);
 
     for (const variant of variantsData) {
-
       const query = `
         query {
           productVariant(id: "gid://shopify/ProductVariant/${variant.admin_graphql_api_id.split("/")[4]}") {
@@ -49,34 +52,53 @@ export const updateProductVariant = async (session, apiVersion, variantsData) =>
         { collection: airConditionerCollection, name: "Air Conditioner" },
         { collection: solarPanelCollection, name: "Solar Panel" },
         { collection: chargeControllerCollection, name: "Charge Controller" },
-        { collection: batteryOptionsCollection, name: "Battery Options" }
+        { collection: batteryOptionsCollection, name: "Battery Options" },
       ];
 
       for (const { collection, name } of collections) {
         try {
-          const checkVariantInCollection = await collection.find(
-            { 'products.id': variant.admin_graphql_api_id }
+          const checkVariantInCollection = await collection.find({
+            "products.id": variant.admin_graphql_api_id,
+          });
+          console.log(
+            "checkVariantInCollection ==== ",
+            checkVariantInCollection,
           );
-          console.log("checkVariantInCollection ==== ", checkVariantInCollection);
 
           if (checkVariantInCollection.length > 0) {
-            const updateDatainDB = await shopifyGraphql(session, apiVersion, query);
+            const updateDatainDB = await shopifyGraphql(
+              session,
+              apiVersion,
+              query,
+            );
 
-            if (updateDatainDB && updateDatainDB.data && updateDatainDB.data.productVariant) {
+            if (
+              updateDatainDB &&
+              updateDatainDB.data &&
+              updateDatainDB.data.productVariant
+            ) {
               const updateProductVariantInDB = await collection.updateMany(
-                { 'products.id': variant.admin_graphql_api_id },
+                { "products.id": variant.admin_graphql_api_id },
                 {
-                  '$set': {
-                    'products.$': updateDatainDB.data.productVariant
-                  }
-                }
+                  $set: {
+                    "products.$": updateDatainDB.data.productVariant,
+                  },
+                },
               );
 
-              console.log(`${name} updateProductVariantInDB: `, updateProductVariantInDB);
-              return { name: name, data: updateProductVariantInDB }
+              console.log(
+                `${name} updateProductVariantInDB: `,
+                updateProductVariantInDB,
+              );
+              return { name: name, data: updateProductVariantInDB };
             } else {
-              console.error(`Error fetching product variant data for ${name}:`, updateDatainDB);
+              console.error(
+                `Error fetching product variant data for ${name}:`,
+                updateDatainDB,
+              );
             }
+          } else {
+            return { Message: "Variant not found in Database" };
           }
         } catch (error) {
           console.error(`Error updating product variant for ${name}:`, error);
@@ -84,16 +106,10 @@ export const updateProductVariant = async (session, apiVersion, variantsData) =>
       }
     }
   } catch (error) {
-    console.log('error in updateProductVariant', error);
+    console.log("error in updateProductVariant", error);
     return error;
   }
-}
-
-
-
-
-
-
+};
 
 // Air Conditioner Collection
 // const checkVariantInairConditioner = await airConditionerCollection.find(
@@ -121,9 +137,6 @@ export const updateProductVariant = async (session, apiVersion, variantsData) =>
 
 // }
 
-
-
-
 // // Solar Panel Collection
 // const checkVariantInsolarPanel = await solarPanelCollection.find(
 //   { 'products.id': variant.admin_graphql_api_id }
@@ -145,11 +158,7 @@ export const updateProductVariant = async (session, apiVersion, variantsData) =>
 //     console.log("updateProductVariantInDB === ", updateProductVariantInDB);
 //   }
 
-
 // }
-
-
-
 
 // // Charge Controller Collection
 // const checkVariantInchargeController = await chargeControllerCollection.find(
@@ -173,11 +182,7 @@ export const updateProductVariant = async (session, apiVersion, variantsData) =>
 //     console.log("updateProductVariantInDB === ", updateProductVariantInDB);
 //   }
 
-
 // }
-
-
-
 
 // // Battery Options Collection
 // const checkVariantInbatteryOptions = await batteryOptionsCollection.find(
@@ -201,6 +206,5 @@ export const updateProductVariant = async (session, apiVersion, variantsData) =>
 
 //     console.log("updateProductVariantInDB === ", updateProductVariantInDB);
 //   }
-
 
 // }

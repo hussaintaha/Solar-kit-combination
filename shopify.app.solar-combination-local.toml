@@ -1,7 +1,7 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "a09c06b8d74e31fbcfe0ea426414e7e4"
-application_url = "https://worship-entrance-races-bass.trycloudflare.com"
+application_url = "https://workout-swing-yoga-nicole.trycloudflare.com"
 embedded = true
 name = "solar-combination-local"
 handle = "solar-combination-local"
@@ -9,7 +9,6 @@ handle = "solar-combination-local"
 [build]
 automatically_update_urls_on_dev = true
 dev_store_url = "quickstart-629da44c.myshopify.com"
-include_config_on_deploy = true
 
 [webhooks]
 api_version = "2024-10"
@@ -20,10 +19,15 @@ scopes = "read_inventory,read_orders,read_products,write_inventory,write_locatio
 
 [auth]
 redirect_urls = [
-  "https://worship-entrance-races-bass.trycloudflare.com/auth/callback",
-  "https://worship-entrance-races-bass.trycloudflare.com/auth/shopify/callback",
-  "https://worship-entrance-races-bass.trycloudflare.com/api/auth/callback"
+  "https://workout-swing-yoga-nicole.trycloudflare.com/auth/callback",
+  "https://workout-swing-yoga-nicole.trycloudflare.com/auth/shopify/callback",
+  "https://workout-swing-yoga-nicole.trycloudflare.com/api/auth/callback"
 ]
+
+[app_proxy]
+url = "https://workout-swing-yoga-nicole.trycloudflare.com"
+subpath = "local"
+prefix = "apps"
 
 [pos]
 embedded = false

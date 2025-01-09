@@ -59,7 +59,7 @@ const AirConditionerTable = () => {
                 });
 
                 const airConditionerResponse = await airConditionerAPI.json();
-                // console.log('airConditionerResponse ========= ', airConditionerResponse);
+                console.log('airConditionerResponse ========= ', airConditionerResponse);
                 getAirConditionerProducts()
 
                 setLoading(false);
@@ -79,6 +79,8 @@ const AirConditionerTable = () => {
             setLoading(true)
             const response = await fetch(`/api/getAirConditionerProducts/?selectedBTURange=${selectedBTURange}`);
             const result = await response.json();
+            console.log("result ====== ", result);
+            
             setAirConditionerProducts(result?.getVariants?.products || []);
             setLoading(false)
         } catch (error) {
@@ -166,7 +168,7 @@ const AirConditionerTable = () => {
         }
     }
 
-    const rowMarkup = airConditionerproducts.map((item, index) => (
+    const rowMarkup = airConditionerproducts?.map((item, index) => (
         <IndexTable.Row
             id={item.id}
             key={item.id}
