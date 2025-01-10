@@ -14,40 +14,6 @@ export const updateProductVariant = async (
     console.log("variantsData === ", variantsData);
 
     for (const variant of variantsData) {
-      const query = `
-        query {
-          productVariant(id: "gid://shopify/ProductVariant/${variant.admin_graphql_api_id.split("/")[4]}") {
-            availableForSale
-            createdAt
-            id
-            displayName
-            image {
-              id
-              originalSrc
-            }
-            inventoryItem{
-              __typename
-              id
-            }
-            inventoryPolicy
-            inventoryQuantity
-            product{
-              __typename
-              id
-              handle
-            }
-            selectedOptions{
-              __typename
-              value
-            }
-            sku
-            updatedAt
-            title
-            price
-          }
-        }
-     `;
-
       const collections = [
         { collection: airConditionerCollection, name: "Air Conditioner" },
         { collection: solarPanelCollection, name: "Solar Panel" },
@@ -56,52 +22,79 @@ export const updateProductVariant = async (
       ];
 
       for (const { collection, name } of collections) {
-        try {
-          const checkVariantInCollection = await collection.find({
-            "products.id": variant.admin_graphql_api_id,
-          });
-          console.log(
-            "checkVariantInCollection ==== ",
-            checkVariantInCollection,
+        const checkVariantInairConditioner = await collection.find({
+          "products.id": variant.admin_graphql_api_id,
+        });
+        console.log(
+          "checkVariantInairConditioner inside loop======= ",
+          checkVariantInairConditioner,
+        );
+
+        if (checkVariantInairConditioner.length > 0) {
+          const query = `
+            query {
+              productVariant(id: "gid://shopify/ProductVariant/${variant.admin_graphql_api_id.split("/")[4]}") {
+                availableForSale
+                createdAt
+                id
+                displayName
+                image {
+                  id
+                  originalSrc
+                }
+                inventoryItem{
+                  __typename
+                  id
+                }
+                inventoryPolicy
+                inventoryQuantity
+                product{
+                  __typename
+                  id
+                  handle
+                }
+                selectedOptions{
+                  __typename
+                  value
+                }
+                sku
+                updatedAt
+                title
+                price
+              }
+            }
+          `;
+
+          const updateDatainDB = await shopifyGraphql(
+            session,
+            apiVersion,
+            query,
           );
 
-          if (checkVariantInCollection.length > 0) {
-            const updateDatainDB = await shopifyGraphql(
-              session,
-              apiVersion,
-              query,
+          if (
+            updateDatainDB &&
+            updateDatainDB.data &&
+            updateDatainDB.data.productVariant
+          ) {
+            const updateProductVariantInDB = await collection.updateMany(
+              { "products.id": variant.admin_graphql_api_id },
+              {
+                $set: {
+                  "products.$": updateDatainDB.data.productVariant,
+                },
+              },
             );
 
-            if (
-              updateDatainDB &&
-              updateDatainDB.data &&
-              updateDatainDB.data.productVariant
-            ) {
-              const updateProductVariantInDB = await collection.updateMany(
-                { "products.id": variant.admin_graphql_api_id },
-                {
-                  $set: {
-                    "products.$": updateDatainDB.data.productVariant,
-                  },
-                },
-              );
-
-              console.log(
-                `${name} updateProductVariantInDB: `,
-                updateProductVariantInDB,
-              );
-              return { name: name, data: updateProductVariantInDB };
-            } else {
-              console.error(
-                `Error fetching product variant data for ${name}:`,
-                updateDatainDB,
-              );
-            }
+            console.log(
+              `${name} updateProductVariantInDB: `,
+              updateProductVariantInDB,
+            );
           } else {
-            return { Message: "Variant not found in Database" };
+            console.error(
+              `Error fetching product variant data for ${name}:`,
+              updateDatainDB,
+            );
           }
-        } catch (error) {
-          console.error(`Error updating product variant for ${name}:`, error);
         }
       }
     }

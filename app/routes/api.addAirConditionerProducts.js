@@ -4,14 +4,17 @@ import { shopifyGraphql } from "./utils";
 
 export const action = async ({ request }) => {
   try {
+    console.log("apiVersion =================== ", apiVersion);
+
     const selectedData = await request.json();
     const { session } = await authenticate.admin(request);
     const { selectedBTURange, selected } = selectedData;
 
-    const updatedProducts = await Promise.all(selected.map(async (product) => {
-      const splitProductId = product.product.id.split("/")[4];
+    const updatedProducts = await Promise.all(
+      selected.map(async (product) => {
+        const splitProductId = product.product.id.split("/")[4];
 
-      const query = `
+        const query = `
         query GetProduct {
           product(id: "gid://shopify/Product/${splitProductId}") {
             id
@@ -20,14 +23,15 @@ export const action = async ({ request }) => {
         }
       `;
 
-      const response = await shopifyGraphql(session, apiVersion, query);
-      if (response && response.data && response.data.product) {
-        return {
-          ...product,
-          handle: response.data.product.handle
-        };
-      }
-    }));
+        const response = await shopifyGraphql(session, apiVersion, query);
+        if (response && response.data && response.data.product) {
+          return {
+            ...product,
+            handle: response.data.product.handle,
+          };
+        }
+      }),
+    );
 
     const updatedAirConditionerEntry =
       await airConditionerCollection.findOneAndUpdate(
@@ -41,4 +45,3 @@ export const action = async ({ request }) => {
     return error;
   }
 };
-

@@ -43,8 +43,9 @@ const App = () => {
 
   const floatContainerRef = useRef(null);
 
-  console.log(" ========== 8888888 =========");
+  console.log(" ========== 1111111111111111 =========");
   const production_base_url = `https://${location.host}/apps/proxy/api`;
+  // const local_base_url = `https://${location.host}/apps/local/api`;
 
   const insulationOptions = [
     {
@@ -403,8 +404,14 @@ const App = () => {
   }, [totalPrice]);
 
   const handleInfo = async (variantdata) => {
+    console.log("variantdattttaa====== ", variantdata);
+
+    const handle = variantdata.handle
+      ? variantdata.handle
+      : variantdata.product.handle;
+
     const splitId = variantdata.id.split("/")[4];
-    const productUrl = `https://${location.host}/products/${variantdata.handle}?variant=${splitId}`;
+    const productUrl = `https://${location.host}/products/${handle}?variant=${splitId}`;
     setRedirectURL(productUrl);
     return productUrl;
   };
