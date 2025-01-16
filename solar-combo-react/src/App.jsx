@@ -43,7 +43,7 @@ const App = () => {
 
   const floatContainerRef = useRef(null);
 
-  console.log(" ========== 2222222222222222222 =========");
+  console.log(" ========== 33333333 =========");
   const production_base_url = `https://${location.host}/apps/proxy/api`;
   // const local_base_url = `https://${location.host}/apps/local/api`;
 
@@ -211,10 +211,13 @@ const App = () => {
 
   const handleSelectProduct = async (productType, productId) => {
     const isDeselecting = selectedProductId[productType] === productId;
+
     setSelectedProductId((prevSelected) => ({
       ...prevSelected,
       [productType]: isDeselecting ? null : productId,
     }));
+
+    // console.log("selectedProductId ==== ", selectedProductId);
 
     if (isDeselecting) {
       setSelectedProductPrices((prevState) => ({
@@ -440,6 +443,73 @@ const App = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const handleHorizontalScroll = (event, container) => {
+      event.preventDefault(); // Prevent vertical scrolling
+      container.scrollLeft += event.deltaY; // Use vertical scroll delta to adjust horizontal scroll
+    };
+
+    const ques3Container = document.querySelector(
+      ".ques-3-container .collection-products",
+    );
+    const ques5Container = document.querySelector(
+      ".ques-5-container .collection-products",
+    );
+    const ques6Container = document.querySelector(
+      ".ques-6-container .collection-products",
+    );
+    const ques7Container = document.querySelector(
+      ".ques-7-container .collection-products",
+    );
+
+    // Add event listeners for the correct containers
+    if (ques3Container) {
+      ques3Container.addEventListener("wheel", (event) =>
+        handleHorizontalScroll(event, ques3Container),
+      );
+    }
+    if (ques5Container) {
+      ques5Container.addEventListener("wheel", (event) =>
+        handleHorizontalScroll(event, ques5Container),
+      );
+    }
+    if (ques6Container) {
+      ques6Container.addEventListener("wheel", (event) =>
+        handleHorizontalScroll(event, ques6Container),
+      );
+    }
+
+    if (ques7Container) {
+      ques7Container.addEventListener("wheel", (event) =>
+        handleHorizontalScroll(event, ques7Container),
+      );
+    }
+
+    // Cleanup listeners on component unmount
+    return () => {
+      if (ques3Container) {
+        ques3Container.removeEventListener("wheel", (event) =>
+          handleHorizontalScroll(event, ques3Container),
+        );
+      }
+      if (ques5Container) {
+        ques5Container.removeEventListener("wheel", (event) =>
+          handleHorizontalScroll(event, ques5Container),
+        );
+      }
+      if (ques6Container) {
+        ques6Container.removeEventListener("wheel", (event) =>
+          handleHorizontalScroll(event, ques6Container),
+        );
+      }
+      if (ques7Container) {
+        ques7Container.removeEventListener("wheel", (event) =>
+          handleHorizontalScroll(event, ques7Container),
+        );
+      }
+    };
+  }, []);
+
   return (
     <>
       <div>
@@ -634,16 +704,6 @@ const App = () => {
                       }}
                     >
                       <a href={redirectURL ? redirectURL : ""} target="_blank">
-                        {/* <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 512 512"
-                          width="20"
-                          height="20"
-                          aria-hidden="true"
-                        >
-                          <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
-                        </svg> */}
-
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="20"
@@ -682,8 +742,22 @@ const App = () => {
               })}
             </div>
 
+            {/* <div className="build-kit-message">
+              {selectedProductId.selectAirConditionerProducts &&
+              productsData.length > 0 ? (
+                <p>Click an option to build your kit; click again to remove</p>
+              ) : (
+                "DJKGBHDGBDJHGB"
+              )}
+            </div> */}
+
             <div className="build-kit-message">
-              <p>Click an option to build your kit; click again to remove</p>
+              {productsData.length > 0 &&
+                (selectedProductId.selectAirConditionerProducts ? (
+                  <p> Click it again to remove from your total. </p>
+                ) : (
+                  <p> Click to add this item to your kit. </p>
+                ))}
             </div>
           </div>
         </div>
@@ -755,6 +829,12 @@ const App = () => {
         <div className="ques-5-container">
           <div className="ques-5">
             <h1>5. How many solar panels are needed for this?</h1>
+            <div className="recommendedWatts">
+              <span className="recommendedWatts-value">
+                Your recommended total watts of solar:{" "}
+                {Math.floor((neededHarvest * 1000) / 3).toLocaleString()} Watts
+              </span>
+            </div>
             <p className="ques-5-description">
               Solar panels do not produce 100% of their rated power. In many
               lighting conditions you'll be lucky to get 30% output, and during
@@ -802,16 +882,6 @@ const App = () => {
                       }}
                     >
                       <a href={redirectURL ? redirectURL : ""} target="_blank">
-                        {/* <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 512 512"
-                          width="20"
-                          height="20"
-                          aria-hidden="true"
-                        >
-                          <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
-                        </svg> */}
-
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="20"
@@ -850,21 +920,17 @@ const App = () => {
               })}
             </div>
             <div className="build-kit-message">
-              <p>Click an option to build your kit; click again to remove</p>
-            </div>
-            <div className="recommendedWatts">
-              <span className="recommendedWatts-value">
-                {" "}
-                Your recommended watts of Solar Capacity:{" "}
-                {Math.floor(
-                  (neededHarvest * 1000) / 3,
-                ).toLocaleString()} watts{" "}
-              </span>
+              {panelCollection.length > 0 &&
+                (selectedProductId.selectSolarPanelProducts ? (
+                  <p> Click it again to remove from your total. </p>
+                ) : (
+                  <p> Click to add this item to your kit. </p>
+                ))}
             </div>
           </div>
         </div>
 
-        <div className="ques-6-container ">
+        <div className="ques-6-container">
           <div className="ques-6">
             <h1>6. Choose a suitable Charge Controller </h1>
             <p className="ques-6-description">
@@ -954,7 +1020,12 @@ const App = () => {
               })}
             </div>
             <div className="build-kit-message">
-              <p>Click an option to build your kit; click again to remove</p>
+              {chargeControllerProducts.length > 0 &&
+                (selectedProductId.selectChargeControllerproducts ? (
+                  <p> Click it again to remove from your total. </p>
+                ) : (
+                  <p> Click to add this item to your kit. </p>
+                ))}
             </div>
           </div>
         </div>
@@ -1059,7 +1130,12 @@ const App = () => {
               })}
             </div>
             <div className="build-kit-message">
-              <p>Click an option to build your kit; click again to remove</p>
+              {batteryOption.length > 0 &&
+                (selectedProductId.selectBatteryOptions ? (
+                  <p> Click it again to remove from your total. </p>
+                ) : (
+                  <p> Click to add this item to your kit. </p>
+                ))}
             </div>
           </div>
         </div>

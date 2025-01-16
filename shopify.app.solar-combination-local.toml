@@ -1,7 +1,7 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "a09c06b8d74e31fbcfe0ea426414e7e4"
-application_url = "https://acm-finances-wv-distant.trycloudflare.com"
+application_url = "https://healing-content-accused-lt.trycloudflare.com"
 embedded = true
 name = "solar-combination-local"
 handle = "solar-combination-local"
@@ -20,13 +20,13 @@ scopes = "read_inventory,read_orders,read_products,write_inventory,write_locatio
 
 [auth]
 redirect_urls = [
-  "https://acm-finances-wv-distant.trycloudflare.com/auth/callback",
-  "https://acm-finances-wv-distant.trycloudflare.com/auth/shopify/callback",
-  "https://acm-finances-wv-distant.trycloudflare.com/api/auth/callback"
+  "https://healing-content-accused-lt.trycloudflare.com/auth/callback",
+  "https://healing-content-accused-lt.trycloudflare.com/auth/shopify/callback",
+  "https://healing-content-accused-lt.trycloudflare.com/api/auth/callback"
 ]
 
 [app_proxy]
-url = "https://acm-finances-wv-distant.trycloudflare.com"
+url = "https://healing-content-accused-lt.trycloudflare.com"
 subpath = "local"
 prefix = "apps"
 
