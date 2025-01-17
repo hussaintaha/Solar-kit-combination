@@ -9,6 +9,8 @@ import {
   LegacyCard,
   SkeletonBodyText,
   SkeletonDisplayText,
+  Icon,
+  Badge,
 } from "@shopify/polaris";
 import { DeleteIcon, ArrowDownIcon, ArrowUpIcon } from "@shopify/polaris-icons";
 import "../routes/styles/settings.css";
@@ -239,6 +241,7 @@ const AirConditionerTable = () => {
             // disabled={index === airConditionerproducts.length - 1}
             accessibilityLabel="Move item up"
           />
+
           {/* Move Down Button */}
           <Button
             icon={ArrowUpIcon}
@@ -289,11 +292,18 @@ const AirConditionerTable = () => {
                   Air Conditioner List
                 </Text>
                 <div className="action-buttons">
-                  <Button primary onClick={sendAirConditonerProduct}>
+                  <Button
+                    variant="primary"
+                    primary
+                    onClick={sendAirConditonerProduct}
+                  >
                     Select Products
                   </Button>
                   {airConditionerproducts.length > 0 && (
-                    <Button onClick={addAirConditionerProducts}>
+                    <Button
+                      variant="primary"
+                      onClick={addAirConditionerProducts}
+                    >
                       Add Products
                     </Button>
                   )}

@@ -245,11 +245,11 @@ const ChargeControllerTable = ({ selectHarvestValue }) => {
               Charge Controller List
             </Text>
             <div className="charge-controller-buttons action-buttons">
-              <Button primary onClick={sendChargeControllerProduct}>
+              <Button variant="primary" onClick={sendChargeControllerProduct}>
                 Select products
               </Button>
               {chargeControllerProducts.length > 0 && (
-                <Button onClick={addChargeControllerProducts}>
+                <Button variant="primary" onClick={addChargeControllerProducts}>
                   Add Products
                 </Button>
               )}

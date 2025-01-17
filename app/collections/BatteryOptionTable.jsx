@@ -246,12 +246,14 @@ const BatteryOptionTable = ({ selectHarvestValue }) => {
             </Text>
 
             <div className="battery-option-buttons action-buttons">
-              <Button primary onClick={sendBatteryOptionsList}>
+              <Button variant="primary" onClick={sendBatteryOptionsList}>
                 Select products
               </Button>
 
               {selectBatteryOptions.length > 0 && (
-                <Button onClick={addBatteryListproducts}>Add Products</Button>
+                <Button variant="primary" onClick={addBatteryListproducts}>
+                  Add Products
+                </Button>
               )}
             </div>
           </div>

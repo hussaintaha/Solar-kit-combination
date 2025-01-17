@@ -284,11 +284,15 @@ const SolarPanelTable = () => {
                     Solar Panel List
                   </Text>
                   <div className="action-buttons">
-                    <Button primary onClick={sendSolarPanelProduct}>
+                    <Button
+                      variant="primary"
+                      primary
+                      onClick={sendSolarPanelProduct}
+                    >
                       Select Products
                     </Button>
                     {solarPanelProducts.length > 0 && (
-                      <Button onClick={addSolarPanelProducts}>
+                      <Button variant="primary" onClick={addSolarPanelProducts}>
                         Add Products
                       </Button>
                     )}
