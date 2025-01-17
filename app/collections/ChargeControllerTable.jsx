@@ -15,7 +15,6 @@ const ChargeControllerTable = ({ selectHarvestValue }) => {
   const [chargeControllerProducts, setChargeControllerProducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
-
   const moveItem = (index, direction) => {
     const reorderedItems = [...chargeControllerProducts];
     const [movedItem] = reorderedItems.splice(index, 1);
@@ -249,9 +248,11 @@ const ChargeControllerTable = ({ selectHarvestValue }) => {
               <Button primary onClick={sendChargeControllerProduct}>
                 Select products
               </Button>
-              <Button onClick={addChargeControllerProducts}>
-                Add Products
-              </Button>
+              {chargeControllerProducts.length > 0 && (
+                <Button onClick={addChargeControllerProducts}>
+                  Add Products
+                </Button>
+              )}
             </div>
           </div>
 

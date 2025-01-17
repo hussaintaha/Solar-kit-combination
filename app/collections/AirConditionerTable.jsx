@@ -292,9 +292,11 @@ const AirConditionerTable = () => {
                   <Button primary onClick={sendAirConditonerProduct}>
                     Select Products
                   </Button>
-                  <Button onClick={addAirConditionerProducts}>
-                    Add Products
-                  </Button>
+                  {airConditionerproducts.length > 0 && (
+                    <Button onClick={addAirConditionerProducts}>
+                      Add Products
+                    </Button>
+                  )}
                 </div>
               </div>
 

@@ -20,7 +20,6 @@ const SolarPanelTable = () => {
   const [solarPanelProducts, setSolarPanelProducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
-
   const moveItem = (index, direction) => {
     const reorderedItems = [...solarPanelProducts];
     const [movedItem] = reorderedItems.splice(index, 1);
@@ -118,7 +117,7 @@ const SolarPanelTable = () => {
         });
 
         const solarPanelResponse = await airConditionerAPI.json();
-        // console.log('solarPanelResponse ========= ', solarPanelResponse);
+        console.log("solarPanelResponse ========= ", solarPanelResponse);
         getSolarPanelProducts();
         setLoading(false);
       } else {
@@ -288,9 +287,11 @@ const SolarPanelTable = () => {
                     <Button primary onClick={sendSolarPanelProduct}>
                       Select Products
                     </Button>
-                    <Button onClick={addSolarPanelProducts}>
-                      Add Products
-                    </Button>
+                    {solarPanelProducts.length > 0 && (
+                      <Button onClick={addSolarPanelProducts}>
+                        Add Products
+                      </Button>
+                    )}
                   </div>
                 </div>
 
