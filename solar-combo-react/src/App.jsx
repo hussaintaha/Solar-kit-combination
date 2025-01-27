@@ -43,7 +43,7 @@ const App = () => {
 
   const floatContainerRef = useRef(null);
 
-  console.log(" ========== 22222222 =========");
+  console.log(" ========== 1111 =========");
   const production_base_url = `https://${location.host}/apps/proxy/api`;
   // const local_base_url = `https://${location.host}/apps/local/api`;
 
