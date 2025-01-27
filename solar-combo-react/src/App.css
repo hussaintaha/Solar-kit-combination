@@ -241,7 +241,7 @@ p {
   gap: 10px;
   overflow-x: auto;
   padding: 10px 30px;
-  max-width: 100%;
+  max-width: fit-content;
 }
 
 .products {

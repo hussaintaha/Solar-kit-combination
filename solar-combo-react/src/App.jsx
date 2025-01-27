@@ -43,7 +43,7 @@ const App = () => {
 
   const floatContainerRef = useRef(null);
 
-  console.log(" ========== 11111 =========");
+  console.log(" ========== 22222222 =========");
   const production_base_url = `https://${location.host}/apps/proxy/api`;
   // const local_base_url = `https://${location.host}/apps/local/api`;
 
@@ -443,70 +443,32 @@ const App = () => {
     };
   }, []);
 
+  // handle horizontal scrolling
   useEffect(() => {
     const handleHorizontalScroll = (event, container) => {
       event.preventDefault(); // Prevent vertical scrolling
       container.scrollLeft += event.deltaY; // Use vertical scroll delta to adjust horizontal scroll
     };
 
-    const ques3Container = document.querySelector(
-      ".ques-3-container .collection-products",
-    );
-    const ques5Container = document.querySelector(
-      ".ques-5-container .collection-products",
-    );
-    const ques6Container = document.querySelector(
-      ".ques-6-container .collection-products",
-    );
-    const ques7Container = document.querySelector(
-      ".ques-7-container .collection-products",
+    // Select only the .collection-products containers
+    const collectionContainers = document.querySelectorAll(
+      " .collection-products",
     );
 
-    // Add event listeners for the correct containers
-    if (ques3Container) {
-      ques3Container.addEventListener("wheel", (event) =>
-        handleHorizontalScroll(event, ques3Container),
+    // Add the event listener to each .collection-products
+    collectionContainers.forEach((container) => {
+      container.addEventListener("wheel", (event) =>
+        handleHorizontalScroll(event, container),
       );
-    }
-    if (ques5Container) {
-      ques5Container.addEventListener("wheel", (event) =>
-        handleHorizontalScroll(event, ques5Container),
-      );
-    }
-    if (ques6Container) {
-      ques6Container.addEventListener("wheel", (event) =>
-        handleHorizontalScroll(event, ques6Container),
-      );
-    }
-
-    if (ques7Container) {
-      ques7Container.addEventListener("wheel", (event) =>
-        handleHorizontalScroll(event, ques7Container),
-      );
-    }
+    });
 
     // Cleanup listeners on component unmount
     return () => {
-      if (ques3Container) {
-        ques3Container.removeEventListener("wheel", (event) =>
-          handleHorizontalScroll(event, ques3Container),
+      collectionContainers.forEach((container) => {
+        container.removeEventListener("wheel", (event) =>
+          handleHorizontalScroll(event, container),
         );
-      }
-      if (ques5Container) {
-        ques5Container.removeEventListener("wheel", (event) =>
-          handleHorizontalScroll(event, ques5Container),
-        );
-      }
-      if (ques6Container) {
-        ques6Container.removeEventListener("wheel", (event) =>
-          handleHorizontalScroll(event, ques6Container),
-        );
-      }
-      if (ques7Container) {
-        ques7Container.removeEventListener("wheel", (event) =>
-          handleHorizontalScroll(event, ques7Container),
-        );
-      }
+      });
     };
   }, []);
 
@@ -1033,6 +995,16 @@ const App = () => {
         <div className="ques-7-container ">
           <div className="ques-7">
             <h1>7. Choose a battery </h1>
+
+            <div className="needed-harvest">
+              <div className="harvest-result">
+                <span>
+                  Your recommended battery capacity:{" "}
+                  {Number(neededHarvest.toFixed(2)).toLocaleString()} kWh
+                </span>
+              </div>
+            </div>
+
             <p className="ques-7-description">
               Your battery capacity is measured in kilowatt hours (kWh). We
               calculated your needed daily harvest in Step 4. Your battery
